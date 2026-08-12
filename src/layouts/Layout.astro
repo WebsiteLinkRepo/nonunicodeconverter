@@ -237,8 +237,15 @@ const ogLocale = localeMap[lang] || 'en_US';
 					</div>
 				</a>
 
-				<!-- Language Selector & Theme Switcher -->
-				<div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+				<!-- Navigation & Tools -->
+				<div class="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+					<!-- Nav Links -->
+					<nav class="flex items-center gap-1 sm:gap-3 text-xs font-semibold text-[var(--ink-secondary)]">
+						<a href="/" class="px-2 py-1 rounded-md hover:text-[var(--ink)] hover:bg-[var(--canvas)] transition-colors">Converter</a>
+						<a href="/about" class="px-2 py-1 rounded-md hover:text-[var(--ink)] hover:bg-[var(--canvas)] transition-colors">About</a>
+						<a href="/contact" class="px-2 py-1 rounded-md hover:text-[var(--ink)] hover:bg-[var(--canvas)] transition-colors hidden sm:inline-block">Contact</a>
+					</nav>
+
 					<!-- Language Selector -->
 					<div class="relative flex items-center bg-[var(--canvas)] border border-[var(--hairline)] hover:border-[var(--hairline-strong)] rounded-lg px-2.5 py-1 text-xs transition-colors shadow-2xs group focus-within:ring-1 focus-within:ring-[var(--ink)]">
 						<svg class="w-3.5 h-3.5 text-[var(--ink-secondary)] mr-1.5 flex-shrink-0 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -283,10 +290,64 @@ const ogLocale = localeMap[lang] || 'en_US';
 			<slot />
 		</main>
 
-		<!-- Minimal Footer -->
-		<footer class="border-t border-[var(--hairline)] py-4 text-center text-xs text-[var(--ink-secondary)] font-mono">
-			<div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-2">
-				<span id="footer-text" class="text-center">Unicode2NonUnicode • Instant & 100% Private (Runs locally in your browser)</span>
+		<!-- Comprehensive Multi-Column Footer for MPA SEO -->
+		<footer class="border-t border-[var(--hairline)] bg-[var(--canvas-soft)] py-8 sm:py-12 text-xs text-[var(--ink-secondary)]">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+				<!-- Footer Navigation Grid -->
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+					<!-- Col 1: Brand Info -->
+					<div class="space-y-3">
+						<div class="flex items-center gap-2 font-semibold text-sm text-[var(--ink)]">
+							<img src="/favicon.svg" alt="Unicode To Non-Unicode Logo" class="w-5 h-5 rounded" />
+							<span>Unicode2NonUnicode</span>
+						</div>
+						<p class="text-xs text-[var(--ink-secondary)] leading-relaxed">
+							Fast, free & 100% browser-local Indic Unicode to Non-Unicode font converter built for publishers, DTP typists, and graphic designers.
+						</p>
+					</div>
+
+					<!-- Col 2: Quick Links -->
+					<div class="space-y-2.5">
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Pages</h4>
+						<ul class="space-y-1.5 text-xs">
+							<li><a href="/" class="hover:text-[var(--ink)] transition-colors">Home / Converter</a></li>
+							<li><a href="/about" class="hover:text-[var(--ink)] transition-colors">About Us</a></li>
+							<li><a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact Us & Font Request</a></li>
+						</ul>
+					</div>
+
+					<!-- Col 3: Legal & Trust -->
+					<div class="space-y-2.5">
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Legal & Privacy</h4>
+						<ul class="space-y-1.5 text-xs">
+							<li><a href="/privacy" class="hover:text-[var(--ink)] transition-colors">Privacy Policy</a></li>
+							<li><a href="/terms" class="hover:text-[var(--ink)] transition-colors">Terms & Conditions</a></li>
+						</ul>
+					</div>
+
+					<!-- Col 4: Regional Language Paths -->
+					<div class="space-y-2.5">
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Languages</h4>
+						<ul class="space-y-1.5 text-xs">
+							<li><a href="/te" class="hover:text-[var(--ink)] transition-colors">తెలుగు (Telugu Anu 6/7)</a></li>
+							<li><a href="/hi" class="hover:text-[var(--ink)] transition-colors">हिंदी (Hindi Kruti Dev)</a></li>
+							<li><a href="/ta" class="hover:text-[var(--ink)] transition-colors">தமிழ் (Tamil Bamini)</a></li>
+							<li><a href="/ml" class="hover:text-[var(--ink)] transition-colors">മലയാളം (Malayalam Revathi)</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Footer Bottom Copyright Bar -->
+				<div class="pt-6 border-t border-[var(--hairline)] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs font-mono">
+					<span id="footer-text">© 2026 Unicode2NonUnicode.com • 100% Private (Runs locally in your browser)</span>
+					<div class="flex items-center gap-4 text-[var(--ink-tertiary)]">
+						<a href="/privacy" class="hover:underline">Privacy</a>
+						<span>•</span>
+						<a href="/terms" class="hover:underline">Terms</a>
+						<span>•</span>
+						<a href="/contact" class="hover:underline">Contact</a>
+					</div>
+				</div>
 			</div>
 		</footer>
 

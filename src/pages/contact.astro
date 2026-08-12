@@ -1,0 +1,157 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+	title="Contact Us | Support & Custom Font Encodings"
+	description="Contact the UnicodeToNonUnicode.com team for support, feature requests, bug reports, or to request custom font encodings."
+	keywords="contact unicode to non unicode, custom font encoding request, indic font support"
+>
+	<div class="max-w-4xl mx-auto space-y-8 py-4 sm:py-8">
+		<!-- Page Header -->
+		<div class="border-b border-[var(--hairline)] pb-6 space-y-3">
+			<span class="px-2.5 py-1 rounded-full text-xs font-mono bg-[var(--canvas-soft-2)] border border-[var(--hairline)] text-[var(--ink-secondary)] font-semibold inline-block uppercase tracking-wider">
+				Get In Touch
+			</span>
+			<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--ink)]">
+				Contact Us & Custom Font Requests
+			</h1>
+			<p class="text-sm sm:text-base text-[var(--ink-secondary)] leading-relaxed max-w-2xl">
+				Have questions, feedback, bug reports, or need support for a custom Indic font encoding? Send us a message below!
+			</p>
+		</div>
+
+		<!-- Grid Layout: Contact Form & Info Sidebar -->
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			<!-- Contact Form (2 Cols) -->
+			<div class="md:col-span-2 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 shadow-xs space-y-5">
+				<h2 class="text-lg font-bold text-[var(--ink)] border-b border-[var(--hairline)] pb-3">
+					Send a Message
+				</h2>
+
+				<form id="contact-form" class="space-y-4">
+					<!-- Name Input -->
+					<div class="space-y-1.5">
+						<label for="contact-name" class="block text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide">
+							Your Name <span class="text-red-500">*</span>
+						</label>
+						<input 
+							type="text" 
+							id="contact-name" 
+							name="name" 
+							required 
+							placeholder="Enter your name" 
+							class="w-full px-3.5 py-2.5 bg-[var(--canvas)] border border-[var(--hairline)] rounded-lg text-xs sm:text-sm text-[var(--ink)] placeholder-[var(--ink-tertiary)] focus:outline-none focus:border-[var(--ink)] transition-colors"
+						/>
+					</div>
+
+					<!-- Email Input -->
+					<div class="space-y-1.5">
+						<label for="contact-email" class="block text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide">
+							Email Address <span class="text-red-500">*</span>
+						</label>
+						<input 
+							type="email" 
+							id="contact-email" 
+							name="email" 
+							required 
+							placeholder="name@example.com" 
+							class="w-full px-3.5 py-2.5 bg-[var(--canvas)] border border-[var(--hairline)] rounded-lg text-xs sm:text-sm text-[var(--ink)] placeholder-[var(--ink-tertiary)] focus:outline-none focus:border-[var(--ink)] transition-colors"
+						/>
+					</div>
+
+					<!-- Inquiry Category Dropdown -->
+					<div class="space-y-1.5">
+						<label for="contact-subject" class="block text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide">
+							Subject / Topic <span class="text-red-500">*</span>
+						</label>
+						<select 
+							id="contact-subject" 
+							name="subject" 
+							required 
+							class="w-full px-3.5 py-2.5 bg-[var(--canvas)] border border-[var(--hairline)] rounded-lg text-xs sm:text-sm text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] transition-colors"
+						>
+							<option value="custom_font">Request New Custom Font Encoding</option>
+							<option value="bug_report">Report a Bug / Unmapped Glyph</option>
+							<option value="feature_request">Feature Request / Feedback</option>
+							<option value="general">General Support Question</option>
+						</select>
+					</div>
+
+					<!-- Message Textarea -->
+					<div class="space-y-1.5">
+						<label for="contact-message" class="block text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide">
+							Your Message <span class="text-red-500">*</span>
+						</label>
+						<textarea 
+							id="contact-message" 
+							name="message" 
+							rows="5" 
+							required 
+							placeholder="Please describe your font request or question in detail..." 
+							class="w-full px-3.5 py-2.5 bg-[var(--canvas)] border border-[var(--hairline)] rounded-lg text-xs sm:text-sm text-[var(--ink)] placeholder-[var(--ink-tertiary)] focus:outline-none focus:border-[var(--ink)] transition-colors resize-y"
+						></textarea>
+					</div>
+
+					<!-- Submit Button -->
+					<button 
+						type="submit" 
+						id="submit-contact-btn"
+						class="w-full sm:w-auto px-6 py-2.5 bg-[var(--ink)] text-[var(--canvas)] font-semibold text-xs sm:text-sm rounded-lg hover:opacity-90 transition-all shadow-sm cursor-pointer"
+					>
+						Send Message
+					</button>
+				</form>
+
+				<!-- Success Banner -->
+				<div id="contact-success-msg" class="hidden p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/30 rounded-lg text-xs sm:text-sm text-emerald-700 dark:text-emerald-400">
+					✓ Thank you! Your message has been sent successfully. We will review your request shortly.
+				</div>
+			</div>
+
+			<!-- Info Sidebar (1 Col) -->
+			<div class="space-y-6">
+				<!-- Box 1: Custom Font Requests -->
+				<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-5 space-y-3">
+					<h3 class="text-sm font-bold text-[var(--ink)] flex items-center gap-2">
+						<svg class="w-4 h-4 text-[var(--brand-blue)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+						</svg>
+						Need a Custom Font Mapping?
+					</h3>
+					<p class="text-xs text-[var(--ink-secondary)] leading-relaxed">
+						If your publication uses a custom ASCII font layout not listed in our tabs, send us a sample text file or font mapping matrix. We regularly add new font mappings for Telugu, Hindi, Tamil, and Malayalam DTP operators.
+					</p>
+				</div>
+
+				<!-- Box 2: Direct Support -->
+				<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-5 space-y-3">
+					<h3 class="text-sm font-bold text-[var(--ink)] flex items-center gap-2">
+						<svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+						</svg>
+						Direct Support
+					</h3>
+					<p class="text-xs text-[var(--ink-secondary)] leading-relaxed">
+						For technical queries or urgent DTP support:
+					</p>
+					<div class="font-mono text-xs text-[var(--ink)] font-semibold bg-[var(--canvas-soft)] px-3 py-2 rounded border border-[var(--hairline)]">
+						support@unicode2nonunicode.com
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Form Handling Script -->
+	<script>
+		const form = document.getElementById('contact-form') as HTMLFormElement;
+		const successMsg = document.getElementById('contact-success-msg') as HTMLDivElement;
+
+		form?.addEventListener('submit', (e) => {
+			e.preventDefault();
+			form.classList.add('hidden');
+			successMsg?.classList.remove('hidden');
+		});
+	</script>
+</Layout>
