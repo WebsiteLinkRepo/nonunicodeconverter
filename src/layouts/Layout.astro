@@ -1,23 +1,308 @@
-<!doctype html>
-<html lang="en">
+---
+import '../styles/global.css';
+import type { Language } from '../utils/i18n';
+
+interface Props {
+	title?: string;
+	description?: string;
+	keywords?: string;
+	lang?: Language;
+}
+
+const {
+	title = "Unicode To Non-Unicode Converter (Anu 6, Anu 7, Kruti Dev)",
+	description = "Convert Indic Unicode text (Telugu, Hindi, Tamil, Malayalam) to legacy font formats (Anu 6, Anu 7, Shree-Lipi, Kruti Dev, Bamini) instantly for Adobe Photoshop, InDesign & MS Word.",
+	keywords = "unicode to non unicode, unicode to non unicode converter telugu, unicode to non unicode anu 7.0, anu unicode, unicode converter telugu, unicode to non unicode font, hindi unicode to non unicode converter, kruti dev 010 to unicode, mangal to kruti dev converter, unicode to bamini tamil converter, ism revathi malayalam converter, shree lipi telugu converter, indesign telugu font converter, photoshop telugu font converter, anu 6 to unicode converter",
+	lang = 'en'
+} = Astro.props;
+
+const canonicalUrl = lang === 'en' ? 'https://unicode2nonunicode.com/' : `https://unicode2nonunicode.com/${lang}`;
+
+const localeMap: Record<Language, string> = {
+	en: 'en_US',
+	te: 'te_IN',
+	hi: 'hi_IN',
+	ta: 'ta_IN',
+	ml: 'ml_IN'
+};
+const ogLocale = localeMap[lang] || 'en_US';
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="light">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="Uni2Non" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="theme-color" content="#171717" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<link rel="canonical" href={canonicalUrl} />
+
+		<!-- International SEO Hreflang Tags -->
+		<link rel="alternate" hreflang="en" href="https://unicode2nonunicode.com/" />
+		<link rel="alternate" hreflang="te" href="https://unicode2nonunicode.com/te" />
+		<link rel="alternate" hreflang="hi" href="https://unicode2nonunicode.com/hi" />
+		<link rel="alternate" hreflang="ta" href="https://unicode2nonunicode.com/ta" />
+		<link rel="alternate" hreflang="ml" href="https://unicode2nonunicode.com/ml" />
+		<link rel="alternate" hreflang="x-default" href="https://unicode2nonunicode.com/" />
+
+		<!-- OpenGraph / Facebook Meta Tags -->
+		<meta property="og:site_name" content="Unicode To Non Unicode" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content="https://unicode2nonunicode.com/web-app-manifest-512x512.png" />
+		<meta property="og:image:secure_url" content="https://unicode2nonunicode.com/web-app-manifest-512x512.png" />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="512" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:alt" content="Unicode To Non Unicode Converter - Free Online Tool for Telugu Anu 7.0, Anu Unicode & Kruti Dev" />
+		<meta property="og:locale" content={ogLocale} />
+
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://unicode2nonunicode.com/web-app-manifest-512x512.png" />
+		<meta name="twitter:image:alt" content="Unicode To Non Unicode Converter Tool" />
+
+		<!-- Schema.org JSON-LD Structured Data for WebApplication & FAQPage -->
+		<script type="application/ld+json" is:inline>
+			{
+				"@context": "https://schema.org",
+				"@graph": [
+					{
+						"@type": "WebApplication",
+						"name": "Unicode To Non Unicode Converter",
+						"alternateName": [
+							"Unicode To Non Unicode Converter Telugu",
+							"Unicode To Non Unicode Anu 7.0",
+							"Anu Unicode Converter",
+							"Kruti Dev Converter",
+							"Unicode Converter Telugu"
+						],
+						"url": "https://unicode2nonunicode.com/",
+						"description": "Free online Unicode To Non Unicode converter for Telugu (Anu 7.0, Anu 6, Anu Unicode), Hindi (Kruti Dev, Shree-Lipi), Tamil (Bamini), and Malayalam (ISM Revathi) for Adobe Photoshop, InDesign and MS Word.",
+						"applicationCategory": "UtilitiesApplication",
+						"operatingSystem": "All",
+						"offers": {
+							"@type": "Offer",
+							"price": "0",
+							"priceCurrency": "USD"
+						},
+						"browserRequirements": "Requires JavaScript",
+						"softwareVersion": "1.0.0"
+					},
+					{
+						"@type": "FAQPage",
+						"mainEntity": [
+							{
+								"@type": "Question",
+								"name": "How to convert non-Unicode to Unicode?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Paste your legacy non-Unicode text (such as Anu 6, Anu 7.0, Kruti Dev 010, Shree-Lipi, or Bamini) into our converter's input box. The tool automatically detects the non-Unicode ASCII encoding and converts it into clean, standard web-ready Unicode instantly."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "How can I convert Unicode text to Anu fonts?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Select Anu 6 (Telugu) or Anu 7 (Telugu) from the font selector tabs. Paste your Telugu Unicode text into the input box. The converter instantly translates the Unicode code points into legacy Anu font ASCII keystrokes for Adobe Photoshop and InDesign."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Can you convert Unicode to text?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes! Unicode is standard digital text (UTF-8). Our tool allows you to convert standard Unicode text into legacy non-Unicode font encodings (such as Anu, Kruti Dev, Bamini, and Shree-Lipi) and vice versa for desktop publishing applications."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "What is Unicode used for?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Unicode is the universal international character encoding standard that enables computers, smartphones, web browsers, and operating systems to consistently represent, store, and exchange text in all world languages (including Telugu, Hindi, Tamil, and Malayalam)."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "How do I write Unicode?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "You can type Unicode text using standard system language keyboards (e.g., Windows Indic Input, Google Input Tools, Inscript, or iOS/Android language keypads), or simply copy Unicode text from any website or document into our online converter."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "What are the Unicode characters for Telugu?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Telugu Unicode is assigned the international code block range U+0C00 to U+0C7F in the Unicode standard. It covers all Telugu vowels (అ-అః), consonants (క-హ), vowel signs (మాత్రలు), conjunct markers (వత్తులు), numbers (౦-౯), and symbols."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Is it free and local?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes, 100%! Unicode2NonUnicode.com is completely free to use with zero registration or usage limits. All conversion processing runs 100% locally inside your web browser using client-side JavaScript, ensuring maximum privacy with zero server uploads."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Is it for all languages?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Our converter specializes in Indian regional languages (Indic scripts), supporting major font mappings for Telugu (Anu 6, Anu 7, Shree-Lipi, Apple Telugu), Hindi (Kruti Dev 010), Tamil (Bamini), and Malayalam (ISM Revathi). If you need support for any other custom font encoding or Indic language, please feel free to contact us!"
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "What is the best app to convert Unicode text to non-Unicode fonts?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Unicode2NonUnicode.com is the best online app for converting Unicode text to non-Unicode fonts. It requires no installation, features instant real-time conversion, handles automatic line-break and quote sanitization for Adobe InDesign & Photoshop, and processes all data privately in your browser."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "What is the difference between Anu Unicode and Anu 7.0 fonts?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Anu Unicode refers to standard Telugu text encoded under standard international Unicode (U+0C00–U+0C7F). Anu 7.0 is an 8-bit ASCII legacy font mapping created by Anu Graphic Systems for DTP software. Our Unicode To Non Unicode Anu 7.0 engine converts modern web text into legacy Anu 7.0 character codes."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Can I use this unicode converter telugu tool for Adobe InDesign & Photoshop?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes! Our unicode converter telugu tool is specifically optimized for Adobe InDesign and Photoshop. It includes built-in DTP toggles for alternative Raa Vatthu (ర వత్తు), zero-width character stripping, smart quote normalization, and line-break cleaning to prevent corrupted glyphs."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Does this unicode to non unicode converter work in reverse?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes! The converter works seamlessly in both directions. You can convert modern Unicode text to legacy Non-Unicode fonts, or paste legacy Non-Unicode text into the input box to convert it back into clean, standard web-ready Unicode."
+								}
+							}
+						]
+					}
+				]
+			}
+		</script>
+		
+		<!-- Service Worker Registration -->
+		<script is:inline>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker.register('/sw.js').catch(() => {});
+				});
+			}
+
+			// Theme Initializer
+			const savedTheme = localStorage.getItem('theme');
+			if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
 	</head>
-	<body>
-		<slot />
+	<body class="min-h-screen bg-[var(--canvas)] text-[var(--ink)] font-sans antialiased flex flex-col selection:bg-[var(--ink)] selection:text-[var(--canvas)]">
+		<!-- Main Header Bar -->
+		<header class="border-b border-[var(--hairline)] bg-[var(--canvas-soft)] sticky top-0 z-40 backdrop-blur-md bg-opacity-80">
+			<div class="max-w-6xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2">
+				<!-- Brand / Logo -->
+				<a href="/" class="flex items-center gap-2 group cursor-pointer min-w-0 flex-shrink">
+					<img src="/favicon.svg" alt="Unicode To Non-Unicode Converter Logo" class="w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
+					<div class="truncate">
+						<span id="logo-title-text" class="font-semibold text-xs sm:text-sm tracking-tight text-[var(--ink)] truncate block">Unicode To Non-Unicode</span>
+					</div>
+				</a>
+
+				<!-- Language Selector & Theme Switcher -->
+				<div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+					<!-- Language Selector -->
+					<div class="relative flex items-center bg-[var(--canvas)] border border-[var(--hairline)] hover:border-[var(--hairline-strong)] rounded-lg px-2.5 py-1 text-xs transition-colors shadow-2xs group focus-within:ring-1 focus-within:ring-[var(--ink)]">
+						<svg class="w-3.5 h-3.5 text-[var(--ink-secondary)] mr-1.5 flex-shrink-0 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+						</svg>
+						<select 
+							id="lang-select" 
+							class="appearance-none bg-transparent text-[var(--ink)] font-semibold border-none cursor-pointer focus:outline-none text-xs pr-5 py-1.5 touch-target"
+							aria-label="Select Language"
+						>
+							<option value="en" selected={lang === 'en'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">English</option>
+							<option value="te" selected={lang === 'te'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">తెలుగు</option>
+							<option value="hi" selected={lang === 'hi'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">हिंदी</option>
+							<option value="ta" selected={lang === 'ta'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">தமிழ்</option>
+							<option value="ml" selected={lang === 'ml'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">മലയാളം</option>
+						</select>
+						<svg class="w-3 h-3 text-[var(--ink-tertiary)] group-hover:text-[var(--ink)] absolute right-2 pointer-events-none transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+						</svg>
+					</div>
+
+					<!-- Theme Switcher -->
+					<button 
+						id="theme-toggle-btn" 
+						type="button" 
+						class="vercel-focus p-2 rounded-lg border border-[var(--hairline)] bg-[var(--canvas-soft)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target min-h-[36px] min-w-[36px] flex items-center justify-center"
+						aria-label="Toggle Dark/Light Mode"
+					>
+						<svg id="theme-icon-dark" class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+						</svg>
+						<svg id="theme-icon-light" class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+						</svg>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<!-- Main Area -->
+		<main class="flex-grow max-w-6xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-8">
+			<slot />
+		</main>
+
+		<!-- Minimal Footer -->
+		<footer class="border-t border-[var(--hairline)] py-4 text-center text-xs text-[var(--ink-secondary)] font-mono">
+			<div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-2">
+				<span id="footer-text" class="text-center">Unicode2NonUnicode • Instant & 100% Private (Runs locally in your browser)</span>
+			</div>
+		</footer>
+
+		<script>
+			const themeToggleBtn = document.getElementById('theme-toggle-btn');
+			themeToggleBtn?.addEventListener('click', () => {
+				const isDark = document.documentElement.classList.toggle('dark');
+				localStorage.setItem('theme', isDark ? 'dark' : 'light');
+			});
+
+			const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
+			langSelect?.addEventListener('change', (e) => {
+				const selectedLang = (e.target as HTMLSelectElement).value;
+				const targetPath = selectedLang === 'en' ? '/' : `/${selectedLang}`;
+				window.location.href = targetPath;
+			});
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

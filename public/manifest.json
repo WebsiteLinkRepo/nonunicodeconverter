@@ -1,0 +1,19 @@
+{
+  "name": "Unicode To Non-Unicode Converter",
+  "short_name": "Unicode2NonUnicode",
+  "description": "Lightning-fast Unicode To Non-Unicode (Anu 6, Anu 7, Kruti Dev) text converter for PageMaker and InDesign.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
+

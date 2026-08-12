@@ -2,16 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import TextConverter from '../components/TextConverter.astro';
 import SeoContent from '../components/SeoContent.astro';
-import { TRANSLATIONS } from '../utils/i18n';
+import { TRANSLATIONS, type Language } from '../utils/i18n';
 
-const t = TRANSLATIONS.en;
+export function getStaticPaths() {
+	return [
+		{ params: { lang: 'te' } },
+		{ params: { lang: 'hi' } },
+		{ params: { lang: 'ta' } },
+		{ params: { lang: 'ml' } },
+		{ params: { lang: 'en' } },
+	];
+}
+
+const { lang } = Astro.params as { lang: Language };
+const currentLang: Language = (lang in TRANSLATIONS) ? lang : 'en';
+const t = TRANSLATIONS[currentLang];
 ---
 
 <Layout 
 	title={t.metaTitle}
 	description={t.metaDescription}
 	keywords={t.keywords}
-	lang="en"
+	lang={currentLang}
 >
 	<div class="space-y-8 sm:space-y-12">
 		<!-- Simple Intro Banner -->
@@ -25,7 +37,7 @@ const t = TRANSLATIONS.en;
 		</div>
 
 		<!-- Main Converter Tool -->
-		<TextConverter lang="en" />
+		<TextConverter lang={currentLang} />
 
 		<!-- 600+ Word SEO Guide & FAQ Section -->
 		<SeoContent />

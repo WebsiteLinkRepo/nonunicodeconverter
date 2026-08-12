@@ -1,0 +1,736 @@
+---
+import { AVAILABLE_FONTS } from '../utils/mappings';
+import { TRANSLATIONS, type Language } from '../utils/i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+const defaultFont = t.defaultFont || 'anu6';
+---
+
+<div id="converter-root" class="w-full max-w-4xl mx-auto space-y-4" data-lang={lang} data-default-font={defaultFont}>
+  <!-- Font Selector Tabs (Scrollable on mobile, flex-wrap on tablet/desktop) -->
+  <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-2.5 sm:p-3 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 min-w-0 w-full sm:w-auto">
+      <span id="label-select-font" class="text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide flex-shrink-0">SELECT FONT:</span>
+      <div class="flex items-center bg-[var(--canvas)] border border-[var(--hairline)] rounded-lg p-1 gap-1 overflow-x-auto no-scrollbar max-w-full touch-target">
+        <button 
+          type="button" 
+          data-font="anu6" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all bg-[var(--ink)] text-[var(--canvas)] shadow-xs cursor-pointer whitespace-nowrap touch-target"
+        >
+          Anu 6 (Telugu)
+        </button>
+        <button 
+          type="button" 
+          data-font="anu7" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
+        >
+          Anu 7 (Telugu)
+        </button>
+        <button 
+          type="button" 
+          data-font="bamini-tamil" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
+        >
+          Bamini (Tamil)
+        </button>
+        <button 
+          type="button" 
+          data-font="ism-malayalam" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
+        >
+          ISM Revathi (Malayalam)
+        </button>
+        <button 
+          type="button" 
+          data-font="kruti-dev" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
+        >
+          Kruti Dev (Hindi)
+        </button>
+        <button 
+          type="button" 
+          data-font="shree-lipi" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
+        >
+          Shree-Lipi
+        </button>
+        <button 
+          type="button" 
+          data-font="apple-telugu" 
+          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
+        >
+          Apple Telugu
+        </button>
+      </div>
+    </div>
+
+    <!-- Smart Auto Status Badge -->
+    <div class="text-xs font-mono text-[var(--ink-secondary)] flex items-center justify-center sm:justify-start gap-1.5 bg-[var(--canvas)] border border-[var(--hairline)] px-2.5 py-1.5 rounded-full shadow-2xs flex-shrink-0">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+      <span id="auto-status" class="truncate">Auto-detecting text format</span>
+    </div>
+  </div>
+
+  <!-- DTP Helper Options Bar (Uniform Checkboxes) -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-3.5 py-2.5 bg-[var(--canvas-soft-2)] border border-[var(--hairline)] rounded-xl text-xs">
+    <div class="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+      <!-- Alternative Raa Vatthu Checkbox (Only shown for Telugu fonts) -->
+      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="alt-raa-vatthu-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+        <span id="label-alt-raa-vatthu">Alt Raa Vatthu (ర వత్తు)</span>
+      </label>
+
+      <!-- Clean Extra Lines Checkbox -->
+      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="clean-spaces-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+        <span id="label-clean-spaces">Clean Linebreaks</span>
+      </label>
+
+      <!-- Convert Numbers Checkbox -->
+      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="convert-digits-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+        <span id="label-convert-digits">Convert Digits (123 ↔ ౧౨౩)</span>
+      </label>
+    </div>
+
+    <!-- Preset Sample Buttons -->
+    <div class="flex items-center gap-1.5 w-full sm:w-auto justify-end border-t sm:border-t-0 border-[var(--hairline)] pt-2 sm:pt-0">
+      <span class="text-[11px] font-mono text-[var(--ink-tertiary)] inline">Samples:</span>
+      <button 
+        id="sample-telugu-btn" 
+        type="button" 
+        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
+      >
+        Telugu DTP
+      </button>
+      <button 
+        id="sample-nonunicode-btn" 
+        type="button" 
+        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
+      >
+        Anu 6 Legacy
+      </button>
+      <button 
+        id="sample-hindi-btn" 
+        type="button" 
+        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
+      >
+        Hindi
+      </button>
+    </div>
+  </div>
+
+  <!-- Dual Text Boxes -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Unicode / Text Input Box -->
+    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden focus-within:border-[var(--hairline-strong)] shadow-xs transition-colors">
+      <div class="flex items-center justify-between px-3.5 py-2.5 bg-[var(--canvas-soft)] border-b border-[var(--hairline)]">
+        <span id="input-box-title" class="font-semibold text-xs uppercase tracking-wider text-[var(--ink)] flex items-center gap-1.5">
+          UNICODE TEXT INPUT
+        </span>
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <button 
+            id="swap-btn" 
+            type="button" 
+            title="Swap input and output text (⇄ Reverse Conversion)"
+            class="px-2 py-1.5 text-xs font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink)] hover:bg-[var(--canvas-soft-2)] active:scale-95 transition-all cursor-pointer touch-target flex items-center gap-1"
+          >
+            <span>⇄ Swap</span>
+          </button>
+          <button 
+            id="paste-btn" 
+            type="button" 
+            class="px-2.5 py-1.5 text-xs font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink)] hover:bg-[var(--canvas-soft-2)] active:scale-95 transition-all cursor-pointer touch-target"
+          >
+            Paste Text
+          </button>
+          <button 
+            id="clear-btn" 
+            type="button" 
+            class="px-2 py-1.5 text-xs text-[var(--ink-secondary)] hover:text-red-500 transition-colors cursor-pointer touch-target"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+      <textarea
+        id="input-text"
+        spellcheck="false"
+        placeholder="Paste Unicode text here... (e.g. తెలుగు / हिंदी నాన్-యూనికోడ్)"
+        class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+      ></textarea>
+    </div>
+
+    <!-- Output Box & Controls -->
+    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden shadow-xs">
+      <div class="flex items-center justify-between px-3.5 py-2.5 bg-[var(--canvas-soft)] border-b border-[var(--hairline)]">
+        <span class="font-semibold text-xs uppercase tracking-wider text-[var(--ink)] truncate max-w-[180px] sm:max-w-none">
+          <span id="output-box-title">NON-UNICODE OUTPUT</span> (<span id="active-font-label">Anu 6</span>)
+        </span>
+        
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <!-- Text Zoom Controls (A- / A+) -->
+          <div class="flex items-center gap-1 border border-[var(--hairline)] rounded-md bg-[var(--canvas)] px-1.5 py-0.5 text-xs font-mono">
+            <button id="zoom-out-btn" type="button" class="px-1 py-0.5 hover:text-[var(--ink)] text-[var(--ink-secondary)] font-bold cursor-pointer touch-target" title="Decrease Font Size">A-</button>
+            <span class="text-[var(--hairline-strong)]">|</span>
+            <button id="zoom-in-btn" type="button" class="px-1 py-0.5 hover:text-[var(--ink)] text-[var(--ink-secondary)] font-bold cursor-pointer touch-target" title="Increase Font Size">A+</button>
+          </div>
+          <span id="char-count" class="text-xs font-mono text-[var(--ink-tertiary)]">0 chars</span>
+        </div>
+      </div>
+
+      <textarea
+        id="output-text"
+        readonly
+        spellcheck="false"
+        placeholder="Converted legacy font text will appear here automatically..."
+        class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] font-mono text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+      ></textarea>
+
+      <!-- Action Toolbar (Download .txt & Copy Button) -->
+      <div class="p-3 bg-[var(--canvas-soft)] border-t border-[var(--hairline)] flex flex-col sm:flex-row gap-2">
+        <!-- Download .txt File Button -->
+        <button 
+          id="download-btn" 
+          type="button" 
+          class="w-full sm:w-auto py-3 sm:py-2.5 px-3.5 rounded-lg bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink)] font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-[var(--canvas-soft-2)] active:scale-[0.98] transition-all cursor-pointer touch-target min-h-[44px] sm:min-h-0"
+          title="Save output as a text file"
+        >
+          <svg class="w-4 h-4 text-[var(--ink-secondary)] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          <span id="download-btn-text">Download .txt</span>
+        </button>
+
+        <!-- Massive Copy Button -->
+        <button 
+          id="copy-btn" 
+          type="button" 
+          class="w-full sm:flex-1 py-3 sm:py-2.5 px-4 rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:opacity-95 active:scale-[0.99] transition-all cursor-pointer uppercase tracking-wide touch-target min-h-[44px] sm:min-h-0"
+        >
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 012 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span id="copy-btn-text">COPY OUTPUT</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unmapped Characters Warning Bar -->
+  <div id="unmapped-warning-bar" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs text-amber-600 dark:text-amber-400 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      <span id="warning-msg">Notice: Unmapped Unicode characters detected.</span>
+    </div>
+    <span class="font-mono text-[11px] text-amber-700 dark:text-amber-300" id="warning-chars-list"></span>
+  </div>
+
+  <!-- Recents / History Drawer -->
+  <div id="history-container" class="hidden bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-3 shadow-2xs space-y-2">
+    <div class="flex items-center justify-between">
+      <span id="history-title" class="text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide">Recent Conversions</span>
+      <button id="clear-history-btn" type="button" class="text-[11px] text-[var(--ink-tertiary)] hover:text-red-500 transition-colors cursor-pointer">Clear History</button>
+    </div>
+    <div id="history-list" class="space-y-1.5 max-h-36 overflow-y-auto pr-1"></div>
+  </div>
+
+  <!-- Bottom Stats Bar -->
+  <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-2 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg text-[11px] font-mono text-[var(--ink-secondary)]">
+    <div class="flex items-center gap-3">
+      <span>Lines: <strong id="lines-stat" class="text-[var(--ink)]">0</strong></span>
+      <span>•</span>
+      <span>Words: <strong id="words-stat" class="text-[var(--ink)]">0</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- Client Logic & i18n Controller -->
+<script>
+  import { convertText } from '../utils/converter';
+  import type { FontEncoding } from '../utils/mappings';
+  import { TRANSLATIONS, type Language } from '../utils/i18n';
+
+  interface HistoryItem {
+    id: string;
+    input: string;
+    output: string;
+    font: string;
+    timestamp: number;
+  }
+
+  const rootEl = document.getElementById('converter-root') as HTMLDivElement;
+  let currentLang: Language = (rootEl?.dataset.lang as Language) || 'en';
+  let selectedFont: FontEncoding = (rootEl?.dataset.defaultFont as FontEncoding) || 'anu6';
+  let currentFontSize = 16;
+  let historyItems: HistoryItem[] = [];
+  let isManualReverse: boolean | null = null;
+
+  const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
+  const logoTitleText = document.getElementById('logo-title-text') as HTMLSpanElement;
+  const pageTitle = document.getElementById('page-title') as HTMLHeadingElement;
+  const pageSubtitle = document.getElementById('page-subtitle') as HTMLParagraphElement;
+  const labelSelectFont = document.getElementById('label-select-font') as HTMLSpanElement;
+  const autoStatus = document.getElementById('auto-status') as HTMLSpanElement;
+
+  const labelCleanSpaces = document.getElementById('label-clean-spaces') as HTMLSpanElement;
+  const labelConvertDigits = document.getElementById('label-convert-digits') as HTMLSpanElement;
+  const labelAltRaaVatthu = document.getElementById('label-alt-raa-vatthu') as HTMLSpanElement;
+  const altRaaVatthuWrapper = document.getElementById('alt-raa-vatthu-wrapper') as HTMLLabelElement;
+
+  const fontTabs = document.querySelectorAll<HTMLButtonElement>('.font-tab');
+  const activeFontLabel = document.getElementById('active-font-label') as HTMLSpanElement;
+  const inputBoxTitle = document.getElementById('input-box-title') as HTMLSpanElement;
+  const outputBoxTitle = document.getElementById('output-box-title') as HTMLSpanElement;
+  
+  const inputText = document.getElementById('input-text') as HTMLTextAreaElement;
+  const outputText = document.getElementById('output-text') as HTMLTextAreaElement;
+  const charCount = document.getElementById('char-count') as HTMLSpanElement;
+
+  const cleanSpacesChk = document.getElementById('clean-spaces-chk') as HTMLInputElement;
+  const convertDigitsChk = document.getElementById('convert-digits-chk') as HTMLInputElement;
+  const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
+  
+  const zoomInBtn = document.getElementById('zoom-in-btn') as HTMLButtonElement;
+  const zoomOutBtn = document.getElementById('zoom-out-btn') as HTMLButtonElement;
+
+  const copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
+  const copyBtnText = document.getElementById('copy-btn-text') as HTMLSpanElement;
+  const downloadBtn = document.getElementById('download-btn') as HTMLButtonElement;
+  const downloadBtnText = document.getElementById('download-btn-text') as HTMLSpanElement;
+  const pasteBtn = document.getElementById('paste-btn') as HTMLButtonElement;
+  const clearBtn = document.getElementById('clear-btn') as HTMLButtonElement;
+  const swapBtn = document.getElementById('swap-btn') as HTMLButtonElement;
+
+  const sampleTeluguBtn = document.getElementById('sample-telugu-btn') as HTMLButtonElement;
+  const sampleHindiBtn = document.getElementById('sample-hindi-btn') as HTMLButtonElement;
+  const sampleNonunicodeBtn = document.getElementById('sample-nonunicode-btn') as HTMLButtonElement;
+
+  const linesStat = document.getElementById('lines-stat') as HTMLElement;
+  const wordsStat = document.getElementById('words-stat') as HTMLElement;
+  
+  const warningBar = document.getElementById('unmapped-warning-bar') as HTMLDivElement;
+  const warningMsg = document.getElementById('warning-msg') as HTMLSpanElement;
+  const warningCharsList = document.getElementById('warning-chars-list') as HTMLSpanElement;
+  const footerText = document.getElementById('footer-text') as HTMLSpanElement;
+
+  const historyContainer = document.getElementById('history-container') as HTMLDivElement;
+  const historyTitle = document.getElementById('history-title') as HTMLSpanElement;
+  const historyList = document.getElementById('history-list') as HTMLDivElement;
+  const clearHistoryBtn = document.getElementById('clear-history-btn') as HTMLButtonElement;
+
+  // Saved Preferences
+  const savedFontSize = localStorage.getItem('fontSize');
+  if (savedFontSize) {
+    currentFontSize = parseInt(savedFontSize);
+    applyFontSize(currentFontSize);
+  }
+
+  const savedAltRaa = localStorage.getItem('altRaaVatthu');
+  if (altRaaVatthuChk && savedAltRaa === 'true') {
+    altRaaVatthuChk.checked = true;
+  }
+
+  loadHistory();
+
+  function applyFontSize(size: number) {
+    currentFontSize = Math.min(28, Math.max(12, size));
+    if (inputText) inputText.style.fontSize = `${currentFontSize}px`;
+    if (outputText) outputText.style.fontSize = `${currentFontSize}px`;
+    localStorage.setItem('fontSize', currentFontSize.toString());
+  }
+
+  zoomInBtn?.addEventListener('click', () => applyFontSize(currentFontSize + 2));
+  zoomOutBtn?.addEventListener('click', () => applyFontSize(currentFontSize - 2));
+
+  function updateLanguage(lang: Language) {
+    currentLang = lang;
+    const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+    if (logoTitleText) logoTitleText.textContent = t.siteTitle;
+    if (pageTitle) pageTitle.textContent = t.title;
+    if (pageSubtitle) pageSubtitle.textContent = t.subtitle;
+    if (labelSelectFont) labelSelectFont.textContent = t.selectFontLabel;
+    if (labelCleanSpaces) labelCleanSpaces.textContent = t.cleanSpacesLabel;
+    if (labelConvertDigits) labelConvertDigits.textContent = t.convertDigitsLabel;
+    if (labelAltRaaVatthu) labelAltRaaVatthu.textContent = t.altRaaVatthuLabel;
+    if (inputBoxTitle) inputBoxTitle.textContent = t.inputBoxHeader;
+    if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader;
+    if (pasteBtn) pasteBtn.textContent = t.pasteBtn;
+    if (clearBtn) clearBtn.textContent = t.clearBtn;
+    if (downloadBtnText) downloadBtnText.textContent = t.downloadBtn;
+    if (inputText) inputText.placeholder = t.inputPlaceholder;
+    if (outputText) outputText.placeholder = t.outputPlaceholder;
+    if (copyBtnText) copyBtnText.textContent = t.copyBtn;
+    if (footerText) footerText.textContent = t.footerText;
+    if (historyTitle) historyTitle.textContent = t.historyTitle;
+    if (clearHistoryBtn) clearHistoryBtn.textContent = t.clearHistoryBtn;
+
+    updateFontTabsUI();
+    processConversion();
+  }
+
+  updateLanguage(currentLang);
+  updateFontTabsUI();
+
+  // AUTOMATIC SANITIZATION: Built-in default behavior for 100% clean Photoshop, InDesign & Word pasting!
+  function sanitizeForAdobeAndWord(text: string): string {
+    if (!text) return text;
+    // 1. Convert smart quotes / curly quotes to straight quotes to prevent MS Word & Photoshop auto-correct glyph corruption
+    let sanitized = text.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+    // 2. Strip Zero-Width Joiner (ZWJ), Zero-Width Non-Joiner (ZWNJ), Zero-Width Space & BOM markers that produce square boxes □ in Photoshop
+    sanitized = sanitized.replace(/[\uFEFF\u200B\u200C\u200D]/g, '');
+    // 3. Normalize non-breaking spaces
+    sanitized = sanitized.replace(/\u00A0/g, ' ');
+    return sanitized;
+  }
+
+  function processConversion() {
+    let val = inputText.value;
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+
+    if (!val) {
+      outputText.value = '';
+      charCount.textContent = `0 ${t.charsLabel}`;
+      if (linesStat) linesStat.textContent = '0';
+      if (wordsStat) wordsStat.textContent = '0';
+      autoStatus.textContent = t.autoDetectNotice;
+      warningBar.classList.add('hidden');
+      return;
+    }
+
+    // Always sanitize input automatically for Adobe Photoshop, InDesign & Word safety
+    val = sanitizeForAdobeAndWord(val);
+
+    if (cleanSpacesChk?.checked) {
+      val = val.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    if (convertDigitsChk?.checked) {
+      const engDigits = ['0','1','2','3','4','5','6','7','8','9'];
+      const telDigits = ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'];
+      for (let i = 0; i < 10; i++) {
+        val = val.split(engDigits[i]).join(telDigits[i]);
+      }
+    }
+
+    const isUnicodeInput = /[\u0C00-\u0C7F\u0900-\u097F\u0B80-\u0BFF\u0D00-\u0D7F]/.test(val);
+    const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
+
+    const isTeluguFont = ['anu6', 'anu7', 'shree-lipi', 'apple-telugu'].includes(selectedFont);
+
+    if (reverse) {
+      autoStatus.textContent = 'Non-Unicode ➔ Unicode';
+      if (inputBoxTitle) inputBoxTitle.textContent = t.nonUnicodeInputHeader || 'NON-UNICODE TEXT INPUT';
+      if (outputBoxTitle) outputBoxTitle.textContent = t.unicodeOutputHeader || 'UNICODE (NORMAL TEXT) OUTPUT';
+    } else {
+      const altText = (isTeluguFont && altRaaVatthuChk?.checked) ? ' (Alt Raa Vatthu)' : '';
+      autoStatus.textContent = `Converted to ${activeFontNameLabel(selectedFont)}${altText}`;
+      if (inputBoxTitle) inputBoxTitle.textContent = t.inputBoxHeader || 'UNICODE TEXT INPUT';
+      if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader || 'NON-UNICODE OUTPUT';
+    }
+
+    const useAltRaa = isTeluguFont ? (altRaaVatthuChk?.checked || false) : false;
+    const res = convertText(val, selectedFont, reverse, useAltRaa);
+    
+    // Always sanitize output automatically for Adobe Photoshop & Word
+    const finalOutput = sanitizeForAdobeAndWord(res.convertedText);
+
+    outputText.value = finalOutput;
+    charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
+
+    if (linesStat) linesStat.textContent = res.stats.lineCount.toLocaleString();
+    if (wordsStat) wordsStat.textContent = res.stats.wordCount.toLocaleString();
+
+    if (res.stats.unmappedCount > 0) {
+      warningBar.classList.remove('hidden');
+      warningMsg.textContent = t.unmappedNotice;
+      const uniqueUnmapped = Array.from(new Set(res.errors.map(e => e.char))).slice(0, 8).join(', ');
+      warningCharsList.textContent = `Chars: ${uniqueUnmapped}`;
+    } else {
+      warningBar.classList.add('hidden');
+    }
+
+    saveToHistoryDebounced(val, finalOutput, selectedFont);
+  }
+
+  let historyTimeout: any;
+  function saveToHistoryDebounced(input: string, output: string, font: string) {
+    clearTimeout(historyTimeout);
+    if (!input || input.trim().length < 3) return;
+    historyTimeout = setTimeout(() => {
+      addToHistory(input, output, font);
+    }, 1500);
+  }
+
+  function addToHistory(input: string, output: string, font: string) {
+    const existingIndex = historyItems.findIndex(item => item.input === input);
+    if (existingIndex !== -1) {
+      historyItems.splice(existingIndex, 1);
+    }
+    historyItems.unshift({
+      id: Date.now().toString(),
+      input,
+      output,
+      font,
+      timestamp: Date.now()
+    });
+    if (historyItems.length > 8) historyItems.pop();
+    localStorage.setItem('conversion_history', JSON.stringify(historyItems));
+    renderHistory();
+  }
+
+  function loadHistory() {
+    try {
+      const data = localStorage.getItem('conversion_history');
+      if (data) {
+        historyItems = JSON.parse(data);
+        renderHistory();
+      }
+    } catch {
+      historyItems = [];
+    }
+  }
+
+  function renderHistory() {
+    if (!historyContainer || !historyList) return;
+    if (historyItems.length === 0) {
+      historyContainer.classList.add('hidden');
+      return;
+    }
+    historyContainer.classList.remove('hidden');
+    historyList.innerHTML = historyItems.map(item => `
+      <div data-id="${item.id}" class="history-item flex items-center justify-between p-2 rounded-lg bg-[var(--canvas)] border border-[var(--hairline)] hover:border-[var(--hairline-strong)] transition-all cursor-pointer text-xs">
+        <div class="truncate max-w-[80%] flex items-center gap-2">
+          <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--canvas-soft-2)] text-[var(--ink-secondary)]">${activeFontNameLabel(item.font as FontEncoding)}</span>
+          <span class="truncate text-[var(--ink)] font-medium">${escapeHtml(item.input.substring(0, 50))}</span>
+        </div>
+        <span class="text-[10px] font-mono text-[var(--ink-tertiary)]">${formatTime(item.timestamp)}</span>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.history-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.getAttribute('data-id');
+        const item = historyItems.find(i => i.id === id);
+        if (item) {
+          inputText.value = item.input;
+          selectedFont = item.font as FontEncoding;
+          updateFontTabsUI();
+          processConversion();
+        }
+      });
+    });
+  }
+
+  clearHistoryBtn?.addEventListener('click', () => {
+    historyItems = [];
+    localStorage.removeItem('conversion_history');
+    renderHistory();
+  });
+
+  function escapeHtml(str: string): string {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function formatTime(ts: number): string {
+    const d = new Date(ts);
+    return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+  }
+
+  inputText.addEventListener('input', processConversion);
+  cleanSpacesChk?.addEventListener('change', processConversion);
+  convertDigitsChk?.addEventListener('change', processConversion);
+
+  altRaaVatthuChk?.addEventListener('change', () => {
+    localStorage.setItem('altRaaVatthu', altRaaVatthuChk.checked.toString());
+    processConversion();
+  });
+
+  // Preset Sample Click Handlers
+  sampleTeluguBtn?.addEventListener('click', () => {
+    selectedFont = 'anu6';
+    isManualReverse = false;
+    updateFontTabsUI();
+    inputText.value = "ప్రస్తుత డిటిపి పనులలో తెలుగు యూనికోడ్ పాఠ్యాన్ని అను 6 మరియు అను 7 నాన్-యూనికోడ్ ఫాంట్లలోకి మార్చడం చాలా తేలిక.";
+    processConversion();
+  });
+
+  sampleNonunicodeBtn?.addEventListener('click', () => {
+    selectedFont = 'anu6';
+    isManualReverse = true;
+    updateFontTabsUI();
+    inputText.value = "pÈ{ÄcÄ zÅtÂaÌmÎ tÁtÎ-zÅtÂaÌmÎ mÂkÂuÂ uBtÄ{ÂaÂ yÁAÎa¥Â.";
+    processConversion();
+  });
+
+  sampleHindiBtn?.addEventListener('click', () => {
+    selectedFont = 'kruti-dev';
+    isManualReverse = false;
+    updateFontTabsUI();
+    inputText.value = "कृति देव और यूनिकोड पाठ्य रूप परिवर्तन अत्यंत सरल और तीव्र गति से होता है।";
+    processConversion();
+  });
+
+  swapBtn?.addEventListener('click', () => {
+    const currentInput = inputText.value;
+    const currentOutput = outputText.value;
+
+    if (currentOutput && currentOutput.trim().length > 0) {
+      const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F\u0B80-\u0BFF\u0D00-\u0D7F]/.test(currentOutput);
+      inputText.value = currentOutput;
+      isManualReverse = !isOutputUnicode;
+    } else if (currentInput && currentInput.trim().length > 0) {
+      const isInputUnicode = /[\u0C00-\u0C7F\u0900-\u097F\u0B80-\u0BFF\u0D00-\u0D7F]/.test(currentInput);
+      const currentReverse = isManualReverse !== null ? isManualReverse : !isInputUnicode;
+      isManualReverse = !currentReverse;
+    } else {
+      isManualReverse = isManualReverse === null ? true : !isManualReverse;
+    }
+
+    swapBtn.classList.add('scale-105');
+    setTimeout(() => swapBtn.classList.remove('scale-105'), 150);
+
+    processConversion();
+  });
+
+  fontTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      selectedFont = (tab.dataset.font || 'anu6') as FontEncoding;
+      updateFontTabsUI();
+      processConversion();
+    });
+  });
+
+  function updateFontTabsUI() {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+
+    fontTabs.forEach(tab => {
+      const font = tab.dataset.font as FontEncoding;
+      if (font && t.fonts) {
+        if (font === 'anu6') tab.textContent = t.fonts.anu6;
+        else if (font === 'anu7') tab.textContent = t.fonts.anu7;
+        else if (font === 'bamini-tamil') tab.textContent = t.fonts.bamini;
+        else if (font === 'ism-malayalam') tab.textContent = t.fonts.malayalam;
+        else if (font === 'kruti-dev') tab.textContent = t.fonts.krutiDev;
+        else if (font === 'shree-lipi') tab.textContent = t.fonts.shreeLipi;
+        else if (font === 'apple-telugu') tab.textContent = t.fonts.appleTelugu;
+      }
+
+      if (tab.dataset.font === selectedFont) {
+        tab.className = 'font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all bg-[var(--ink)] text-[var(--canvas)] shadow-xs cursor-pointer whitespace-nowrap touch-target';
+      } else {
+        tab.className = 'font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target';
+      }
+    });
+
+    // Toggle Alt Raa Vatthu visibility (Only show for Telugu fonts)
+    const isTeluguFont = ['anu6', 'anu7', 'shree-lipi', 'apple-telugu'].includes(selectedFont);
+    if (altRaaVatthuWrapper) {
+      altRaaVatthuWrapper.style.display = isTeluguFont ? 'flex' : 'none';
+    }
+
+    if (activeFontLabel) {
+      activeFontLabel.textContent = activeFontNameLabel(selectedFont);
+    }
+  }
+
+  function activeFontNameLabel(font: FontEncoding): string {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    if (t.fonts) {
+      if (font === 'anu6') return t.fonts.anu6;
+      if (font === 'anu7') return t.fonts.anu7;
+      if (font === 'kruti-dev') return t.fonts.krutiDev;
+      if (font === 'bamini-tamil') return t.fonts.bamini;
+      if (font === 'ism-malayalam') return t.fonts.malayalam;
+      if (font === 'shree-lipi') return t.fonts.shreeLipi;
+      if (font === 'apple-telugu') return t.fonts.appleTelugu;
+    }
+    return font.toUpperCase();
+  }
+
+  // Initial call to set UI states
+  updateFontTabsUI();
+
+  // Copy Output Handler
+  copyBtn.addEventListener('click', async () => {
+    let val = sanitizeForAdobeAndWord(outputText.value);
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    if (!val) {
+      inputText.focus();
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(val);
+      copyBtnText.textContent = t.copiedBtn;
+      copyBtn.classList.remove('bg-[var(--ink)]');
+      copyBtn.classList.add('bg-emerald-600', 'text-white');
+      
+      setTimeout(() => {
+        copyBtnText.textContent = t.copyBtn;
+        copyBtn.classList.remove('bg-emerald-600', 'text-white');
+        copyBtn.classList.add('bg-[var(--ink)]');
+      }, 2000);
+    } catch {
+      outputText.select();
+      document.execCommand('copy');
+      copyBtnText.textContent = t.copiedBtn;
+      setTimeout(() => {
+        copyBtnText.textContent = t.copyBtn;
+      }, 2000);
+    }
+  });
+
+  // Download Output Handler (.txt)
+  downloadBtn?.addEventListener('click', () => {
+    let text = sanitizeForAdobeAndWord(outputText.value);
+    if (!text) {
+      inputText.focus();
+      return;
+    }
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `converted-${selectedFont}-${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // Paste Handler
+  pasteBtn.addEventListener('click', async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        inputText.value = text;
+        processConversion();
+      }
+    } catch {
+      inputText.focus();
+    }
+  });
+
+  // Clear Handler
+  clearBtn.addEventListener('click', () => {
+    isManualReverse = null;
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    inputText.value = '';
+    outputText.value = '';
+    charCount.textContent = `0 ${t.charsLabel}`;
+    if (linesStat) linesStat.textContent = '0';
+    if (wordsStat) wordsStat.textContent = '0';
+    autoStatus.textContent = t.autoDetectNotice;
+    warningBar.classList.add('hidden');
+    inputText.focus();
+  });
+</script>
