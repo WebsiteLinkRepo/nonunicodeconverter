@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+	title="500 - Server Error | Unicode To Non-Unicode Converter"
+	description="An internal error occurred while rendering the page. Return to UnicodeToNonUnicode.com converter."
+>
+	<div class="max-w-4xl mx-auto py-12 sm:py-16 px-4 space-y-12">
+		<!-- Hero 500 Graphic & Text Stack -->
+		<div class="text-center space-y-6">
+			<!-- Visual Monochrome 500 Badge -->
+			<div class="relative inline-flex items-center justify-center">
+				<span class="text-8xl sm:text-9xl font-extrabold font-mono tracking-tighter text-[var(--canvas-soft-2)] select-none">
+					500
+				</span>
+				<div class="absolute inset-0 flex items-center justify-center">
+					<div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[var(--canvas-soft)] border border-[var(--hairline-strong)] flex items-center justify-center shadow-lg transform rotate-3 transition-transform hover:rotate-0">
+						<svg class="w-8 h-8 sm:w-10 sm:h-10 text-[var(--ink)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<!-- Main Heading & Subtitle -->
+			<div class="space-y-3 max-w-lg mx-auto">
+				<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--ink)]">
+					Temporary System Error
+				</h1>
+				<p class="text-sm sm:text-base text-[var(--ink-secondary)] leading-relaxed">
+					Something unexpected happened while processing your request. Please try refreshing the page or head back to the main converter tool.
+				</p>
+			</div>
+
+			<!-- Primary CTA Buttons -->
+			<div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+				<button 
+					type="button" 
+					id="reload-btn"
+					class="px-6 py-3 bg-[var(--ink)] text-[var(--canvas)] font-semibold text-xs sm:text-sm rounded-xl hover:opacity-90 transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-105"
+				>
+					<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+					</svg>
+					Reload Page
+				</button>
+
+				<a 
+					href="/" 
+					class="px-6 py-3 bg-[var(--canvas)] border border-[var(--hairline-strong)] hover:bg-[var(--canvas-soft)] text-[var(--ink)] font-semibold text-xs sm:text-sm rounded-xl transition-all flex items-center gap-2 hover:scale-105"
+				>
+					Return to Converter
+				</a>
+			</div>
+		</div>
+
+		<!-- Troubleshooting Checklist -->
+		<div class="pt-6 border-t border-[var(--hairline)] max-w-2xl mx-auto space-y-4">
+			<div class="text-center space-y-1">
+				<h2 class="text-xs font-mono uppercase tracking-wider text-[var(--ink-tertiary)]">Troubleshooting Steps</h2>
+				<p class="text-sm font-semibold text-[var(--ink)]">Quick solutions to resolve this issue:</p>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-[var(--ink-secondary)]">
+				<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-4 space-y-1.5">
+					<h3 class="font-semibold text-[var(--ink)] flex items-center gap-1.5">
+						<span class="w-2 h-2 rounded-full bg-[var(--ink)]"></span>
+						Clear Browser Cache
+					</h3>
+					<p>Try clearing your browser cache or performing a hard refresh (Ctrl+F5 / Cmd+Shift+R).</p>
+				</div>
+
+				<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-4 space-y-1.5">
+					<h3 class="font-semibold text-[var(--ink)] flex items-center gap-1.5">
+						<span class="w-2 h-2 rounded-full bg-[var(--ink)]"></span>
+						Use Local Storage Mode
+					</h3>
+					<p>Our converter works 100% locally in your browser. Navigating to the homepage will restart the app state safely.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const reloadBtn = document.getElementById('reload-btn');
+		reloadBtn?.addEventListener('click', () => {
+			window.location.reload();
+		});
+	</script>
+</Layout>
