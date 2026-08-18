@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><body>
+<button id="btn">Copy RTF</button>
+<script>
+document.getElementById('btn').addEventListener('click', () => {
+    const listener = function(ev) {
+        ev.preventDefault();
+        ev.clipboardData.setData('text/plain', 'hello');
+        ev.clipboardData.setData('text/rtf', '{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 Arial;}}\\viewkind4\\uc1\\pard\\lang1033\\f0\\fs24 \\'80\\\'82\\\'8A hello}');
+    };
+    document.addEventListener('copy', listener);
+    document.execCommand('copy');
+    document.removeEventListener('copy', listener);
+    console.log("copied");
+});
+</script>
+</body></html>

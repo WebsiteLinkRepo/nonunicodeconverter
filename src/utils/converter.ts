@@ -28,12 +28,50 @@ export interface ConversionOptions {
   useAltRaaVatthu?: boolean;
 }
 
+const ANU7_VATTUS: Record<string, string> = {
+  "్క": "\u00D8", // Ø
+  "్ఖ": "\u2030", // ‰
+  "్గ": "Z",      // Z
+  "్ఘ": "\u00E9", // é
+  "్ఙ": "_",
+  "్చ": "\u00CC", // Ì
+  "్ఛ": "\u00CC\u00DB", // ÌÛ
+  "్జ": "\u00A8", // ¨
+  "్ఝ": "_",
+  "్ఞ": "\u00E3", // ã
+  "్ట": "\u00BC", // ¼
+  "్ఠ": "\u00F7", // ÷
+  "్డ": "\u00A6", // ¦
+  "్ఢ": "_",
+  "్ణ": "\u2019", // ’
+  "్త": "\u00EF", // ï
+  "్థ": "\u0153", // œ
+  "్ద": "\u00DD", // Ý
+  "్ధ": "\u00C6", // Æ
+  "్న": "\u2022", // •
+  "్ప": "\u00CE", // Î
+  "్ఫ": "\u00CE\u00DB", // ÎÛ
+  "్బ": "\u00D2", // Ò
+  "్భ": "\u00D2\u00DB", // ÒÛ
+  "్మ": "\u02C6", // ˆ
+  "్య": "\u00AB", // «
+  "్ర": "\u00E7", // ç (pre-base ra-vattu)
+  "్ల": "\u00A2", // ¢
+  "్వ": "\u00C7", // Ç
+  "్శ": "\u00F4", // ô
+  "్ష": "\u00FC", // ü
+  "్స": "\u00E0", // à
+  "్హ": "\u00BD", // ½
+  "్ళ": "\u00DF", // ß
+  "్ఱ": "_"
+};
+
 /**
  * Synchronously converts input text based on target encoding and direction.
  */
 export function convertText(
   inputText: string,
-  encoding: FontEncoding = 'anu6',
+  encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
   useAltRaaVatthu: boolean = false
 ): ConversionResult {
@@ -55,31 +93,111 @@ export function convertText(
   }
 
   const mapping = getMapping(encoding, reverse);
-
-  // Fast string replacement using replacement pass
   let resultText = inputText;
-  for (const entry of mapping) {
-    if (entry.from && resultText.includes(entry.from)) {
-      resultText = resultText.split(entry.from).join(entry.to);
+
+  if (!reverse) {
+    // -------------------------------------------------------------
+    // FORWARD CONVERSION (Unicode -> Legacy Anu 7.0)
+    // -------------------------------------------------------------
+    // Create a fast lookup map from the mapping array
+    const lookupMap: Record<string, string> = {};
+    for (const entry of mapping) {
+      if (entry.from) {
+        lookupMap[entry.from] = entry.to;
+      }
     }
+
+    // Split text into Telugu syllables and non-Telugu characters
+    const syllableRegex = /(?:(?:[\u0C05-\u0C14]|(?:[\u0C15-\u0C39\u0C58-\u0C5A](?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])*[\u0C3E-\u0C4C\u0C4D]?))[\u0C02\u0C03]?)/g;
+
+    resultText = resultText.replace(syllableRegex, (syllable) => {
+      // 1. Direct match in lookup table
+      if (lookupMap[syllable] !== undefined) {
+        return lookupMap[syllable];
+      }
+
+      // 2. Complex Syllable Decomposer & Layout Compiler (Fallback)
+      const baseConsonant = syllable[0];
+
+      // Find all vattus (e.g. ్క, ్త)
+      const vattuMatches = syllable.match(/\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A]/g) || [];
+
+      // Strip base consonant and vattus to find remaining vowel signs
+      let remaining = syllable.substring(1);
+      for (const vattu of vattuMatches) {
+        remaining = remaining.replace(vattu, "");
+      }
+
+      // Separate modifiers (ం -> +, ః -> \u00A6)
+      let modifier = "";
+      if (remaining.endsWith("\u0C02")) { // ం
+        modifier = "+";
+        remaining = remaining.slice(0, -1);
+      } else if (remaining.endsWith("\u0C03")) { // ః
+        modifier = "\u00A6";
+        remaining = remaining.slice(0, -1);
+      }
+
+      const baseSyllable = baseConsonant + remaining;
+      let baseConv = lookupMap[baseSyllable];
+      if (baseConv === undefined) {
+        // Fallback
+        baseConv = (lookupMap[baseConsonant] || "") + (lookupMap[remaining] || "");
+      }
+
+      let hasRaVattu = false;
+      const vattuConvs: string[] = [];
+      for (const vattu of vattuMatches) {
+        if (vattu === "\u0C4D\u0C30") { // ్ర (ra-vattu)
+          hasRaVattu = true;
+        } else {
+          vattuConvs.push(ANU7_VATTUS[vattu] || "");
+        }
+      }
+
+      let res = baseConv;
+      if (hasRaVattu) {
+        res = "\u00E7" + res; // Prepend pre-base ra-vattu
+      }
+      for (const vc of vattuConvs) {
+        res = res + vc; // Append other post-base vattus
+      }
+      res = res + modifier; // Append modifier at the very end
+
+      return res;
+    });
+  } else {
+    // -------------------------------------------------------------
+    // REVERSE CONVERSION (Legacy Anu 7.0 -> Unicode)
+    // -------------------------------------------------------------
+    // Pre-processing: Move ç (pre-base ra-vattu) to the end of the syllable cluster
+    resultText = resultText.replace(/\u00E7([^\s\u00E7]+)/g, '$1\u00E7');
+
+    // Run standard replacement (it contains standalone vattu mappings now)
+    for (const entry of mapping) {
+      if (entry.from && resultText.includes(entry.from)) {
+        resultText = resultText.split(entry.from).join(entry.to);
+      }
+    }
+
+    // Post-reordering 1: Reorder pre-base e-matras (ె, ే, ై, ొ, ో, ౌ) after the consonant
+    resultText = resultText.replace(
+      /([\u0C46\u0C47\u0C48\u0C4A\u0C4B\u0C4C])((?:[\u0C15-\u0C39\u0C58-\u0C5A](?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])*))/g,
+      '$2$1'
+    );
+
+    // Post-reordering 2: Reorder vowel signs (ా, ి, ీ, ు, ూ, etc.) after the post-base vattus
+    resultText = resultText.replace(
+      /([\u0C15-\u0C39\u0C58-\u0C5A])([\u0C3E-\u0C4C])((?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])+)/g,
+      '$1$3$2'
+    );
   }
 
-  // Handle Alternative Raa Vatthu (ర వత్తు) variant glyph code (µ) for Anu fonts
-  if (useAltRaaVatthu && (encoding === 'anu6' || encoding === 'anu7')) {
-    if (!reverse) {
-      // In Unicode -> Non-Unicode, replace standard Raa Vatthu glyph ³ with alternate glyph µ
-      resultText = resultText.split('³').join('µ');
-    } else {
-      // In Non-Unicode -> Unicode, ensure alternate Raa Vatthu glyph µ is also converted to ్ర
-      resultText = resultText.split('µ').join('్ర');
-    }
-  }
-
-  // Detect unmapped Indic characters if forward converting
+  // Detect unmapped Indic characters if forward converting (excluding digits/punctuation)
   const errors: UnmappedError[] = [];
   if (!reverse) {
-    // Check for leftover Telugu (U+0C00-U+0C7F) or Devnagari (U+0900-U+097F) Unicode characters
-    const indicRegex = /[\u0C00-\u0C7F\u0900-\u097F]/g;
+    // Check for leftover Telugu (U+0C00-U+0C7F) Unicode characters
+    const indicRegex = /[\u0C00-\u0C7F]/g;
     let match: RegExpExecArray | null;
     while ((match = indicRegex.exec(resultText)) !== null) {
       const char = match[0];
@@ -118,7 +236,7 @@ export function convertText(
  */
 export async function convertTextAsync(
   inputText: string,
-  encoding: FontEncoding = 'anu6',
+  encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
   useAltRaaVatthu: boolean = false,
   onProgress?: (progressPercent: number) => void

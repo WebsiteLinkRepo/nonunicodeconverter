@@ -10,9 +10,9 @@ interface Props {
 }
 
 const {
-	title = "Unicode To Non-Unicode Converter (Anu 6, Anu 7, Kruti Dev)",
-	description = "Convert Indic Unicode text (Telugu, Hindi, Tamil, Malayalam) to legacy font formats (Anu 6, Anu 7, Shree-Lipi, Kruti Dev, Bamini) instantly for Adobe Photoshop, InDesign & MS Word.",
-	keywords = "unicode to non unicode, unicode to non unicode converter telugu, unicode to non unicode anu 7.0, anu unicode, unicode converter telugu, unicode to non unicode font, hindi unicode to non unicode converter, kruti dev 010 to unicode, mangal to kruti dev converter, unicode to bamini tamil converter, ism revathi malayalam converter, shree lipi telugu converter, indesign telugu font converter, photoshop telugu font converter, anu 6 to unicode converter",
+	title = "Unicode to Anu 7.0 Telugu Converter | legacy Font Converter",
+	description = "Convert Telugu Unicode text to legacy Anu Script 7.0 font formats (Priyanka, Anupama, Subhalekha, Bapu Script, Ramana Script, Gowthami) instantly.",
+	keywords = "unicode to non unicode, unicode to non unicode converter telugu, unicode to non unicode anu 7.0, anu unicode, unicode converter telugu, unicode to non unicode font, indesign telugu font converter, photoshop telugu font converter, anu script 7 telugu converter",
 	lang = 'en'
 } = Astro.props;
 
@@ -20,10 +20,7 @@ const canonicalUrl = lang === 'en' ? 'https://unicode2nonunicode.com/' : `https:
 
 const localeMap: Record<Language, string> = {
 	en: 'en_US',
-	te: 'te_IN',
-	hi: 'hi_IN',
-	ta: 'ta_IN',
-	ml: 'ml_IN'
+	te: 'te_IN'
 };
 const ogLocale = localeMap[lang] || 'en_US';
 ---
@@ -50,9 +47,6 @@ const ogLocale = localeMap[lang] || 'en_US';
 		<!-- International SEO Hreflang Tags -->
 		<link rel="alternate" hreflang="en" href="https://unicode2nonunicode.com/" />
 		<link rel="alternate" hreflang="te" href="https://unicode2nonunicode.com/te" />
-		<link rel="alternate" hreflang="hi" href="https://unicode2nonunicode.com/hi" />
-		<link rel="alternate" hreflang="ta" href="https://unicode2nonunicode.com/ta" />
-		<link rel="alternate" hreflang="ml" href="https://unicode2nonunicode.com/ml" />
 		<link rel="alternate" hreflang="x-default" href="https://unicode2nonunicode.com/" />
 
 		<!-- OpenGraph / Facebook Meta Tags -->
@@ -83,16 +77,15 @@ const ogLocale = localeMap[lang] || 'en_US';
 				"@graph": [
 					{
 						"@type": "WebApplication",
-						"name": "Unicode To Non Unicode Converter",
+						"name": "Unicode to Anu 7.0 Telugu Converter",
 						"alternateName": [
 							"Unicode To Non Unicode Converter Telugu",
 							"Unicode To Non Unicode Anu 7.0",
 							"Anu Unicode Converter",
-							"Kruti Dev Converter",
 							"Unicode Converter Telugu"
 						],
 						"url": "https://unicode2nonunicode.com/",
-						"description": "Free online Unicode To Non Unicode converter for Telugu (Anu 7.0, Anu 6, Anu Unicode), Hindi (Kruti Dev, Shree-Lipi), Tamil (Bamini), and Malayalam (ISM Revathi) for Adobe Photoshop, InDesign and MS Word.",
+						"description": "Free online Unicode to Anu 7.0 Telugu converter for Adobe Photoshop, InDesign, PageMaker and MS Word.",
 						"applicationCategory": "UtilitiesApplication",
 						"operatingSystem": "All",
 						"offers": {
@@ -108,10 +101,10 @@ const ogLocale = localeMap[lang] || 'en_US';
 						"mainEntity": [
 							{
 								"@type": "Question",
-								"name": "How to convert non-Unicode to Unicode?",
+								"name": "How to convert non-Unicode Anu 7.0 to Unicode?",
 								"acceptedAnswer": {
 									"@type": "Answer",
-									"text": "Paste your legacy non-Unicode text (such as Anu 6, Anu 7.0, Kruti Dev 010, Shree-Lipi, or Bamini) into our converter's input box. The tool automatically detects the non-Unicode ASCII encoding and converts it into clean, standard web-ready Unicode instantly."
+									"text": "Paste your legacy non-Unicode Anu 7.0 text into our converter's input box. The tool automatically converts it into clean, standard web-ready Telugu Unicode instantly."
 								}
 							},
 							{
@@ -260,9 +253,6 @@ const ogLocale = localeMap[lang] || 'en_US';
 						>
 							<option value="en" selected={lang === 'en'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">English</option>
 							<option value="te" selected={lang === 'te'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">తెలుగు</option>
-							<option value="hi" selected={lang === 'hi'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">हिंदी</option>
-							<option value="ta" selected={lang === 'ta'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">தமிழ்</option>
-							<option value="ml" selected={lang === 'ml'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">മലയാളം</option>
 						</select>
 						<svg class="w-3 h-3 text-[var(--ink-tertiary)] group-hover:text-[var(--ink)] absolute right-2 pointer-events-none transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
@@ -331,10 +321,8 @@ const ogLocale = localeMap[lang] || 'en_US';
 					<div class="space-y-2.5">
 						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Languages</h4>
 						<ul class="space-y-1.5 text-xs">
-							<li><a href="/te" class="hover:text-[var(--ink)] transition-colors">తెలుగు (Telugu Anu 6/7)</a></li>
-							<li><a href="/hi" class="hover:text-[var(--ink)] transition-colors">हिंदी (Hindi Kruti Dev)</a></li>
-							<li><a href="/ta" class="hover:text-[var(--ink)] transition-colors">தமிழ் (Tamil Bamini)</a></li>
-							<li><a href="/ml" class="hover:text-[var(--ink)] transition-colors">മലയാളം (Malayalam Revathi)</a></li>
+							<li><a href="/" class="hover:text-[var(--ink)] transition-colors">English</a></li>
+							<li><a href="/te" class="hover:text-[var(--ink)] transition-colors">తెలుగు (Telugu Anu 7.0)</a></li>
 						</ul>
 					</div>
 				</div>

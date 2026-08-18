@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name unicode2nonunicode --branch master",
     "astro": "astro"
   },
   "dependencies": {
@@ -16,5 +17,8 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.0",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.121.0"
   }
 }

@@ -8,69 +8,13 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
-const defaultFont = t.defaultFont || 'anu6';
+const defaultFont = 'anu7';
 ---
 
 <div id="converter-root" class="w-full max-w-4xl mx-auto space-y-4" data-lang={lang} data-default-font={defaultFont}>
-  <!-- Font Selector Tabs (Scrollable on mobile, flex-wrap on tablet/desktop) -->
-  <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-2.5 sm:p-3 shadow-sm">
-    <div class="flex flex-col sm:flex-row sm:items-center gap-2 min-w-0 w-full sm:w-auto">
-      <span id="label-select-font" class="text-xs font-semibold text-[var(--ink-secondary)] uppercase tracking-wide flex-shrink-0">SELECT FONT:</span>
-      <div class="flex items-center bg-[var(--canvas)] border border-[var(--hairline)] rounded-lg p-1 gap-1 overflow-x-auto no-scrollbar max-w-full touch-target">
-        <button 
-          type="button" 
-          data-font="anu6" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all bg-[var(--ink)] text-[var(--canvas)] shadow-xs cursor-pointer whitespace-nowrap touch-target"
-        >
-          Anu 6 (Telugu)
-        </button>
-        <button 
-          type="button" 
-          data-font="anu7" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
-        >
-          Anu 7 (Telugu)
-        </button>
-        <button 
-          type="button" 
-          data-font="bamini-tamil" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
-        >
-          Bamini (Tamil)
-        </button>
-        <button 
-          type="button" 
-          data-font="ism-malayalam" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
-        >
-          ISM Revathi (Malayalam)
-        </button>
-        <button 
-          type="button" 
-          data-font="kruti-dev" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
-        >
-          Kruti Dev (Hindi)
-        </button>
-        <button 
-          type="button" 
-          data-font="shree-lipi" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
-        >
-          Shree-Lipi
-        </button>
-        <button 
-          type="button" 
-          data-font="apple-telugu" 
-          class="font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target"
-        >
-          Apple Telugu
-        </button>
-      </div>
-    </div>
-
-    <!-- Smart Auto Status Badge -->
-    <div class="text-xs font-mono text-[var(--ink-secondary)] flex items-center justify-center sm:justify-start gap-1.5 bg-[var(--canvas)] border border-[var(--hairline)] px-2.5 py-1.5 rounded-full shadow-2xs flex-shrink-0">
+  <!-- Header / Smart Auto Status Badge -->
+  <div class="flex justify-end gap-3 rounded-xl">
+    <div class="text-xs font-mono text-[var(--ink-secondary)] flex items-center justify-center sm:justify-start gap-1.5 bg-[var(--canvas)] border border-[var(--hairline)] px-3 py-2 rounded-full shadow-2xs">
       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
       <span id="auto-status" class="truncate">Auto-detecting text format</span>
     </div>
@@ -79,8 +23,8 @@ const defaultFont = t.defaultFont || 'anu6';
   <!-- DTP Helper Options Bar (Uniform Checkboxes) -->
   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-3.5 py-2.5 bg-[var(--canvas-soft-2)] border border-[var(--hairline)] rounded-xl text-xs">
     <div class="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
-      <!-- Alternative Raa Vatthu Checkbox (Only shown for Telugu fonts) -->
-      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+      <!-- Alternative Raa Vatthu Checkbox (Hidden) -->
+      <label id="alt-raa-vatthu-wrapper" class="hidden items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
         <input id="alt-raa-vatthu-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
         <span id="label-alt-raa-vatthu">Alt Raa Vatthu (ర వత్తు)</span>
       </label>
@@ -106,22 +50,17 @@ const defaultFont = t.defaultFont || 'anu6';
         type="button" 
         class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
       >
-        Telugu DTP
+        Telugu Unicode
       </button>
       <button 
         id="sample-nonunicode-btn" 
         type="button" 
         class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
       >
-        Anu 6 Legacy
+        Anu 7.0 Legacy
       </button>
-      <button 
-        id="sample-hindi-btn" 
-        type="button" 
-        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
-      >
-        Hindi
-      </button>
+      <!-- Hidden button so that we do not break any JS querySelectors referencing it -->
+      <button id="sample-hindi-btn" type="button" class="hidden"></button>
     </div>
   </div>
 
@@ -268,10 +207,19 @@ const defaultFont = t.defaultFont || 'anu6';
 
   const rootEl = document.getElementById('converter-root') as HTMLDivElement;
   let currentLang: Language = (rootEl?.dataset.lang as Language) || 'en';
-  let selectedFont: FontEncoding = (rootEl?.dataset.defaultFont as FontEncoding) || 'anu6';
+  let selectedFontStyle = 'priyanka';
   let currentFontSize = 16;
   let historyItems: HistoryItem[] = [];
   let isManualReverse: boolean | null = null;
+
+  const fontStyles: Record<string, string> = {
+    priyanka: 'AnuPriyanka',
+    anupama: 'AnuAnupama',
+    subhalekha: 'AnuSubhalekha',
+    bapu: 'AnuBapu',
+    ramana: 'AnuRamana',
+    gowthami: 'AnuGowthami'
+  };
 
   const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
   const logoTitleText = document.getElementById('logo-title-text') as HTMLSpanElement;
@@ -373,12 +321,10 @@ const defaultFont = t.defaultFont || 'anu6';
     if (historyTitle) historyTitle.textContent = t.historyTitle;
     if (clearHistoryBtn) clearHistoryBtn.textContent = t.clearHistoryBtn;
 
-    updateFontTabsUI();
     processConversion();
   }
 
   updateLanguage(currentLang);
-  updateFontTabsUI();
 
   // AUTOMATIC SANITIZATION: Built-in default behavior for 100% clean Photoshop, InDesign & Word pasting!
   function sanitizeForAdobeAndWord(text: string): string {
@@ -421,56 +367,60 @@ const defaultFont = t.defaultFont || 'anu6';
       }
     }
 
-    const isUnicodeInput = /[\u0C00-\u0C7F\u0900-\u097F\u0B80-\u0BFF\u0D00-\u0D7F]/.test(val);
+    const isUnicodeInput = /[\u0C00-\u0C7F]/.test(val);
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
-
-    const isTeluguFont = ['anu6', 'anu7', 'shree-lipi', 'apple-telugu'].includes(selectedFont);
 
     if (reverse) {
       autoStatus.textContent = 'Non-Unicode ➔ Unicode';
       if (inputBoxTitle) inputBoxTitle.textContent = t.nonUnicodeInputHeader || 'NON-UNICODE TEXT INPUT';
       if (outputBoxTitle) outputBoxTitle.textContent = t.unicodeOutputHeader || 'UNICODE (NORMAL TEXT) OUTPUT';
     } else {
-      const altText = (isTeluguFont && altRaaVatthuChk?.checked) ? ' (Alt Raa Vatthu)' : '';
-      autoStatus.textContent = `Converted to ${activeFontNameLabel(selectedFont)}${altText}`;
+      autoStatus.textContent = `Converted to ${activeFontNameLabel(selectedFontStyle)}`;
       if (inputBoxTitle) inputBoxTitle.textContent = t.inputBoxHeader || 'UNICODE TEXT INPUT';
       if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader || 'NON-UNICODE OUTPUT';
     }
 
-    const useAltRaa = isTeluguFont ? (altRaaVatthuChk?.checked || false) : false;
-    const res = convertText(val, selectedFont, reverse, useAltRaa);
-    
-    // Always sanitize output automatically for Adobe Photoshop & Word
-    const finalOutput = sanitizeForAdobeAndWord(res.convertedText);
+    // Call convertText always with 'anu7'
+    import('../utils/converter').then(({ convertText }) => {
+      const res = convertText(val, 'anu7', reverse, false);
+      
+      // Do NOT sanitize output. Anu fonts intentionally use smart quotes (‘, “, etc.) for Telugu glyphs.
+      // Replacing them with straight quotes breaks characters like 'దీర్ఘం', 'కు', 'క్కని' etc.
+      const finalOutput = res.convertedText;
 
-    outputText.value = finalOutput;
-    charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
+      outputText.value = finalOutput;
+      
+      // Apply correct font style preview
+      outputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
 
-    if (linesStat) linesStat.textContent = res.stats.lineCount.toLocaleString();
-    if (wordsStat) wordsStat.textContent = res.stats.wordCount.toLocaleString();
+      charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
 
-    if (res.stats.unmappedCount > 0) {
-      warningBar.classList.remove('hidden');
-      warningMsg.textContent = t.unmappedNotice;
-      const uniqueUnmapped = Array.from(new Set(res.errors.map(e => e.char))).slice(0, 8).join(', ');
-      warningCharsList.textContent = `Chars: ${uniqueUnmapped}`;
-    } else {
-      warningBar.classList.add('hidden');
-    }
+      if (linesStat) linesStat.textContent = res.stats.lineCount.toLocaleString();
+      if (wordsStat) wordsStat.textContent = res.stats.wordCount.toLocaleString();
 
-    saveToHistoryDebounced(val, finalOutput, selectedFont);
+      if (res.stats.unmappedCount > 0) {
+        warningBar.classList.remove('hidden');
+        warningMsg.textContent = t.unmappedNotice;
+        const uniqueUnmapped = Array.from(new Set(res.errors.map(e => e.char))).slice(0, 8).join(', ');
+        warningCharsList.textContent = `Chars: ${uniqueUnmapped}`;
+      } else {
+        warningBar.classList.add('hidden');
+      }
+
+      saveToHistoryDebounced(val, finalOutput, selectedFontStyle);
+    });
   }
 
   let historyTimeout: any;
-  function saveToHistoryDebounced(input: string, output: string, font: string) {
+  function saveToHistoryDebounced(input: string, output: string, fontStyle: string) {
     clearTimeout(historyTimeout);
     if (!input || input.trim().length < 3) return;
     historyTimeout = setTimeout(() => {
-      addToHistory(input, output, font);
+      addToHistory(input, output, fontStyle);
     }, 1500);
   }
 
-  function addToHistory(input: string, output: string, font: string) {
+  function addToHistory(input: string, output: string, fontStyle: string) {
     const existingIndex = historyItems.findIndex(item => item.input === input);
     if (existingIndex !== -1) {
       historyItems.splice(existingIndex, 1);
@@ -479,7 +429,7 @@ const defaultFont = t.defaultFont || 'anu6';
       id: Date.now().toString(),
       input,
       output,
-      font,
+      font: fontStyle,
       timestamp: Date.now()
     });
     if (historyItems.length > 8) historyItems.pop();
@@ -522,8 +472,7 @@ const defaultFont = t.defaultFont || 'anu6';
         const item = historyItems.find(i => i.id === id);
         if (item) {
           inputText.value = item.input;
-          selectedFont = item.font as FontEncoding;
-          updateFontTabsUI();
+          selectedFontStyle = item.font;
           processConversion();
         }
       });
@@ -556,27 +505,21 @@ const defaultFont = t.defaultFont || 'anu6';
 
   // Preset Sample Click Handlers
   sampleTeluguBtn?.addEventListener('click', () => {
-    selectedFont = 'anu6';
+    selectedFontStyle = 'priyanka';
     isManualReverse = false;
-    updateFontTabsUI();
-    inputText.value = "ప్రస్తుత డిటిపి పనులలో తెలుగు యూనికోడ్ పాఠ్యాన్ని అను 6 మరియు అను 7 నాన్-యూనికోడ్ ఫాంట్లలోకి మార్చడం చాలా తేలిక.";
+    inputText.value = "స్త్రీలు, లక్ష్మి, స్వాతంత్ర్యం, మత్స్యం వంటి పదాలు కూడా ఇప్పుడు తప్పులు లేకుండా కన్వర్ట్ అవుతాయి.";
     processConversion();
   });
 
   sampleNonunicodeBtn?.addEventListener('click', () => {
-    selectedFont = 'anu6';
+    selectedFontStyle = 'priyanka';
     isManualReverse = true;
-    updateFontTabsUI();
-    inputText.value = "pÈ{ÄcÄ zÅtÂaÌmÎ tÁtÎ-zÅtÂaÌmÎ mÂkÂuÂ uBtÄ{ÂaÂ yÁAÎa¥Â.";
+    inputText.value = "çdÓï eTÔáà«+ kÍÇÔá+çÔá«+";
     processConversion();
   });
 
   sampleHindiBtn?.addEventListener('click', () => {
-    selectedFont = 'kruti-dev';
-    isManualReverse = false;
-    updateFontTabsUI();
-    inputText.value = "कृति देव और यूनिकोड पाठ्य रूप परिवर्तन अत्यंत सरल और तीव्र गति से होता है।";
-    processConversion();
+    // Hidden dummy button helper
   });
 
   swapBtn?.addEventListener('click', () => {
@@ -584,11 +527,11 @@ const defaultFont = t.defaultFont || 'anu6';
     const currentOutput = outputText.value;
 
     if (currentOutput && currentOutput.trim().length > 0) {
-      const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F\u0B80-\u0BFF\u0D00-\u0D7F]/.test(currentOutput);
+      const isOutputUnicode = /[\u0C00-\u0C7F]/.test(currentOutput);
       inputText.value = currentOutput;
       isManualReverse = !isOutputUnicode;
     } else if (currentInput && currentInput.trim().length > 0) {
-      const isInputUnicode = /[\u0C00-\u0C7F\u0900-\u097F\u0B80-\u0BFF\u0D00-\u0D7F]/.test(currentInput);
+      const isInputUnicode = /[\u0C00-\u0C7F]/.test(currentInput);
       const currentReverse = isManualReverse !== null ? isManualReverse : !isInputUnicode;
       isManualReverse = !currentReverse;
     } else {
@@ -601,75 +544,84 @@ const defaultFont = t.defaultFont || 'anu6';
     processConversion();
   });
 
-  fontTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      selectedFont = (tab.dataset.font || 'anu6') as FontEncoding;
-      updateFontTabsUI();
-      processConversion();
-    });
-  });
-
-  function updateFontTabsUI() {
-    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-
-    fontTabs.forEach(tab => {
-      const font = tab.dataset.font as FontEncoding;
-      if (font && t.fonts) {
-        if (font === 'anu6') tab.textContent = t.fonts.anu6;
-        else if (font === 'anu7') tab.textContent = t.fonts.anu7;
-        else if (font === 'bamini-tamil') tab.textContent = t.fonts.bamini;
-        else if (font === 'ism-malayalam') tab.textContent = t.fonts.malayalam;
-        else if (font === 'kruti-dev') tab.textContent = t.fonts.krutiDev;
-        else if (font === 'shree-lipi') tab.textContent = t.fonts.shreeLipi;
-        else if (font === 'apple-telugu') tab.textContent = t.fonts.appleTelugu;
-      }
-
-      if (tab.dataset.font === selectedFont) {
-        tab.className = 'font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all bg-[var(--ink)] text-[var(--canvas)] shadow-xs cursor-pointer whitespace-nowrap touch-target';
-      } else {
-        tab.className = 'font-tab font-semibold text-xs px-3 py-1.5 rounded-md transition-all text-[var(--ink-secondary)] hover:text-[var(--ink)] cursor-pointer whitespace-nowrap touch-target';
-      }
-    });
-
-    // Toggle Alt Raa Vatthu visibility (Only show for Telugu fonts)
-    const isTeluguFont = ['anu6', 'anu7', 'shree-lipi', 'apple-telugu'].includes(selectedFont);
-    if (altRaaVatthuWrapper) {
-      altRaaVatthuWrapper.style.display = isTeluguFont ? 'flex' : 'none';
-    }
-
-    if (activeFontLabel) {
-      activeFontLabel.textContent = activeFontNameLabel(selectedFont);
-    }
-  }
-
-  function activeFontNameLabel(font: FontEncoding): string {
-    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
-    if (t.fonts) {
-      if (font === 'anu6') return t.fonts.anu6;
-      if (font === 'anu7') return t.fonts.anu7;
-      if (font === 'kruti-dev') return t.fonts.krutiDev;
-      if (font === 'bamini-tamil') return t.fonts.bamini;
-      if (font === 'ism-malayalam') return t.fonts.malayalam;
-      if (font === 'shree-lipi') return t.fonts.shreeLipi;
-      if (font === 'apple-telugu') return t.fonts.appleTelugu;
-    }
-    return font.toUpperCase();
+  function activeFontNameLabel(style: string): string {
+    return 'Anu 7.0';
   }
 
   // Initial call to set UI states
-  updateFontTabsUI();
+  outputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+  if (activeFontLabel) {
+    activeFontLabel.textContent = activeFontNameLabel(selectedFontStyle);
+  }
+
+  const cp1252: Record<number, number> = {
+    0x20AC: 0x80, 0x201A: 0x82, 0x0192: 0x83, 0x201E: 0x84, 0x2026: 0x85, 0x2020: 0x86, 0x2021: 0x87,
+    0x02C6: 0x88, 0x2030: 0x89, 0x0160: 0x8A, 0x2039: 0x8B, 0x0152: 0x8C, 0x017D: 0x8E, 0x2018: 0x91,
+    0x2019: 0x92, 0x201C: 0x93, 0x201D: 0x94, 0x2022: 0x95, 0x2013: 0x96, 0x2014: 0x97, 0x02DC: 0x98,
+    0x2122: 0x99, 0x0161: 0x9A, 0x203A: 0x9B, 0x0153: 0x9C, 0x017E: 0x9E, 0x0178: 0x9F
+  };
+
+  function charToWin1252(char: string): number {
+    const code = char.charCodeAt(0);
+    if (cp1252[code]) return cp1252[code];
+    if (code <= 255) return code;
+    return 63; // '?' fallback
+  }
+
+  function generateRTF(text: string, fontName: string): string {
+    let rtf = `{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 ${fontName};}}\n\\viewkind4\\uc1\\pard\\lang1033\\f0\\fs24 `;
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      if (char === '\n') {
+        rtf += '\\par\n';
+      } else if (char === '\r') {
+        // ignore
+      } else if (char === '\\') {
+        rtf += '\\\\';
+      } else if (char === '{') {
+        rtf += '\\{';
+      } else if (char === '}') {
+        rtf += '\\}';
+      } else {
+        const code = charToWin1252(char);
+        if (code > 127 || code < 32) {
+          rtf += `\\` + `'` + code.toString(16).padStart(2, '0');
+        } else {
+          rtf += char;
+        }
+      }
+    }
+    rtf += '}';
+    return rtf;
+  }
 
   // Copy Output Handler
   copyBtn.addEventListener('click', async () => {
-    let val = sanitizeForAdobeAndWord(outputText.value);
+    let val = outputText.value;
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     if (!val) {
       inputText.focus();
       return;
     }
 
-    try {
-      await navigator.clipboard.writeText(val);
+    const rtfText = generateRTF(val, fontStyles[selectedFontStyle] || 'AnuPriyanka');
+
+    let success = false;
+    const listener = (e: ClipboardEvent) => {
+      e.preventDefault();
+      if (e.clipboardData) {
+        e.clipboardData.setData('text/plain', val);
+        e.clipboardData.setData('text/rtf', rtfText);
+        success = true;
+      }
+    };
+
+    outputText.select();
+    document.addEventListener('copy', listener);
+    const result = document.execCommand('copy');
+    document.removeEventListener('copy', listener);
+
+    if (success && result) {
       copyBtnText.textContent = t.copiedBtn;
       copyBtn.classList.remove('bg-[var(--ink)]');
       copyBtn.classList.add('bg-emerald-600', 'text-white');
@@ -679,19 +631,21 @@ const defaultFont = t.defaultFont || 'anu6';
         copyBtn.classList.remove('bg-emerald-600', 'text-white');
         copyBtn.classList.add('bg-[var(--ink)]');
       }, 2000);
-    } catch {
-      outputText.select();
-      document.execCommand('copy');
-      copyBtnText.textContent = t.copiedBtn;
-      setTimeout(() => {
-        copyBtnText.textContent = t.copyBtn;
-      }, 2000);
+    } else {
+      // Fallback
+      try {
+        await navigator.clipboard.writeText(val);
+        copyBtnText.textContent = t.copiedBtn;
+        setTimeout(() => copyBtnText.textContent = t.copyBtn, 2000);
+      } catch (err) {
+        console.error('Failed to copy', err);
+      }
     }
   });
 
   // Download Output Handler (.txt)
   downloadBtn?.addEventListener('click', () => {
-    let text = sanitizeForAdobeAndWord(outputText.value);
+    let text = outputText.value;
     if (!text) {
       inputText.focus();
       return;
@@ -700,7 +654,7 @@ const defaultFont = t.defaultFont || 'anu6';
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `converted-${selectedFont}-${Date.now()}.txt`;
+    a.download = `converted-${selectedFontStyle}-${Date.now()}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -712,7 +666,11 @@ const defaultFont = t.defaultFont || 'anu6';
     try {
       const text = await navigator.clipboard.readText();
       if (text) {
-        inputText.value = text;
+        const start = inputText.selectionStart;
+        const end = inputText.selectionEnd;
+        inputText.value = inputText.value.substring(0, start) + text + inputText.value.substring(end);
+        inputText.selectionStart = inputText.selectionEnd = start + text.length;
+        inputText.focus();
         processConversion();
       }
     } catch {
