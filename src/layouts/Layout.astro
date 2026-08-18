@@ -218,12 +218,10 @@ const ogLocale = localeMap[lang] || 'en_US';
 			}
 		</script>
 	</head>
-	<body class="min-h-screen bg-[var(--canvas)] text-[var(--ink)] font-sans antialiased flex flex-col selection:bg-[var(--ink)] selection:text-[var(--canvas)] relative">
-		<!-- Subtle Light Reflection Background -->
-		<div class="fixed inset-0 -z-10 h-full w-full bg-[var(--canvas)] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]"></div>
+	<body class="min-h-screen bg-[var(--canvas)] text-[var(--ink)] font-sans antialiased flex flex-col selection:bg-[var(--ink)] selection:text-[var(--canvas)]">
 		
 		<!-- Main Header Bar -->
-		<header class="border-b border-[var(--hairline)] bg-[var(--canvas-soft)]/80 sticky top-0 z-40 backdrop-blur-md">
+		<header class="border-b border-[var(--hairline)] bg-[var(--canvas-soft)]/90 sticky top-0 z-40 backdrop-blur-xl">
 			<div class="max-w-6xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2">
 				<!-- Brand / Logo -->
 				<a href="/" class="flex items-center gap-2 group cursor-pointer min-w-0 flex-shrink">

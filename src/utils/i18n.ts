@@ -41,12 +41,12 @@ export interface Translations {
 
 export const TRANSLATIONS: Record<Language, Translations> = {
   en: {
-    siteTitle: "Unicode to Anu 7.0 Converter",
-    title: "Unicode to Anu 7.0 Telugu Font Converter",
-    subtitle: "Convert Telugu Unicode text to legacy Anu Script 7.0 font formats in 1 click.",
+    siteTitle: "Unicode to Non-Unicode",
+    title: "Unicode to Non-Unicode Converter",
+    subtitle: "Convert Telugu Unicode text to legacy Anu Script font formats instantly.",
     metaTitle: "Unicode to Anu 7.0 Converter Online | Legacy Telugu Font Converter",
     metaDescription: "Convert Telugu Unicode to legacy Anu Script 7.0 font layout. Free online converter for Photoshop, PageMaker, and InDesign DTP typesetting.",
-    h1: "Unicode to Anu 7.0 Telugu Converter",
+    h1: "Unicode to Non-Unicode Converter",
     keywords: "unicode to non unicode, unicode to non unicode converter telugu, unicode to non unicode anu 7.0, anu unicode, unicode converter telugu, unicode to non unicode font, indesign telugu font converter, photoshop telugu font converter, anu script 7 telugu converter, priyanka telugu font converter, anupama telugu font converter",
     defaultFont: "anu7",
     selectFontLabel: "FONT STYLE:",
