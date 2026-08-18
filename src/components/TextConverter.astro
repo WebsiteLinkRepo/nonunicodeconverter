@@ -23,11 +23,24 @@ const defaultFont = 'anu7';
   <!-- DTP Helper Options Bar (Uniform Checkboxes) -->
   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-3.5 py-2.5 bg-[var(--canvas-soft-2)] border border-[var(--hairline)] rounded-xl text-xs">
     <div class="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
-      <!-- Alternative Raa Vatthu Checkbox (Hidden) -->
-      <label id="alt-raa-vatthu-wrapper" class="hidden items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
-        <input id="alt-raa-vatthu-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
-        <span id="label-alt-raa-vatthu">Alt Raa Vatthu (ర వత్తు)</span>
-      </label>
+      
+      <!-- Font Version Selector -->
+      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
+        <label for="font-version-select">Format:</label>
+        <select id="font-version-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
+          <option value="anu7">Anu 7.0</option>
+          <option value="anu6">Anu 6.0 (Exp)</option>
+        </select>
+      </div>
+
+      <!-- Script Selector -->
+      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
+        <label for="script-select">Script:</label>
+        <select id="script-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
+          <option value="telugu">Telugu</option>
+          <option value="hindi">Hindi (Mangal)</option>
+        </select>
+      </div>
 
       <!-- Clean Extra Lines Checkbox -->
       <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
@@ -40,6 +53,18 @@ const defaultFont = 'anu7';
         <input id="convert-digits-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
         <span id="label-convert-digits">Convert Digits (123 ↔ ౧౨౩)</span>
       </label>
+
+      <!-- Alt Raa Vatthu Checkbox -->
+      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="alt-raa-vatthu-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+        <span id="label-alt-raa-vatthu" title="Use Type-2 (Right-to-Left) Ra Vatthu for Aaradhana, Amrutha, Bapu, etc.">Alternative Raa Vatthu (Type-2)</span>
+      </label>
+
+      <!-- Auto-copy Checkbox -->
+      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="auto-copy-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" checked />
+        <span id="label-auto-copy">Auto-copy Output</span>
+      </label>
     </div>
 
     <!-- Preset Sample Buttons -->
@@ -48,14 +73,14 @@ const defaultFont = 'anu7';
       <button 
         id="sample-telugu-btn" 
         type="button" 
-        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
+        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Telugu Unicode
       </button>
       <button 
         id="sample-nonunicode-btn" 
         type="button" 
-        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target"
+        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Anu 7.0 Legacy
       </button>
@@ -67,7 +92,7 @@ const defaultFont = 'anu7';
   <!-- Dual Text Boxes -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Unicode / Text Input Box -->
-    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden focus-within:border-[var(--hairline-strong)] shadow-xs transition-colors">
+    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden focus-within:border-[var(--hairline-strong)] focus-within:ring-2 focus-within:ring-[var(--brand-blue)]/20 shadow-sm transition-all duration-200">
       <div class="flex items-center justify-between px-3.5 py-2.5 bg-[var(--canvas-soft)] border-b border-[var(--hairline)]">
         <span id="input-box-title" class="font-semibold text-xs uppercase tracking-wider text-[var(--ink)] flex items-center gap-1.5">
           UNICODE TEXT INPUT
@@ -81,6 +106,7 @@ const defaultFont = 'anu7';
           >
             <span>⇄ Swap</span>
           </button>
+          
           <button 
             id="paste-btn" 
             type="button" 
@@ -88,12 +114,22 @@ const defaultFont = 'anu7';
           >
             Paste Text
           </button>
+          
+          <button 
+            id="remove-english-btn" 
+            type="button" 
+            title="Remove all English characters (A-Z, a-z)"
+            class="px-2 py-1.5 text-xs font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-red-600 hover:border-red-200 transition-all cursor-pointer touch-target"
+          >
+            Clean English
+          </button>
+          
           <button 
             id="clear-btn" 
             type="button" 
-            class="px-2 py-1.5 text-xs text-[var(--ink-secondary)] hover:text-red-500 transition-colors cursor-pointer touch-target"
+            class="px-2 py-1.5 text-xs font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-red-600 hover:border-red-200 transition-colors cursor-pointer touch-target"
           >
-            Clear
+            Clear All
           </button>
         </div>
       </div>
@@ -380,9 +416,17 @@ const defaultFont = 'anu7';
       if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader || 'NON-UNICODE OUTPUT';
     }
 
-    // Call convertText always with 'anu7'
+    const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
+    const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
+
+    const scriptSelect = document.getElementById('script-select') as HTMLSelectElement;
+    const script = scriptSelect ? (scriptSelect.value as any) : 'telugu';
+
     import('../utils/converter').then(({ convertText }) => {
-      const res = convertText(val, 'anu7', reverse, false);
+      const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
+      const useAltRaaVatthu = altRaaVatthuChk ? altRaaVatthuChk.checked : false;
+
+      const res = convertText(val, encoding, reverse, useAltRaaVatthu, script);
       
       // Do NOT sanitize output. Anu fonts intentionally use smart quotes (‘, “, etc.) for Telugu glyphs.
       // Replacing them with straight quotes breaks characters like 'దీర్ఘం', 'కు', 'క్కని' etc.
@@ -391,7 +435,13 @@ const defaultFont = 'anu7';
       outputText.value = finalOutput;
       
       // Apply correct font style preview
-      outputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+      if (reverse) {
+        inputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+        outputText.style.fontFamily = script === 'hindi' ? 'Mangal, sans-serif' : 'sans-serif';
+      } else {
+        inputText.style.fontFamily = script === 'hindi' ? 'Mangal, sans-serif' : 'sans-serif';
+        outputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+      }
 
       charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
 
@@ -408,6 +458,22 @@ const defaultFont = 'anu7';
       }
 
       saveToHistoryDebounced(val, finalOutput, selectedFontStyle);
+
+      // Auto-copy functionality
+      const autoCopyChk = document.getElementById('auto-copy-chk') as HTMLInputElement;
+      if (autoCopyChk && autoCopyChk.checked && finalOutput) {
+        try {
+          navigator.clipboard.writeText(finalOutput).then(() => {
+            if (copyBtnText) {
+              const oldText = copyBtnText.textContent;
+              copyBtnText.textContent = "COPIED AUTO!";
+              setTimeout(() => copyBtnText.textContent = oldText, 1500);
+            }
+          });
+        } catch (e) {
+          // ignore auto-copy errors
+        }
+      }
     });
   }
 
@@ -497,6 +563,23 @@ const defaultFont = 'anu7';
   inputText.addEventListener('input', processConversion);
   cleanSpacesChk?.addEventListener('change', processConversion);
   convertDigitsChk?.addEventListener('change', processConversion);
+  
+  const fontVersionSelectEl = document.getElementById('font-version-select') as HTMLSelectElement;
+  if (fontVersionSelectEl) {
+    fontVersionSelectEl.addEventListener('change', () => {
+      if (activeFontLabel) {
+        activeFontLabel.textContent = fontVersionSelectEl.value === 'anu6' ? 'Anu 6.0' : 'Anu 7.0';
+      }
+      processConversion();
+    });
+  }
+
+  const scriptSelectEl = document.getElementById('script-select') as HTMLSelectElement;
+  if (scriptSelectEl) {
+    scriptSelectEl.addEventListener('change', () => {
+      processConversion();
+    });
+  }
 
   altRaaVatthuChk?.addEventListener('change', () => {
     localStorage.setItem('altRaaVatthu', altRaaVatthuChk.checked.toString());
@@ -691,4 +774,14 @@ const defaultFont = 'anu7';
     warningBar.classList.add('hidden');
     inputText.focus();
   });
+
+  // Remove English Handler
+  const removeEnglishBtn = document.getElementById('remove-english-btn');
+  if (removeEnglishBtn) {
+    removeEnglishBtn.addEventListener('click', () => {
+      // Remove A-Z, a-z
+      inputText.value = inputText.value.replace(/[A-Za-z]/g, '');
+      processConversion();
+    });
+  }
 </script>

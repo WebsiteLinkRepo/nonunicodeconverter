@@ -1,0 +1,16 @@
+  inputText.addEventListener('input', processConversion);
+  cleanSpacesChk?.addEventListener('change', processConversion);
+  convertDigitsChk?.addEventListener('change', processConversion);
+  
+  const fontVersionSelectEl = document.getElementById('font-version-select');
+  if (fontVersionSelectEl) {
+    fontVersionSelectEl.addEventListener('change', () => {
+      // update active font label text based on select value
+      if (activeFontLabel) {
+        activeFontLabel.textContent = fontVersionSelectEl.value === 'anu6' ? 'Anu 6.0' : 'Anu 7.0';
+      }
+      processConversion();
+    });
+  }
+
+  altRaaVatthuChk?.addEventListener('change', () => {

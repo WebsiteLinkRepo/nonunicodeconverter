@@ -1,0 +1,25 @@
+  <!-- DTP Helper Options Bar (Uniform Checkboxes) -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-3.5 py-2.5 bg-[var(--canvas-soft-2)] border border-[var(--hairline)] rounded-xl text-xs">
+    <div class="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+      
+      <!-- Font Version Selector -->
+      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
+        <label for="font-version-select">Format:</label>
+        <select id="font-version-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)]">
+          <option value="anu7">Anu 7.0</option>
+          <option value="anu6">Anu 6.0 (Experimental)</option>
+        </select>
+      </div>
+
+      <!-- Clean Extra Lines Checkbox -->
+      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="clean-spaces-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+        <span id="label-clean-spaces">Clean Linebreaks</span>
+      </label>
+
+      <!-- Convert Numbers Checkbox -->
+      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <input id="convert-digits-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+        <span id="label-convert-digits">Convert Digits (123 ↔ ౧౨౩)</span>
+      </label>
+    </div>

@@ -73,7 +73,8 @@ export function convertText(
   inputText: string,
   encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
-  useAltRaaVatthu: boolean = false
+  useAltRaaVatthu: boolean = false,
+  script: 'telugu' | 'hindi' = 'telugu'
 ): ConversionResult {
   const startTime = performance.now();
 
@@ -95,7 +96,18 @@ export function convertText(
   const mapping = getMapping(encoding, reverse);
   let resultText = inputText;
 
+  // Auto-transliterate Devanagari (Hindi) to Telugu for Anu fonts before processing
+  // This allows Hindi users to just paste Mangal font and get it converted to Anu
+  if (!reverse || (reverse && script === 'hindi')) {
+      // In forward conversion, we ALWAYS map Devanagari to Telugu before checking the mapping array.
+      // In reverse conversion, this block won't be hit unless we add post-processing later.
+  }
+  
   if (!reverse) {
+    resultText = resultText.replace(/[\u0900-\u097F]/g, (char) => {
+      return String.fromCharCode(char.charCodeAt(0) + 0x0300);
+    });
+
     // -------------------------------------------------------------
     // FORWARD CONVERSION (Unicode -> Legacy Anu 7.0)
     // -------------------------------------------------------------
@@ -191,6 +203,13 @@ export function convertText(
       /([\u0C15-\u0C39\u0C58-\u0C5A])([\u0C3E-\u0C4C])((?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])+)/g,
       '$1$3$2'
     );
+    
+    // Post-processing: Map back to Hindi (Devanagari) if script is hindi
+    if (script === 'hindi') {
+      resultText = resultText.replace(/[\u0C00-\u0C7F]/g, (char) => {
+        return String.fromCharCode(char.charCodeAt(0) - 0x0300);
+      });
+    }
   }
 
   // Detect unmapped Indic characters if forward converting (excluding digits/punctuation)
@@ -239,11 +258,12 @@ export async function convertTextAsync(
   encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
   useAltRaaVatthu: boolean = false,
+  script: 'telugu' | 'hindi' = 'telugu',
   onProgress?: (progressPercent: number) => void
 ): Promise<ConversionResult> {
   const CHUNK_SIZE = 10000;
   if (inputText.length <= CHUNK_SIZE) {
-    return convertText(inputText, encoding, reverse, useAltRaaVatthu);
+    return convertText(inputText, encoding, reverse, useAltRaaVatthu, script);
   }
 
   const startTime = performance.now();
@@ -254,7 +274,7 @@ export async function convertTextAsync(
 
   for (let i = 0; i < lines.length; i += 200) {
     const chunkLines = lines.slice(i, i + 200).join('\n');
-    const chunkResult = convertText(chunkLines, encoding, reverse, useAltRaaVatthu);
+    const chunkResult = convertText(chunkLines, encoding, reverse, useAltRaaVatthu, script);
     convertedChunks.push(chunkResult.convertedText);
     totalErrors = totalErrors.concat(chunkResult.errors);
 

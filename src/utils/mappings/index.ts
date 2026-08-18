@@ -1,8 +1,9 @@
 import { ANU7_UNICODE_TO_NONUNICODE } from './anu7';
+import { ANU6_UNICODE_TO_NONUNICODE } from './anu6';
 
-export type FontEncoding = 'anu7';
+export type FontEncoding = 'anu7' | 'anu6';
 
-export type ScriptLanguage = 'telugu';
+export type ScriptLanguage = 'telugu' | 'hindi';
 
 export interface FontOption {
   id: FontEncoding;
@@ -16,16 +17,27 @@ export interface FontOption {
 export const AVAILABLE_FONTS: FontOption[] = [
   {
     id: 'anu7',
-    name: 'Anu 7 (Anu Script)',
+    name: 'Anu 7.0',
     family: 'AnuScript7',
     script: 'telugu',
     description: 'Updated Anu Script 7 font layout for Telugu',
     fallbackFontFamily: "'AnuScript7', sans-serif"
+  },
+  {
+    id: 'anu6',
+    name: 'Anu 6.0 (Experimental)',
+    family: 'AnuScript6',
+    script: 'telugu',
+    description: 'Anu Script 6 font layout for Telugu (Experimental)',
+    fallbackFontFamily: "'AnuScript6', sans-serif"
   }
 ];
 
 export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
-  const mappingList = ANU7_UNICODE_TO_NONUNICODE;
+  let mappingList = ANU7_UNICODE_TO_NONUNICODE;
+  if (encoding === 'anu6') {
+    mappingList = ANU6_UNICODE_TO_NONUNICODE;
+  }
 
   if (reverse) {
     // Filter out archaic characters to prevent legacy strings mapping back to rare/incorrect letters (like ఴ, ఩)
@@ -38,4 +50,3 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
 
   return [...mappingList].sort((a, b) => b.from.length - a.from.length);
 }
-

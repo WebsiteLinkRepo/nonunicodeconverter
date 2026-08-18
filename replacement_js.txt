@@ -1,0 +1,5 @@
+    const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
+    const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
+
+    import('../utils/converter').then(({ convertText }) => {
+      const res = convertText(val, encoding, reverse, false);
