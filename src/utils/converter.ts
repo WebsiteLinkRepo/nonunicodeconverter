@@ -220,10 +220,11 @@ export function convertText(
     let match: RegExpExecArray | null;
     while ((match = indicRegex.exec(resultText)) !== null) {
       const char = match[0];
-      const codePoint = `U+${char.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
+      const displayChar = script === 'hindi' ? String.fromCharCode(char.charCodeAt(0) - 0x0300) : char;
+      const codePoint = `U+${displayChar.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
       errors.push({
         index: match.index,
-        char,
+        char: displayChar,
         codePoint,
         reason: `No mapping found in target font (${encoding.toUpperCase()})`
       });

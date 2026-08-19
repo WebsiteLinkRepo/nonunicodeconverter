@@ -403,7 +403,7 @@ const defaultFont = 'anu7';
       }
     }
 
-    const isUnicodeInput = /[\u0C00-\u0C7F]/.test(val);
+    const isUnicodeInput = /[\u0C00-\u0C7F\u0900-\u097F]/.test(val);
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
 
     if (reverse) {
@@ -610,11 +610,11 @@ const defaultFont = 'anu7';
     const currentOutput = outputText.value;
 
     if (currentOutput && currentOutput.trim().length > 0) {
-      const isOutputUnicode = /[\u0C00-\u0C7F]/.test(currentOutput);
+      const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(currentOutput);
       inputText.value = currentOutput;
       isManualReverse = !isOutputUnicode;
     } else if (currentInput && currentInput.trim().length > 0) {
-      const isInputUnicode = /[\u0C00-\u0C7F]/.test(currentInput);
+      const isInputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(currentInput);
       const currentReverse = isManualReverse !== null ? isManualReverse : !isInputUnicode;
       isManualReverse = !currentReverse;
     } else {
