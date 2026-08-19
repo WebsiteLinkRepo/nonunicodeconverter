@@ -50,7 +50,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     keywords: "unicode to non unicode, unicode to non unicode converter telugu, unicode to non unicode anu 7.0, anu unicode, unicode converter telugu, unicode to non unicode font, indesign telugu font converter, photoshop telugu font converter, anu script 7 telugu converter, priyanka telugu font converter, anupama telugu font converter",
     defaultFont: "anu7",
     selectFontLabel: "FONT STYLE:",
-    autoDetectNotice: "Auto-detecting Telugu text format",
+    autoDetectNotice: "Auto-detecting text format",
     cleanSpacesLabel: "Clean Linebreaks & Spaces",
     convertDigitsLabel: "Convert Digits (123 ↔ ౧౨౩)",
     altRaaVatthuLabel: "Alt Raa Vatthu (ర వత్తు)",

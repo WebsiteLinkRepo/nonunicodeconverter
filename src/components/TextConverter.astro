@@ -43,26 +43,38 @@ const defaultFont = 'anu7';
       </div>
 
       <!-- Clean Extra Lines Checkbox -->
-      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
-        <input id="clean-spaces-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+      <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <div class="relative flex items-center">
+          <input id="clean-spaces-chk" type="checkbox" class="sr-only peer" />
+          <div class="w-7 h-4 bg-[var(--hairline-strong)] opacity-50 peer-checked:opacity-100 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--canvas)] after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[var(--ink)]"></div>
+        </div>
         <span id="label-clean-spaces">Clean Linebreaks</span>
       </label>
 
       <!-- Convert Numbers Checkbox -->
-      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
-        <input id="convert-digits-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+      <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <div class="relative flex items-center">
+          <input id="convert-digits-chk" type="checkbox" class="sr-only peer" />
+          <div class="w-7 h-4 bg-[var(--hairline-strong)] opacity-50 peer-checked:opacity-100 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--canvas)] after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[var(--ink)]"></div>
+        </div>
         <span id="label-convert-digits">Convert Digits (123 ↔ ౧౨౩)</span>
       </label>
 
       <!-- Alt Raa Vatthu Checkbox -->
-      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
-        <input id="alt-raa-vatthu-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" />
+      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <div class="relative flex items-center">
+          <input id="alt-raa-vatthu-chk" type="checkbox" class="sr-only peer" />
+          <div class="w-7 h-4 bg-[var(--hairline-strong)] opacity-50 peer-checked:opacity-100 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--canvas)] after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[var(--ink)]"></div>
+        </div>
         <span id="label-alt-raa-vatthu" title="Use Type-2 (Right-to-Left) Ra Vatthu for Aaradhana, Amrutha, Bapu, etc.">Alternative Raa Vatthu (Type-2)</span>
       </label>
 
       <!-- Auto-copy Checkbox -->
-      <label class="flex items-center gap-1.5 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
-        <input id="auto-copy-chk" type="checkbox" class="accent-[var(--ink)] rounded cursor-pointer w-4 h-4" checked />
+      <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+        <div class="relative flex items-center">
+          <input id="auto-copy-chk" type="checkbox" class="sr-only peer" checked />
+          <div class="w-7 h-4 bg-[var(--hairline-strong)] opacity-50 peer-checked:opacity-100 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--canvas)] after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[var(--ink)]"></div>
+        </div>
         <span id="label-auto-copy">Auto-copy Output</span>
       </label>
     </div>
@@ -378,6 +390,34 @@ const defaultFont = 'anu7';
     let val = inputText.value;
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
+    const scriptSelect = document.getElementById('script-select') as HTMLSelectElement;
+    
+    if (val) {
+      const hasTelugu = /[\u0C00-\u0C7F]/.test(val);
+      const hasHindi = /[\u0900-\u097F]/.test(val);
+      if (hasHindi && !hasTelugu && scriptSelect) {
+        scriptSelect.value = 'hindi';
+      } else if (hasTelugu && !hasHindi && scriptSelect) {
+        scriptSelect.value = 'telugu';
+      }
+    }
+
+    const script = scriptSelect ? (scriptSelect.value as any) : 'telugu';
+
+    if (script === 'hindi') {
+      sampleTeluguBtn?.classList.add('hidden');
+      sampleHindiBtn?.classList.remove('hidden');
+      if (sampleHindiBtn && sampleTeluguBtn) {
+        sampleHindiBtn.className = sampleTeluguBtn.className;
+        sampleHindiBtn.textContent = 'Hindi Unicode';
+      }
+      if (inputText) inputText.placeholder = currentLang === 'te' ? "మీ హిందీ యూనికోడ్ టెక్స్ట్ ఇక్కడ పేస్ట్ చేయండి... (उदाहरण: हिंदी भारत की राजभाषा है)" : "Paste Hindi Unicode text here... (उदाहरण: हिंदी भारत की राजभाषा है)";
+    } else {
+      sampleHindiBtn?.classList.add('hidden');
+      sampleTeluguBtn?.classList.remove('hidden');
+      if (inputText) inputText.placeholder = t.inputPlaceholder;
+    }
+
     if (!val) {
       outputText.value = '';
       charCount.textContent = `0 ${t.charsLabel}`;
@@ -403,24 +443,24 @@ const defaultFont = 'anu7';
       }
     }
 
-    const isUnicodeInput = /[\u0C00-\u0C7F\u0900-\u097F]/.test(val);
+    const hasTeluguChar = /[\u0C00-\u0C7F]/.test(val);
+    const hasHindiChar = /[\u0900-\u097F]/.test(val);
+    const isUnicodeInput = hasTeluguChar || hasHindiChar;
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
+    const scriptName = script === 'hindi' ? 'Hindi' : 'Telugu';
 
     if (reverse) {
-      autoStatus.textContent = 'Non-Unicode ➔ Unicode';
+      autoStatus.textContent = `Non-Unicode ➔ ${scriptName} Unicode`;
       if (inputBoxTitle) inputBoxTitle.textContent = t.nonUnicodeInputHeader || 'NON-UNICODE TEXT INPUT';
       if (outputBoxTitle) outputBoxTitle.textContent = t.unicodeOutputHeader || 'UNICODE (NORMAL TEXT) OUTPUT';
     } else {
-      autoStatus.textContent = `Converted to ${activeFontNameLabel(selectedFontStyle)}`;
+      autoStatus.textContent = `${scriptName} Unicode ➔ ${activeFontNameLabel(selectedFontStyle)}`;
       if (inputBoxTitle) inputBoxTitle.textContent = t.inputBoxHeader || 'UNICODE TEXT INPUT';
       if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader || 'NON-UNICODE OUTPUT';
     }
 
     const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
     const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
-
-    const scriptSelect = document.getElementById('script-select') as HTMLSelectElement;
-    const script = scriptSelect ? (scriptSelect.value as any) : 'telugu';
 
     import('../utils/converter').then(({ convertText }) => {
       const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
@@ -602,7 +642,10 @@ const defaultFont = 'anu7';
   });
 
   sampleHindiBtn?.addEventListener('click', () => {
-    // Hidden dummy button helper
+    selectedFontStyle = 'priyanka';
+    isManualReverse = false;
+    inputText.value = "भारत की राजभाषा और विश्व की प्रमुख भाषाओं में से एक है।";
+    processConversion();
   });
 
   swapBtn?.addEventListener('click', () => {
