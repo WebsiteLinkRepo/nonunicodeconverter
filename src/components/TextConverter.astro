@@ -65,9 +65,9 @@ const defaultFont = 'anu7';
         </span>
         
         <!-- Tooltip -->
-        <div class="absolute bottom-full left-8 mb-2 w-72 bg-[#1E2028] border border-[#3A3D4A] rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-sm cursor-default">
+        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 max-w-[90vw] bg-[#1E2028] border border-[#3A3D4A] rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-sm cursor-default">
           <!-- Tooltip arrow -->
-          <div class="absolute -bottom-1.5 left-10 w-3 h-3 bg-[#1E2028] border-b border-r border-[#3A3D4A] rotate-45"></div>
+          <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#1E2028] border-b border-r border-[#3A3D4A] rotate-45"></div>
           
           <div class="relative p-4 z-10 rounded-lg bg-[#1E2028]">
             <div class="flex items-start justify-between gap-2 mb-3 border-b border-[#3A3D4A] pb-3">
@@ -77,9 +77,9 @@ const defaultFont = 'anu7';
               <div class="relative group/why cursor-help shrink-0 mt-0.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 hover:text-white transition-colors"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                 <!-- Nested explanation tooltip -->
-                <div class="absolute bottom-full right-[-8px] mb-2 w-48 p-2.5 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 leading-snug opacity-0 invisible group-hover/why:opacity-100 group-hover/why:visible transition-opacity text-left z-20">
+                <div class="absolute top-full right-0 mt-2 w-48 p-2.5 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 leading-snug opacity-0 invisible group-hover/why:opacity-100 group-hover/why:visible transition-opacity text-left z-20">
+                  <div class="absolute -top-1 right-1.5 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>
                   These specific fonts have their Ra Vatthu (్ర) drawn on the right side of the letter. This formats the text properly for them.
-                  <div class="absolute -bottom-1 right-[10px] w-2 h-2 bg-[#2D3039] border-b border-r border-[#40434F] rotate-45"></div>
                 </div>
               </div>
             </div>
