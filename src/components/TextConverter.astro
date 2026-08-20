@@ -61,12 +61,54 @@ const defaultFont = 'anu7';
       </label>
 
       <!-- Alt Raa Vatthu Checkbox -->
-      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
+      <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1 relative group">
         <div class="relative flex items-center">
           <input id="alt-raa-vatthu-chk" type="checkbox" class="sr-only peer" />
           <div class="w-7 h-4 bg-[var(--hairline-strong)] opacity-50 peer-checked:opacity-100 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--canvas)] after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[var(--ink)]"></div>
         </div>
-        <span id="label-alt-raa-vatthu" title="Use Type-2 (Right-to-Left) Ra Vatthu for Aaradhana, Amrutha, Bapu, etc.">Alternative Raa Vatthu (Type-2)</span>
+        <span id="label-alt-raa-vatthu" class="flex items-center gap-1.5">
+          Alternative Raa Vatthu
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--ink-tertiary)] group-hover:text-[var(--ink)] transition-colors"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </span>
+        
+        <!-- Tooltip -->
+        <div class="absolute bottom-full left-8 mb-2 w-72 bg-[#1E2028] border border-[#3A3D4A] rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-sm cursor-default">
+          <!-- Tooltip arrow -->
+          <div class="absolute -bottom-1.5 left-10 w-3 h-3 bg-[#1E2028] border-b border-r border-[#3A3D4A] rotate-45"></div>
+          
+          <div class="relative p-4 z-10 rounded-lg bg-[#1E2028]">
+            <div class="flex items-start justify-between gap-2 mb-3 border-b border-[#3A3D4A] pb-3">
+              <p class="font-semibold leading-tight text-white text-[13px]">Only check this box if you are using these fonts:</p>
+              
+              <!-- Nested "Why?" question mark -->
+              <div class="relative group/why cursor-help shrink-0 mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 hover:text-white transition-colors"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <!-- Nested explanation tooltip -->
+                <div class="absolute bottom-full right-[-8px] mb-2 w-48 p-2.5 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 leading-snug opacity-0 invisible group-hover/why:opacity-100 group-hover/why:visible transition-opacity text-left z-20">
+                  These specific fonts have their Ra Vatthu (్ర) drawn on the right side of the letter. This formats the text properly for them.
+                  <div class="absolute -bottom-1 right-[10px] w-2 h-2 bg-[#2D3039] border-b border-r border-[#40434F] rotate-45"></div>
+                </div>
+              </div>
+            </div>
+            
+            <ul class="list-disc pl-4 space-y-1 text-gray-300 max-h-48 overflow-y-auto custom-scrollbar text-xs">
+              <li>Aaradhana</li>
+              <li>Amrutha</li>
+              <li>Bapu Bold</li>
+              <li>Bapu Brush</li>
+              <li>Bapu Script</li>
+              <li>Brahma Script</li>
+              <li>Chandra Script</li>
+              <li>Kusuma</li>
+              <li>Maanasa</li>
+              <li>Madhubala</li>
+              <li>Ramana Brush Regular</li>
+              <li>Ramana Script Regular</li>
+              <li>Ramana Script Medium Regular</li>
+              <li>Subhadra Regular</li>
+            </ul>
+          </div>
+        </div>
       </label>
 
       <!-- Auto-copy Checkbox -->
