@@ -454,10 +454,16 @@ const defaultFont = 'anu7';
         sampleHindiBtn.textContent = 'Hindi Unicode';
       }
       if (inputText) inputText.placeholder = currentLang === 'te' ? "మీ హిందీ యూనికోడ్ టెక్స్ట్ ఇక్కడ పేస్ట్ చేయండి... (उदाहरण: हिंदी भारत की राजभाषा है)" : "Paste Hindi Unicode text here... (उदाहरण: हिंदी भारत की राजभाषा है)";
+      
+      // Hide Alt Raa Vatthu for Hindi
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else {
       sampleHindiBtn?.classList.add('hidden');
       sampleTeluguBtn?.classList.remove('hidden');
       if (inputText) inputText.placeholder = t.inputPlaceholder;
+      
+      // Show Alt Raa Vatthu for Telugu
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'flex';
     }
 
     if (!val) {
@@ -493,20 +499,11 @@ const defaultFont = 'anu7';
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
     const scriptName = script === 'hindi' ? 'Hindi' : 'Telugu';
     
-    const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
-    const useAltRaaVatthu = altRaaVatthuChk ? altRaaVatthuChk.checked : false;
-    const effectiveFontStyle = useAltRaaVatthu ? 'bapu' : selectedFontStyle;
-
     const isHindi = script === 'hindi';
-    
-    // Hide Alt Raa Vatthu for Hindi
-    if (altRaaVatthuWrapper) {
-      if (isHindi) {
-        altRaaVatthuWrapper.classList.add('hidden');
-      } else {
-        altRaaVatthuWrapper.classList.remove('hidden');
-      }
-    }
+
+    const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
+    const useAltRaaVatthu = (altRaaVatthuChk && !isHindi) ? altRaaVatthuChk.checked : false;
+    const effectiveFontStyle = useAltRaaVatthu ? 'bapu' : selectedFontStyle;
 
     if (reverse) {
       autoStatus.textContent = `Non-Unicode ➔ ${scriptName} Unicode`;
@@ -523,7 +520,7 @@ const defaultFont = 'anu7';
 
     import('../utils/converter').then(({ convertText }) => {
       const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
-      const useAltRaaVatthu = altRaaVatthuChk ? altRaaVatthuChk.checked : false;
+      const useAltRaaVatthu = (altRaaVatthuChk && !isHindi) ? altRaaVatthuChk.checked : false;
 
       const res = convertText(val, encoding, reverse, useAltRaaVatthu, script);
       
@@ -740,9 +737,9 @@ const defaultFont = 'anu7';
   }
 
   // Initial call to set UI states
-  const useAltRaaVatthuInit = altRaaVatthuChk ? altRaaVatthuChk.checked : false;
-  const effectiveFontStyleInit = useAltRaaVatthuInit ? 'bapu' : selectedFontStyle;
   const initScriptIsHindi = scriptSelect ? scriptSelect.value === 'hindi' : false;
+  const useAltRaaVatthuInit = (altRaaVatthuChk && !initScriptIsHindi) ? altRaaVatthuChk.checked : false;
+  const effectiveFontStyleInit = useAltRaaVatthuInit ? 'bapu' : selectedFontStyle;
   inputText.style.fontFamily = (inputText.value && !initScriptIsHindi) ? (fontStyles[effectiveFontStyleInit] || 'AnuPriyanka') : 'sans-serif';
   outputText.style.fontFamily = (outputText.value && !initScriptIsHindi) ? (fontStyles[effectiveFontStyleInit] || 'AnuPriyanka') : 'sans-serif';
   if (activeFontLabel) {
