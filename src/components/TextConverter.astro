@@ -811,14 +811,8 @@ const defaultFont = 'anu7';
   // Clear Handler
   clearBtn.addEventListener('click', () => {
     isManualReverse = null;
-    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     inputText.value = '';
-    outputText.value = '';
-    charCount.textContent = `0 ${t.charsLabel}`;
-    if (linesStat) linesStat.textContent = '0';
-    if (wordsStat) wordsStat.textContent = '0';
-    autoStatus.textContent = t.autoDetectNotice;
-    warningBar.classList.add('hidden');
+    processConversion();
     inputText.focus();
   });
 
