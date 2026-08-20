@@ -237,6 +237,9 @@ export function convertText(
         reason: `No mapping found in target font (${encoding.toUpperCase()})`
       });
     }
+
+    // Apply masking so Unicode characters don't appear in the final output
+    resultText = resultText.replace(/[\u0C00-\u0C7F]/g, '');
   }
 
   const endTime = performance.now();

@@ -51,14 +51,7 @@ const defaultFont = 'anu7';
         <span id="label-clean-spaces">Clean Linebreaks</span>
       </label>
 
-      <!-- Convert Numbers Checkbox -->
-      <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
-        <div class="relative flex items-center">
-          <input id="convert-digits-chk" type="checkbox" class="sr-only peer" />
-          <div class="w-7 h-4 bg-[var(--hairline-strong)] opacity-50 peer-checked:opacity-100 rounded-full peer peer-checked:after:translate-x-3 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--canvas)] after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[var(--ink)]"></div>
-        </div>
-        <span id="label-convert-digits">Convert Digits (123 ↔ ౧౨౩)</span>
-      </label>
+
 
       <!-- Alt Raa Vatthu Checkbox -->
       <label id="alt-raa-vatthu-wrapper" class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1 relative group">
@@ -319,7 +312,7 @@ const defaultFont = 'anu7';
   const autoStatus = document.getElementById('auto-status') as HTMLSpanElement;
 
   const labelCleanSpaces = document.getElementById('label-clean-spaces') as HTMLSpanElement;
-  const labelConvertDigits = document.getElementById('label-convert-digits') as HTMLSpanElement;
+
   const labelAltRaaVatthu = document.getElementById('label-alt-raa-vatthu') as HTMLSpanElement;
   const altRaaVatthuWrapper = document.getElementById('alt-raa-vatthu-wrapper') as HTMLLabelElement;
 
@@ -333,7 +326,7 @@ const defaultFont = 'anu7';
   const charCount = document.getElementById('char-count') as HTMLSpanElement;
 
   const cleanSpacesChk = document.getElementById('clean-spaces-chk') as HTMLInputElement;
-  const convertDigitsChk = document.getElementById('convert-digits-chk') as HTMLInputElement;
+
   const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
   
   const zoomInBtn = document.getElementById('zoom-in-btn') as HTMLButtonElement;
@@ -397,7 +390,7 @@ const defaultFont = 'anu7';
     if (pageSubtitle) pageSubtitle.textContent = t.subtitle;
     if (labelSelectFont) labelSelectFont.textContent = t.selectFontLabel;
     if (labelCleanSpaces) labelCleanSpaces.textContent = t.cleanSpacesLabel;
-    if (labelConvertDigits) labelConvertDigits.textContent = t.convertDigitsLabel;
+
     if (labelAltRaaVatthu) labelAltRaaVatthu.textContent = t.altRaaVatthuLabel;
     if (inputBoxTitle) inputBoxTitle.textContent = t.inputBoxHeader;
     if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader;
@@ -485,13 +478,7 @@ const defaultFont = 'anu7';
       val = val.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
     }
 
-    if (convertDigitsChk?.checked) {
-      const engDigits = ['0','1','2','3','4','5','6','7','8','9'];
-      const telDigits = ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'];
-      for (let i = 0; i < 10; i++) {
-        val = val.split(engDigits[i]).join(telDigits[i]);
-      }
-    }
+
 
     const hasTeluguChar = /[\u0C00-\u0C7F]/.test(val);
     const hasHindiChar = /[\u0900-\u097F]/.test(val);
@@ -500,6 +487,8 @@ const defaultFont = 'anu7';
     const scriptName = script === 'hindi' ? 'Hindi' : 'Telugu';
     
     const isHindi = script === 'hindi';
+
+
 
     const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
     const useAltRaaVatthu = (altRaaVatthuChk && !isHindi) ? altRaaVatthuChk.checked : false;
@@ -664,7 +653,7 @@ const defaultFont = 'anu7';
 
   inputText.addEventListener('input', processConversion);
   cleanSpacesChk?.addEventListener('change', processConversion);
-  convertDigitsChk?.addEventListener('change', processConversion);
+
   
   const fontVersionSelectEl = document.getElementById('font-version-select') as HTMLSelectElement;
   if (fontVersionSelectEl) {
