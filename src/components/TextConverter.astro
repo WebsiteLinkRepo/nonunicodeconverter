@@ -420,6 +420,8 @@ const defaultFont = 'anu7';
 
     if (!val) {
       outputText.value = '';
+      inputText.style.fontFamily = 'sans-serif';
+      outputText.style.fontFamily = 'sans-serif';
       charCount.textContent = `0 ${t.charsLabel}`;
       if (linesStat) linesStat.textContent = '0';
       if (wordsStat) wordsStat.textContent = '0';
@@ -676,6 +678,7 @@ const defaultFont = 'anu7';
   }
 
   // Initial call to set UI states
+  inputText.style.fontFamily = inputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
   outputText.style.fontFamily = outputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
   if (activeFontLabel) {
     activeFontLabel.textContent = activeFontNameLabel(selectedFontStyle);
