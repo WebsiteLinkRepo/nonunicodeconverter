@@ -450,13 +450,17 @@ const defaultFont = 'anu7';
     const isUnicodeInput = hasTeluguChar || hasHindiChar;
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
     const scriptName = script === 'hindi' ? 'Hindi' : 'Telugu';
+    
+    const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
+    const useAltRaaVatthu = altRaaVatthuChk ? altRaaVatthuChk.checked : false;
+    const effectiveFontStyle = useAltRaaVatthu ? 'bapu' : selectedFontStyle;
 
     if (reverse) {
       autoStatus.textContent = `Non-Unicode ➔ ${scriptName} Unicode`;
       if (inputBoxTitle) inputBoxTitle.textContent = t.nonUnicodeInputHeader || 'NON-UNICODE TEXT INPUT';
       if (outputBoxTitle) outputBoxTitle.textContent = t.unicodeOutputHeader || 'UNICODE (NORMAL TEXT) OUTPUT';
     } else {
-      autoStatus.textContent = `${scriptName} Unicode ➔ ${activeFontNameLabel(selectedFontStyle)}`;
+      autoStatus.textContent = `${scriptName} Unicode ➔ ${activeFontNameLabel(effectiveFontStyle)}`;
       if (inputBoxTitle) inputBoxTitle.textContent = t.inputBoxHeader || 'UNICODE TEXT INPUT';
       if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader || 'NON-UNICODE OUTPUT';
     }
@@ -476,14 +480,19 @@ const defaultFont = 'anu7';
 
       outputText.value = finalOutput;
       
+      // When Alt Raa Vatthu is checked, it moves the Raa Vatthu character to the end of the syllable.
+      // AnuPriyanka draws this character as a left-wrapper, so it looks broken when placed at the end.
+      // AnuBapu explicitly draws this character as a right-sided curve.
+      // To ensure the preview is visually correct, we automatically switch the preview font to AnuBapu if Alt Raa Vatthu is used.
+
       // Apply correct font style preview
       // Only apply legacy fonts if there is actual text, otherwise let it fall back to sans-serif so the placeholder is legible
       if (reverse) {
-        inputText.style.fontFamily = inputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
+        inputText.style.fontFamily = inputText.value ? (fontStyles[effectiveFontStyle] || 'AnuPriyanka') : 'sans-serif';
         outputText.style.fontFamily = script === 'hindi' ? 'Mangal, sans-serif' : 'sans-serif';
       } else {
         inputText.style.fontFamily = script === 'hindi' ? 'Mangal, sans-serif' : 'sans-serif';
-        outputText.style.fontFamily = outputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
+        outputText.style.fontFamily = outputText.value ? (fontStyles[effectiveFontStyle] || 'AnuPriyanka') : 'sans-serif';
       }
 
       charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
@@ -678,10 +687,12 @@ const defaultFont = 'anu7';
   }
 
   // Initial call to set UI states
-  inputText.style.fontFamily = inputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
-  outputText.style.fontFamily = outputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
+  const useAltRaaVatthuInit = altRaaVatthuChk ? altRaaVatthuChk.checked : false;
+  const effectiveFontStyleInit = useAltRaaVatthuInit ? 'bapu' : selectedFontStyle;
+  inputText.style.fontFamily = inputText.value ? (fontStyles[effectiveFontStyleInit] || 'AnuPriyanka') : 'sans-serif';
+  outputText.style.fontFamily = outputText.value ? (fontStyles[effectiveFontStyleInit] || 'AnuPriyanka') : 'sans-serif';
   if (activeFontLabel) {
-    activeFontLabel.textContent = activeFontNameLabel(selectedFontStyle);
+    activeFontLabel.textContent = activeFontNameLabel(effectiveFontStyleInit);
   }
 
   const cp1252: Record<number, number> = {
