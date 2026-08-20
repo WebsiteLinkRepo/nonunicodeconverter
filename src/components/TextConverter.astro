@@ -796,24 +796,59 @@ const defaultFont = 'anu7';
       return;
     }
 
+    const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(val);
     const rtfText = generateRTF(val, fontStyles[selectedFontStyle] || 'AnuPriyanka');
 
     let success = false;
-    const listener = (e: ClipboardEvent) => {
-      e.preventDefault();
-      if (e.clipboardData) {
-        e.clipboardData.setData('text/plain', val);
-        e.clipboardData.setData('text/rtf', rtfText);
+    
+    // Try modern ClipboardItem API first (supports RTF)
+    try {
+      if (typeof ClipboardItem !== 'undefined' && navigator.clipboard && navigator.clipboard.write) {
+        const textBlob = new Blob([val], { type: 'text/plain' });
+        const items: Record<string, Blob> = { 'text/plain': textBlob };
+        if (!isOutputUnicode) {
+          items['text/rtf'] = new Blob([rtfText], { type: 'text/rtf' });
+        }
+        await navigator.clipboard.write([new ClipboardItem(items)]);
         success = true;
       }
-    };
+    } catch (e) {
+      // Fall back to old method
+    }
 
-    outputText.select();
-    document.addEventListener('copy', listener);
-    const result = document.execCommand('copy');
-    document.removeEventListener('copy', listener);
+    if (!success) {
+      const listener = (e: ClipboardEvent) => {
+        e.preventDefault();
+        if (e.clipboardData) {
+          e.clipboardData.setData('text/plain', val);
+          if (!isOutputUnicode) {
+            e.clipboardData.setData('text/rtf', rtfText);
+          }
+        }
+      };
 
-    if (success && result) {
+      outputText.select();
+      document.addEventListener('copy', listener);
+      try {
+        const result = document.execCommand('copy');
+        success = result;
+      } catch (err) {
+        success = false;
+      }
+      document.removeEventListener('copy', listener);
+    }
+
+    if (!success) {
+      // Ultimate fallback: Just copy plain text
+      try {
+        await navigator.clipboard.writeText(val);
+        success = true;
+      } catch (err) {
+        console.error('Failed to copy', err);
+      }
+    }
+
+    if (success) {
       copyBtnText.textContent = t.copiedBtn;
       copyBtn.classList.remove('bg-[var(--ink)]');
       copyBtn.classList.add('bg-emerald-600', 'text-white');
@@ -823,15 +858,6 @@ const defaultFont = 'anu7';
         copyBtn.classList.remove('bg-emerald-600', 'text-white');
         copyBtn.classList.add('bg-[var(--ink)]');
       }, 2000);
-    } else {
-      // Fallback
-      try {
-        await navigator.clipboard.writeText(val);
-        copyBtnText.textContent = t.copiedBtn;
-        setTimeout(() => copyBtnText.textContent = t.copyBtn, 2000);
-      } catch (err) {
-        console.error('Failed to copy', err);
-      }
     }
   });
 
