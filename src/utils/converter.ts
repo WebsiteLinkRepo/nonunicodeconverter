@@ -185,8 +185,6 @@ export function convertText(
     // -------------------------------------------------------------
     // REVERSE CONVERSION (Legacy Anu 7.0 -> Unicode)
     // -------------------------------------------------------------
-    // Pre-processing: Move ç (pre-base ra-vattu) to the end of the syllable cluster
-    resultText = resultText.replace(/\u00E7([^\s\u00E7]+)/g, '$1\u00E7');
 
     // Run standard replacement (it contains standalone vattu mappings now)
     for (const entry of mapping) {
@@ -194,6 +192,13 @@ export function convertText(
         resultText = resultText.split(entry.from).join(entry.to);
       }
     }
+
+    // Post-reordering 0: Move Raa Vatthu (\u0C4D\u0C30) AFTER the consonant it precedes
+    resultText = resultText.replace(/(\u0C4D\u0C30)([\u0C15-\u0C39\u0C58-\u0C5A][\u0C3E-\u0C4C]*(?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])*)/g, '$2$1');
+    
+    // Post-reordering 0.5: In Telugu phonetics, Ya Vatthu (\u0C4D\u0C2F) is always the final consonant in a cluster. 
+    // So if Raa Vatthu was moved after Ya Vatthu, swap them back so Ya Vatthu remains last (e.g., for త్ర్యం)
+    resultText = resultText.replace(/(\u0C4D\u0C2F)(\u0C4D\u0C30)/g, '$2$1');
 
     // Post-reordering 1: Reorder pre-base e-matras (ె, ే, ై, ొ, ో, ౌ) after the consonant
     resultText = resultText.replace(
