@@ -722,6 +722,10 @@ const defaultFont = 'anu7';
   });
 
   function activeFontNameLabel(style: string): string {
+    const fontVersionSelectEl = document.getElementById('font-version-select') as HTMLSelectElement;
+    if (fontVersionSelectEl && fontVersionSelectEl.value === 'anu6') {
+      return 'Anu 6.0';
+    }
     return 'Anu 7.0';
   }
 
