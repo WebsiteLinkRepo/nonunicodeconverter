@@ -168,11 +168,14 @@ export function convertText(
       }
 
       let res = baseConv;
-      if (hasRaVattu) {
+      if (hasRaVattu && !useAltRaaVatthu) {
         res = "\u00E7" + res; // Prepend pre-base ra-vattu
       }
       for (const vc of vattuConvs) {
         res = res + vc; // Append other post-base vattus
+      }
+      if (hasRaVattu && useAltRaaVatthu) {
+        res = res + "\u00E7"; // Append post-base ra-vattu
       }
       res = res + modifier; // Append modifier at the very end
 

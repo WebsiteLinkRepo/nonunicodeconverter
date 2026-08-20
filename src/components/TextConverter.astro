@@ -475,12 +475,13 @@ const defaultFont = 'anu7';
       outputText.value = finalOutput;
       
       // Apply correct font style preview
+      // Only apply legacy fonts if there is actual text, otherwise let it fall back to sans-serif so the placeholder is legible
       if (reverse) {
-        inputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+        inputText.style.fontFamily = inputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
         outputText.style.fontFamily = script === 'hindi' ? 'Mangal, sans-serif' : 'sans-serif';
       } else {
         inputText.style.fontFamily = script === 'hindi' ? 'Mangal, sans-serif' : 'sans-serif';
-        outputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+        outputText.style.fontFamily = outputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
       }
 
       charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
@@ -675,7 +676,7 @@ const defaultFont = 'anu7';
   }
 
   // Initial call to set UI states
-  outputText.style.fontFamily = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+  outputText.style.fontFamily = outputText.value ? (fontStyles[selectedFontStyle] || 'AnuPriyanka') : 'sans-serif';
   if (activeFontLabel) {
     activeFontLabel.textContent = activeFontNameLabel(selectedFontStyle);
   }
