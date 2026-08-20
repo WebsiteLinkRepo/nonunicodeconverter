@@ -125,14 +125,12 @@ const defaultFont = 'anu7';
         Telugu Unicode
       </button>
       <button 
-        id="sample-nonunicode-btn" 
+        id="sample-hindi-btn" 
         type="button" 
-        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
-        Anu 7.0 Legacy
+        Hindi Unicode
       </button>
-      <!-- Hidden button so that we do not break any JS querySelectors referencing it -->
-      <button id="sample-hindi-btn" type="button" class="hidden"></button>
     </div>
   </div>
 
@@ -342,7 +340,7 @@ const defaultFont = 'anu7';
 
   const sampleTeluguBtn = document.getElementById('sample-telugu-btn') as HTMLButtonElement;
   const sampleHindiBtn = document.getElementById('sample-hindi-btn') as HTMLButtonElement;
-  const sampleNonunicodeBtn = document.getElementById('sample-nonunicode-btn') as HTMLButtonElement;
+
 
   const linesStat = document.getElementById('lines-stat') as HTMLElement;
   const wordsStat = document.getElementById('words-stat') as HTMLElement;
@@ -421,13 +419,17 @@ const defaultFont = 'anu7';
     return sanitized;
   }
 
-  function processConversion() {
+  function processConversion(autoDetectScript: boolean | Event = true) {
+    if (autoDetectScript instanceof Event) {
+      autoDetectScript = true;
+    }
+    
     let val = inputText.value;
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
 
     const scriptSelect = document.getElementById('script-select') as HTMLSelectElement;
     
-    if (val) {
+    if (val && autoDetectScript) {
       const hasTelugu = /[\u0C00-\u0C7F]/.test(val);
       const hasHindi = /[\u0900-\u097F]/.test(val);
       if (hasHindi && !hasTelugu && scriptSelect) {
@@ -442,10 +444,6 @@ const defaultFont = 'anu7';
     if (script === 'hindi') {
       sampleTeluguBtn?.classList.add('hidden');
       sampleHindiBtn?.classList.remove('hidden');
-      if (sampleHindiBtn && sampleTeluguBtn) {
-        sampleHindiBtn.className = sampleTeluguBtn.className;
-        sampleHindiBtn.textContent = 'Hindi Unicode';
-      }
       if (inputText) inputText.placeholder = currentLang === 'te' ? "మీ హిందీ యూనికోడ్ టెక్స్ట్ ఇక్కడ పేస్ట్ చేయండి... (उदाहरण: हिंदी भारत की राजभाषा है)" : "Paste Hindi Unicode text here... (उदाहरण: हिंदी भारत की राजभाषा है)";
       
       // Hide Alt Raa Vatthu for Hindi
@@ -668,7 +666,7 @@ const defaultFont = 'anu7';
   const scriptSelectEl = document.getElementById('script-select') as HTMLSelectElement;
   if (scriptSelectEl) {
     scriptSelectEl.addEventListener('change', () => {
-      processConversion();
+      processConversion(false);
     });
   }
 
@@ -681,21 +679,16 @@ const defaultFont = 'anu7';
   sampleTeluguBtn?.addEventListener('click', () => {
     selectedFontStyle = 'priyanka';
     isManualReverse = false;
-    inputText.value = "స్త్రీలు, లక్ష్మి, స్వాతంత్ర్యం, మత్స్యం వంటి పదాలు కూడా ఇప్పుడు తప్పులు లేకుండా కన్వర్ట్ అవుతాయి.";
+    inputText.value = "అందరికీ నమస్కారం. తెలుగు భాష చాలా అద్భుతమైనది.";
     processConversion();
   });
 
-  sampleNonunicodeBtn?.addEventListener('click', () => {
-    selectedFontStyle = 'priyanka';
-    isManualReverse = true;
-    inputText.value = "çdÓï eTÔáà«+ kÍÇÔá+çÔá«+";
-    processConversion();
-  });
+
 
   sampleHindiBtn?.addEventListener('click', () => {
     selectedFontStyle = 'priyanka';
     isManualReverse = false;
-    inputText.value = "भारत की राजभाषा और विश्व की प्रमुख भाषाओं में से एक है।";
+    inputText.value = "नमस्ते! हिंदी बहुत ही सुंदर और प्राचीन भाषा है।";
     processConversion();
   });
 

@@ -104,6 +104,12 @@ export function convertText(
   }
   
   if (!reverse) {
+    // Convert Devanagari Danda to standard period since Anu fonts don't have Danda
+    if (script === 'hindi') {
+      resultText = resultText.replace(/\u0964/g, '.');
+      resultText = resultText.replace(/\u0965/g, '..'); // Double Danda
+    }
+
     resultText = resultText.replace(/[\u0900-\u097F]/g, (char) => {
       return String.fromCharCode(char.charCodeAt(0) + 0x0300);
     });
