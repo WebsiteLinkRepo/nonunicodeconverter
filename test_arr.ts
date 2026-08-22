@@ -1,0 +1,11 @@
+import { unicodeToKrutidev } from './src/utils/krutiDevConverter';
+const fs = require('fs');
+const content = fs.readFileSync('./src/utils/krutiDevConverter.ts', 'utf8');
+const array_one_match = content.match(/array_one = \[([\s\S]*?)\];/);
+const array_two_match = content.match(/array_two = \[([\s\S]*?)\];/);
+const arr1 = eval('[' + array_one_match[1] + ']');
+const arr2 = eval('[' + array_two_match[1] + ']');
+const idx = arr2.indexOf("०");
+console.log("० maps to:", arr1[idx]);
+console.log("१ maps to:", arr1[arr2.indexOf("१")]);
+console.log("२ maps to:", arr1[arr2.indexOf("२")]);

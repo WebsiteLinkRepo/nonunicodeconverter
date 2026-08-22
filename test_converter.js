@@ -1,12 +1,9 @@
-import { convertText } from './src/utils/converter';
+import { convertText } from './src/utils/converter.js';
 
 try {
   console.log("Testing converter...");
   const res = convertText("హిందీ", "anu7", false, false, "telugu");
   console.log("Result:", res);
-  
-  const res2 = convertText("हिंदी", "krutidev", false, false, "hindi");
-  console.log("Result Krutidev:", res2);
 } catch (e) {
   console.error("Error:", e);
 }

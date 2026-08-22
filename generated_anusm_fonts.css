@@ -1,0 +1,1240 @@
+@font-face {
+  font-family: 'AnuAARADHAN';
+  src: url('/Fonts folder/AnuSM/ttf/AARADHAN.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuABHILASH';
+  src: url('/Fonts folder/AnuSM/ttf/ABHILASH.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuAJANTHA';
+  src: url('/Fonts folder/AnuSM/ttf/AJANTHA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuAKSHARA';
+  src: url('/Fonts folder/AnuSM/ttf/AKSHARA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuAMRUTHA';
+  src: url('/Fonts folder/AnuSM/ttf/AMRUTHA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANJALI';
+  src: url('/Fonts folder/AnuSM/ttf/ANJALI__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUPB';
+  src: url('/Fonts folder/AnuSM/ttf/ANUPB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUPEB';
+  src: url('/Fonts folder/AnuSM/ttf/ANUPEB__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUPM';
+  src: url('/Fonts folder/AnuSM/ttf/ANUPM___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUPT';
+  src: url('/Fonts folder/AnuSM/ttf/ANUPT___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUSHA';
+  src: url('/Fonts folder/AnuSM/ttf/ANUSHA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUSO';
+  src: url('/Fonts folder/AnuSM/ttf/ANUSO___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuANUST';
+  src: url('/Fonts folder/AnuSM/ttf/ANUST___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuAPOORVA';
+  src: url('/Fonts folder/AnuSM/ttf/APOORVA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuASHWINI';
+  src: url('/Fonts folder/AnuSM/ttf/ASHWINI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuAVANTHI';
+  src: url('/Fonts folder/AnuSM/ttf/AVANTHI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBAPUBOLD';
+  src: url('/Fonts folder/AnuSM/ttf/BAPUBOLD.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBAPUB';
+  src: url('/Fonts folder/AnuSM/ttf/BAPUB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBAPUS';
+  src: url('/Fonts folder/AnuSM/ttf/BAPUS___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBHARGHAV';
+  src: url('/Fonts folder/AnuSM/ttf/BHARGHAV.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBHAVYA';
+  src: url('/Fonts folder/AnuSM/ttf/BHAVYA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBRAHMA';
+  src: url('/Fonts folder/AnuSM/ttf/BRAHMA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuBRAHS';
+  src: url('/Fonts folder/AnuSM/ttf/BRAHS___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuCHANS';
+  src: url('/Fonts folder/AnuSM/ttf/CHANS___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuCHARITHA';
+  src: url('/Fonts folder/AnuSM/ttf/CHARITHA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDEEPIKA';
+  src: url('/Fonts folder/AnuSM/ttf/DEEPIKA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDHARANI';
+  src: url('/Fonts folder/AnuSM/ttf/DHARANI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINEIGHT';
+  src: url('/Fonts folder/AnuSM/ttf/DINEIGHT.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINELEVE';
+  src: url('/Fonts folder/AnuSM/ttf/DINELEVE.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINFIVE';
+  src: url('/Fonts folder/AnuSM/ttf/DINFIVE_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINFOUR';
+  src: url('/Fonts folder/AnuSM/ttf/DINFOUR_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINNINE';
+  src: url('/Fonts folder/AnuSM/ttf/DINNINE_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINONE';
+  src: url('/Fonts folder/AnuSM/ttf/DINONE__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINSEVEN';
+  src: url('/Fonts folder/AnuSM/ttf/DINSEVEN.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINSIX';
+  src: url('/Fonts folder/AnuSM/ttf/DINSIX__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINTEN';
+  src: url('/Fonts folder/AnuSM/ttf/DINTEN__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINTHIRT';
+  src: url('/Fonts folder/AnuSM/ttf/DINTHIRT.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINTHREE';
+  src: url('/Fonts folder/AnuSM/ttf/DINTHREE.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINTWELV';
+  src: url('/Fonts folder/AnuSM/ttf/DINTWELV.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuDINTWO';
+  src: url('/Fonts folder/AnuSM/ttf/DINTWO__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGEETHA';
+  src: url('/Fonts folder/AnuSM/ttf/GEETHA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGOWTBL';
+  src: url('/Fonts folder/AnuSM/ttf/GOWTBL__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGOWTB';
+  src: url('/Fonts folder/AnuSM/ttf/GOWTB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGOWTEB';
+  src: url('/Fonts folder/AnuSM/ttf/GOWTEB__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGOWTM';
+  src: url('/Fonts folder/AnuSM/ttf/GOWTM___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGOWTN';
+  src: url('/Fonts folder/AnuSM/ttf/GOWTN___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuGOWTT';
+  src: url('/Fonts folder/AnuSM/ttf/GOWTT___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuHARSHA';
+  src: url('/Fonts folder/AnuSM/ttf/HARSHA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuHIRANYA';
+  src: url('/Fonts folder/AnuSM/ttf/HIRANYA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuJYOTHI';
+  src: url('/Fonts folder/AnuSM/ttf/JYOTHI__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuKALAANJA';
+  src: url('/Fonts folder/AnuSM/ttf/KALAANJA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuKEERF';
+  src: url('/Fonts folder/AnuSM/ttf/KEERF___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuKRANTHI';
+  src: url('/Fonts folder/AnuSM/ttf/KRANTHI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuKUSUMA';
+  src: url('/Fonts folder/AnuSM/ttf/KUSUMA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuMAANASA';
+  src: url('/Fonts folder/AnuSM/ttf/MAANASA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuMADHUBAL';
+  src: url('/Fonts folder/AnuSM/ttf/MADHUBAL.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuMEENS';
+  src: url('/Fonts folder/AnuSM/ttf/MEENS___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuMOHINI';
+  src: url('/Fonts folder/AnuSM/ttf/MOHINI__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNATYAMAY';
+  src: url('/Fonts folder/AnuSM/ttf/NATYAMAY.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEELIMA';
+  src: url('/Fonts folder/AnuSM/ttf/NEELIMA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOCHABO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOCHABO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOCHALI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOCHALI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOELEBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOELEBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOELELI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOELELI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOEURBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOEURBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOEURLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOEURLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOEURME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOEURME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOGANBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOGANBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOGANLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOGANLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOHANBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOHANBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOHANLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOHANLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOJAVBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOJAVBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOJAVLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOJAVLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOJYOBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOJYOBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOJYOLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOJYOLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOKAIBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOKAIBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOKAILI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOKAILI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOKAIME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOKAIME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMAHBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMAHBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMAHLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMAHLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMAHME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMAHME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMANBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMANBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMANLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMANLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMANME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMANME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMITBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMITBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMITLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMITLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMITME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMITME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMONBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMONBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMONLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMONLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOMONME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOMONME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEONATBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEONATBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEONATLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEONATLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEONATME';
+  src: url('/Fonts folder/AnuSM/ttf/NEONATME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEONILBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEONILBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEONILLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEONILLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEONILME';
+  src: url('/Fonts folder/AnuSM/ttf/NEONILME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOOMKBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOOMKBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOOMKLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOOMKLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOOMKME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOOMKME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOPRABO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOPRABO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOPRALI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOPRALI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEORADBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEORADBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEORADLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEORADLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEORADME';
+  src: url('/Fonts folder/AnuSM/ttf/NEORADME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOSHRBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOSHRBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOSHRLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOSHRLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOSHRME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOSHRME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOSHWBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOSHWBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOSHWLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOSHWLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOSHWME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOSHWME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOYOGBO';
+  src: url('/Fonts folder/AnuSM/ttf/NEOYOGBO.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOYOGLI';
+  src: url('/Fonts folder/AnuSM/ttf/NEOYOGLI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuNEOYOGME';
+  src: url('/Fonts folder/AnuSM/ttf/NEOYOGME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPADMINI';
+  src: url('/Fonts folder/AnuSM/ttf/PADMINI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPALLB';
+  src: url('/Fonts folder/AnuSM/ttf/PALLB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPALLM';
+  src: url('/Fonts folder/AnuSM/ttf/PALLM___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPALLT';
+  src: url('/Fonts folder/AnuSM/ttf/PALLT___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRABHAVA';
+  src: url('/Fonts folder/AnuSM/ttf/PRABHAVA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRAGATHI';
+  src: url('/Fonts folder/AnuSM/ttf/PRAGATHI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRAGI';
+  src: url('/Fonts folder/AnuSM/ttf/PRAGI___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRAGN';
+  src: url('/Fonts folder/AnuSM/ttf/PRAGN___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRAGS';
+  src: url('/Fonts folder/AnuSM/ttf/PRAGS___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRAVEENA';
+  src: url('/Fonts folder/AnuSM/ttf/PRAVEENA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPREETHI';
+  src: url('/Fonts folder/AnuSM/ttf/PREETHI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRIDHVI';
+  src: url('/Fonts folder/AnuSM/ttf/PRIDHVI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRIYAANK';
+  src: url('/Fonts folder/AnuSM/ttf/PRIYAANK.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuPRIYB';
+  src: url('/Fonts folder/AnuSM/ttf/PRIYB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRACHANA';
+  src: url('/Fonts folder/AnuSM/ttf/RACHANA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRACHB';
+  src: url('/Fonts folder/AnuSM/ttf/RACHB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRAMAB';
+  src: url('/Fonts folder/AnuSM/ttf/RAMAB___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRAMASM';
+  src: url('/Fonts folder/AnuSM/ttf/RAMASM__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRAMAS';
+  src: url('/Fonts folder/AnuSM/ttf/RAMAS___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRAVALI';
+  src: url('/Fonts folder/AnuSM/ttf/RAVALI__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuRESHMA';
+  src: url('/Fonts folder/AnuSM/ttf/RESHMA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuROHINI';
+  src: url('/Fonts folder/AnuSM/ttf/ROHINI__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSAAGARI';
+  src: url('/Fonts folder/AnuSM/ttf/SAAGARI_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSANGHAVI';
+  src: url('/Fonts folder/AnuSM/ttf/SANGHAVI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSOWMYA';
+  src: url('/Fonts folder/AnuSM/ttf/SOWMYA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSRAVYA';
+  src: url('/Fonts folder/AnuSM/ttf/SRAVYA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSRUJANA';
+  src: url('/Fonts folder/AnuSM/ttf/SRUJANA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSUBHADRA';
+  src: url('/Fonts folder/AnuSM/ttf/SUBHADRA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSUCHITHR';
+  src: url('/Fonts folder/AnuSM/ttf/SUCHITHR.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSUJATHA';
+  src: url('/Fonts folder/AnuSM/ttf/SUJATHA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSUNEETHA';
+  src: url('/Fonts folder/AnuSM/ttf/SUNEETHA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuSUPRIYA';
+  src: url('/Fonts folder/AnuSM/ttf/SUPRIYA_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuTEJAFONT';
+  src: url('/Fonts folder/AnuSM/ttf/TEJAFONT.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuTELUNB';
+  src: url('/Fonts folder/AnuSM/ttf/TELUNB__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuTELUNT';
+  src: url('/Fonts folder/AnuSM/ttf/TELUNT__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuTHRIPURA';
+  src: url('/Fonts folder/AnuSM/ttf/THRIPURA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuUDAYAM';
+  src: url('/Fonts folder/AnuSM/ttf/UDAYAM__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuVAIBHAV';
+  src: url('/Fonts folder/AnuSM/ttf/VAIBHAV_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuVASANTHA';
+  src: url('/Fonts folder/AnuSM/ttf/VASANTHA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuVASUNDHA';
+  src: url('/Fonts folder/AnuSM/ttf/VASUNDHA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuVEENAA';
+  src: url('/Fonts folder/AnuSM/ttf/VEENAA__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnuVIKAAS';
+  src: url('/Fonts folder/AnuSM/ttf/VIKAAS__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+

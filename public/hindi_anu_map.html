@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@font-face {
+  font-family: 'AnuHindi';
+  src: url('/Fonts folder/AnuSM/MANGAL.TTF') format('truetype');
+}
+body { font-family: 'AnuHindi'; font-size: 24px; line-height: 1.5; }
+.grid { display: flex; flex-wrap: wrap; }
+.cell { width: 80px; border: 1px solid #ccc; margin: 2px; text-align: center; }
+.code { font-family: sans-serif; font-size: 12px; color: red; }
+</style>
+</head>
+<body>
+  <div class="grid" id="grid"></div>
+  <script>
+    const grid = document.getElementById('grid');
+    // Anu fonts typically use standard ASCII + extended ASCII
+    for (let i = 32; i <= 255; i++) {
+      if (i === 127) continue;
+      const char = String.fromCharCode(i);
+      const div = document.createElement('div');
+      div.className = 'cell';
+      div.innerHTML = `<div class="code">${i}</div><div>${char}</div>`;
+      grid.appendChild(div);
+    }
+  </script>
+</body>
+</html>

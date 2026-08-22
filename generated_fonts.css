@@ -1,0 +1,2144 @@
+@font-face {
+  font-family: 'ABeeZeeItalic';
+  src: url('/Fonts folder/Fonts/ABeeZee-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ABeeZeeRegular';
+  src: url('/Fonts folder/Fonts/ABeeZee-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ALISEONonCommercial';
+  src: url('/Fonts folder/Fonts/ALISEO-NonCommercial.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AcmeRegular';
+  src: url('/Fonts folder/Fonts/Acme-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AgentOrange';
+  src: url('/Fonts folder/Fonts/AgentOrange.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AlfaSlabOneRegular';
+  src: url('/Fonts folder/Fonts/AlfaSlabOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnthologyOutline';
+  src: url('/Fonts folder/Fonts/Anthology-Outline.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AnthologySans';
+  src: url('/Fonts folder/Fonts/Anthology-Sans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AntonRegular';
+  src: url('/Fonts folder/Fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AquawaxProDemiBoldItalictrial';
+  src: url('/Fonts folder/Fonts/Aquawax-Pro-DemiBold-Italic-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AquawaxProDemiBoldtrial';
+  src: url('/Fonts folder/Fonts/Aquawax-Pro-DemiBold-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AquawaxProPictogramsRegular';
+  src: url('/Fonts folder/Fonts/Aquawax-Pro-Pictograms-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArchivoBlackRegular';
+  src: url('/Fonts folder/Fonts/ArchivoBlack-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooRegular';
+  src: url('/Fonts folder/Fonts/Baloo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooBhaiRegular';
+  src: url('/Fonts folder/Fonts/BalooBhai-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooBhaijaanRegular';
+  src: url('/Fonts folder/Fonts/BalooBhaijaan-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooBhainaRegular';
+  src: url('/Fonts folder/Fonts/BalooBhaina-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooChettanRegular';
+  src: url('/Fonts folder/Fonts/BalooChettan-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooDaRegular';
+  src: url('/Fonts folder/Fonts/BalooDa-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooPaajiRegular';
+  src: url('/Fonts folder/Fonts/BalooPaaji-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooTammaRegular';
+  src: url('/Fonts folder/Fonts/BalooTamma-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooTammuduRegular';
+  src: url('/Fonts folder/Fonts/BalooTammudu-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BalooThambiRegular';
+  src: url('/Fonts folder/Fonts/BalooThambi-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BlackHanSansRegular';
+  src: url('/Fonts folder/Fonts/BlackHanSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BlackOpsOneRegular';
+  src: url('/Fonts folder/Fonts/BlackOpsOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Blockletter';
+  src: url('/Fonts folder/Fonts/Blockletter.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BreeSerifRegular';
+  src: url('/Fonts folder/Fonts/BreeSerif-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BroadcastTitling';
+  src: url('/Fonts folder/Fonts/BroadcastTitling.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bullpen3D';
+  src: url('/Fonts folder/Fonts/Bullpen3D.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CampusA';
+  src: url('/Fonts folder/Fonts/Campus A.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CarterOne';
+  src: url('/Fonts folder/Fonts/CarterOne.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CheapSign';
+  src: url('/Fonts folder/Fonts/CheapSign.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ChockaBlockNF';
+  src: url('/Fonts folder/Fonts/Chock-a-BlockNF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CocogooseClassicExtraBoldtrial';
+  src: url('/Fonts folder/Fonts/Cocogoose-Classic-ExtraBold-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CocogooseClassicMediumtrial';
+  src: url('/Fonts folder/Fonts/Cocogoose-Classic-Medium-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CoinyRegular';
+  src: url('/Fonts folder/Fonts/Coiny-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CoinyRegular';
+  src: url('/Fonts folder/Fonts/Coiny-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CollegiateBlackFLF';
+  src: url('/Fonts folder/Fonts/CollegiateBlackFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CollegiateBorderFLF';
+  src: url('/Fonts folder/Fonts/CollegiateBorderFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CollegiateFLF';
+  src: url('/Fonts folder/Fonts/CollegiateFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CollegiateInsideFLF';
+  src: url('/Fonts folder/Fonts/CollegiateInsideFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CollegiateOutlineFLF';
+  src: url('/Fonts folder/Fonts/CollegiateOutlineFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CracklingFire';
+  src: url('/Fonts folder/Fonts/CracklingFire.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CreteRoundItalic';
+  src: url('/Fonts folder/Fonts/CreteRound-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CreteRoundRegular';
+  src: url('/Fonts folder/Fonts/CreteRound-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DaysOneRegular';
+  src: url('/Fonts folder/Fonts/DaysOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DeansgateCondensedBold';
+  src: url('/Fonts folder/Fonts/DeansgateCondensed-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DhurjatiRegular';
+  src: url('/Fonts folder/Fonts/Dhurjati-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Draper';
+  src: url('/Fonts folder/Fonts/Draper.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ElephantPersonalUse';
+  src: url('/Fonts folder/Fonts/Elephant-PersonalUse.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'February2InitialsPersonaluse';
+  src: url('/Fonts folder/Fonts/February 2 - Initials (Personal use).otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'February2NormalPersonaluse';
+  src: url('/Fonts folder/Fonts/February 2 - Normal (Personal use).otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FerroRosso';
+  src: url('/Fonts folder/Fonts/FerroRosso.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansBold';
+  src: url('/Fonts folder/Fonts/FiraSans-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansBoldItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-BoldItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansBook';
+  src: url('/Fonts folder/Fonts/FiraSans-Book.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansBookItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-BookItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansEight';
+  src: url('/Fonts folder/Fonts/FiraSans-Eight.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansEightItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-EightItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansExtraBold';
+  src: url('/Fonts folder/Fonts/FiraSans-ExtraBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansExtraBoldItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-ExtraBoldItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansExtraLight';
+  src: url('/Fonts folder/Fonts/FiraSans-ExtraLight.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansExtraLightItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-ExtraLightItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansFour';
+  src: url('/Fonts folder/Fonts/FiraSans-Four.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansFourItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-FourItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansHair';
+  src: url('/Fonts folder/Fonts/FiraSans-Hair.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansHairItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-HairItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansHeavy';
+  src: url('/Fonts folder/Fonts/FiraSans-Heavy.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansHeavyItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-HeavyItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansLight';
+  src: url('/Fonts folder/Fonts/FiraSans-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansLightItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-LightItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansMedium';
+  src: url('/Fonts folder/Fonts/FiraSans-Medium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansMediumItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-MediumItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansRegular';
+  src: url('/Fonts folder/Fonts/FiraSans-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansSemiBold';
+  src: url('/Fonts folder/Fonts/FiraSans-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansSemiBoldItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-SemiBoldItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansThin';
+  src: url('/Fonts folder/Fonts/FiraSans-Thin.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansThinItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-ThinItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansTwo';
+  src: url('/Fonts folder/Fonts/FiraSans-Two.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansTwoItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-TwoItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansUltra';
+  src: url('/Fonts folder/Fonts/FiraSans-Ultra.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansUltraItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-UltraItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansUltraLight';
+  src: url('/Fonts folder/Fonts/FiraSans-UltraLight.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansUltraLightItalic';
+  src: url('/Fonts folder/Fonts/FiraSans-UltraLightItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedBlack';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedBlackItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-BlackItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedBold';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedBoldItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-BoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedExtraBold';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedExtraBoldItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedExtraLight';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-ExtraLight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedExtraLightItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-ExtraLightItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedLight';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedLightItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-LightItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedMedium';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedMediumItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-MediumItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedRegular';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedSemiBold';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedSemiBoldItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-SemiBoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedThin';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraSansCondensedThinItalic';
+  src: url('/Fonts folder/Fonts/FiraSansCondensed-ThinItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FollowStorm';
+  src: url('/Fonts folder/Fonts/Follow Storm.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Freshman';
+  src: url('/Fonts folder/Fonts/Freshman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FromCartoonBlocks';
+  src: url('/Fonts folder/Fonts/From Cartoon Blocks.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FunSized';
+  src: url('/Fonts folder/Fonts/FunSized.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GISTTLOTAtreyaBoldItalic';
+  src: url('/Fonts folder/Fonts/GIST-TLOT Atreya Bold Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreBold';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreBold';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreExtraBold';
+  src: url('/Fonts folder/Fonts/GemunuLibre-ExtraBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreExtraBold';
+  src: url('/Fonts folder/Fonts/GemunuLibre-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreExtraLight';
+  src: url('/Fonts folder/Fonts/GemunuLibre-ExtraLight.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreExtraLight';
+  src: url('/Fonts folder/Fonts/GemunuLibre-ExtraLight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreLight';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreLight';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreMedium';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Medium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreMedium';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreRegular';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreRegular';
+  src: url('/Fonts folder/Fonts/GemunuLibre-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreSemiBold';
+  src: url('/Fonts folder/Fonts/GemunuLibre-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GemunuLibreSemiBold';
+  src: url('/Fonts folder/Fonts/GemunuLibre-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gidugu';
+  src: url('/Fonts folder/Fonts/Gidugu.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GoodChoice';
+  src: url('/Fonts folder/Fonts/Good Choice.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gothland';
+  src: url('/Fonts folder/Fonts/Gothland.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gurajada';
+  src: url('/Fonts folder/Fonts/Gurajada.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HalftonePosterdemo';
+  src: url('/Fonts folder/Fonts/Halftone_Poster_demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HansenShadow';
+  src: url('/Fonts folder/Fonts/Hansen Shadow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboBlack';
+  src: url('/Fonts folder/Fonts/Heebo-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboBold';
+  src: url('/Fonts folder/Fonts/Heebo-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboExtraBold';
+  src: url('/Fonts folder/Fonts/Heebo-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboLight';
+  src: url('/Fonts folder/Fonts/Heebo-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboMedium';
+  src: url('/Fonts folder/Fonts/Heebo-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboRegular';
+  src: url('/Fonts folder/Fonts/Heebo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HeeboThin';
+  src: url('/Fonts folder/Fonts/Heebo-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HellFinland';
+  src: url('/Fonts folder/Fonts/Hell Finland.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Important';
+  src: url('/Fonts folder/Fonts/Important.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Invited';
+  src: url('/Fonts folder/Fonts/Invited.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JFRocOut';
+  src: url('/Fonts folder/Fonts/JFRocOut.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JelleeRoman';
+  src: url('/Fonts folder/Fonts/Jellee-Roman.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JelleeRoman';
+  src: url('/Fonts folder/Fonts/Jellee-Roman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JerseyM54';
+  src: url('/Fonts folder/Fonts/Jersey M54.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderBlack';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-Black.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderBlackItalic';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-BlackItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderBold';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderBoldItalic';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-BoldItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderItalic';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderLight';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBenderLightItalic';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender-LightItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JovannyLemonadBender';
+  src: url('/Fonts folder/Fonts/Jovanny Lemonad - Bender.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KGSummerSunshine';
+  src: url('/Fonts folder/Fonts/KGSummerSunshine.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KGSummerSunshineBlackout';
+  src: url('/Fonts folder/Fonts/KGSummerSunshineBlackout.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KGSummerSunshineShadow';
+  src: url('/Fonts folder/Fonts/KGSummerSunshineShadow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KhulaBold';
+  src: url('/Fonts folder/Fonts/Khula-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KhulaExtraBold';
+  src: url('/Fonts folder/Fonts/Khula-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KhulaLight';
+  src: url('/Fonts folder/Fonts/Khula-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KhulaRegular';
+  src: url('/Fonts folder/Fonts/Khula-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KhulaSemiBold';
+  src: url('/Fonts folder/Fonts/Khula-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LalezarRegular';
+  src: url('/Fonts folder/Fonts/Lalezar-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MandaliRegular';
+  src: url('/Fonts folder/Fonts/Mandali-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaxterBoardSt';
+  src: url('/Fonts folder/Fonts/MaxterBoardSt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ModiaNonCommercial';
+  src: url('/Fonts folder/Fonts/Modia-NonCommercial.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Munistic';
+  src: url('/Fonts folder/Fonts/Munistic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MunisticItalic';
+  src: url('/Fonts folder/Fonts/MunisticItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NATS';
+  src: url('/Fonts folder/Fonts/NATS.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NTR';
+  src: url('/Fonts folder/Fonts/NTR.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NationalCartoon';
+  src: url('/Fonts folder/Fonts/National Cartoon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeoFobiaBold';
+  src: url('/Fonts folder/Fonts/NeoFobia-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeoFobiaBoldItalic';
+  src: url('/Fonts folder/Fonts/NeoFobia-BoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeoFobiaItalic';
+  src: url('/Fonts folder/Fonts/NeoFobia-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeoFobiaRegular';
+  src: url('/Fonts folder/Fonts/NeoFobia-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PeddanaRegular';
+  src: url('/Fonts folder/Fonts/Peddana-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyBoldItalic';
+  src: url('/Fonts folder/Fonts/Plavsky Bold Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyBold';
+  src: url('/Fonts folder/Fonts/Plavsky Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyCondensedBoldItalic';
+  src: url('/Fonts folder/Fonts/Plavsky Condensed Bold Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyCondensedBold';
+  src: url('/Fonts folder/Fonts/Plavsky Condensed Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyCondensedItalic';
+  src: url('/Fonts folder/Fonts/Plavsky Condensed Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyCondensed';
+  src: url('/Fonts folder/Fonts/Plavsky Condensed.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlavskyItalic';
+  src: url('/Fonts folder/Fonts/Plavsky Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plavsky';
+  src: url('/Fonts folder/Fonts/Plavsky.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ponnala';
+  src: url('/Fonts folder/Fonts/Ponnala.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RamabhadraRegular';
+  src: url('/Fonts folder/Fonts/Ramabhadra-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RamarajaRegular';
+  src: url('/Fonts folder/Fonts/Ramaraja-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RasaBold';
+  src: url('/Fonts folder/Fonts/Rasa-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RasaLight';
+  src: url('/Fonts folder/Fonts/Rasa-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RasaMedium';
+  src: url('/Fonts folder/Fonts/Rasa-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RasaRegular';
+  src: url('/Fonts folder/Fonts/Rasa-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RasaSemiBold';
+  src: url('/Fonts folder/Fonts/Rasa-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RiminiPersonalUse';
+  src: url('/Fonts folder/Fonts/Rimini-PersonalUse.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RocksPersonalUse';
+  src: url('/Fonts folder/Fonts/Rocks Personal Use.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikBlack';
+  src: url('/Fonts folder/Fonts/Rubik-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikBlackItalic';
+  src: url('/Fonts folder/Fonts/Rubik-BlackItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikBold';
+  src: url('/Fonts folder/Fonts/Rubik-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikBoldItalic';
+  src: url('/Fonts folder/Fonts/Rubik-BoldItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikItalic';
+  src: url('/Fonts folder/Fonts/Rubik-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikLight';
+  src: url('/Fonts folder/Fonts/Rubik-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikLightItalic';
+  src: url('/Fonts folder/Fonts/Rubik-LightItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikMedium';
+  src: url('/Fonts folder/Fonts/Rubik-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikMediumItalic';
+  src: url('/Fonts folder/Fonts/Rubik-MediumItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RubikRegular';
+  src: url('/Fonts folder/Fonts/Rubik-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFCollegiateItalic';
+  src: url('/Fonts folder/Fonts/SF Collegiate Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFCollegiateSolidBoldItalic';
+  src: url('/Fonts folder/Fonts/SF Collegiate Solid Bold Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFCollegiateSolidBold';
+  src: url('/Fonts folder/Fonts/SF Collegiate Solid Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFCollegiateSolidItalic';
+  src: url('/Fonts folder/Fonts/SF Collegiate Solid Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFCollegiateSolid';
+  src: url('/Fonts folder/Fonts/SF Collegiate Solid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFCollegiate';
+  src: url('/Fonts folder/Fonts/SF Collegiate.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SansSerifShaded';
+  src: url('/Fonts folder/Fonts/Sans Serif Shaded.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SaucerBB';
+  src: url('/Fonts folder/Fonts/SaucerBB.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ShoCardCapsNF';
+  src: url('/Fonts folder/Fonts/Sho-CardCapsNF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SketchBook';
+  src: url('/Fonts folder/Fonts/Sketch Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SketchMatch';
+  src: url('/Fonts folder/Fonts/Sketch Match.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SkyfontNonCommercial';
+  src: url('/Fonts folder/Fonts/Skyfont-NonCommercial.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Soulcraft';
+  src: url('/Fonts folder/Fonts/Soulcraft.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskBold';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskBold';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskBold';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskLight';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskLight';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskLight';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskMedium';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Medium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskMedium';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskMedium';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskRegular';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskRegular';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskRegular';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskSemiBold';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskSemiBold';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-SemiBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpaceGroteskSemiBold';
+  src: url('/Fonts folder/Fonts/SpaceGrotesk-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spantarandemo';
+  src: url('/Fonts folder/Fonts/Spantaran (demo).ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBBlack';
+  src: url('/Fonts folder/Fonts/SpartanMB-Black.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBBold';
+  src: url('/Fonts folder/Fonts/SpartanMB-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBExtraBold';
+  src: url('/Fonts folder/Fonts/SpartanMB-Extra-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBLight';
+  src: url('/Fonts folder/Fonts/SpartanMB-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBRegular';
+  src: url('/Fonts folder/Fonts/SpartanMB-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBSemiBold';
+  src: url('/Fonts folder/Fonts/SpartanMB-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpartanMBThin';
+  src: url('/Fonts folder/Fonts/SpartanMB-Thin.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SreeKrushnadevaraya';
+  src: url('/Fonts folder/Fonts/Sree Krushnadevaraya.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Suravaram';
+  src: url('/Fonts folder/Fonts/Suravaram.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TenaliRamakrishnaRegular';
+  src: url('/Fonts folder/Fonts/TenaliRamakrishna-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheyPerished';
+  src: url('/Fonts folder/Fonts/TheyPerished.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ThisNight';
+  src: url('/Fonts folder/Fonts/This Night.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TimmanaRegular';
+  src: url('/Fonts folder/Fonts/TimmanaRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tonight';
+  src: url('/Fonts folder/Fonts/Tonight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TopSecret';
+  src: url('/Fonts folder/Fonts/Top Secret.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UmbaSlabBold';
+  src: url('/Fonts folder/Fonts/UmbaSlab-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UnderTheSnow';
+  src: url('/Fonts folder/Fonts/Under The Snow.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UnderTheSnow';
+  src: url('/Fonts folder/Fonts/Under The Snow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Undeveloped';
+  src: url('/Fonts folder/Fonts/Undeveloped.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UndevelopedBook';
+  src: url('/Fonts folder/Fonts/UndevelopedBook.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'akshar';
+  src: url('/Fonts folder/Fonts/akshar.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'cookiejarstorychoicefont';
+  src: url('/Fonts folder/Fonts/cookie-jar-story-choice-font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'dhurjati';
+  src: url('/Fonts folder/Fonts/dhurjati.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'gautami';
+  src: url('/Fonts folder/Fonts/gautami.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'gautamib';
+  src: url('/Fonts folder/Fonts/gautamib.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'gomariceshmupinthezone';
+  src: url('/Fonts folder/Fonts/gomarice_shmup_in_the_zone.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'junegull';
+  src: url('/Fonts folder/Fonts/junegull.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'kidsrockDEMO';
+  src: url('/Fonts folder/Fonts/kidsrock DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'nutellaBold';
+  src: url('/Fonts folder/Fonts/nutellaBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'orangejuice20';
+  src: url('/Fonts folder/Fonts/orange juice 2.0.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ramabhadra';
+  src: url('/Fonts folder/Fonts/ramabhadra.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'regaliafree';
+  src: url('/Fonts folder/Fonts/regalia_free.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'selawk';
+  src: url('/Fonts folder/Fonts/selawk.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'selawkb';
+  src: url('/Fonts folder/Fonts/selawkb.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'selawkl';
+  src: url('/Fonts folder/Fonts/selawkl.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'selawksb';
+  src: url('/Fonts folder/Fonts/selawksb.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'selawksl';
+  src: url('/Fonts folder/Fonts/selawksl.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'suranna';
+  src: url('/Fonts folder/Fonts/suranna.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'vtkschalk79';
+  src: url('/Fonts folder/Fonts/vtks chalk 79.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
