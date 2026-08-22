@@ -88,10 +88,21 @@ export function convertText(
     };
   }
 
+  // Convert regional numbers to 0-9 to prevent them from being stripped
+  // We skip Hindi (\u0966-\u096F) because Kruti Dev natively maps them to special ASCII characters
+  let processedInput = inputText;
+  if (!reverse) {
+      processedInput = processedInput
+          .replace(/[\u0C66-\u0C6F]/g, match => String(match.charCodeAt(0) - 0x0C66)) // Telugu
+          .replace(/[\u0BE6-\u0BEF]/g, match => String(match.charCodeAt(0) - 0x0BE6)) // Tamil
+          .replace(/[\u0CE6-\u0CEF]/g, match => String(match.charCodeAt(0) - 0x0CE6)) // Kannada
+          .replace(/[\u0D66-\u0D6F]/g, match => String(match.charCodeAt(0) - 0x0D66)); // Malayalam
+  }
+
   // Handle specific languages with dedicated engines (Forward Conversion)
   if (!reverse) {
     if (encoding === 'krutidev' && script === 'hindi') {
-      const convertedText = unicodeToKrutidev(inputText);
+      const convertedText = unicodeToKrutidev(processedInput);
       const endTime = performance.now();
       return {
         convertedText,
@@ -108,7 +119,7 @@ export function convertText(
     }
     
     if (encoding === 'bamini' && script === 'tamil') {
-      const convertedText = unicodeToBamini(inputText);
+      const convertedText = unicodeToBamini(processedInput);
       const endTime = performance.now();
       return {
         convertedText,
@@ -127,7 +138,7 @@ export function convertText(
 
 
   const mapping = getMapping(encoding, reverse);
-  let resultText = inputText;
+  let resultText = processedInput;
 
   // Auto-transliterate Devanagari (Hindi) to Telugu for Anu fonts before processing
   // This allows Hindi users to just paste Mangal font and get it converted to Anu
