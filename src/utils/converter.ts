@@ -1,5 +1,6 @@
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
+import { unicodeToNudi } from './nudiConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
@@ -120,6 +121,23 @@ export function convertText(
     
     if (encoding === 'bamini' && script === 'tamil') {
       const convertedText = unicodeToBamini(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+    
+    if (encoding === 'nudi' && script === 'kannada') {
+      const convertedText = unicodeToNudi(processedInput);
       const endTime = performance.now();
       return {
         convertedText,
