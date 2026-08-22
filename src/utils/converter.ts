@@ -1,4 +1,6 @@
-import { getMapping, type FontEncoding } from './mappings/index';
+import { unicodeToKrutidev } from './krutiDevConverter';
+import { unicodeToBamini } from './baminiConverter';
+import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
   index: number;
@@ -74,7 +76,7 @@ export function convertText(
   encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
   useAltRaaVatthu: boolean = false,
-  script: 'telugu' | 'hindi' = 'telugu'
+  script: ScriptLanguage = 'telugu'
 ): ConversionResult {
   const startTime = performance.now();
 
@@ -82,16 +84,47 @@ export function convertText(
     return {
       convertedText: '',
       errors: [],
-      stats: {
-        inputCharCount: 0,
-        outputCharCount: 0,
-        wordCount: 0,
-        lineCount: 0,
-        unmappedCount: 0,
-        processingTimeMs: 0
-      }
+      stats: { inputCharCount: 0, outputCharCount: 0, wordCount: 0, lineCount: 0, unmappedCount: 0, processingTimeMs: 0 }
     };
   }
+
+  // Handle specific languages with dedicated engines (Forward Conversion)
+  if (!reverse) {
+    if (encoding === 'krutidev' && script === 'hindi') {
+      const convertedText = unicodeToKrutidev(inputText);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+    
+    if (encoding === 'bamini' && script === 'tamil') {
+      const convertedText = unicodeToBamini(inputText);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+  }
+
 
   const mapping = getMapping(encoding, reverse);
   let resultText = inputText;
@@ -104,15 +137,30 @@ export function convertText(
   }
   
   if (!reverse) {
-    // Convert Devanagari Danda to standard period since Anu fonts don't have Danda
+    const blockOffsets: Record<string, number> = {
+      hindi: 0x0300,       // Devanagari (0x0900) -> Telugu (0x0C00)
+      tamil: 0x0080,       // Tamil (0x0B80) -> Telugu (0x0C00)
+      kannada: -0x0080,    // Kannada (0x0C80) -> Telugu (0x0C00)
+      malayalam: -0x0100   // Malayalam (0x0D00) -> Telugu (0x0C00)
+    };
+
     if (script === 'hindi') {
       resultText = resultText.replace(/\u0964/g, '.');
       resultText = resultText.replace(/\u0965/g, '..'); // Double Danda
     }
 
-    resultText = resultText.replace(/[\u0900-\u097F]/g, (char) => {
-      return String.fromCharCode(char.charCodeAt(0) + 0x0300);
-    });
+    const offset = blockOffsets[script] || 0;
+    if (offset !== 0) {
+      resultText = resultText.replace(/[\u0900-\u0D7F]/g, (char) => {
+        // Only shift if it is within the expected block of the given script
+        const code = char.charCodeAt(0);
+        if (script === 'hindi' && code >= 0x0900 && code <= 0x097F) return String.fromCharCode(code + offset);
+        if (script === 'tamil' && code >= 0x0B80 && code <= 0x0BFF) return String.fromCharCode(code + offset);
+        if (script === 'kannada' && code >= 0x0C80 && code <= 0x0CFF) return String.fromCharCode(code + offset);
+        if (script === 'malayalam' && code >= 0x0D00 && code <= 0x0D7F) return String.fromCharCode(code + offset);
+        return char;
+      });
+    }
 
     // -------------------------------------------------------------
     // FORWARD CONVERSION (Unicode -> Legacy Anu 7.0)
@@ -218,10 +266,18 @@ export function convertText(
       '$1$3$2'
     );
     
-    // Post-processing: Map back to Hindi (Devanagari) if script is hindi
-    if (script === 'hindi') {
+    // Post-processing: Map back to original script if shifted to Telugu block
+    const reverseOffsets: Record<string, number> = {
+      hindi: -0x0300,       // Telugu (0x0C00) -> Devanagari (0x0900)
+      tamil: -0x0080,       // Telugu (0x0C00) -> Tamil (0x0B80)
+      kannada: 0x0080,      // Telugu (0x0C00) -> Kannada (0x0C80)
+      malayalam: 0x0100     // Telugu (0x0C00) -> Malayalam (0x0D00)
+    };
+
+    const reverseOffset = reverseOffsets[script];
+    if (reverseOffset) {
       resultText = resultText.replace(/[\u0C00-\u0C7F]/g, (char) => {
-        return String.fromCharCode(char.charCodeAt(0) - 0x0300);
+        return String.fromCharCode(char.charCodeAt(0) + reverseOffset);
       });
     }
   }
@@ -276,7 +332,7 @@ export async function convertTextAsync(
   encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
   useAltRaaVatthu: boolean = false,
-  script: 'telugu' | 'hindi' = 'telugu',
+  script: ScriptLanguage = 'telugu',
   onProgress?: (progressPercent: number) => void
 ): Promise<ConversionResult> {
   const CHUNK_SIZE = 10000;

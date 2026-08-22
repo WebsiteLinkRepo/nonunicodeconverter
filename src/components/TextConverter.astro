@@ -24,23 +24,27 @@ const defaultFont = 'anu7';
   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-3.5 py-2.5 bg-[var(--canvas-soft-2)] border border-[var(--hairline)] rounded-xl text-xs">
     <div class="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
       
+      
+      <!-- Script Selector -->
+      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
+        <label for="script-select">Language:</label>
+        <select id="script-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
+          <option value="telugu">Telugu</option>
+          <option value="hindi">Hindi</option>
+          <option value="tamil">Tamil</option>
+          <option value="kannada">Kannada</option>
+          <option value="malayalam">Malayalam</option>
+        </select>
+      </div>
+
       <!-- Font Version Selector -->
       <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
         <label for="font-version-select">Format:</label>
         <select id="font-version-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
-          <option value="anu7">Anu 7.0</option>
-          <option value="anu6">Anu 6.0 (Exp)</option>
+          <!-- Populated dynamically via JS -->
         </select>
       </div>
 
-      <!-- Script Selector -->
-      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
-        <label for="script-select">Script:</label>
-        <select id="script-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
-          <option value="telugu">Telugu</option>
-          <option value="hindi">Hindi (Mangal)</option>
-        </select>
-      </div>
 
       <!-- Clean Extra Lines Checkbox -->
       <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
@@ -396,7 +400,7 @@ const defaultFont = 'anu7';
     if (clearBtn) clearBtn.textContent = t.clearBtn;
     if (downloadBtnText) downloadBtnText.textContent = t.downloadBtn;
     if (inputText) inputText.placeholder = t.inputPlaceholder;
-    if (outputText) outputText.placeholder = t.outputPlaceholder;
+    if (outputText) outputText.placeholder = "Converted " + activeFontNameLabel() + " text will appear here automatically...";
     if (copyBtnText) copyBtnText.textContent = t.copyBtn;
     if (footerText) footerText.textContent = t.footerText;
     if (historyTitle) historyTitle.textContent = t.historyTitle;
@@ -432,32 +436,55 @@ const defaultFont = 'anu7';
     if (val && autoDetectScript) {
       const hasTelugu = /[\u0C00-\u0C7F]/.test(val);
       const hasHindi = /[\u0900-\u097F]/.test(val);
-      if (hasHindi && !hasTelugu && scriptSelect) {
-        scriptSelect.value = 'hindi';
-      } else if (hasTelugu && !hasHindi && scriptSelect) {
-        scriptSelect.value = 'telugu';
+      const hasTamil = /[\u0B80-\u0BFF]/.test(val);
+      const hasKannada = /[\u0C80-\u0CFF]/.test(val);
+      const hasMalayalam = /[\u0D00-\u0D7F]/.test(val);
+      
+      if (scriptSelect) {
+        if (hasHindi && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'hindi';
+        else if (hasTelugu && !hasHindi && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'telugu';
+        else if (hasTamil && !hasHindi && !hasTelugu && !hasKannada && !hasMalayalam) scriptSelect.value = 'tamil';
+        else if (hasKannada && !hasHindi && !hasTelugu && !hasTamil && !hasMalayalam) scriptSelect.value = 'kannada';
+        else if (hasMalayalam && !hasHindi && !hasTelugu && !hasTamil && !hasKannada) scriptSelect.value = 'malayalam';
+        
+        // Ensure dropdown is updated after programmatic change
+        updateFontDropdown();
       }
     }
 
     const script = scriptSelect ? (scriptSelect.value as any) : 'telugu';
 
-    if (script === 'hindi') {
+    
+    const PLACEHOLDERS: Record<string, string> = {
+      telugu: "Paste Telugu Unicode text here... (e.g. అందరికీ నమస్కారం)",
+      hindi: "Paste Hindi Unicode text here... (e.g. हिंदी भारत की राजभाषा है)",
+      tamil: "Paste Tamil Unicode text here... (e.g. அனைவருக்கும் வணக்கம்)",
+      kannada: "Paste Kannada Unicode text here... (e.g. ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ)",
+      malayalam: "Paste Malayalam Unicode text here... (e.g. എല്ലാവർക്കും നമസ്കാരം)"
+    };
+    
+    const scriptNames: Record<string, string> = { 
+      hindi: 'Hindi', tamil: 'Tamil', kannada: 'Kannada', malayalam: 'Malayalam', telugu: 'Telugu' 
+    };
+    
+    if (script === 'telugu') {
+      sampleTeluguBtn?.classList.remove('hidden');
+      sampleHindiBtn?.classList.add('hidden');
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'flex';
+    } else if (script === 'hindi') {
       sampleTeluguBtn?.classList.add('hidden');
       sampleHindiBtn?.classList.remove('hidden');
-      if (inputText) inputText.placeholder = currentLang === 'te' ? "మీ హిందీ యూనికోడ్ టెక్స్ట్ ఇక్కడ పేస్ట్ చేయండి... (उदाहरण: हिंदी भारत की राजभाषा है)" : "Paste Hindi Unicode text here... (उदाहरण: हिंदी भारत की राजभाषा है)";
-      
-      // Hide Alt Raa Vatthu for Hindi
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else {
+      sampleTeluguBtn?.classList.add('hidden');
       sampleHindiBtn?.classList.add('hidden');
-      sampleTeluguBtn?.classList.remove('hidden');
-      if (inputText) inputText.placeholder = t.inputPlaceholder;
-      
-      // Show Alt Raa Vatthu for Telugu
-      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'flex';
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     }
+    
+    if (inputText) inputText.placeholder = PLACEHOLDERS[script] || PLACEHOLDERS['telugu'];
 
     if (!val) {
+
       outputText.value = '';
       inputText.style.fontFamily = 'sans-serif';
       outputText.style.fontFamily = 'sans-serif';
@@ -480,27 +507,31 @@ const defaultFont = 'anu7';
 
     const hasTeluguChar = /[\u0C00-\u0C7F]/.test(val);
     const hasHindiChar = /[\u0900-\u097F]/.test(val);
-    const isUnicodeInput = hasTeluguChar || hasHindiChar;
+    const hasTamilChar = /[\u0B80-\u0BFF]/.test(val);
+    const hasKannadaChar = /[\u0C80-\u0CFF]/.test(val);
+    const hasMalayalamChar = /[\u0D00-\u0D7F]/.test(val);
+    const isUnicodeInput = hasTeluguChar || hasHindiChar || hasTamilChar || hasKannadaChar || hasMalayalamChar;
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
-    const scriptName = script === 'hindi' ? 'Hindi' : 'Telugu';
     
+    const isTelugu = script === 'telugu';
     const isHindi = script === 'hindi';
 
-
-
     const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
-    const useAltRaaVatthu = (altRaaVatthuChk && !isHindi) ? altRaaVatthuChk.checked : false;
+    const useAltRaaVatthu = (altRaaVatthuChk && isTelugu) ? altRaaVatthuChk.checked : false;
     const effectiveFontStyle = useAltRaaVatthu ? 'bapu' : selectedFontStyle;
 
+    const scriptNameUpper = scriptNames[script].toUpperCase();
+
     if (reverse) {
-      autoStatus.textContent = `Non-Unicode ➔ ${scriptName} Unicode`;
-      if (inputBoxTitle) inputBoxTitle.textContent = t.nonUnicodeInputHeader || 'NON-UNICODE TEXT INPUT';
-      if (outputBoxTitle) outputBoxTitle.textContent = isHindi ? 'HINDI UNICODE OUTPUT' : (t.unicodeOutputHeader || 'TELUGU UNICODE OUTPUT');
+      autoStatus.textContent = `Non-Unicode ➔ ${scriptNames[script]} Unicode`;
+      if (inputBoxTitle) inputBoxTitle.textContent = 'NON-UNICODE TEXT INPUT';
+      if (outputBoxTitle) outputBoxTitle.textContent = `${scriptNameUpper} UNICODE OUTPUT`;
     } else {
-      autoStatus.textContent = `${scriptName} Unicode ➔ ${activeFontNameLabel(effectiveFontStyle)}`;
-      if (inputBoxTitle) inputBoxTitle.textContent = isHindi ? 'HINDI UNICODE INPUT' : (t.inputBoxHeader || 'TELUGU UNICODE INPUT');
-      if (outputBoxTitle) outputBoxTitle.textContent = t.outputBoxHeader || 'NON-UNICODE OUTPUT';
+      autoStatus.textContent = `${scriptNames[script]} Unicode ➔ ${activeFontNameLabel()}`;
+      if (inputBoxTitle) inputBoxTitle.textContent = `${scriptNameUpper} UNICODE INPUT`;
+      if (outputBoxTitle) outputBoxTitle.textContent = 'NON-UNICODE OUTPUT';
     }
+
 
     const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
     const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
@@ -522,15 +553,25 @@ const defaultFont = 'anu7';
       // AnuBapu explicitly draws this character as a right-sided curve.
       // To ensure the preview is visually correct, we automatically switch the preview font to AnuBapu if Alt Raa Vatthu is used.
 
+      
       // Apply correct font style preview
       // Only apply legacy fonts if there is actual text, otherwise let it fall back to sans-serif so the placeholder is legible
+      let legacyFontToApply = 'sans-serif';
+      if (encoding === 'krutidev') legacyFontToApply = "'Kruti Dev 010', 'Kruti Dev', 'DevLys 010', sans-serif";
+      else if (encoding === 'bamini') legacyFontToApply = "'Bamini', sans-serif";
+      else if (encoding === 'nudi') legacyFontToApply = "'Nudi', sans-serif";
+      else if (encoding === 'ism') legacyFontToApply = "'ML-TTKarthika', sans-serif";
+      else if (encoding === 'shreelipi') legacyFontToApply = "'SHREE-TEL', sans-serif";
+      else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka';
+
       if (reverse) {
-        inputText.style.fontFamily = (inputText.value && !isHindi) ? (fontStyles[effectiveFontStyle] || 'AnuPriyanka') : 'sans-serif';
-        outputText.style.fontFamily = isHindi ? 'Mangal, sans-serif' : 'sans-serif';
+        inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : 'sans-serif';
+        outputText.style.fontFamily = 'sans-serif';
       } else {
-        inputText.style.fontFamily = isHindi ? 'Mangal, sans-serif' : 'sans-serif';
-        outputText.style.fontFamily = (outputText.value && !isHindi) ? (fontStyles[effectiveFontStyle] || 'AnuPriyanka') : 'sans-serif';
+        inputText.style.fontFamily = 'sans-serif';
+        outputText.style.fontFamily = (outputText.value) ? legacyFontToApply : 'sans-serif';
       }
+
 
       charCount.textContent = `${val.length.toLocaleString()} ${t.charsLabel}`;
 
@@ -614,7 +655,7 @@ const defaultFont = 'anu7';
     historyList.innerHTML = historyItems.map(item => `
       <div data-id="${item.id}" class="history-item flex items-center justify-between p-2 rounded-lg bg-[var(--canvas)] border border-[var(--hairline)] hover:border-[var(--hairline-strong)] transition-all cursor-pointer text-xs">
         <div class="truncate max-w-[80%] flex items-center gap-2">
-          <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--canvas-soft-2)] text-[var(--ink-secondary)]">${activeFontNameLabel(item.font as FontEncoding)}</span>
+          <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--canvas-soft-2)] text-[var(--ink-secondary)]">${item.font}</span>
           <span class="truncate text-[var(--ink)] font-medium">${escapeHtml(item.input.substring(0, 50))}</span>
         </div>
         <span class="text-[10px] font-mono text-[var(--ink-tertiary)]">${formatTime(item.timestamp)}</span>
@@ -657,18 +698,66 @@ const defaultFont = 'anu7';
   if (fontVersionSelectEl) {
     fontVersionSelectEl.addEventListener('change', () => {
       if (activeFontLabel) {
-        activeFontLabel.textContent = fontVersionSelectEl.value === 'anu6' ? 'Anu 6.0' : 'Anu 7.0';
+        activeFontLabel.textContent = activeFontNameLabel();
       }
       processConversion();
     });
   }
 
+  
   const scriptSelectEl = document.getElementById('script-select') as HTMLSelectElement;
+  
+  const FONT_OPTIONS: Record<string, {value: string, label: string}[]> = {
+    telugu: [
+      { value: 'anu7', label: 'Anu Script Manager 7.0' },
+      { value: 'anu6', label: 'Anu Script Manager 6.0' },
+      { value: 'shreelipi', label: 'Shree-Lipi' }
+    ],
+    hindi: [
+      { value: 'krutidev', label: 'Kruti Dev (Popular)' },
+      { value: 'anu7', label: 'Anu Script Manager (Hindi)' }
+    ],
+    tamil: [
+      { value: 'bamini', label: 'Bamini (Popular)' },
+      { value: 'anu7', label: 'Anu Script Manager (Tamil)' }
+    ],
+    kannada: [
+      { value: 'nudi', label: 'Nudi' },
+      { value: 'anu7', label: 'Anu Script Manager (Kannada)' }
+    ],
+    malayalam: [
+      { value: 'ism', label: 'ISM / ML-TTKarthika' },
+      { value: 'anu7', label: 'Anu Script Manager (Malayalam)' }
+    ]
+  };
+
+  function updateFontDropdown() {
+    if (!fontVersionSelectEl || !scriptSelectEl) return;
+    const currentScript = scriptSelectEl.value;
+    const options = FONT_OPTIONS[currentScript] || FONT_OPTIONS['telugu'];
+    
+    fontVersionSelectEl.innerHTML = options.map(opt => 
+      `<option value="${opt.value}">${opt.label}</option>`
+    ).join('');
+  }
+
   if (scriptSelectEl) {
     scriptSelectEl.addEventListener('change', () => {
+      updateFontDropdown();
+      const anuFontSelectEl = document.getElementById('anu-font-select') as HTMLSelectElement;
+      if (anuFontSelectEl) {
+        if (scriptSelectEl.value === 'hindi') anuFontSelectEl.value = 'AnuNEOGANBO';
+        else if (scriptSelectEl.value === 'telugu') anuFontSelectEl.value = 'AnuANUPB';
+        else if (scriptSelectEl.value === 'kannada') anuFontSelectEl.value = 'AnuDINEIGHT';
+        else if (scriptSelectEl.value === 'tamil') anuFontSelectEl.value = 'AnuPADMINI_';
+      }
       processConversion(false);
     });
   }
+  
+  // Call once on init
+  updateFontDropdown();
+
 
   altRaaVatthuChk?.addEventListener('change', () => {
     localStorage.setItem('altRaaVatthu', altRaaVatthuChk.checked.toString());
@@ -714,22 +803,37 @@ const defaultFont = 'anu7';
     processConversion();
   });
 
-  function activeFontNameLabel(style: string): string {
+  
+  function activeFontNameLabel(): string {
     const fontVersionSelectEl = document.getElementById('font-version-select') as HTMLSelectElement;
-    if (fontVersionSelectEl && fontVersionSelectEl.value === 'anu6') {
-      return 'Anu 6.0';
+    if (fontVersionSelectEl) {
+      if (fontVersionSelectEl.options.length > 0 && fontVersionSelectEl.selectedIndex >= 0) {
+        return fontVersionSelectEl.options[fontVersionSelectEl.selectedIndex].text;
+      }
     }
-    return 'Anu 7.0';
+    return 'Target Font';
   }
 
+
   // Initial call to set UI states
-  const initScriptIsHindi = scriptSelect ? scriptSelect.value === 'hindi' : false;
+  const initScriptIsHindi = typeof scriptSelectEl !== 'undefined' && scriptSelectEl ? scriptSelectEl.value === 'hindi' : false;
   const useAltRaaVatthuInit = (altRaaVatthuChk && !initScriptIsHindi) ? altRaaVatthuChk.checked : false;
   const effectiveFontStyleInit = useAltRaaVatthuInit ? 'bapu' : selectedFontStyle;
-  inputText.style.fontFamily = (inputText.value && !initScriptIsHindi) ? (fontStyles[effectiveFontStyleInit] || 'AnuPriyanka') : 'sans-serif';
-  outputText.style.fontFamily = (outputText.value && !initScriptIsHindi) ? (fontStyles[effectiveFontStyleInit] || 'AnuPriyanka') : 'sans-serif';
+  
+  let initLegacyFontToApply = 'sans-serif';
+  const initEncoding = fontVersionSelectEl ? fontVersionSelectEl.value : 'anu7';
+  if (initEncoding === 'krutidev') initLegacyFontToApply = "'Kruti Dev 010', 'Kruti Dev', 'DevLys 010', sans-serif";
+  else if (initEncoding === 'bamini') initLegacyFontToApply = "'Bamini', sans-serif";
+  else if (initEncoding === 'nudi') initLegacyFontToApply = "'Nudi', sans-serif";
+  else if (initEncoding === 'ism') initLegacyFontToApply = "'ML-TTKarthika', sans-serif";
+  else if (initEncoding === 'shreelipi') initLegacyFontToApply = "'SHREE-TEL', sans-serif";
+  else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'AnuPriyanka';
+
+  inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : 'sans-serif';
+  outputText.style.fontFamily = (outputText.value) ? initLegacyFontToApply : 'sans-serif';
+
   if (activeFontLabel) {
-    activeFontLabel.textContent = activeFontNameLabel(effectiveFontStyleInit);
+    activeFontLabel.textContent = activeFontNameLabel();
   }
 
   const cp1252: Record<number, number> = {
