@@ -148,3 +148,19 @@ html, body {
 }
 
 
+
+@font-face {
+  font-family: 'Nudi 01 e';
+  src: url('/Fonts folder/Keyboards/Nudi-01-e.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nudi 01 k';
+  src: url('/Fonts folder/Keyboards/Nudi 01 k Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
