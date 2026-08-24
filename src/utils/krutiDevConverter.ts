@@ -230,11 +230,7 @@ export function unicodeToKrutidev(text: string): string {
   // Replace array elements
   for (let i = 0; i < array_one.length; i++) {
     if (array_one[i]) {
-      let idx = 0;
-      while (idx !== -1) {
-        modified_substring = modified_substring.replace(array_one[i], array_two[i]);
-        idx = modified_substring.indexOf(array_one[i]);
-      }
+      modified_substring = modified_substring.split(array_one[i]).join(array_two[i]);
     }
   }
 
