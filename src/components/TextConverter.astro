@@ -451,14 +451,17 @@ const defaultFont = 'anu7';
       const hasMalayalam = /[\u0D00-\u0D7F]/.test(val);
       
       if (scriptSelect) {
+        const oldScript = scriptSelect.value;
         if (hasHindi && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'hindi';
         else if (hasTelugu && !hasHindi && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'telugu';
         else if (hasTamil && !hasHindi && !hasTelugu && !hasKannada && !hasMalayalam) scriptSelect.value = 'tamil';
         else if (hasKannada && !hasHindi && !hasTelugu && !hasTamil && !hasMalayalam) scriptSelect.value = 'kannada';
         else if (hasMalayalam && !hasHindi && !hasTelugu && !hasTamil && !hasKannada) scriptSelect.value = 'malayalam';
         
-        // Ensure dropdown is updated after programmatic change
-        updateFontDropdown();
+        // Ensure dropdown is updated only after actual programmatic change
+        if (oldScript !== scriptSelect.value) {
+          updateFontDropdown();
+        }
       }
     }
 

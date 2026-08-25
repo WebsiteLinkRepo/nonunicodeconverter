@@ -1,3 +1,4 @@
+import { unicodeToAnu6 } from './anu6Converter';
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
 import { unicodeToNudi } from './nudiConverter';
@@ -103,6 +104,22 @@ export function convertText(
 
   // Handle specific languages with dedicated engines (Forward Conversion)
   if (!reverse) {
+    if (encoding === 'anu6' && script === 'telugu') {
+      const convertedText = unicodeToAnu6(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.split(/\s+/).filter(w => w.length > 0).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Number((endTime - startTime).toFixed(2))
+        }
+      };
+    }
     if (encoding === 'krutidev' && script === 'hindi') {
       const convertedText = unicodeToKrutidev(processedInput);
       const endTime = performance.now();
@@ -247,7 +264,7 @@ export function convertText(
         modifier = "+";
         remaining = remaining.slice(0, -1);
       } else if (remaining.endsWith("\u0C03")) { // ః
-        modifier = "\u00A6";
+        modifier = "'";
         remaining = remaining.slice(0, -1);
       }
 
