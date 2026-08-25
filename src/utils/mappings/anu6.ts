@@ -15822,6 +15822,11 @@ export const ANU6_UNICODE_TO_NONUNICODE: MappingEntry[] = [
   { from: "స", to: "dŸ" },
   { from: "హ", to: "VŸ²" },
   { from: "ళ", to: "Þø" },
+  { from: "ఋ", to: "‹TT" },
+  { from: "ఙ", to: "v" },
+  { from: "ఞ", to: "x" },
+  { from: "ఱ", to: "i" },
+  { from: "ః", to: "'" },
 
   // Standalone Vattu mappings for hybrid syllable layout compiler
   { from: "్క", to: "\u00D8" },
