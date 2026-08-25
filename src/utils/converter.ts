@@ -237,6 +237,12 @@ export function convertText(
       }
     }
 
+    // Pre-process standalone modifiers (so they map identically to competitor)
+    if (encoding === 'anu7' && script === 'telugu') {
+      resultText = resultText.replace(/\u0C02/g, "+");
+      resultText = resultText.replace(/\u0C03/g, "'");
+    }
+
     // Split text into Telugu syllables and non-Telugu characters
     const syllableRegex = /(?:(?:[\u0C05-\u0C14]|(?:[\u0C15-\u0C39\u0C58-\u0C5A](?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])*[\u0C3E-\u0C4C\u0C4D]?))[\u0C02\u0C03]?)/g;
 
@@ -354,6 +360,9 @@ export function convertText(
     let match: RegExpExecArray | null;
     while ((match = indicRegex.exec(resultText)) !== null) {
       const char = match[0];
+      // Ignore standalone virama/vatthu to match competitor behavior (no error thrown)
+      if (char === '\u0C4D') continue;
+
       const displayChar = script === 'hindi' ? String.fromCharCode(char.charCodeAt(0) - 0x0300) : char;
       const codePoint = `U+${displayChar.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
       errors.push({
@@ -364,8 +373,9 @@ export function convertText(
       });
     }
 
-    // Apply masking so Unicode characters don't appear in the final output
-    resultText = resultText.replace(/[\u0C00-\u0C7F]/g, '');
+    // We do NOT mask unmapped Unicode characters here.
+    // By leaving them in the string, we perfectly mimic the competitor's behavior
+    // where invalid fragments (like standalone ్) are passed through to the final output.
   }
 
   const endTime = performance.now();
