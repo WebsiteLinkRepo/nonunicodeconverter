@@ -257,6 +257,16 @@ const defaultFont = 'anu7';
     <span class="font-mono text-[11px] text-amber-700 dark:text-amber-300" id="warning-chars-list"></span>
   </div>
 
+  <!-- PageMaker Warning Bar -->
+  <div class="bg-[var(--brand-blue)]/10 border border-[var(--brand-blue)]/30 rounded-lg p-3 text-xs text-[var(--ink-secondary)] flex items-start gap-2">
+    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-[var(--brand-blue)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <div>
+      <span class="font-semibold text-[var(--ink)]">Using PageMaker?</span> If your pasted text looks distorted (like ε or छछ), go to <strong>File &gt; Preferences</strong> in PageMaker and turn off <strong>AutoCorrect</strong> and <strong>Smart Quotes</strong> before pasting.
+    </div>
+  </div>
+
   <!-- Recents / History Drawer -->
   <div id="history-container" class="hidden bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-3 shadow-2xs space-y-2">
     <div class="flex items-center justify-between">

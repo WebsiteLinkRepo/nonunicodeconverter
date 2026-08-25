@@ -80,7 +80,7 @@
         <h3 class="text-lg sm:text-xl font-semibold text-[var(--ink)]">
           Frequently Asked Questions (FAQ)
         </h3>
-        <span class="text-xs font-mono text-[var(--ink-tertiary)]">8 Questions</span>
+        <span class="text-xs font-mono text-[var(--ink-tertiary)]">9 Questions</span>
       </div>
 
       <div class="space-y-2.5">
@@ -185,6 +185,19 @@
           </summary>
           <div class="px-3.5 sm:px-4 pb-3.5 sm:pb-4 text-xs sm:text-sm text-[var(--ink-secondary)] leading-relaxed border-t border-[var(--hairline)] pt-3 bg-[var(--canvas-soft)]">
             Yes! If you paste legacy Anu 7.0 text into the input box, our converter automatically detects the legacy ASCII layout and converts it back into standard web-ready Unicode.
+          </div>
+        </details>
+
+        <!-- FAQ 9 -->
+        <details class="group border border-[var(--hairline)] rounded-xl overflow-hidden bg-[var(--canvas)] transition-all hover:border-[var(--hairline-strong)]">
+          <summary class="flex items-center justify-between p-3.5 sm:p-4 font-semibold text-xs sm:text-sm text-[var(--ink)] cursor-pointer select-none gap-2">
+            <span>9. Why does my text look distorted (e.g. ε or छछ) in Adobe PageMaker?</span>
+            <svg class="w-4 h-4 text-[var(--ink-secondary)] transition-transform duration-200 group-open:rotate-180 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-3.5 sm:px-4 pb-3.5 sm:pb-4 text-xs sm:text-sm text-[var(--ink-secondary)] leading-relaxed border-t border-[var(--hairline)] pt-3 bg-[var(--canvas-soft)]">
+            Legacy fonts (like Kruti Dev, Anu Script, or Bamini) map standard English keystrokes to regional glyphs. When you paste text into Adobe PageMaker, its built-in <strong>AutoCorrect</strong> and <strong>Smart Quotes</strong> features will often automatically change some letters (like auto-capitalizing the first word), which completely breaks the non-Unicode mapping. To fix this, go to <strong>File &gt; Preferences</strong> in PageMaker and <strong>turn off AutoCorrect and Smart Quotes</strong> before pasting.
           </div>
         </details>
       </div>
