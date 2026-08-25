@@ -135,6 +135,27 @@ const defaultFont = 'anu7';
       >
         Hindi Unicode
       </button>
+      <button 
+        id="sample-tamil-btn" 
+        type="button" 
+        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+      >
+        Tamil Unicode
+      </button>
+      <button 
+        id="sample-kannada-btn" 
+        type="button" 
+        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+      >
+        Kannada Unicode
+      </button>
+      <button 
+        id="sample-malayalam-btn" 
+        type="button" 
+        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+      >
+        Malayalam Unicode
+      </button>
     </div>
   </div>
 
@@ -354,6 +375,9 @@ const defaultFont = 'anu7';
 
   const sampleTeluguBtn = document.getElementById('sample-telugu-btn') as HTMLButtonElement;
   const sampleHindiBtn = document.getElementById('sample-hindi-btn') as HTMLButtonElement;
+  const sampleTamilBtn = document.getElementById('sample-tamil-btn') as HTMLButtonElement;
+  const sampleKannadaBtn = document.getElementById('sample-kannada-btn') as HTMLButtonElement;
+  const sampleMalayalamBtn = document.getElementById('sample-malayalam-btn') as HTMLButtonElement;
 
 
   const linesStat = document.getElementById('lines-stat') as HTMLElement;
@@ -480,17 +504,25 @@ const defaultFont = 'anu7';
       hindi: 'Hindi', tamil: 'Tamil', kannada: 'Kannada', malayalam: 'Malayalam', telugu: 'Telugu' 
     };
     
+    const allSampleBtns = [sampleTeluguBtn, sampleHindiBtn, sampleTamilBtn, sampleKannadaBtn, sampleMalayalamBtn];
+    allSampleBtns.forEach(btn => btn?.classList.add('hidden'));
+
     if (script === 'telugu') {
       sampleTeluguBtn?.classList.remove('hidden');
-      sampleHindiBtn?.classList.add('hidden');
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'flex';
     } else if (script === 'hindi') {
-      sampleTeluguBtn?.classList.add('hidden');
       sampleHindiBtn?.classList.remove('hidden');
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
+    } else if (script === 'tamil') {
+      sampleTamilBtn?.classList.remove('hidden');
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
+    } else if (script === 'kannada') {
+      sampleKannadaBtn?.classList.remove('hidden');
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
+    } else if (script === 'malayalam') {
+      sampleMalayalamBtn?.classList.remove('hidden');
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else {
-      sampleTeluguBtn?.classList.add('hidden');
-      sampleHindiBtn?.classList.add('hidden');
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     }
     
@@ -785,12 +817,31 @@ const defaultFont = 'anu7';
     processConversion();
   });
 
-
-
   sampleHindiBtn?.addEventListener('click', () => {
     selectedFontStyle = 'priyanka';
     isManualReverse = false;
     inputText.value = "नमस्ते! हिंदी बहुत ही सुंदर और प्राचीन भाषा है।";
+    processConversion();
+  });
+
+  sampleTamilBtn?.addEventListener('click', () => {
+    selectedFontStyle = 'priyanka';
+    isManualReverse = false;
+    inputText.value = "அனைவருக்கும் வணக்கம். தமிழ் மொழி மிகவும் சிறப்பானது.";
+    processConversion();
+  });
+
+  sampleKannadaBtn?.addEventListener('click', () => {
+    selectedFontStyle = 'priyanka';
+    isManualReverse = false;
+    inputText.value = "ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ. ಕನ್ನಡ ಭಾಷೆ ಬಹಳ ಸುಂದರವಾಗಿದೆ.";
+    processConversion();
+  });
+
+  sampleMalayalamBtn?.addEventListener('click', () => {
+    selectedFontStyle = 'priyanka';
+    isManualReverse = false;
+    inputText.value = "എല്ലാവർക്കും നമസ്കാരം. മലയാളം വളരെ മനോഹരമായ ഭാഷയാണ്.";
     processConversion();
   });
 
