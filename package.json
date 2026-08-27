@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.0",
     "opentype.js": "^2.0.0",
+    "puppeteer": "^25.9.0",
     "tailwindcss": "^4.3.3",
     "tamil-to-unicode-convertor": "^1.0.0"
   },

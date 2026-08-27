@@ -1,4 +1,6 @@
 import { unicodeToAnu6 } from './anu6Converter';
+import { unicodeToAnuNeo } from './anuNeoConverter';
+
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
 import { unicodeToNudi } from './nudiConverter';
@@ -104,6 +106,22 @@ export function convertText(
 
   // Handle specific languages with dedicated engines (Forward Conversion)
   if (!reverse) {
+    if ((encoding === 'anu7' || encoding === 'anu6') && script === 'hindi') {
+      const convertedText = unicodeToAnuNeo(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.split(/\s+/).filter(w => w.length > 0).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Number((endTime - startTime).toFixed(2))
+        }
+      };
+    }
     if (encoding === 'anu6' && script === 'telugu') {
       const convertedText = unicodeToAnu6(processedInput);
       const endTime = performance.now();

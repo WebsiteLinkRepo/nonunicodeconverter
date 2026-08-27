@@ -915,7 +915,7 @@ const defaultFont = 'anu7';
   }
 
   function generateRTF(text: string, fontName: string): string {
-    let rtf = `{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 ${fontName};}}\n\\viewkind4\\uc1\\pard\\lang1033\\f0\\fs24 `;
+    let rtf = `{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 ${fontName};}}\n\\viewkind4\\uc1\\pard\\lang1033\\kerning0\\f0\\fs24 `;
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
       if (char === '\n') {

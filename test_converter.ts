@@ -1,12 +1,6 @@
-import { convertText } from './src/utils/converter';
-
-try {
-  console.log("Testing converter...");
-  const res = convertText("హిందీ", "anu7", false, false, "telugu");
-  console.log("Result:", res);
-  
-  const res2 = convertText("हिंदी", "krutidev", false, false, "hindi");
-  console.log("Result Krutidev:", res2);
-} catch (e) {
-  console.error("Error:", e);
+import { unicodeToAnuNeo } from './src/utils/anuNeoConverter';
+const input = "नमस्ते! हिंदी बहुत ही सुंदर और प्राचीन भाषा है।";
+const output = unicodeToAnuNeo(input);
+for(let i=0; i<output.length; i++) {
+    console.log(output[i] + " -> " + output.charCodeAt(i));
 }
