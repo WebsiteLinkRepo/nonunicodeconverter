@@ -108,6 +108,8 @@ const defaultFont = 'anu7';
         </div>
       </label>
 
+
+      
       <!-- Auto-copy Checkbox -->
       <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
         <div class="relative flex items-center">
@@ -443,6 +445,28 @@ const defaultFont = 'anu7';
     processConversion();
   }
 
+  // Intercept Ctrl+C on the textarea for perfect multi-format pasting
+  if (outputText) {
+    outputText.addEventListener('copy', (e) => {
+      e.preventDefault();
+      let text = window.getSelection()?.toString() || outputText.value;
+      if (text) {
+        const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(text);
+        const fontName = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+        
+        const plainText = isOutputUnicode ? text : pagemakerDownconvert(text);
+        
+        if (e.clipboardData) {
+          e.clipboardData.setData('text/plain', plainText);
+          if (!isOutputUnicode) {
+            const rtfText = generateRTF(text, fontName);
+            e.clipboardData.setData('text/rtf', rtfText);
+          }
+        }
+      }
+    });
+  }
+
   updateLanguage(currentLang);
 
   // AUTOMATIC SANITIZATION: Built-in default behavior for 100% clean Photoshop, InDesign & Word pasting!
@@ -638,13 +662,14 @@ const defaultFont = 'anu7';
       const autoCopyChk = document.getElementById('auto-copy-chk') as HTMLInputElement;
       if (autoCopyChk && autoCopyChk.checked && finalOutput) {
         try {
-          navigator.clipboard.writeText(finalOutput).then(() => {
-            if (copyBtnText) {
-              const oldText = copyBtnText.textContent;
-              copyBtnText.textContent = "COPIED AUTO!";
-              setTimeout(() => copyBtnText.textContent = oldText, 1500);
-            }
-          });
+          const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(finalOutput);
+          const fontName = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+          const success = writeToClipboard(finalOutput, fontName, isOutputUnicode);
+          if (success && copyBtnText) {
+            const oldText = copyBtnText.textContent;
+            copyBtnText.textContent = "COPIED AUTO!";
+            setTimeout(() => copyBtnText.textContent = oldText, 1500);
+          }
         } catch (e) {
           // ignore auto-copy errors
         }
@@ -907,8 +932,34 @@ const defaultFont = 'anu7';
     0x2122: 0x99, 0x0161: 0x9A, 0x203A: 0x9B, 0x0153: 0x9C, 0x017E: 0x9E, 0x0178: 0x9F
   };
 
+  function pagemakerDownconvert(text: string): string {
+    return text.replace(/[\uF000-\uF0FF]/g, match => {
+      const code = match.charCodeAt(0) - 0xF000;
+      if (code >= 128 && code <= 159) {
+        const cp1252toUni: Record<number, number> = {
+          128: 0x20AC, 129: 0x0081, 130: 0x201A, 131: 0x0192,
+          132: 0x201E, 133: 0x2026, 134: 0x2020, 135: 0x2021,
+          136: 0x02C6, 137: 0x2030, 138: 0x0160, 139: 0x2039,
+          140: 0x0152, 141: 0x008D, 142: 0x017D, 143: 0x008F,
+          144: 0x0090, 145: 0x2018, 146: 0x2019, 147: 0x201C,
+          148: 0x201D, 149: 0x2022, 150: 0x2013, 151: 0x2014,
+          152: 0x02DC, 153: 0x2122, 154: 0x0161, 155: 0x203A,
+          156: 0x0153, 157: 0x009D, 158: 0x017E, 159: 0x0178
+        };
+        return String.fromCharCode(cp1252toUni[code]);
+      }
+      return String.fromCharCode(code);
+    });
+  }
+
   function charToWin1252(char: string): number {
     const code = char.charCodeAt(0);
+    
+    // Down-convert Private Use Area (PUA) characters to raw byte codes for Symbol fonts
+    if (code >= 0xF000 && code <= 0xF0FF) {
+      return code - 0xF000;
+    }
+    
     if (cp1252[code]) return cp1252[code];
     if (code <= 255) return code;
     return 63; // '?' fallback
@@ -929,9 +980,15 @@ const defaultFont = 'anu7';
       } else if (char === '}') {
         rtf += '\\}';
       } else {
-        const code = charToWin1252(char);
-        if (code > 127 || code < 32) {
-          rtf += `\\` + `'` + code.toString(16).padStart(2, '0');
+        const uniCode = char.charCodeAt(0);
+        const winCode = charToWin1252(char);
+        if (uniCode > 127 || uniCode < 32) {
+          if (uniCode >= 0xF000 && uniCode <= 0xF0FF) {
+            const signedUni = uniCode > 32767 ? uniCode - 65536 : uniCode;
+            rtf += `\\u${signedUni}\\'${winCode.toString(16).padStart(2, '0')}`;
+          } else {
+            rtf += `\\` + `'` + winCode.toString(16).padStart(2, '0');
+          }
         } else {
           rtf += char;
         }
@@ -939,6 +996,69 @@ const defaultFont = 'anu7';
     }
     rtf += '}';
     return rtf;
+  }
+
+  function writeToClipboard(val: string, fontName: string, isOutputUnicode: boolean): boolean {
+    let success = false;
+    
+    // Core payload:
+    // 1. Plain text: Down-converted to ANSI bytes (Š) for PageMaker 7.0.
+    // 2. HTML: PUA wrapped in <font> and <span> for MS Word and LibreOffice.
+    // 3. RTF: PUA in Unicode \uN for WordPad and legacy RTF parsers.
+    const plainText = isOutputUnicode ? val : pagemakerDownconvert(val);
+    
+    let htmlText = val;
+    let rtfText = val;
+    if (!isOutputUnicode) {
+      const htmlEscaped = val.replace(/\n/g, '<br>');
+      // MS Word natively respects <font face> for symbol fonts over CSS
+      htmlText = `<font face="${fontName}"><span style="font-family: '${fontName}', sans-serif;">${htmlEscaped}</span></font>`;
+      rtfText = generateRTF(val, fontName);
+    }
+
+    const listener = (e: ClipboardEvent) => {
+      e.preventDefault();
+      if (e.clipboardData) {
+        e.clipboardData.setData('text/plain', plainText);
+        if (!isOutputUnicode) {
+          e.clipboardData.setData('text/html', htmlText);
+          e.clipboardData.setData('text/rtf', rtfText);
+        }
+      }
+    };
+
+    // 1. Try synchronous execCommand first (crucial for injecting text/rtf on modern browsers)
+    document.addEventListener('copy', listener);
+    try {
+      success = document.execCommand('copy');
+    } catch (err) {
+      success = false;
+    }
+    document.removeEventListener('copy', listener);
+
+    // 2. Fallback to async ClipboardItem API (for browsers blocking execCommand)
+    if (!success && typeof ClipboardItem !== 'undefined' && navigator.clipboard && navigator.clipboard.write) {
+      try {
+        const items: Record<string, Blob> = {
+          'text/plain': new Blob([plainText], { type: 'text/plain' })
+        };
+        if (!isOutputUnicode) {
+          items['text/html'] = new Blob([htmlText], { type: 'text/html' });
+        }
+        navigator.clipboard.write([new ClipboardItem(items)]);
+        success = true;
+      } catch (e) {}
+    }
+
+    // 3. Ultimate fallback
+    if (!success && navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        navigator.clipboard.writeText(plainText);
+        success = true;
+      } catch (err) {}
+    }
+
+    return success;
   }
 
   // Copy Output Handler
@@ -951,56 +1071,8 @@ const defaultFont = 'anu7';
     }
 
     const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(val);
-    const rtfText = generateRTF(val, fontStyles[selectedFontStyle] || 'AnuPriyanka');
-
-    let success = false;
-    
-    // Try modern ClipboardItem API first (supports RTF)
-    try {
-      if (typeof ClipboardItem !== 'undefined' && navigator.clipboard && navigator.clipboard.write) {
-        const textBlob = new Blob([val], { type: 'text/plain' });
-        const items: Record<string, Blob> = { 'text/plain': textBlob };
-        if (!isOutputUnicode) {
-          items['text/rtf'] = new Blob([rtfText], { type: 'text/rtf' });
-        }
-        await navigator.clipboard.write([new ClipboardItem(items)]);
-        success = true;
-      }
-    } catch (e) {
-      // Fall back to old method
-    }
-
-    if (!success) {
-      const listener = (e: ClipboardEvent) => {
-        e.preventDefault();
-        if (e.clipboardData) {
-          e.clipboardData.setData('text/plain', val);
-          if (!isOutputUnicode) {
-            e.clipboardData.setData('text/rtf', rtfText);
-          }
-        }
-      };
-
-      outputText.select();
-      document.addEventListener('copy', listener);
-      try {
-        const result = document.execCommand('copy');
-        success = result;
-      } catch (err) {
-        success = false;
-      }
-      document.removeEventListener('copy', listener);
-    }
-
-    if (!success) {
-      // Ultimate fallback: Just copy plain text
-      try {
-        await navigator.clipboard.writeText(val);
-        success = true;
-      } catch (err) {
-        console.error('Failed to copy', err);
-      }
-    }
+    const fontName = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+    const success = writeToClipboard(val, fontName, isOutputUnicode);
 
     if (success) {
       copyBtnText.textContent = t.copiedBtn;

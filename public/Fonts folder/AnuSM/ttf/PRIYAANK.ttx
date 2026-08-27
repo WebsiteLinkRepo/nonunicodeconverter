@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ttFont sfntVersion="\x00\x01\x00\x00" ttLibVersion="4.63">
+
+  <cmap>
+    <tableVersion version="0"/>
+    <cmap_format_4 platformID="0" platEncID="0" language="0">
+      <map code="0xf020" name="space"/><!-- ???? -->
+      <map code="0xf021" name="exclam"/><!-- ???? -->
+      <map code="0xf022" name="quotedbl"/><!-- ???? -->
+      <map code="0xf023" name="numbersign"/><!-- ???? -->
+      <map code="0xf024" name="dollar"/><!-- ???? -->
+      <map code="0xf025" name="percent"/><!-- ???? -->
+      <map code="0xf026" name="ampersand"/><!-- ???? -->
+      <map code="0xf027" name="quotesingle"/><!-- ???? -->
+      <map code="0xf028" name="parenleft"/><!-- ???? -->
+      <map code="0xf029" name="parenright"/><!-- ???? -->
+      <map code="0xf02a" name="asterisk"/><!-- ???? -->
+      <map code="0xf02b" name="plus"/><!-- ???? -->
+      <map code="0xf02c" name="comma"/><!-- ???? -->
+      <map code="0xf02d" name="hyphen"/><!-- ???? -->
+      <map code="0xf02e" name="period"/><!-- ???? -->
+      <map code="0xf02f" name="slash"/><!-- ???? -->
+      <map code="0xf030" name="zero"/><!-- ???? -->
+      <map code="0xf031" name="one"/><!-- ???? -->
+      <map code="0xf032" name="two"/><!-- ???? -->
+      <map code="0xf033" name="three"/><!-- ???? -->
+      <map code="0xf034" name="four"/><!-- ???? -->
+      <map code="0xf035" name="five"/><!-- ???? -->
+      <map code="0xf036" name="six"/><!-- ???? -->
+      <map code="0xf037" name="seven"/><!-- ???? -->
+      <map code="0xf038" name="eight"/><!-- ???? -->
+      <map code="0xf039" name="nine"/><!-- ???? -->
+      <map code="0xf03a" name="colon"/><!-- ???? -->
+      <map code="0xf03b" name="semicolon"/><!-- ???? -->
+      <map code="0xf03c" name="less"/><!-- ???? -->
+      <map code="0xf03d" name="equal"/><!-- ???? -->
+      <map code="0xf03e" name="greater"/><!-- ???? -->
+      <map code="0xf03f" name="question"/><!-- ???? -->
+      <map code="0xf040" name="at"/><!-- ???? -->
+      <map code="0xf041" name="A"/><!-- ???? -->
+      <map code="0xf042" name="B"/><!-- ???? -->
+      <map code="0xf043" name="C"/><!-- ???? -->
+      <map code="0xf044" name="D"/><!-- ???? -->
+      <map code="0xf045" name="E"/><!-- ???? -->
+      <map code="0xf046" name="F"/><!-- ???? -->
+      <map code="0xf047" name="G"/><!-- ???? -->
+      <map code="0xf048" name="H"/><!-- ???? -->
+      <map code="0xf049" name="I"/><!-- ???? -->
+      <map code="0xf04a" name="J"/><!-- ???? -->
+      <map code="0xf04b" name="K"/><!-- ???? -->
+      <map code="0xf04c" name="L"/><!-- ???? -->
+      <map code="0xf04d" name="M"/><!-- ???? -->
+      <map code="0xf04e" name="N"/><!-- ???? -->
+      <map code="0xf04f" name="O"/><!-- ???? -->
+      <map code="0xf050" name="P"/><!-- ???? -->
+      <map code="0xf051" name="Q"/><!-- ???? -->
+      <map code="0xf052" name="R"/><!-- ???? -->
+      <map code="0xf053" name="S"/><!-- ???? -->
+      <map code="0xf054" name="T"/><!-- ???? -->
+      <map code="0xf055" name="U"/><!-- ???? -->
+      <map code="0xf056" name="V"/><!-- ???? -->
+      <map code="0xf057" name="W"/><!-- ???? -->
+      <map code="0xf058" name="X"/><!-- ???? -->
+      <map code="0xf059" name="Y"/><!-- ???? -->
+      <map code="0xf05a" name="Z"/><!-- ???? -->
+      <map code="0xf05b" name="bracketleft"/><!-- ???? -->
+      <map code="0xf05c" name="backslash"/><!-- ???? -->
+      <map code="0xf05d" name="bracketright"/><!-- ???? -->
+      <map code="0xf05e" name="asciicircum"/><!-- ???? -->
+      <map code="0xf05f" name="underscore"/><!-- ???? -->
+      <map code="0xf060" name="grave"/><!-- ???? -->
+      <map code="0xf061" name="a"/><!-- ???? -->
+      <map code="0xf062" name="b"/><!-- ???? -->
+      <map code="0xf063" name="c"/><!-- ???? -->
+      <map code="0xf064" name="d"/><!-- ???? -->
+      <map code="0xf065" name="e"/><!-- ???? -->
+      <map code="0xf066" name="f"/><!-- ???? -->
+      <map code="0xf067" name="g"/><!-- ???? -->
+      <map code="0xf068" name="h"/><!-- ???? -->
+      <map code="0xf069" name="i"/><!-- ???? -->
+      <map code="0xf06a" name="j"/><!-- ???? -->
+      <map code="0xf06b" name="k"/><!-- ???? -->
+      <map code="0xf06c" name="l"/><!-- ???? -->
+      <map code="0xf06d" name="m"/><!-- ???? -->
+      <map code="0xf06e" name="n"/><!-- ???? -->
+      <map code="0xf06f" name="o"/><!-- ???? -->
+      <map code="0xf070" name="p"/><!-- ???? -->
+      <map code="0xf071" name="q"/><!-- ???? -->
+      <map code="0xf072" name="r"/><!-- ???? -->
+      <map code="0xf073" name="s"/><!-- ???? -->
+      <map code="0xf074" name="t"/><!-- ???? -->
+      <map code="0xf075" name="u"/><!-- ???? -->
+      <map code="0xf076" name="v"/><!-- ???? -->
+      <map code="0xf077" name="w"/><!-- ???? -->
+      <map code="0xf078" name="x"/><!-- ???? -->
+      <map code="0xf079" name="y"/><!-- ???? -->
+      <map code="0xf07a" name="z"/><!-- ???? -->
+      <map code="0xf07b" name="braceleft"/><!-- ???? -->
+      <map code="0xf07c" name="bar"/><!-- ???? -->
+      <map code="0xf07d" name="braceright"/><!-- ???? -->
+      <map code="0xf07e" name="asciitilde"/><!-- ???? -->
+      <map code="0xf07f" name="DEL"/><!-- ???? -->
+      <map code="0xf080" name="Adieresis"/><!-- ???? -->
+      <map code="0xf081" name="Aring"/><!-- ???? -->
+      <map code="0xf082" name="Ccedilla"/><!-- ???? -->
+      <map code="0xf083" name="Eacute"/><!-- ???? -->
+      <map code="0xf084" name="Ntilde"/><!-- ???? -->
+      <map code="0xf085" name="Odieresis"/><!-- ???? -->
+      <map code="0xf086" name="Udieresis"/><!-- ???? -->
+      <map code="0xf087" name="aacute"/><!-- ???? -->
+      <map code="0xf088" name="agrave"/><!-- ???? -->
+      <map code="0xf089" name="acircumflex"/><!-- ???? -->
+      <map code="0xf08a" name="adieresis"/><!-- ???? -->
+      <map code="0xf08b" name="atilde"/><!-- ???? -->
+      <map code="0xf08c" name="aring"/><!-- ???? -->
+      <map code="0xf08d" name="ccedilla"/><!-- ???? -->
+      <map code="0xf08e" name="eacute"/><!-- ???? -->
+      <map code="0xf08f" name="egrave"/><!-- ???? -->
+      <map code="0xf090" name="ecircumflex"/><!-- ???? -->
+      <map code="0xf091" name="edieresis"/><!-- ???? -->
+      <map code="0xf092" name="iacute"/><!-- ???? -->
+      <map code="0xf093" name="igrave"/><!-- ???? -->
+      <map code="0xf094" name="icircumflex"/><!-- ???? -->
+      <map code="0xf095" name="idieresis"/><!-- ???? -->
+      <map code="0xf096" name="ntilde"/><!-- ???? -->
+      <map code="0xf097" name="oacute"/><!-- ???? -->
+      <map code="0xf098" name="ograve"/><!-- ???? -->
+      <map code="0xf099" name="ocircumflex"/><!-- ???? -->
+      <map code="0xf09a" name="odieresis"/><!-- ???? -->
+      <map code="0xf09b" name="otilde"/><!-- ???? -->
+      <map code="0xf09c" name="uacute"/><!-- ???? -->
+      <map code="0xf09d" name="ugrave"/><!-- ???? -->
+      <map code="0xf09e" name="ucircumflex"/><!-- ???? -->
+      <map code="0xf09f" name="udieresis"/><!-- ???? -->
+      <map code="0xf0a0" name="dagger"/><!-- ???? -->
+      <map code="0xf0a1" name="degree"/><!-- ???? -->
+      <map code="0xf0a2" name="cent"/><!-- ???? -->
+      <map code="0xf0a3" name="sterling"/><!-- ???? -->
+      <map code="0xf0a4" name="section"/><!-- ???? -->
+      <map code="0xf0a5" name="bullet"/><!-- ???? -->
+      <map code="0xf0a6" name="paragraph"/><!-- ???? -->
+      <map code="0xf0a7" name="germandbls"/><!-- ???? -->
+      <map code="0xf0a8" name="registered"/><!-- ???? -->
+      <map code="0xf0a9" name="copyright"/><!-- ???? -->
+      <map code="0xf0aa" name="trademark"/><!-- ???? -->
+      <map code="0xf0ab" name="acute"/><!-- ???? -->
+      <map code="0xf0ac" name="dieresis"/><!-- ???? -->
+      <map code="0xf0ad" name="notequal"/><!-- ???? -->
+      <map code="0xf0ae" name="AE"/><!-- ???? -->
+      <map code="0xf0af" name="Oslash"/><!-- ???? -->
+      <map code="0xf0b0" name="infinity"/><!-- ???? -->
+      <map code="0xf0b1" name="plusminus"/><!-- ???? -->
+      <map code="0xf0b2" name="lessequal"/><!-- ???? -->
+      <map code="0xf0b3" name="greaterequal"/><!-- ???? -->
+      <map code="0xf0b4" name="yen"/><!-- ???? -->
+      <map code="0xf0b5" name="mu"/><!-- ???? -->
+      <map code="0xf0b6" name="partialdiff"/><!-- ???? -->
+      <map code="0xf0b7" name="summation"/><!-- ???? -->
+      <map code="0xf0b8" name="product"/><!-- ???? -->
+      <map code="0xf0b9" name="pi"/><!-- ???? -->
+      <map code="0xf0ba" name="integral"/><!-- ???? -->
+      <map code="0xf0bb" name="ordfeminine"/><!-- ???? -->
+      <map code="0xf0bc" name="ordmasculine"/><!-- ???? -->
+      <map code="0xf0bd" name="Omega"/><!-- ???? -->
+      <map code="0xf0be" name="ae"/><!-- ???? -->
+      <map code="0xf0bf" name="oslash"/><!-- ???? -->
+      <map code="0xf0c0" name="questiondown"/><!-- ???? -->
+      <map code="0xf0c1" name="exclamdown"/><!-- ???? -->
+      <map code="0xf0c2" name="logicalnot"/><!-- ???? -->
+      <map code="0xf0c3" name="radical"/><!-- ???? -->
+      <map code="0xf0c4" name="florin"/><!-- ???? -->
+      <map code="0xf0c5" name="approxequal"/><!-- ???? -->
+      <map code="0xf0c6" name="Delta"/><!-- ???? -->
+      <map code="0xf0c7" name="guillemotleft"/><!-- ???? -->
+      <map code="0xf0c8" name="guillemotright"/><!-- ???? -->
+      <map code="0xf0c9" name="ellipsis"/><!-- ???? -->
+      <map code="0xf0ca" name="nonbreakingspace"/><!-- ???? -->
+      <map code="0xf0cb" name="Agrave"/><!-- ???? -->
+      <map code="0xf0cc" name="Atilde"/><!-- ???? -->
+      <map code="0xf0cd" name="Otilde"/><!-- ???? -->
+      <map code="0xf0ce" name="OE"/><!-- ???? -->
+      <map code="0xf0cf" name="oe"/><!-- ???? -->
+      <map code="0xf0d0" name="endash"/><!-- ???? -->
+      <map code="0xf0d1" name="emdash"/><!-- ???? -->
+      <map code="0xf0d2" name="quotedblleft"/><!-- ???? -->
+      <map code="0xf0d3" name="quotedblright"/><!-- ???? -->
+      <map code="0xf0d4" name="quoteleft"/><!-- ???? -->
+      <map code="0xf0d5" name="quoteright"/><!-- ???? -->
+      <map code="0xf0d6" name="divide"/><!-- ???? -->
+      <map code="0xf0d7" name="lozenge"/><!-- ???? -->
+      <map code="0xf0d8" name="ydieresis"/><!-- ???? -->
+      <map code="0xf0d9" name="Ydieresis"/><!-- ???? -->
+      <map code="0xf0da" name="fraction"/><!-- ???? -->
+      <map code="0xf0db" name="currency"/><!-- ???? -->
+      <map code="0xf0dc" name="guilsinglleft"/><!-- ???? -->
+      <map code="0xf0dd" name="guilsinglright"/><!-- ???? -->
+      <map code="0xf0de" name="fi"/><!-- ???? -->
+      <map code="0xf0df" name="fl"/><!-- ???? -->
+      <map code="0xf0e0" name="daggerdbl"/><!-- ???? -->
+      <map code="0xf0e1" name="periodcentered"/><!-- ???? -->
+      <map code="0xf0e2" name="quotesinglbase"/><!-- ???? -->
+      <map code="0xf0e3" name="quotedblbase"/><!-- ???? -->
+      <map code="0xf0e4" name="perthousand"/><!-- ???? -->
+      <map code="0xf0e5" name="Acircumflex"/><!-- ???? -->
+      <map code="0xf0e6" name="Ecircumflex"/><!-- ???? -->
+      <map code="0xf0e7" name="Aacute"/><!-- ???? -->
+      <map code="0xf0e8" name="Edieresis"/><!-- ???? -->
+      <map code="0xf0e9" name="Egrave"/><!-- ???? -->
+      <map code="0xf0ea" name="Iacute"/><!-- ???? -->
+      <map code="0xf0eb" name="Icircumflex"/><!-- ???? -->
+      <map code="0xf0ec" name="Idieresis"/><!-- ???? -->
+      <map code="0xf0ed" name="Igrave"/><!-- ???? -->
+      <map code="0xf0ee" name="Oacute"/><!-- ???? -->
+      <map code="0xf0ef" name="Ocircumflex"/><!-- ???? -->
+      <map code="0xf0f0" name="apple"/><!-- ???? -->
+      <map code="0xf0f1" name="Ograve"/><!-- ???? -->
+      <map code="0xf0f2" name="Uacute"/><!-- ???? -->
+      <map code="0xf0f3" name="Ucircumflex"/><!-- ???? -->
+      <map code="0xf0f4" name="Ugrave"/><!-- ???? -->
+      <map code="0xf0f5" name="dotlessi"/><!-- ???? -->
+      <map code="0xf0f6" name="circumflex"/><!-- ???? -->
+      <map code="0xf0f7" name="tilde"/><!-- ???? -->
+      <map code="0xf0f8" name="macron"/><!-- ???? -->
+      <map code="0xf0f9" name="breve"/><!-- ???? -->
+      <map code="0xf0fa" name="dotaccent"/><!-- ???? -->
+      <map code="0xf0fb" name="ring"/><!-- ???? -->
+      <map code="0xf0fc" name="cedilla"/><!-- ???? -->
+      <map code="0xf0fd" name="hungarumlaut"/><!-- ???? -->
+      <map code="0xf0fe" name="ogonek"/><!-- ???? -->
+      <map code="0xf0ff" name="caron"/><!-- ???? -->
+    </cmap_format_4>
+    <cmap_format_0 platformID="1" platEncID="0" language="0">
+      <map code="0x0" name=".null"/>
+      <map code="0x8" name=".null"/>
+      <map code="0x9" name="space"/>
+      <map code="0xd" name="nonmarkingreturn"/>
+      <map code="0x1d" name=".null"/>
+      <map code="0x20" name="space"/>
+      <map code="0x21" name="exclam"/>
+      <map code="0x22" name="quotedbl"/>
+      <map code="0x23" name="numbersign"/>
+      <map code="0x24" name="dollar"/>
+      <map code="0x25" name="percent"/>
+      <map code="0x26" name="ampersand"/>
+      <map code="0x27" name="quotesingle"/>
+      <map code="0x28" name="parenleft"/>
+      <map code="0x29" name="parenright"/>
+      <map code="0x2a" name="asterisk"/>
+      <map code="0x2b" name="plus"/>
+      <map code="0x2c" name="comma"/>
+      <map code="0x2d" name="hyphen"/>
+      <map code="0x2e" name="period"/>
+      <map code="0x2f" name="slash"/>
+      <map code="0x30" name="zero"/>
+      <map code="0x31" name="one"/>
+      <map code="0x32" name="two"/>
+      <map code="0x33" name="three"/>
+      <map code="0x34" name="four"/>
+      <map code="0x35" name="five"/>
+      <map code="0x36" name="six"/>
+      <map code="0x37" name="seven"/>
+      <map code="0x38" name="eight"/>
+      <map code="0x39" name="nine"/>
+      <map code="0x3a" name="colon"/>
+      <map code="0x3b" name="semicolon"/>
+      <map code="0x3c" name="less"/>
+      <map code="0x3d" name="equal"/>
+      <map code="0x3e" name="greater"/>
+      <map code="0x3f" name="question"/>
+      <map code="0x40" name="at"/>
+      <map code="0x41" name="A"/>
+      <map code="0x42" name="B"/>
+      <map code="0x43" name="C"/>
+      <map code="0x44" name="D"/>
+      <map code="0x45" name="E"/>
+      <map code="0x46" name="F"/>
+      <map code="0x47" name="G"/>
+      <map code="0x48" name="H"/>
+      <map code="0x49" name="I"/>
+      <map code="0x4a" name="J"/>
+      <map code="0x4b" name="K"/>
+      <map code="0x4c" name="L"/>
+      <map code="0x4d" name="M"/>
+      <map code="0x4e" name="N"/>
+      <map code="0x4f" name="O"/>
+      <map code="0x50" name="P"/>
+      <map code="0x51" name="Q"/>
+      <map code="0x52" name="R"/>
+      <map code="0x53" name="S"/>
+      <map code="0x54" name="T"/>
+      <map code="0x55" name="U"/>
+      <map code="0x56" name="V"/>
+      <map code="0x57" name="W"/>
+      <map code="0x58" name="X"/>
+      <map code="0x59" name="Y"/>
+      <map code="0x5a" name="Z"/>
+      <map code="0x5b" name="bracketleft"/>
+      <map code="0x5c" name="backslash"/>
+      <map code="0x5d" name="bracketright"/>
+      <map code="0x5e" name="asciicircum"/>
+      <map code="0x5f" name="underscore"/>
+      <map code="0x60" name="grave"/>
+      <map code="0x61" name="a"/>
+      <map code="0x62" name="b"/>
+      <map code="0x63" name="c"/>
+      <map code="0x64" name="d"/>
+      <map code="0x65" name="e"/>
+      <map code="0x66" name="f"/>
+      <map code="0x67" name="g"/>
+      <map code="0x68" name="h"/>
+      <map code="0x69" name="i"/>
+      <map code="0x6a" name="j"/>
+      <map code="0x6b" name="k"/>
+      <map code="0x6c" name="l"/>
+      <map code="0x6d" name="m"/>
+      <map code="0x6e" name="n"/>
+      <map code="0x6f" name="o"/>
+      <map code="0x70" name="p"/>
+      <map code="0x71" name="q"/>
+      <map code="0x72" name="r"/>
+      <map code="0x73" name="s"/>
+      <map code="0x74" name="t"/>
+      <map code="0x75" name="u"/>
+      <map code="0x76" name="v"/>
+      <map code="0x77" name="w"/>
+      <map code="0x78" name="x"/>
+      <map code="0x79" name="y"/>
+      <map code="0x7a" name="z"/>
+      <map code="0x7b" name="braceleft"/>
+      <map code="0x7c" name="bar"/>
+      <map code="0x7d" name="braceright"/>
+      <map code="0x7e" name="asciitilde"/>
+      <map code="0x80" name="Adieresis"/>
+      <map code="0x81" name="Aring"/>
+      <map code="0x82" name="Ccedilla"/>
+      <map code="0x83" name="Eacute"/>
+      <map code="0x84" name="Ntilde"/>
+      <map code="0x85" name="Odieresis"/>
+      <map code="0x86" name="Udieresis"/>
+      <map code="0x87" name="aacute"/>
+      <map code="0x88" name="agrave"/>
+      <map code="0x89" name="acircumflex"/>
+      <map code="0x8a" name="adieresis"/>
+      <map code="0x8b" name="atilde"/>
+      <map code="0x8c" name="aring"/>
+      <map code="0x8d" name="ccedilla"/>
+      <map code="0x8e" name="eacute"/>
+      <map code="0x8f" name="egrave"/>
+      <map code="0x90" name="ecircumflex"/>
+      <map code="0x91" name="edieresis"/>
+      <map code="0x92" name="iacute"/>
+      <map code="0x93" name="igrave"/>
+      <map code="0x94" name="icircumflex"/>
+      <map code="0x95" name="idieresis"/>
+      <map code="0x96" name="ntilde"/>
+      <map code="0x97" name="oacute"/>
+      <map code="0x98" name="ograve"/>
+      <map code="0x99" name="ocircumflex"/>
+      <map code="0x9a" name="odieresis"/>
+      <map code="0x9b" name="otilde"/>
+      <map code="0x9c" name="uacute"/>
+      <map code="0x9d" name="ugrave"/>
+      <map code="0x9e" name="ucircumflex"/>
+      <map code="0x9f" name="udieresis"/>
+      <map code="0xa0" name="dagger"/>
+      <map code="0xa1" name="degree"/>
+      <map code="0xa2" name="cent"/>
+      <map code="0xa3" name="sterling"/>
+      <map code="0xa4" name="section"/>
+      <map code="0xa5" name="bullet"/>
+      <map code="0xa6" name="paragraph"/>
+      <map code="0xa7" name="germandbls"/>
+      <map code="0xa8" name="registered"/>
+      <map code="0xa9" name="copyright"/>
+      <map code="0xaa" name="trademark"/>
+      <map code="0xab" name="acute"/>
+      <map code="0xac" name="dieresis"/>
+      <map code="0xad" name="notequal"/>
+      <map code="0xae" name="AE"/>
+      <map code="0xaf" name="Oslash"/>
+      <map code="0xb0" name="infinity"/>
+      <map code="0xb1" name="plusminus"/>
+      <map code="0xb2" name="lessequal"/>
+      <map code="0xb3" name="greaterequal"/>
+      <map code="0xb4" name="yen"/>
+      <map code="0xb5" name="mu"/>
+      <map code="0xb6" name="partialdiff"/>
+      <map code="0xb7" name="summation"/>
+      <map code="0xb8" name="product"/>
+      <map code="0xb9" name="pi"/>
+      <map code="0xba" name="integral"/>
+      <map code="0xbb" name="ordfeminine"/>
+      <map code="0xbc" name="ordmasculine"/>
+      <map code="0xbd" name="Omega"/>
+      <map code="0xbe" name="ae"/>
+      <map code="0xbf" name="oslash"/>
+      <map code="0xc0" name="questiondown"/>
+      <map code="0xc1" name="exclamdown"/>
+      <map code="0xc2" name="logicalnot"/>
+      <map code="0xc3" name="radical"/>
+      <map code="0xc4" name="florin"/>
+      <map code="0xc5" name="approxequal"/>
+      <map code="0xc6" name="Delta"/>
+      <map code="0xc7" name="guillemotleft"/>
+      <map code="0xc8" name="guillemotright"/>
+      <map code="0xc9" name="ellipsis"/>
+      <map code="0xca" name="nonbreakingspace"/>
+      <map code="0xcb" name="Agrave"/>
+      <map code="0xcc" name="Atilde"/>
+      <map code="0xcd" name="Otilde"/>
+      <map code="0xce" name="OE"/>
+      <map code="0xcf" name="oe"/>
+      <map code="0xd0" name="endash"/>
+      <map code="0xd1" name="emdash"/>
+      <map code="0xd2" name="quotedblleft"/>
+      <map code="0xd3" name="quotedblright"/>
+      <map code="0xd4" name="quoteleft"/>
+      <map code="0xd5" name="quoteright"/>
+      <map code="0xd6" name="divide"/>
+      <map code="0xd7" name="lozenge"/>
+      <map code="0xd8" name="ydieresis"/>
+      <map code="0xd9" name="Ydieresis"/>
+      <map code="0xda" name="fraction"/>
+      <map code="0xdb" name="currency"/>
+      <map code="0xdc" name="guilsinglleft"/>
+      <map code="0xdd" name="guilsinglright"/>
+      <map code="0xde" name="fi"/>
+      <map code="0xdf" name="fl"/>
+      <map code="0xe0" name="daggerdbl"/>
+      <map code="0xe1" name="periodcentered"/>
+      <map code="0xe2" name="quotesinglbase"/>
+      <map code="0xe3" name="quotedblbase"/>
+      <map code="0xe4" name="perthousand"/>
+      <map code="0xe5" name="Acircumflex"/>
+      <map code="0xe6" name="Ecircumflex"/>
+      <map code="0xe7" name="Aacute"/>
+      <map code="0xe8" name="Edieresis"/>
+      <map code="0xe9" name="Egrave"/>
+      <map code="0xea" name="Iacute"/>
+      <map code="0xeb" name="Icircumflex"/>
+      <map code="0xec" name="Idieresis"/>
+      <map code="0xed" name="Igrave"/>
+      <map code="0xee" name="Oacute"/>
+      <map code="0xef" name="Ocircumflex"/>
+      <map code="0xf0" name="apple"/>
+      <map code="0xf1" name="Ograve"/>
+      <map code="0xf2" name="Uacute"/>
+      <map code="0xf3" name="Ucircumflex"/>
+      <map code="0xf4" name="Ugrave"/>
+      <map code="0xf5" name="dotlessi"/>
+      <map code="0xf6" name="circumflex"/>
+      <map code="0xf7" name="tilde"/>
+      <map code="0xf8" name="macron"/>
+      <map code="0xf9" name="breve"/>
+      <map code="0xfa" name="dotaccent"/>
+      <map code="0xfb" name="ring"/>
+      <map code="0xfc" name="cedilla"/>
+      <map code="0xfd" name="hungarumlaut"/>
+      <map code="0xfe" name="ogonek"/>
+      <map code="0xff" name="caron"/>
+    </cmap_format_0>
+    <cmap_format_4 platformID="3" platEncID="0" language="0">
+      <map code="0xf020" name="space"/><!-- ???? -->
+      <map code="0xf021" name="exclam"/><!-- ???? -->
+      <map code="0xf022" name="quotedbl"/><!-- ???? -->
+      <map code="0xf023" name="numbersign"/><!-- ???? -->
+      <map code="0xf024" name="dollar"/><!-- ???? -->
+      <map code="0xf025" name="percent"/><!-- ???? -->
+      <map code="0xf026" name="ampersand"/><!-- ???? -->
+      <map code="0xf027" name="quotesingle"/><!-- ???? -->
+      <map code="0xf028" name="parenleft"/><!-- ???? -->
+      <map code="0xf029" name="parenright"/><!-- ???? -->
+      <map code="0xf02a" name="asterisk"/><!-- ???? -->
+      <map code="0xf02b" name="plus"/><!-- ???? -->
+      <map code="0xf02c" name="comma"/><!-- ???? -->
+      <map code="0xf02d" name="hyphen"/><!-- ???? -->
+      <map code="0xf02e" name="period"/><!-- ???? -->
+      <map code="0xf02f" name="slash"/><!-- ???? -->
+      <map code="0xf030" name="zero"/><!-- ???? -->
+      <map code="0xf031" name="one"/><!-- ???? -->
+      <map code="0xf032" name="two"/><!-- ???? -->
+      <map code="0xf033" name="three"/><!-- ???? -->
+      <map code="0xf034" name="four"/><!-- ???? -->
+      <map code="0xf035" name="five"/><!-- ???? -->
+      <map code="0xf036" name="six"/><!-- ???? -->
+      <map code="0xf037" name="seven"/><!-- ???? -->
+      <map code="0xf038" name="eight"/><!-- ???? -->
+      <map code="0xf039" name="nine"/><!-- ???? -->
+      <map code="0xf03a" name="colon"/><!-- ???? -->
+      <map code="0xf03b" name="semicolon"/><!-- ???? -->
+      <map code="0xf03c" name="less"/><!-- ???? -->
+      <map code="0xf03d" name="equal"/><!-- ???? -->
+      <map code="0xf03e" name="greater"/><!-- ???? -->
+      <map code="0xf03f" name="question"/><!-- ???? -->
+      <map code="0xf040" name="at"/><!-- ???? -->
+      <map code="0xf041" name="A"/><!-- ???? -->
+      <map code="0xf042" name="B"/><!-- ???? -->
+      <map code="0xf043" name="C"/><!-- ???? -->
+      <map code="0xf044" name="D"/><!-- ???? -->
+      <map code="0xf045" name="E"/><!-- ???? -->
+      <map code="0xf046" name="F"/><!-- ???? -->
+      <map code="0xf047" name="G"/><!-- ???? -->
+      <map code="0xf048" name="H"/><!-- ???? -->
+      <map code="0xf049" name="I"/><!-- ???? -->
+      <map code="0xf04a" name="J"/><!-- ???? -->
+      <map code="0xf04b" name="K"/><!-- ???? -->
+      <map code="0xf04c" name="L"/><!-- ???? -->
+      <map code="0xf04d" name="M"/><!-- ???? -->
+      <map code="0xf04e" name="N"/><!-- ???? -->
+      <map code="0xf04f" name="O"/><!-- ???? -->
+      <map code="0xf050" name="P"/><!-- ???? -->
+      <map code="0xf051" name="Q"/><!-- ???? -->
+      <map code="0xf052" name="R"/><!-- ???? -->
+      <map code="0xf053" name="S"/><!-- ???? -->
+      <map code="0xf054" name="T"/><!-- ???? -->
+      <map code="0xf055" name="U"/><!-- ???? -->
+      <map code="0xf056" name="V"/><!-- ???? -->
+      <map code="0xf057" name="W"/><!-- ???? -->
+      <map code="0xf058" name="X"/><!-- ???? -->
+      <map code="0xf059" name="Y"/><!-- ???? -->
+      <map code="0xf05a" name="Z"/><!-- ???? -->
+      <map code="0xf05b" name="bracketleft"/><!-- ???? -->
+      <map code="0xf05c" name="backslash"/><!-- ???? -->
+      <map code="0xf05d" name="bracketright"/><!-- ???? -->
+      <map code="0xf05e" name="asciicircum"/><!-- ???? -->
+      <map code="0xf05f" name="underscore"/><!-- ???? -->
+      <map code="0xf060" name="grave"/><!-- ???? -->
+      <map code="0xf061" name="a"/><!-- ???? -->
+      <map code="0xf062" name="b"/><!-- ???? -->
+      <map code="0xf063" name="c"/><!-- ???? -->
+      <map code="0xf064" name="d"/><!-- ???? -->
+      <map code="0xf065" name="e"/><!-- ???? -->
+      <map code="0xf066" name="f"/><!-- ???? -->
+      <map code="0xf067" name="g"/><!-- ???? -->
+      <map code="0xf068" name="h"/><!-- ???? -->
+      <map code="0xf069" name="i"/><!-- ???? -->
+      <map code="0xf06a" name="j"/><!-- ???? -->
+      <map code="0xf06b" name="k"/><!-- ???? -->
+      <map code="0xf06c" name="l"/><!-- ???? -->
+      <map code="0xf06d" name="m"/><!-- ???? -->
+      <map code="0xf06e" name="n"/><!-- ???? -->
+      <map code="0xf06f" name="o"/><!-- ???? -->
+      <map code="0xf070" name="p"/><!-- ???? -->
+      <map code="0xf071" name="q"/><!-- ???? -->
+      <map code="0xf072" name="r"/><!-- ???? -->
+      <map code="0xf073" name="s"/><!-- ???? -->
+      <map code="0xf074" name="t"/><!-- ???? -->
+      <map code="0xf075" name="u"/><!-- ???? -->
+      <map code="0xf076" name="v"/><!-- ???? -->
+      <map code="0xf077" name="w"/><!-- ???? -->
+      <map code="0xf078" name="x"/><!-- ???? -->
+      <map code="0xf079" name="y"/><!-- ???? -->
+      <map code="0xf07a" name="z"/><!-- ???? -->
+      <map code="0xf07b" name="braceleft"/><!-- ???? -->
+      <map code="0xf07c" name="bar"/><!-- ???? -->
+      <map code="0xf07d" name="braceright"/><!-- ???? -->
+      <map code="0xf07e" name="asciitilde"/><!-- ???? -->
+      <map code="0xf07f" name="DEL"/><!-- ???? -->
+      <map code="0xf080" name="Adieresis"/><!-- ???? -->
+      <map code="0xf081" name="Aring"/><!-- ???? -->
+      <map code="0xf082" name="Ccedilla"/><!-- ???? -->
+      <map code="0xf083" name="Eacute"/><!-- ???? -->
+      <map code="0xf084" name="Ntilde"/><!-- ???? -->
+      <map code="0xf085" name="Odieresis"/><!-- ???? -->
+      <map code="0xf086" name="Udieresis"/><!-- ???? -->
+      <map code="0xf087" name="aacute"/><!-- ???? -->
+      <map code="0xf088" name="agrave"/><!-- ???? -->
+      <map code="0xf089" name="acircumflex"/><!-- ???? -->
+      <map code="0xf08a" name="adieresis"/><!-- ???? -->
+      <map code="0xf08b" name="atilde"/><!-- ???? -->
+      <map code="0xf08c" name="aring"/><!-- ???? -->
+      <map code="0xf08d" name="ccedilla"/><!-- ???? -->
+      <map code="0xf08e" name="eacute"/><!-- ???? -->
+      <map code="0xf08f" name="egrave"/><!-- ???? -->
+      <map code="0xf090" name="ecircumflex"/><!-- ???? -->
+      <map code="0xf091" name="edieresis"/><!-- ???? -->
+      <map code="0xf092" name="iacute"/><!-- ???? -->
+      <map code="0xf093" name="igrave"/><!-- ???? -->
+      <map code="0xf094" name="icircumflex"/><!-- ???? -->
+      <map code="0xf095" name="idieresis"/><!-- ???? -->
+      <map code="0xf096" name="ntilde"/><!-- ???? -->
+      <map code="0xf097" name="oacute"/><!-- ???? -->
+      <map code="0xf098" name="ograve"/><!-- ???? -->
+      <map code="0xf099" name="ocircumflex"/><!-- ???? -->
+      <map code="0xf09a" name="odieresis"/><!-- ???? -->
+      <map code="0xf09b" name="otilde"/><!-- ???? -->
+      <map code="0xf09c" name="uacute"/><!-- ???? -->
+      <map code="0xf09d" name="ugrave"/><!-- ???? -->
+      <map code="0xf09e" name="ucircumflex"/><!-- ???? -->
+      <map code="0xf09f" name="udieresis"/><!-- ???? -->
+      <map code="0xf0a0" name="dagger"/><!-- ???? -->
+      <map code="0xf0a1" name="degree"/><!-- ???? -->
+      <map code="0xf0a2" name="cent"/><!-- ???? -->
+      <map code="0xf0a3" name="sterling"/><!-- ???? -->
+      <map code="0xf0a4" name="section"/><!-- ???? -->
+      <map code="0xf0a5" name="bullet"/><!-- ???? -->
+      <map code="0xf0a6" name="paragraph"/><!-- ???? -->
+      <map code="0xf0a7" name="germandbls"/><!-- ???? -->
+      <map code="0xf0a8" name="registered"/><!-- ???? -->
+      <map code="0xf0a9" name="copyright"/><!-- ???? -->
+      <map code="0xf0aa" name="trademark"/><!-- ???? -->
+      <map code="0xf0ab" name="acute"/><!-- ???? -->
+      <map code="0xf0ac" name="dieresis"/><!-- ???? -->
+      <map code="0xf0ad" name="notequal"/><!-- ???? -->
+      <map code="0xf0ae" name="AE"/><!-- ???? -->
+      <map code="0xf0af" name="Oslash"/><!-- ???? -->
+      <map code="0xf0b0" name="infinity"/><!-- ???? -->
+      <map code="0xf0b1" name="plusminus"/><!-- ???? -->
+      <map code="0xf0b2" name="lessequal"/><!-- ???? -->
+      <map code="0xf0b3" name="greaterequal"/><!-- ???? -->
+      <map code="0xf0b4" name="yen"/><!-- ???? -->
+      <map code="0xf0b5" name="mu"/><!-- ???? -->
+      <map code="0xf0b6" name="partialdiff"/><!-- ???? -->
+      <map code="0xf0b7" name="summation"/><!-- ???? -->
+      <map code="0xf0b8" name="product"/><!-- ???? -->
+      <map code="0xf0b9" name="pi"/><!-- ???? -->
+      <map code="0xf0ba" name="integral"/><!-- ???? -->
+      <map code="0xf0bb" name="ordfeminine"/><!-- ???? -->
+      <map code="0xf0bc" name="ordmasculine"/><!-- ???? -->
+      <map code="0xf0bd" name="Omega"/><!-- ???? -->
+      <map code="0xf0be" name="ae"/><!-- ???? -->
+      <map code="0xf0bf" name="oslash"/><!-- ???? -->
+      <map code="0xf0c0" name="questiondown"/><!-- ???? -->
+      <map code="0xf0c1" name="exclamdown"/><!-- ???? -->
+      <map code="0xf0c2" name="logicalnot"/><!-- ???? -->
+      <map code="0xf0c3" name="radical"/><!-- ???? -->
+      <map code="0xf0c4" name="florin"/><!-- ???? -->
+      <map code="0xf0c5" name="approxequal"/><!-- ???? -->
+      <map code="0xf0c6" name="Delta"/><!-- ???? -->
+      <map code="0xf0c7" name="guillemotleft"/><!-- ???? -->
+      <map code="0xf0c8" name="guillemotright"/><!-- ???? -->
+      <map code="0xf0c9" name="ellipsis"/><!-- ???? -->
+      <map code="0xf0ca" name="nonbreakingspace"/><!-- ???? -->
+      <map code="0xf0cb" name="Agrave"/><!-- ???? -->
+      <map code="0xf0cc" name="Atilde"/><!-- ???? -->
+      <map code="0xf0cd" name="Otilde"/><!-- ???? -->
+      <map code="0xf0ce" name="OE"/><!-- ???? -->
+      <map code="0xf0cf" name="oe"/><!-- ???? -->
+      <map code="0xf0d0" name="endash"/><!-- ???? -->
+      <map code="0xf0d1" name="emdash"/><!-- ???? -->
+      <map code="0xf0d2" name="quotedblleft"/><!-- ???? -->
+      <map code="0xf0d3" name="quotedblright"/><!-- ???? -->
+      <map code="0xf0d4" name="quoteleft"/><!-- ???? -->
+      <map code="0xf0d5" name="quoteright"/><!-- ???? -->
+      <map code="0xf0d6" name="divide"/><!-- ???? -->
+      <map code="0xf0d7" name="lozenge"/><!-- ???? -->
+      <map code="0xf0d8" name="ydieresis"/><!-- ???? -->
+      <map code="0xf0d9" name="Ydieresis"/><!-- ???? -->
+      <map code="0xf0da" name="fraction"/><!-- ???? -->
+      <map code="0xf0db" name="currency"/><!-- ???? -->
+      <map code="0xf0dc" name="guilsinglleft"/><!-- ???? -->
+      <map code="0xf0dd" name="guilsinglright"/><!-- ???? -->
+      <map code="0xf0de" name="fi"/><!-- ???? -->
+      <map code="0xf0df" name="fl"/><!-- ???? -->
+      <map code="0xf0e0" name="daggerdbl"/><!-- ???? -->
+      <map code="0xf0e1" name="periodcentered"/><!-- ???? -->
+      <map code="0xf0e2" name="quotesinglbase"/><!-- ???? -->
+      <map code="0xf0e3" name="quotedblbase"/><!-- ???? -->
+      <map code="0xf0e4" name="perthousand"/><!-- ???? -->
+      <map code="0xf0e5" name="Acircumflex"/><!-- ???? -->
+      <map code="0xf0e6" name="Ecircumflex"/><!-- ???? -->
+      <map code="0xf0e7" name="Aacute"/><!-- ???? -->
+      <map code="0xf0e8" name="Edieresis"/><!-- ???? -->
+      <map code="0xf0e9" name="Egrave"/><!-- ???? -->
+      <map code="0xf0ea" name="Iacute"/><!-- ???? -->
+      <map code="0xf0eb" name="Icircumflex"/><!-- ???? -->
+      <map code="0xf0ec" name="Idieresis"/><!-- ???? -->
+      <map code="0xf0ed" name="Igrave"/><!-- ???? -->
+      <map code="0xf0ee" name="Oacute"/><!-- ???? -->
+      <map code="0xf0ef" name="Ocircumflex"/><!-- ???? -->
+      <map code="0xf0f0" name="apple"/><!-- ???? -->
+      <map code="0xf0f1" name="Ograve"/><!-- ???? -->
+      <map code="0xf0f2" name="Uacute"/><!-- ???? -->
+      <map code="0xf0f3" name="Ucircumflex"/><!-- ???? -->
+      <map code="0xf0f4" name="Ugrave"/><!-- ???? -->
+      <map code="0xf0f5" name="dotlessi"/><!-- ???? -->
+      <map code="0xf0f6" name="circumflex"/><!-- ???? -->
+      <map code="0xf0f7" name="tilde"/><!-- ???? -->
+      <map code="0xf0f8" name="macron"/><!-- ???? -->
+      <map code="0xf0f9" name="breve"/><!-- ???? -->
+      <map code="0xf0fa" name="dotaccent"/><!-- ???? -->
+      <map code="0xf0fb" name="ring"/><!-- ???? -->
+      <map code="0xf0fc" name="cedilla"/><!-- ???? -->
+      <map code="0xf0fd" name="hungarumlaut"/><!-- ???? -->
+      <map code="0xf0fe" name="ogonek"/><!-- ???? -->
+      <map code="0xf0ff" name="caron"/><!-- ???? -->
+    </cmap_format_4>
+  </cmap>
+
+</ttFont>
