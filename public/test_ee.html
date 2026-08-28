@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  .grid { display: flex; flex-wrap: wrap; gap: 20px; }
+  .cell { border: 1px solid #ccc; padding: 10px; text-align: center; }
+  .char { font-family: 'NeoGaneshBold'; font-size: 40px; color: red; }
+  .code { font-size: 14px; font-weight: bold; color: #333; margin-top: 10px; }
+</style>
+</head>
+<body>
+<h2>Find the Top Hook for ई (and Reph)</h2>
+<p>The base letter is 70 (इ). We are looking for the hook that goes on top.</p>
+<div class="grid">
+<script>
+const candidates = [74, 75, 127, 128, 129, 130, 131, 132, 133, 140, 141, 142, 143, 150, 230, 231, 232, 233, 234];
+for(let i of candidates) {
+  const char = String.fromCharCode(70) + String.fromCharCode(i);
+  document.write('<div class="cell"><div class="char">' + char + '</div><div class="code">Byte: ' + i + '</div></div>');
+}
+</script>
+</div>
+</body>
+</html>

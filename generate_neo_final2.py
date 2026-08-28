@@ -6,7 +6,7 @@ def get_char(v):
 
 map_dict = {
     '०': 48, '१': 49, '२': 50, '३': 51, '४': 52, '५': 53, '६': 54, '७': 55, '८': 56, '९': 57,
-    'ा': 64, 'ं': 230, 'ः': 58,
+    'ा': 231, 'ं': 230, 'ः': 58,
     'अ': 69, 'इ': 70, 'उ': 71, 'ऊ': 72, 'ऋ': 73, 'ए': 76,
     
     'क्': 77, 'क': 78, 'ख्': 80, 'ख': 81, 'ग्': 83, 'ग': 84, 'घ्': 85, 'घ': 86, 'ङ': 87,
@@ -50,15 +50,15 @@ for k, v in map_dict.items():
 content += f"  'द्र': '{get_char(183)}',\n"
 
 # Overrides for complex/missing
-content += f"  'थ': '{get_char(115)}{get_char(64)}',\n"
+content += f"  'थ': '{get_char(115)}{get_char(231)}',\n"
 content += f"  'ई': '{get_char(70)}{get_char(128)}',\n"
 
 # Complex Vowels
-content += f"  'आ': '{get_char(69)}{get_char(64)}',\n"
-content += f"  'ओ': '{get_char(69)}{get_char(64)}{get_char(122)}',\n"
-content += f"  'औ': '{get_char(69)}{get_char(64)}{get_char(123)}',\n"
-content += f"  'ॉ': '{get_char(64)}{get_char(124)}',\n"
-content += f"  'ऑ': '{get_char(69)}{get_char(64)}{get_char(124)}',\n"
+content += f"  'आ': '{get_char(69)}{get_char(231)}',\n"
+content += f"  'ओ': '{get_char(69)}{get_char(231)}{get_char(122)}',\n"
+content += f"  'औ': '{get_char(69)}{get_char(231)}{get_char(123)}',\n"
+content += f"  'ॉ': '{get_char(231)}{get_char(124)}',\n"
+content += f"  'ऑ': '{get_char(69)}{get_char(231)}{get_char(124)}',\n"
 
 content += "};\n"
 

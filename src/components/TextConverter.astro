@@ -331,12 +331,12 @@ const defaultFont = 'anu7';
   let isManualReverse: boolean | null = null;
 
   const fontStyles: Record<string, string> = {
-    priyanka: 'AnuPriyanka',
-    anupama: 'AnuAnupama',
-    subhalekha: 'AnuSubhalekha',
-    bapu: 'AnuBapu',
-    ramana: 'AnuRamana',
-    gowthami: 'AnuGowthami'
+    priyanka: 'Priyaanka',
+    anupama: 'Anupama',
+    subhalekha: 'Subhalekha',
+    bapu: 'Bapu',
+    ramana: 'Ramana',
+    gowthami: 'Gowthami'
   };
 
   const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
@@ -452,7 +452,19 @@ const defaultFont = 'anu7';
       let text = window.getSelection()?.toString() || outputText.value;
       if (text) {
         const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(text);
-        const fontName = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+        let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
+    const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
+    const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
+    
+    if (currentScript === 'hindi') {
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'NeoGaneshBold';
+    } else if (currentScript === 'tamil') {
+      fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+    } else if (currentScript === 'kannada') {
+      fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
+    } else if (currentScript === 'malayalam') {
+      fontName = 'ML-TTKarthika';
+    }
         
         const plainText = isOutputUnicode ? text : pagemakerDownconvert(text);
         
@@ -461,6 +473,9 @@ const defaultFont = 'anu7';
           if (!isOutputUnicode) {
             const rtfText = generateRTF(text, fontName);
             e.clipboardData.setData('text/rtf', rtfText);
+          e.clipboardData.setData('application/rtf', rtfText);
+          e.clipboardData.setData('text/richtext', rtfText);
+          e.clipboardData.setData('application/x-rtf', rtfText);
           }
         }
       }
@@ -618,7 +633,7 @@ const defaultFont = 'anu7';
       outputText.value = finalOutput;
       
       // When Alt Raa Vatthu is checked, it moves the Raa Vatthu character to the end of the syllable.
-      // AnuPriyanka draws this character as a left-wrapper, so it looks broken when placed at the end.
+      // Priyaanka draws this character as a left-wrapper, so it looks broken when placed at the end.
       // AnuBapu explicitly draws this character as a right-sided curve.
       // To ensure the preview is visually correct, we automatically switch the preview font to AnuBapu if Alt Raa Vatthu is used.
 
@@ -631,7 +646,7 @@ const defaultFont = 'anu7';
       else if (encoding === 'nudi') legacyFontToApply = "'Nudi 01 e', 'Nudi 01 k', 'Nudi', sans-serif";
       else if (encoding === 'ism') legacyFontToApply = "'ML-TTKarthika', sans-serif";
       else if (encoding === 'shreelipi') legacyFontToApply = "'SHREE-TEL', sans-serif";
-      else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka';
+      else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
 
       if (reverse) {
         inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : 'sans-serif';
@@ -663,7 +678,19 @@ const defaultFont = 'anu7';
       if (autoCopyChk && autoCopyChk.checked && finalOutput) {
         try {
           const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(finalOutput);
-          const fontName = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+          let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
+    const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
+    const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
+    
+    if (currentScript === 'hindi') {
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'NeoGaneshBold';
+    } else if (currentScript === 'tamil') {
+      fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+    } else if (currentScript === 'kannada') {
+      fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
+    } else if (currentScript === 'malayalam') {
+      fontName = 'ML-TTKarthika';
+    }
           const success = writeToClipboard(finalOutput, fontName, isOutputUnicode);
           if (success && copyBtnText) {
             const oldText = copyBtnText.textContent;
@@ -916,7 +943,7 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'nudi') initLegacyFontToApply = "'Nudi', sans-serif";
   else if (initEncoding === 'ism') initLegacyFontToApply = "'ML-TTKarthika', sans-serif";
   else if (initEncoding === 'shreelipi') initLegacyFontToApply = "'SHREE-TEL', sans-serif";
-  else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'AnuPriyanka';
+  else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
 
   inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : 'sans-serif';
   outputText.style.fontFamily = (outputText.value) ? initLegacyFontToApply : 'sans-serif';
@@ -966,7 +993,7 @@ const defaultFont = 'anu7';
   }
 
   function generateRTF(text: string, fontName: string): string {
-    let rtf = `{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 ${fontName};}}\n\\viewkind4\\uc1\\pard\\lang1033\\kerning0\\f0\\fs24 `;
+    let rtf = `{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl{\\f0\\fnil\\fcharset2 ${fontName};}}\n\\viewkind4\\uc1\\pard\\lang1033\\kerning0\\f0\\fs24 `;
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
       if (char === '\n') {
@@ -1012,7 +1039,7 @@ const defaultFont = 'anu7';
     if (!isOutputUnicode) {
       const htmlEscaped = val.replace(/\n/g, '<br>');
       // MS Word natively respects <font face> for symbol fonts over CSS
-      htmlText = `<font face="${fontName}"><span style="font-family: '${fontName}', sans-serif;">${htmlEscaped}</span></font>`;
+      htmlText = `<span lang="en-US" dir="ltr" style="font-family: '${fontName}';">${htmlEscaped}</span>`;
       rtfText = generateRTF(val, fontName);
     }
 
@@ -1023,6 +1050,9 @@ const defaultFont = 'anu7';
         if (!isOutputUnicode) {
           e.clipboardData.setData('text/html', htmlText);
           e.clipboardData.setData('text/rtf', rtfText);
+          e.clipboardData.setData('application/rtf', rtfText);
+          e.clipboardData.setData('text/richtext', rtfText);
+          e.clipboardData.setData('application/x-rtf', rtfText);
         }
       }
     };
@@ -1071,7 +1101,19 @@ const defaultFont = 'anu7';
     }
 
     const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(val);
-    const fontName = fontStyles[selectedFontStyle] || 'AnuPriyanka';
+    let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
+    const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
+    const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
+    
+    if (currentScript === 'hindi') {
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'NeoGaneshBold';
+    } else if (currentScript === 'tamil') {
+      fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+    } else if (currentScript === 'kannada') {
+      fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
+    } else if (currentScript === 'malayalam') {
+      fontName = 'ML-TTKarthika';
+    }
     const success = writeToClipboard(val, fontName, isOutputUnicode);
 
     if (success) {
