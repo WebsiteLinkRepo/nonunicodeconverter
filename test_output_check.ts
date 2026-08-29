@@ -1,3 +1,6 @@
 import { unicodeToAnuNeo } from './src/utils/anuNeoConverter';
-const input = "नमस्ते! हिंदी बहुत ही सुंदर और प्राचीन भाषा है।";
-console.log(unicodeToAnuNeo(input));
+const input = "प्रौद्योगिकी";
+const output = unicodeToAnuNeo(input);
+for(let i=0; i<output.length; i++) {
+    console.log(output[i] + " -> " + output.charCodeAt(i).toString(16));
+}

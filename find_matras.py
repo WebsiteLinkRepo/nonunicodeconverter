@@ -1,11 +1,11 @@
-from PIL import Image, ImageDraw, ImageFont
-import sys
-
-font = ImageFont.truetype('./dist/Fonts folder/AnuSM/ttf/NEOGANBO.TTF', 100)
-
-for i in [65, 117, 118, 119, 120, 121, 122, 123, 124, 125, 64, 101, 102]:
-    img = Image.new('RGB', (200, 200), color = (255, 255, 255))
-    draw = ImageDraw.Draw(img)
-    draw.text((50, 50), chr(61440 + i), font=font, fill=(0, 0, 0))
-    img.save(f'matra_{i}.png')
-print("Done")
+from fontTools.ttLib import TTFont
+font = TTFont('public/AnuSM/ttf/PRIYAANK.TTF')
+glyf = font['glyf']
+cmap = font.getBestCmap()
+for c in range(0xF020, 0xF0FF):
+    glyph_name = cmap.get(c)
+    if glyph_name:
+        glyph = glyf[glyph_name]
+        width = font['hmtx'][glyph_name][0]
+        if hasattr(glyph, 'yMin') and glyph.yMin < -200 and glyph.yMax < 100:
+            print(f"Below matra: {hex(c)} ({glyph_name}), width {width}, xMin {glyph.xMin}, xMax {glyph.xMax}, yMin {glyph.yMin}, yMax {glyph.yMax}")

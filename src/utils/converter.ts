@@ -255,6 +255,12 @@ export function convertText(
       }
     }
 
+
+    if (script === 'hindi') {
+      // Move Reph (Ra + Halant) to AFTER the consonant it precedes
+      resultText = resultText.replace(/\u0C30\u0C4D([\u0C15-\u0C39])/g, '$1\u0C30\u0C4D');
+    }
+
     // Pre-process standalone modifiers (so they map identically to competitor)
     if (encoding === 'anu7' && script === 'telugu') {
       resultText = resultText.replace(/\u0C02/g, "+");

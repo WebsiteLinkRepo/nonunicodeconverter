@@ -141,7 +141,7 @@ html, body {
 
 @font-face {
   font-family: 'Mangal';
-  src: url('/MANGAL.TTF') format('truetype');
+  src: url('/Mangal.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

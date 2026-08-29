@@ -19,7 +19,8 @@
     "opentype.js": "^2.0.0",
     "puppeteer": "^25.9.0",
     "tailwindcss": "^4.3.3",
-    "tamil-to-unicode-convertor": "^1.0.0"
+    "tamil-to-unicode-convertor": "^1.0.0",
+    "vitest": "^4.1.11"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

@@ -210,6 +210,7 @@ const defaultFont = 'anu7';
         spellcheck="false"
         placeholder="Paste Unicode text here... (e.g. తెలుగు / हिंदी నాన్-యూనికోడ్)"
         class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+        
       ></textarea>
     </div>
 
@@ -236,7 +237,8 @@ const defaultFont = 'anu7';
         readonly
         spellcheck="false"
         placeholder="Converted legacy font text will appear here automatically..."
-        class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] font-mono text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+        class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+        
       ></textarea>
 
       <!-- Action Toolbar (Download .txt & Copy Button) -->
@@ -570,8 +572,8 @@ const defaultFont = 'anu7';
     if (!val) {
 
       outputText.value = '';
-      inputText.style.fontFamily = 'sans-serif';
-      outputText.style.fontFamily = 'sans-serif';
+      inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
+      outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
       charCount.textContent = `0 ${t.charsLabel}`;
       if (linesStat) linesStat.textContent = '0';
       if (wordsStat) wordsStat.textContent = '0';
@@ -649,11 +651,11 @@ const defaultFont = 'anu7';
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
 
       if (reverse) {
-        inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : 'sans-serif';
-        outputText.style.fontFamily = 'sans-serif';
+        inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
+        outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
       } else {
-        inputText.style.fontFamily = 'sans-serif';
-        outputText.style.fontFamily = (outputText.value) ? legacyFontToApply : 'sans-serif';
+        inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
+        outputText.style.fontFamily = (outputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
       }
 
 
@@ -936,7 +938,7 @@ const defaultFont = 'anu7';
   const useAltRaaVatthuInit = (altRaaVatthuChk && !initScriptIsHindi) ? altRaaVatthuChk.checked : false;
   const effectiveFontStyleInit = useAltRaaVatthuInit ? 'bapu' : selectedFontStyle;
   
-  let initLegacyFontToApply = 'sans-serif';
+  let initLegacyFontToApply = '"Mangal", system-ui, sans-serif';
   const initEncoding = fontVersionSelectEl ? fontVersionSelectEl.value : 'anu7';
   if (initEncoding === 'krutidev') initLegacyFontToApply = "'Kruti Dev 010', 'Kruti Dev', 'DevLys 010', sans-serif";
   else if (initEncoding === 'bamini') initLegacyFontToApply = "'Bamini', sans-serif";
@@ -945,8 +947,8 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'shreelipi') initLegacyFontToApply = "'SHREE-TEL', sans-serif";
   else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
 
-  inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : 'sans-serif';
-  outputText.style.fontFamily = (outputText.value) ? initLegacyFontToApply : 'sans-serif';
+  inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
+  outputText.style.fontFamily = (outputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
 
   if (activeFontLabel) {
     activeFontLabel.textContent = activeFontNameLabel();
