@@ -48,16 +48,16 @@ export function unicodeToAnuNeo(text: string): string {
     }
 
     // Ka () and Pha () need a bridge () to complete their width.
-    // Top/bottom matras sit on the consonant body, so the bridge must come AFTER them.
+    // Top/bottom matras sit on the consonant body, so the bridge must come AFTER them:
     //   े (), ै (), ु (), ू (), ृ (),
-    //   ं (), ँ (), ॅ (), ः ()
+    //   ॅ (), nukta ()
     // Example: के =  +  +  (Nzþ)
     //
-    // Right-side matras (ा , ी ) extend rightward, so bridge comes BEFORE them.
-    // Example: का =  +  +  (Nþ + aa)
+    // Right-side/trailing marks (ं , ँ , ा , ी , ः ) extend rightward or sit on stem, so bridge comes BEFORE them.
+    // Example: का =  +  +  (Nþ + aa), कं =  +  +  (Nþæ)
     //
     // Do NOT add bridge if followed by halant () or existing bridge ().
-    const topBottomMatras = '';
+    const topBottomMatras = '';
     const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
     processedText = processedText.replace(bridgeRegex, '$1');
 

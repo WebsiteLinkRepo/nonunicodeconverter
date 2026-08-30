@@ -459,7 +459,7 @@ const defaultFont = 'anu7';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'NeoGaneshBold';
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
     } else if (currentScript === 'kannada') {
@@ -685,7 +685,7 @@ const defaultFont = 'anu7';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'NeoGaneshBold';
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
     } else if (currentScript === 'kannada') {
@@ -1012,12 +1012,8 @@ const defaultFont = 'anu7';
         const uniCode = char.charCodeAt(0);
         const winCode = charToWin1252(char);
         if (uniCode > 127 || uniCode < 32) {
-          if (uniCode >= 0xF000 && uniCode <= 0xF0FF) {
-            const signedUni = uniCode > 32767 ? uniCode - 65536 : uniCode;
-            rtf += `\\u${signedUni}\\'${winCode.toString(16).padStart(2, '0')}`;
-          } else {
-            rtf += `\\` + `'` + winCode.toString(16).padStart(2, '0');
-          }
+          // Use pure ANSI hex escapes (\'hh) to avoid PageMaker RTF parser bugs with Unicode \u tags
+          rtf += `\\` + `'` + winCode.toString(16).padStart(2, '0');
         } else {
           rtf += char;
         }
@@ -1108,7 +1104,7 @@ const defaultFont = 'anu7';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'NeoGaneshBold';
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
     } else if (currentScript === 'kannada') {
