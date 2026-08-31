@@ -34,11 +34,10 @@ export function unicodeToAnuNeo(text: string): string {
 
     // Handle Reph (र्) र्
     // In Unicode, 'र्' + Consonant means the Reph flies on top of the Consonant.
-    // In Anu Neo, the Reph glyph (byte 220 = ) must be placed AFTER the
-    // consonant cluster and its matras. We swap it and directly insert the Reph glyph
-    // to avoid conflict with half-Ra (र् = byte 124) in the neoMap.
+    // In Anu Neo, the Reph glyph (byte 124 = ) must be placed AFTER the
+    // consonant cluster and its matras. We swap it and directly insert the Reph glyph.
     const rephRegex = /र्([क-हक़-य़][ा-ौॎ-ॏ]*)/g;
-    processedText = processedText.replace(rephRegex, '$1');
+    processedText = processedText.replace(rephRegex, '$1');
 
     // Now map all substrings to Anu Neo ASCII characters
     const mapKeys = Object.keys(neoMap).sort((a, b) => b.length - a.length);
