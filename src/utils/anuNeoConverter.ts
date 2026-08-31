@@ -48,16 +48,22 @@ export function unicodeToAnuNeo(text: string): string {
     }
 
     // Ka () and Pha () need a bridge () to complete their width.
-    // Top/bottom matras sit on the consonant body, so the bridge must come AFTER them:
+    // In Anu Neo fonts, top/bottom matras AND nasal dots MUST come BEFORE the right vertical stem (bridge).
+    // The nasal dots (ं, ँ) are zero-width or negative-offset mapped so that when placed on the half-consonant,
+    // they hover exactly where the bridge will be drawn next.
+    // Therefore, the bridge must always be inserted AFTER them to render correctly in PageMaker and Word.
+    // Items to include before bridge:
     //   े (), ै (), ु (), ू (), ृ (),
-    //   ॅ (), nukta ()
-    // Example: के =  +  +  (Nzþ)
+    //   ं (), ँ (), ॅ (), nukta (),
+    //   ें (), ैं ()
     //
-    // Right-side/trailing marks (ं , ँ , ा , ी , ः ) extend rightward or sit on stem, so bridge comes BEFORE them.
-    // Example: का =  +  +  (Nþ + aa), कं =  +  +  (Nþæ)
+    // Example: कं =  +  +  (Næþ)
+    //
+    // Right-side structural matras (ा , ी ) and visarga (ः ) extend rightward visually, so bridge comes BEFORE them.
+    // Example: का =  +  +  (Nþ + aa), कः =  +  +  (Nþ:)
     //
     // Do NOT add bridge if followed by halant () or existing bridge ().
-    const topBottomMatras = '';
+    const topBottomMatras = '';
     const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
     processedText = processedText.replace(bridgeRegex, '$1');
 
