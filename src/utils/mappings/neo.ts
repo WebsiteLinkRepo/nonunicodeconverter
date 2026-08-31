@@ -165,7 +165,6 @@ export const neoMap: { [key: string]: string } = {
   'द': '\uF074',
   'द्द': '\uF0F1',
   'र्': '\uF07C',
-  'क्र': '\uF0B2',
   'प्र': '\uF09F',
   'हृ': '\uF0D3',
   'ह्ण': '\uF0D4',
