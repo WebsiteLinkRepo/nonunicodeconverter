@@ -66,5 +66,12 @@ export function unicodeToAnuNeo(text: string): string {
     const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
     processedText = processedText.replace(bridgeRegex, '$1');
 
+    // Reph (U+F07C) must sit BEFORE the bridge (U+F0FE) so it flies over the consonant,
+    // not over empty space to the right of the bridge. Also BEFORE structural right-matras like A-matra ().
+    // Actually, if we look at test results, Reph must be after the A-matra but before the bridge? No,
+    // reph usually goes over the rightmost vertical line.
+    // In our manual test: `chr(0xf06f) + chr(0xf04e) + chr(0xf07c) + chr(0xf0fe)` (Reph BEFORE bridge) worked perfectly.
+    processedText = processedText.replace(//g, '');
+
     return processedText;
 }
