@@ -62,7 +62,7 @@ export function unicodeToAnuNeo(text: string): string {
     // Example: का =  +  +  (Nþ + aa), कः =  +  +  (Nþ:)
     //
     // Do NOT add bridge if followed by halant () or existing bridge ().
-    const topBottomMatras = '';
+    const topBottomMatras = '';
     const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
     processedText = processedText.replace(bridgeRegex, '$1');
 
