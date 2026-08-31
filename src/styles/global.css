@@ -93,7 +93,7 @@ html, body {
    ------------------------------------------------------------- */
 @font-face {
   font-family: 'AnuPriyanka';
-  src: url('/AnuSM/ttf/PRIYAANK.TTF') format('truetype');
+  src: url('/AnuSM/ttf/PRIYAANK.TTF?v=2') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -101,7 +101,7 @@ html, body {
 
 @font-face {
   font-family: 'AnuAnupama';
-  src: url('/AnuSM/ttf/ANUPM___.TTF') format('truetype');
+  src: url('/AnuSM/ttf/ANUPM___.TTF?v=2') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -109,7 +109,7 @@ html, body {
 
 @font-face {
   font-family: 'AnuSubhalekha';
-  src: url('/AnuSM/ttf/ANUST___.TTF') format('truetype');
+  src: url('/AnuSM/ttf/ANUST___.TTF?v=2') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -117,7 +117,7 @@ html, body {
 
 @font-face {
   font-family: 'AnuBapu';
-  src: url('/AnuSM/ttf/BAPUS___.TTF') format('truetype');
+  src: url('/AnuSM/ttf/BAPUS___.TTF?v=2') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -125,7 +125,7 @@ html, body {
 
 @font-face {
   font-family: 'AnuRamana';
-  src: url('/AnuSM/ttf/RAMAS___.TTF') format('truetype');
+  src: url('/AnuSM/ttf/RAMAS___.TTF?v=2') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -133,7 +133,7 @@ html, body {
 
 @font-face {
   font-family: 'AnuGowthami';
-  src: url('/AnuSM/ttf/GOWTM___.TTF') format('truetype');
+  src: url('/AnuSM/ttf/GOWTM___.TTF?v=2') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
