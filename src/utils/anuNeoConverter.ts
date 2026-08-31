@@ -30,7 +30,15 @@ export function unicodeToAnuNeo(text: string): string {
     processedText = processedText.replace(/ॉ/g, 'ाॅ');
 
     // Handle short i with bindi (िं)
-    processedText = processedText.replace(/ि((?:[क-हक़-य़]्)*[क-हक़-य़])[ँं]/g, '$1');
+    // In Anu Neo fonts,  () is the dedicated glyph for short-i with top bindi.
+    processedText = processedText.replace(/ि((?:[क-हक़-य़]्)*[क-हक़-य़])[ँं]/g, '$1');
+
+    // Handle bottom inverted-V Rakar (्र) for consonants without a vertical stem (ट, ठ, ड, ढ, छ):
+    // In Unicode, this is consonant + ् + र (e.g. ट + ् + र = ट्र, ष्ट्र).
+    // In Anu Neo fonts, the standard slant rakar  () is used for consonants with vertical stems (प्र, क्र, भ्र, स्र).
+    // But for round-bottom consonants (ट, ठ, ड, ढ, छ), the font has an inverted-V rakar glyph at  ().
+    processedText = processedText.replace(/([टठडढछ])्[रऱ]/g, '$1');
+    processedText = processedText.replace(/([टठडढछ])्र/g, '$1');
 
     // Handle Reph (र्) र्
     // In Unicode, 'र्' + Consonant means the Reph flies on top of the Consonant.
@@ -63,7 +71,7 @@ export function unicodeToAnuNeo(text: string): string {
     //
     // Do NOT add bridge if followed by halant () or existing bridge ().
     const topBottomMatras = '';
-    const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
+    const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
     processedText = processedText.replace(bridgeRegex, '$1');
 
     // Reph (U+F07C) must sit BEFORE the bridge (U+F0FE) so it flies over the consonant,
