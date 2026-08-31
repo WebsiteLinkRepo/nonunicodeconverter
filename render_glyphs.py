@@ -1,29 +1,19 @@
 from PIL import Image, ImageDraw, ImageFont
-import sys
+from fontTools.ttLib import TTFont
+from fontTools.pens.t2CharStringPen import T2CharStringPen
+from fontTools.pens.recordingPen import RecordingPen
+# Actually rendering glyph paths is hard, let's just dump their bounds/advance 
+# and render them using fontTools + PIL directly? 
+# Maybe just render the characters themselves into an image?
+# Yes, ImageFont.truetype() and draw.text()
 
-font = ImageFont.truetype('./dist/Fonts folder/AnuSM/ttf/NEOGANBO.TTF', 32)
-img = Image.new('RGB', (1600, 1600), color = (255, 255, 255))
-draw = ImageDraw.Draw(img)
+font = ImageFont.truetype('public/AnuSM/ttf/NEOGANBO.TTF', 64)
+img = Image.new('RGB', (1000, 1000), (255, 255, 255))
+d = ImageDraw.Draw(img)
 
-try:
-    label_font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 12)
-except:
-    label_font = ImageFont.load_default()
+chars = ""
+for c in range(0xF070, 0xF080):
+    chars += chr(c)
 
-for i in range(32, 256):
-    row = (i - 32) // 16
-    col = (i - 32) % 16
-    x = col * 100
-    y = row * 100
-    
-    draw.text((x + 5, y + 5), str(i), font=label_font, fill=(0, 0, 0))
-    try:
-        # PUA shift
-        pua_char = chr(i + 61440)
-        draw.text((x + 20, y + 40), pua_char, font=font, fill=(255, 0, 0))
-    except Exception as e:
-        pass
-    draw.rectangle([x, y, x+100, y+100], outline=(200, 200, 200))
-
-img.save('neo_glyphs.png')
-print("Saved neo_glyphs.png")
+d.text((10, 10), chars, font=font, fill=(0, 0, 0))
+img.save('glyphs_sheet.png')                

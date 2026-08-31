@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const fontsDir = path.join(__dirname, 'public/Fonts folder/AnuSM/ttf');
-const fonts = fs.readdirSync(fontsDir).filter(f => f.startsWith('NEO') && (f.endsWith('.TTF') || f.endsWith('.ttf')));
+const fonts = fs.readdirSync(fontsDir).filter(f => f.startsWith('NEO') && (f.endsWith('.TTF?v=2') || f.endsWith('.ttf')));
 
 let html = `<!DOCTYPE html>
 <html>

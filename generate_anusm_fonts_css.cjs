@@ -8,7 +8,7 @@ let css = '';
 let fontStylesObj = 'const anuFontStyles = {\n';
 
 files.forEach(file => {
-  if (file.endsWith('.TTF') || file.endsWith('.ttf')) {
+  if (file.endsWith('.TTF?v=2') || file.endsWith('.ttf')) {
     const ext = path.extname(file);
     const basename = path.basename(file, ext);
     const fontFamily = 'Anu' + basename.replace(/[^a-zA-Z0-9]/g, '');

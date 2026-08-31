@@ -25,5 +25,5 @@ function inspect(fontPath) {
   }
 }
 
-inspect('public/Fonts folder/AnuSM/ttf/MANGAL.TTF');
-inspect('public/Fonts folder/AnuSM/ttf/PADMINI_.TTF');
+inspect('public/Fonts folder/AnuSM/ttf/MANGAL.TTF?v=2');
+inspect('public/Fonts folder/AnuSM/ttf/PADMINI_.TTF?v=2');
