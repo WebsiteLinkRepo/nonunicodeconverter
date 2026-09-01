@@ -3,6 +3,7 @@ import { unicodeToAnuNeo } from './anuNeoConverter';
 
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
+import { unicodeToAnuTamil, anuTamilToUnicode } from './anuTamilConverter';
 import { unicodeToNudi } from './nudiConverter';
 import { unicodeToIsmMalayalam } from './ismMalayalamConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
@@ -155,6 +156,22 @@ export function convertText(
       };
     }
     
+    if (encoding === 'anutamil' && script === 'tamil') {
+      const convertedText = unicodeToAnuTamil(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
     if (encoding === 'bamini' && script === 'tamil') {
       const convertedText = unicodeToBamini(processedInput);
       const endTime = performance.now();
@@ -330,6 +347,22 @@ export function convertText(
       return res;
     });
   } else {
+    if (encoding === 'anutamil' && script === 'tamil') {
+      const convertedText = anuTamilToUnicode(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
     // -------------------------------------------------------------
     // REVERSE CONVERSION (Legacy Anu 7.0 -> Unicode)
     // -------------------------------------------------------------

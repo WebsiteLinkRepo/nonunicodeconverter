@@ -2,12 +2,13 @@ import { ANU7_UNICODE_TO_NONUNICODE } from './anu7';
 import { ANU6_UNICODE_TO_NONUNICODE } from './anu6';
 import { KRUTI_DEV_UNICODE_TO_NONUNICODE } from './krutiDev';
 import { BAMINI_TAMIL_UNICODE_TO_NONUNICODE } from './baminiTamil';
+import { ANU_TAMIL_UNICODE_TO_NONUNICODE } from './anuTamil';
 import { ISM_MALAYALAM_UNICODE_TO_NONUNICODE } from './ismMalayalam';
 import { NUDI_KANNADA_UNICODE_TO_NONUNICODE } from './nudiKannada';
 
 import { SHREE_LIPI_UNICODE_TO_NONUNICODE } from './shreeLipi';
 
-export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'ism' | 'nudi' | 'shreelipi';
+export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi';
 
 export type ScriptLanguage = 'telugu' | 'hindi' | 'kannada' | 'tamil' | 'malayalam';
 
@@ -54,6 +55,14 @@ export const AVAILABLE_FONTS: FontOption[] = [
     fallbackFontFamily: "'Bamini', sans-serif"
   },
   {
+    id: 'anutamil',
+    name: 'Anu Script (Tamil)',
+    family: 'AnuScript7',
+    script: 'tamil',
+    description: 'Anu Script font layout for Tamil',
+    fallbackFontFamily: "'AnuScript7', sans-serif"
+  },
+  {
     id: 'ism',
     name: 'Anu 7.0 / ISM (Malayalam)',
     family: 'ML-TTKarthika',
@@ -90,6 +99,9 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
     script = 'hindi';
   } else if (encoding === 'bamini') {
     mappingList = BAMINI_TAMIL_UNICODE_TO_NONUNICODE;
+    script = 'tamil';
+  } else if (encoding === 'anutamil') {
+    mappingList = ANU_TAMIL_UNICODE_TO_NONUNICODE;
     script = 'tamil';
   } else if (encoding === 'ism') {
     mappingList = ISM_MALAYALAM_UNICODE_TO_NONUNICODE;
