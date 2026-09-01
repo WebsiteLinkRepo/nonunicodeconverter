@@ -6,7 +6,7 @@ import { ANU_TAMIL_UNICODE_TO_NONUNICODE } from './anuTamil';
 import { ISM_MALAYALAM_UNICODE_TO_NONUNICODE } from './ismMalayalam';
 import { NUDI_KANNADA_UNICODE_TO_NONUNICODE } from './nudiKannada';
 
-import { SHREE_LIPI_UNICODE_TO_NONUNICODE } from './shreeLipi';
+import { SHREE_LIPI_MAPPINGS } from './shreeLipi';
 
 export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi';
 
@@ -110,7 +110,7 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
     mappingList = NUDI_KANNADA_UNICODE_TO_NONUNICODE;
     script = 'kannada';
   } else if (encoding === 'shreelipi') {
-    mappingList = SHREE_LIPI_UNICODE_TO_NONUNICODE;
+    mappingList = SHREE_LIPI_MAPPINGS;
     script = 'telugu';
   }
 

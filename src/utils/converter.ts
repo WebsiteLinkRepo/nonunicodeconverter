@@ -1,5 +1,6 @@
 import { unicodeToAnu6 } from './anu6Converter';
 import { unicodeToAnuNeo } from './anuNeoConverter';
+import { unicodeToShreeLipi } from './shreeLipiConverter';
 
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
@@ -155,7 +156,24 @@ export function convertText(
         }
       };
     }
-    
+
+    if (encoding === 'shreelipi' && script === 'hindi') {
+      const convertedText = unicodeToShreeLipi(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+
     if (encoding === 'anutamil' && script === 'tamil') {
       const convertedText = unicodeToAnuTamil(processedInput);
       const endTime = performance.now();

@@ -459,7 +459,7 @@ const defaultFont = 'anu7';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
     } else if (currentScript === 'kannada') {
@@ -622,12 +622,14 @@ const defaultFont = 'anu7';
     const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
     const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
 
-    import('../utils/converter').then(({ convertText }) => {
+    try {
       const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
       const useAltRaaVatthu = (altRaaVatthuChk && !isHindi) ? altRaaVatthuChk.checked : false;
 
+      console.log('DEBUG: processConversion', { val, encoding, reverse, script });
       const res = convertText(val, encoding, reverse, useAltRaaVatthu, script);
-      
+      console.log('DEBUG: convertText result', res);
+
       // Do NOT sanitize output. Anu fonts intentionally use smart quotes (‘, “, etc.) for Telugu glyphs.
       // Replacing them with straight quotes breaks characters like 'దీర్ఘం', 'కు', 'క్కని' etc.
       const finalOutput = res.convertedText;
@@ -681,18 +683,18 @@ const defaultFont = 'anu7';
         try {
           const isOutputUnicode = /[\u0C00-\u0C7F\u0900-\u097F]/.test(finalOutput);
           let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
-    const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
-    const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
-    
-    if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
-    } else if (currentScript === 'tamil') {
-      fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
-    } else if (currentScript === 'kannada') {
-      fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
-    } else if (currentScript === 'malayalam') {
-      fontName = 'ML-TTKarthika';
-    }
+          const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
+          const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
+
+          if (currentScript === 'hindi') {
+            fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
+          } else if (currentScript === 'tamil') {
+            fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+          } else if (currentScript === 'kannada') {
+            fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
+          } else if (currentScript === 'malayalam') {
+            fontName = 'ML-TTKarthika';
+          }
           const success = writeToClipboard(finalOutput, fontName, isOutputUnicode);
           if (success && copyBtnText) {
             const oldText = copyBtnText.textContent;
@@ -703,9 +705,10 @@ const defaultFont = 'anu7';
           // ignore auto-copy errors
         }
       }
-    });
+    } catch (err) {
+      console.error(err);
+    }
   }
-
   let historyTimeout: any;
   function saveToHistoryDebounced(input: string, output: string, fontStyle: string) {
     clearTimeout(historyTimeout);
@@ -814,6 +817,7 @@ const defaultFont = 'anu7';
     ],
     hindi: [
       { value: 'krutidev', label: 'Kruti Dev (Popular)' },
+      { value: 'shreelipi', label: 'Shree-Lipi (Shree-Dev)' },
       { value: 'anu7', label: 'Anu Script Manager (Hindi)' }
     ],
     tamil: [
@@ -1104,7 +1108,7 @@ const defaultFont = 'anu7';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
     } else if (currentScript === 'kannada') {
