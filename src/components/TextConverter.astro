@@ -461,13 +461,13 @@ const defaultFont = 'anu7';
     if (currentScript === 'hindi') {
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
     } else if (currentScript === 'tamil') {
-      fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+      fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
     } else if (currentScript === 'kannada') {
       fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
     } else if (currentScript === 'malayalam') {
       fontName = 'ML-TTKarthika';
     }
-        
+
         const plainText = isOutputUnicode ? text : pagemakerDownconvert(text);
         
         if (e.clipboardData) {
@@ -650,6 +650,7 @@ const defaultFont = 'anu7';
       else if (encoding === 'nudi') legacyFontToApply = "'Nudi 01 e', 'Nudi 01 k', 'Nudi', sans-serif";
       else if (encoding === 'ism') legacyFontToApply = "'ML-TTKarthika', sans-serif";
       else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
+      else if (encoding === 'shreelipitam') legacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
 
       if (reverse) {
@@ -689,7 +690,7 @@ const defaultFont = 'anu7';
           if (currentScript === 'hindi') {
             fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
           } else if (currentScript === 'tamil') {
-            fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+            fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
           } else if (currentScript === 'kannada') {
             fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
           } else if (currentScript === 'malayalam') {
@@ -822,6 +823,7 @@ const defaultFont = 'anu7';
     ],
     tamil: [
       { value: 'bamini', label: 'Bamini (Popular)' },
+      { value: 'shreelipitam', label: 'Shree-Lipi (Shree-Tam)' },
       { value: 'anutamil', label: 'Anu Script Manager (Tamil)' }
     ],
     kannada: [
@@ -949,6 +951,7 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'nudi') initLegacyFontToApply = "'Nudi', sans-serif";
   else if (initEncoding === 'ism') initLegacyFontToApply = "'ML-TTKarthika', sans-serif";
   else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
+  else if (initEncoding === 'shreelipitam') initLegacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
   else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
 
   inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
@@ -1110,7 +1113,7 @@ const defaultFont = 'anu7';
     if (currentScript === 'hindi') {
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
     } else if (currentScript === 'tamil') {
-      fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
+      fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
     } else if (currentScript === 'kannada') {
       fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
     } else if (currentScript === 'malayalam') {

@@ -16,7 +16,8 @@ const INDEPENDENT_VOWELS: Record<string, string> = {
   'ఒ': 'J',
   'ఓ': 'K',
   'ఔ': 'L',
-  'ఋ': 'ƒ',
+  'ఋ': String.fromCharCode(0x76),
+  'ౠ': String.fromCharCode(0x77),
 };
 
 // 2. Base Consonants (without top tick/talakattu)
@@ -218,9 +219,9 @@ const VATTHULU: Record<string, string> = {
 };
 
 const TALAKATTU = 'æ'; // æ
-const ANUSVARA = 'Æ';   // Æ
-const VISARGA = ':';
-const VIRAMA = '¢';    // ¢
+const ANUSVARA = String.fromCharCode(0x30);   // Sunna
+const VISARGA = String.fromCharCode(0x3A);    // Visarga
+const VIRAMA = String.fromCharCode(0xA2);    // ¢ - wait, check VIRAMA too! Wait, was VIRAMA 0xA2?
 
 export function convertUnicodeToShreeLipiTelugu(input: string): string {
   if (!input) return '';

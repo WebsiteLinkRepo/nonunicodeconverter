@@ -1,8 +1,14 @@
+import { convertUnicodeToShreeLipiTelugu } from '../src/utils/shreeLipiTeluguConverter';
 
-import { unicodeToShreeLipi } from "./src/utils/shreeLipiConverter";
-const words = ["भस्म", "मंत्र", "मुक्त", "कमल", "नमस्ते", "माता", "मित्र", "त्र्यंबकेश्वर"];
-for (const w of words) {
-    const r = unicodeToShreeLipi(w);
-    const hex = [...r].map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join(' ');
-    console.log(w + " -> " + r + " | hex: " + hex);
+const testWords = [
+  'తెలుగు', 'భాష', 'ద్రావిడ', 'కుటుంబానికి', 'చెందిన', 'విశిష్టమైన', 'ప్రాచీన',
+  'భారతదేశంలో', 'అత్యధిక', 'ప్రజలు', 'మాట్లాడే', 'హోదా', 'లభించింది',
+  'అజంత', 'ప్రసిద్ధి', 'పదాలన్నీ', 'అచ్చులతో', 'అంతమవుతాయి',
+  'క్రీస్తుపూర్వం', 'శాసనాలలోనే', 'అక్షరాలు', 'కనిపించడం', 'నిదర్శనం',
+  'శ్రీనాథుని', 'శృంగార', 'నైషధం', 'పోతన', 'భాగవతం', 'గ్రంథాలు', 'సాహిత్యంలో', 'ఆణిముత్యాలుగా'
+];
+
+console.log('--- TEST CONVERSIONS ---');
+for (const w of testWords) {
+  console.log(`${w} -> ${convertUnicodeToShreeLipiTelugu(w)}`);
 }

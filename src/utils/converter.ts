@@ -5,8 +5,10 @@ import { unicodeToShreeLipi } from './shreeLipiConverter';
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
 import { unicodeToAnuTamil, anuTamilToUnicode } from './anuTamilConverter';
+import { unicodeToShreeLipiTamil, shreeLipiTamilToUnicode } from './shreeLipiTamilConverter';
 import { unicodeToNudi } from './nudiConverter';
 import { unicodeToIsmMalayalam } from './ismMalayalamConverter';
+import { convertUnicodeToShreeLipiTelugu } from './shreeLipiTeluguConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
@@ -157,6 +159,23 @@ export function convertText(
       };
     }
 
+    if (encoding === 'shreelipi' && script === 'telugu') {
+      const convertedText = convertUnicodeToShreeLipiTelugu(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+
     if (encoding === 'shreelipi' && script === 'hindi') {
       const convertedText = unicodeToShreeLipi(processedInput);
       const endTime = performance.now();
@@ -176,6 +195,22 @@ export function convertText(
 
     if (encoding === 'anutamil' && script === 'tamil') {
       const convertedText = unicodeToAnuTamil(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+    if (encoding === 'shreelipitam' && script === 'tamil') {
+      const convertedText = unicodeToShreeLipiTamil(processedInput);
       const endTime = performance.now();
       return {
         convertedText,

@@ -7,8 +7,9 @@ import { ISM_MALAYALAM_UNICODE_TO_NONUNICODE } from './ismMalayalam';
 import { NUDI_KANNADA_UNICODE_TO_NONUNICODE } from './nudiKannada';
 
 import { SHREE_LIPI_MAPPINGS } from './shreeLipi';
+import { SHREELIPI_TAMIL_UNICODE_TO_NONUNICODE } from './shreeLipiTamil';
 
-export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi';
+export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam';
 
 export type ScriptLanguage = 'telugu' | 'hindi' | 'kannada' | 'tamil' | 'malayalam';
 
@@ -85,6 +86,14 @@ export const AVAILABLE_FONTS: FontOption[] = [
     script: 'telugu',
     description: 'Legacy font layout for Shree-Lipi Telugu',
     fallbackFontFamily: "'SHREE-TEL', sans-serif"
+  },
+  {
+    id: 'shreelipitam',
+    name: 'Shree-Lipi (Tamil)',
+    family: 'SHREE-TAM7-0803',
+    script: 'tamil',
+    description: 'Legacy font layout for Shree-Lipi Tamil',
+    fallbackFontFamily: "'SHREE-TAM7-0803', sans-serif"
   }
 ];
 
@@ -112,6 +121,9 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
   } else if (encoding === 'shreelipi') {
     mappingList = SHREE_LIPI_MAPPINGS;
     script = 'telugu';
+  } else if (encoding === 'shreelipitam') {
+    mappingList = SHREELIPI_TAMIL_UNICODE_TO_NONUNICODE;
+    script = 'tamil';
   }
 
   const blockOffsets: Record<string, number> = {
