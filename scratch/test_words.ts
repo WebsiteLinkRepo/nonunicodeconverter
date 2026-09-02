@@ -1,11 +1,8 @@
-import { unicodeToShreeLipi } from '../src/utils/shreeLipiConverter.js';
 
-console.log("युग ->", unicodeToShreeLipi("युग"));
-console.log("महामृत्युंजय ->", unicodeToShreeLipi("महामृत्युंजय"));
-console.log("युद्ध ->", unicodeToShreeLipi("युद्ध"));
-console.log("युधिष्ठिर ->", unicodeToShreeLipi("युधिष्ठिर"));
-console.log("विमूढ़ ->", unicodeToShreeLipi("विमूढ़"));
-console.log("भस्म ->", unicodeToShreeLipi("भस्म"));
-console.log("महा ->", unicodeToShreeLipi("महा"));
-console.log("हमारे ->", unicodeToShreeLipi("हमारे"));
-console.log("मात्रा ->", unicodeToShreeLipi("मात्रा"));
+import { unicodeToShreeLipi } from "./src/utils/shreeLipiConverter";
+const words = ["भस्म", "मंत्र", "मुक्त", "कमल", "नमस्ते", "माता", "मित्र", "त्र्यंबकेश्वर"];
+for (const w of words) {
+    const r = unicodeToShreeLipi(w);
+    const hex = [...r].map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join(' ');
+    console.log(w + " -> " + r + " | hex: " + hex);
+}
