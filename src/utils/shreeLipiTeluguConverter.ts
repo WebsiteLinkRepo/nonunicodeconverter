@@ -16,13 +16,16 @@ const INDEPENDENT_VOWELS: Record<string, string> = {
   'ఒ': 'J',
   'ఓ': 'K',
   'ఔ': 'L',
-  'ఋ': String.fromCharCode(0x76),
-  'ౠ': String.fromCharCode(0x77),
+  // Shree-Tel-0908 has no single glyph for the vocalic vowels ఋ / ౠ (verified: nothing
+  // in the font's 217-code cmap matches them). They are built as బ + two kommus, which
+  // renders identically to the Unicode reference.
+  'ఋ': String.fromCharCode(0xba, 0x24, 0x24),
+  'ౠ': String.fromCharCode(0xba, 0x24, 0x2a),
 };
 
 // 2. Base Consonants (without top tick/talakattu)
 const BASE_CONSONANTS: Record<string, string> = {
-  'క': 'a',
+  'క': 'M',
   'ఖ': 'Q',
   'గ': 'V',
   'ఘ': 'R',
@@ -35,7 +38,7 @@ const BASE_CONSONANTS: Record<string, string> = {
   'ట': 'r',
   'ఠ': 'u',
   'డ': 'y',
-  'ఢ': '|',
+  'ఢ': 'É',
   'ణ': '~',
   'త': '™',
   'థ': '£',
@@ -48,14 +51,14 @@ const BASE_CONSONANTS: Record<string, string> = {
   'భ': '¿',
   'మ': 'Ä',
   'య': 'Å',
-  'ర': 'ˆ',
+  'ర': 'Æ',
   'ల': 'Ë',
   'వ': 'Ð',
   'శ': 'Ô',
   'ష': 'Ù',
   'స': 'Ü',
   'హ': '˜',
-  'ళ': 'Ã',
+  'ళ': 'â',
   'క్ష': '„',
   '„': '„',
   'ఱ': '‚',
@@ -74,9 +77,9 @@ const HAS_TALAKATTU: Record<string, boolean> = {
   'ఝ': false,
   'ఞ': false,
   'ట': false,
-  'ఠ': false,
+  'ఠ': true,
   'డ': true,
-  'ఢ': false,
+  'ఢ': true,
   'ణ': true,
   'త': true,
   'థ': true,
@@ -98,6 +101,7 @@ const HAS_TALAKATTU: Record<string, boolean> = {
   'హ': true,
   'ళ': true,
   'క్ష': true,
+  '„': true,
   'ఱ': false,
 };
 
@@ -155,9 +159,6 @@ const SPECIAL_COMBOS: Record<string, string> = {
   'షి': 'Ú',
   // హి, హీ
   'హి': 'à',
-  // ళి, ళీ
-  'ళి': 'â',
-  'ళీ': 'ã',
 };
 
 // 3. Matras (Vowel Signs)
@@ -218,10 +219,13 @@ const VATTHULU: Record<string, string> = {
   'ఱ': '‚',
 };
 
-const TALAKATTU = 'æ'; // æ
-const ANUSVARA = String.fromCharCode(0x30);   // Sunna
-const VISARGA = String.fromCharCode(0x3A);    // Visarga
-const VIRAMA = String.fromCharCode(0xA2);    // ¢ - wait, check VIRAMA too! Wait, was VIRAMA 0xA2?
+const TALAKATTU = 'æ';                        // 0xE6 - combining talakattu (adv 40, draws left)
+const ANUSVARA = String.fromCharCode(0x2026); // Sunna. 0x30 is the DIGIT zero (adv 543) and
+                                              // 0xC6 is the ర base (adv 206, overhangs so the
+                                              // talakattu can overlay it); 0x2026 is the
+                                              // free-standing sunna circle (adv 411).
+const VISARGA = String.fromCharCode(0x40);    // 0x3A is the Latin colon; 0x40 is the visarga
+const VIRAMA = String.fromCharCode(0xA2);     // ¢ - combining pollu below-left
 
 export function convertUnicodeToShreeLipiTelugu(input: string): string {
   if (!input) return '';
