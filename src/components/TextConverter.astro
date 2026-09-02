@@ -649,7 +649,7 @@ const defaultFont = 'anu7';
       else if (encoding === 'bamini') legacyFontToApply = "'Bamini', sans-serif";
       else if (encoding === 'nudi') legacyFontToApply = "'Nudi 01 e', 'Nudi 01 k', 'Nudi', sans-serif";
       else if (encoding === 'ism') legacyFontToApply = "'ML-TTKarthika', sans-serif";
-      else if (encoding === 'shreelipi') legacyFontToApply = "'SHREE-TEL', sans-serif";
+      else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
 
       if (reverse) {
@@ -687,7 +687,7 @@ const defaultFont = 'anu7';
           const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
 
           if (currentScript === 'hindi') {
-            fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : 'AnuNEOGANBO';
+            fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
           } else if (currentScript === 'tamil') {
             fontName = currentFormat === 'bamini' ? 'Bamini' : 'Padmini';
           } else if (currentScript === 'kannada') {
@@ -948,7 +948,7 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'bamini') initLegacyFontToApply = "'Bamini', sans-serif";
   else if (initEncoding === 'nudi') initLegacyFontToApply = "'Nudi', sans-serif";
   else if (initEncoding === 'ism') initLegacyFontToApply = "'ML-TTKarthika', sans-serif";
-  else if (initEncoding === 'shreelipi') initLegacyFontToApply = "'SHREE-TEL', sans-serif";
+  else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
   else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
 
   inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
