@@ -1,23 +1,33 @@
 from PIL import Image, ImageDraw, ImageFont
 
 font_path = "/home/samuelvictor/Downloads/Shreelipi_4642.TTF"
-font = ImageFont.truetype(font_path, 100)
+font = ImageFont.truetype(font_path, 80)
+font_label = ImageFont.load_default()
 
-chars_to_inspect = [
-    (0x60, "`", "60_grave"),
-    (0xb6, chr(0xb6), "b6_ya_alt"),
-    (0x67, "g", "67_sa"),
-    (0xf1, chr(0xf1), "f1_half_sa_alt"),
-    (0xf1, chr(0xf1) + "_", "f1_plus_ma"),
-    (0xf1, "ñ_", "ñ_half_sa_original"),
-    (0x60, "`wJ", "60_yug"),
-    (0xb6, chr(0xb6) + "wJ", "b6_yug"),
+items = [
+    ("¹ (0xB9)", "¹"),
+    ("¹$ (0xB9 + 0x24)", "¹$"),
+    ("Š (0x8A - half ka)", "Š"),
+    ("Šd (half ka + va)", "Šd"),
+    ("Šdm (half ka + va + aa)", "Šdm"),
+    ("Šdm§ (half ka + va + aa + anusvara)", "Šdm§"),
+    ("` (0x60 - ya)", "`"),
+    ("w (0x77 - u-matra)", "w"),
+    ("`w (0x60 + 0x77)", "`w"),
+    ("¶ (0xB6 - alt ya)", "¶"),
+    ("¶w (0xB6 + 0x77)", "¶w"),
+    ("· (0xB7 - alt ya)", "·"),
+    ("·w (0xB7 + 0x77)", "·w"),
 ]
 
-for code, txt, label in chars_to_inspect:
-    img = Image.new('RGB', (400, 250), color=(255, 255, 255))
-    draw = ImageDraw.Draw(img)
-    draw.text((50, 50), txt, font=font, fill=(0, 0, 0))
-    img.save(f"scratch/inspect_{label}.png")
+img = Image.new('RGB', (1000, len(items)*100), color=(255, 255, 255))
+draw = ImageDraw.Draw(img)
 
-print("Generated inspection images")
+y = 20
+for label, txt in items:
+    draw.text((20, y+25), label, fill=(100, 100, 100))
+    draw.text((400, y), txt, font=font, fill=(0, 0, 0))
+    y += 90
+
+img.save('scratch/compare_specific_glyphs.png')
+print('Saved scratch/compare_specific_glyphs.png')
