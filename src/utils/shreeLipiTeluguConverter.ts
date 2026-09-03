@@ -25,82 +25,71 @@ const INDEPENDENT_VOWELS: Record<string, string> = {
 
 // 2. Base Consonants (without top tick/talakattu, or pre-composed full consonants)
 const BASE_CONSONANTS: Record<string, string> = {
-  'క': String.fromCharCode(0x4D),      // 0x4D + talakattu (0xE6)
-  'ఖ': String.fromCharCode(0x51),      // 0x51 is full glyph
-  'గ': String.fromCharCode(0x56),      // 0x56 + talakattu (0xE6)
-  'ఘ': String.fromCharCode(0x55),      // 0x55 + talakattu (0xE6)
-  'ఙ': String.fromCharCode(0x5C),      // 0x5C is full glyph
-  'చ': String.fromCharCode(0x5E),      // 0x5E + talakattu (0xE6)
-  'ఛ': String.fromCharCode(0x62),      // 0x62 is full glyph
-  'జ': String.fromCharCode(0x67),      // 0x67 is full glyph
-  'ఝ': String.fromCharCode(0x6D),      // 0x6D is full glyph
-  'ఞ': String.fromCharCode(0x70),      // 0x70 is full glyph
-  'ట': String.fromCharCode(0x72),      // 0x72 is full glyph
-  'ఠ': String.fromCharCode(0x75),      // 0x75 + talakattu (0xE6)
-  'డ': String.fromCharCode(0x79),      // 0x79 + talakattu (0xE6)
-  'ఢ': String.fromCharCode(0xC9),      // 0xC9 + talakattu (0xE6)
-  'ణ': String.fromCharCode(0xD7),      // 0xD7 is full glyph
-  'త': String.fromCharCode(0x2122),    // 0x2122 (0x99 in Shree-Lipi) + talakattu (0xE6)
-  'థ': String.fromCharCode(0xA3),      // 0xA3 + talakattu (0xE6)
-  'ద': String.fromCharCode(0xA7),      // 0xA7 + talakattu (0xE6)
-  'ధ': String.fromCharCode(0xA4),      // 0xA4 + talakattu (0xE6)
-  'న': String.fromCharCode(0xAF),      // 0xAF + talakattu (0xE6)
-  'ప': String.fromCharCode(0xB3),      // 0xB3 + talakattu (0xE6)
-  'ఫ': String.fromCharCode(0xB8),      // 0xB8 + talakattu (0xE6)
-  'బ': String.fromCharCode(0xBA),      // 0xBA is full glyph
-  'భ': String.fromCharCode(0xBE),      // 0xBE + talakattu (0xE6)
-  'మ': String.fromCharCode(0xC3),      // 0xC3 + talakattu (0xE6)
-  'య': String.fromCharCode(0xC4),      // 0xC4 + talakattu (0xE6)
-  'ర': String.fromCharCode(0xC6),      // 0xC6 + talakattu (0xE6)
-  'ఱ': String.fromCharCode(0x201A),    // 0x201A (0x82) is full glyph
-  'ల': String.fromCharCode(0xCC),      // 0xCC is full glyph
-  'ళ': String.fromCharCode(0xE2),      // 0xE2 + talakattu (0xE6)
-  'వ': String.fromCharCode(0xD0),      // 0xD0 + talakattu (0xE6)
-  'శ': String.fromCharCode(0xD4),      // 0xD4 + talakattu (0xE6)
-  'ష': String.fromCharCode(0xD9),      // 0xD9 + talakattu (0xE6)
-  'స': String.fromCharCode(0xDC),      // 0xDC + talakattu (0xE6)
-  'హ': String.fromCharCode(0xDF),      // 0xDF is full glyph
-  'క్ష': String.fromCharCode(0x201E),   // 0x201E (0x84) is full glyph
+  'క': String.fromCharCode(0x4D),
+  'ఖ': String.fromCharCode(0x51),
+  'గ': String.fromCharCode(0x56),
+  'ఘ': String.fromCharCode(0x5B),
+  'ఙ': String.fromCharCode(0x5A),
+  'చ': String.fromCharCode(0x5E),
+  'ఛ': String.fromCharCode(0x62),
+  'జ': String.fromCharCode(0x67),
+  'ఝ': String.fromCharCode(0x6D),
+  'ఞ': String.fromCharCode(0x70),
+  'ట': String.fromCharCode(0x72),
+  'ఠ': String.fromCharCode(0x75),
+  'డ': String.fromCharCode(0x79),
+  'ఢ': String.fromCharCode(0xC9),
+  'ణ': String.fromCharCode(0xD7),
+  'త': String.fromCharCode(0xA2),
+  'థ': String.fromCharCode(0xA3),
+  'ద': String.fromCharCode(0xA7),
+  'ధ': String.fromCharCode(0xA4),
+  'న': String.fromCharCode(0xAF),
+  'ప': String.fromCharCode(0xB3),
+  'ఫ': String.fromCharCode(0xB8),
+  'బ': String.fromCharCode(0xBA),
+  'భ': String.fromCharCode(0xBE),
+  'మ': String.fromCharCode(0x192),
+  'య': String.fromCharCode(0xC4),
+  'ర': String.fromCharCode(0xC6),
+  'ళ': String.fromCharCode(0xE2),
+  'వ': String.fromCharCode(0xD0),
+  'శ': String.fromCharCode(0xD4),
+  'ష': String.fromCharCode(0xD9),
+  'స': String.fromCharCode(0xDC),
+  'హ': String.fromCharCode(0xDF),
+  'క్ష': String.fromCharCode(0x84),
+  '„': String.fromCharCode(0x84),  // For the replaced క్ష
+  'ఱ': String.fromCharCode(0x82),
 };
 
-// Whether the base consonant needs combining talakattu (0xE6) appended
-const HAS_TALAKATTU: Record<string, boolean> = {
-  'క': true,    // 0x4D needs talakattu
-  'ఖ': false,   // 0x51 is FULL, no talakattu
-  'గ': true,    // 0x56 needs talakattu
-  'ఘ': true,    // 0x55 needs talakattu
-  'ఙ': false,   // 0x5C is FULL, no talakattu
-  'చ': true,    // 0x5E needs talakattu
-  'ఛ': false,   // 0x62 is FULL, no talakattu
-  'జ': false,   // 0x67 is FULL, no talakattu
-  'ఝ': false,   // 0x6D is FULL, no talakattu
-  'ఞ': false,   // 0x70 is FULL, no talakattu
-  'ట': false,   // 0x72 is FULL, no talakattu
-  'ఠ': true,    // 0x75 needs talakattu
-  'డ': true,    // 0x79 needs talakattu
-  'ఢ': true,    // 0xC9 needs talakattu
-  'ణ': false,   // 0xD7 is FULL, no talakattu
-  'త': true,    // 0x2122 needs talakattu
-  'థ': true,    // 0xA3 needs talakattu
-  'ద': true,    // 0xA7 needs talakattu
-  'ధ': true,    // 0xA4 needs talakattu
-  'న': true,    // 0xAF needs talakattu
-  'ప': true,    // 0xB3 needs talakattu
-  'ఫ': true,    // 0xB8 needs talakattu
-  'బ': false,   // 0xBA is FULL, no talakattu
-  'భ': true,    // 0xBE needs talakattu
-  'మ': true,    // 0xC3 needs talakattu
-  'య': true,    // 0xC4 needs talakattu
-  'ర': true,    // 0xC6 needs talakattu
-  'ఱ': false,   // 0x201A is FULL, no talakattu
-  'ల': false,   // 0xCC is FULL, no talakattu
-  'ళ': true,    // 0xE2 needs talakattu
-  'వ': true,    // 0xD0 needs talakattu
-  'శ': true,    // 0xD4 needs talakattu
-  'ష': true,    // 0xD9 needs talakattu
-  'స': true,    // 0xDC needs talakattu
-  'హ': false,   // 0xDF is FULL, no talakattu
-  'క్ష': false,  // 0x201E is FULL, no talakattu
+// Whether the base consonant needs combining talakattu, and which variant
+const TALAKATTU_MAP: Record<string, string> = {
+  'క': String.fromCharCode(0xE6),
+  'గ': String.fromCharCode(0xE6),
+  'ఘ': String.fromCharCode(0xE6),
+  'చ': String.fromCharCode(0xE6),
+  'ఠ': String.fromCharCode(0xE6),
+  'డ': String.fromCharCode(0xE6),
+  'ఢ': String.fromCharCode(0xE6),
+  'త': String.fromCharCode(0xE6),
+  'థ': String.fromCharCode(0xE6),
+  'ద': String.fromCharCode(0xE6),
+  'ధ': String.fromCharCode(0xE6),
+  'న': String.fromCharCode(0xE6),
+  'ప': String.fromCharCode(0xE7),   // Shifted talakattu
+  'ఫ': String.fromCharCode(0xE7),   // Shifted talakattu
+  'భ': String.fromCharCode(0xE7),   // Shifted talakattu
+  'మ': String.fromCharCode(0xE6),
+  'య': String.fromCharCode(0xE8),   // Right-offset talakattu
+  'ర': String.fromCharCode(0xE6),
+  'ళ': String.fromCharCode(0xE6),
+  'వ': String.fromCharCode(0xE6),
+  'శ': String.fromCharCode(0xE6),
+  'ష': String.fromCharCode(0xE7),   // Shifted talakattu
+  'స': String.fromCharCode(0xE7),   // Shifted talakattu
+  '„': String.fromCharCode(0xE6),   // For క్ష which gets replaced by 0x201E
+  // 'హ' has no talakattu - it's full glyph
 };
 
 // Pre-composed Consonant + Vowel combinations for irregulars
@@ -146,7 +135,7 @@ const SPECIAL_COMBOS: Record<string, string> = {
   'బి': String.fromCharCode(0xBC),
   'బీ': String.fromCharCode(0xBD),
   // భి, భీ
-  'భి': String.fromCharCode(0xC0),
+  'భి': String.fromCharCode(0xBF),
   'భీ': String.fromCharCode(0xC1),
   // రి, రీ
   'రి': String.fromCharCode(0xC7),
@@ -174,8 +163,8 @@ const MATRA_MAP: Record<string, string> = {
   'ా': 'é',
   'ి': 'ì',
   'ీ': 'í',
-  'ు': String.fromCharCode(0x24),
-  'ూ': String.fromCharCode(0x2A),
+  'ు': String.fromCharCode(0xEE),
+  'ూ': String.fromCharCode(0xEF),
   'ృ': String.fromCharCode(0x23),
   'ౄ': String.fromCharCode(0x23, 0x2A),
   'ె': 'ð',
@@ -186,45 +175,43 @@ const MATRA_MAP: Record<string, string> = {
   'ౌ': 'ú',
 };
 
-// 4. Subscript Consonants (Vatthulu / Ottulu)
 const VATTHULU: Record<string, string> = {
-  '„': '<',
-  'క': 'Œ', // Œ
-  'ఖ': 'U',
-  'గ': 'W',
-  'ఘ': 'œ', // œ
-  'ఙ': 'Z',
-  'చ': 'e',
-  'ఛ': 'd',
-  'జ': 'j',
-  'ఝ': 'n',
-  'ఞ': 'q',
-  'ట': 's',
-  'ఠ': 'x',
-  'డ': 'z',
-  'ఢ': '{',
-  'ణ': 'Š', // Š
-  'త': 'ª', // ª (or t-vattu)
-  'థ': '¦', // ¦
-  'ద': 'ª', // ª
-  'ధ': 'É', // É
-  'న': 'Ý', // Ý (or Þ)
-  'ప': 'µ', // µ
-  'ఫ': '¹',
-  'బ': '¾', // ¾
-  'భ': 'Â', // Â
-  'మ': 'š', // š
-  'య': 'Ÿ', // Ÿ
-  'ర': '–', // –
-  'ల': 'Ï', // Ï
-  'వ': 'Ó', // Ó
-  'శ': 'Ø', // Ø
-  'ష': 'Û', // Û
-  'స': 'Þ', // Þ
-  'హ': 'å', // å
-  'ళ': 'å',
-  'క్ష': '<',
-  'ఱ': '‚',
+  'క': String.fromCharCode(0x152),
+  'ఖ': String.fromCharCode(0x50),
+  'గ': String.fromCharCode(0x57),
+  'ఘ': String.fromCharCode(0x153),
+  'ఙ': String.fromCharCode(0x5A),
+  'చ': String.fromCharCode(0x61),
+  'ఛ': String.fromCharCode(0x65),
+  'జ': String.fromCharCode(0x6E),
+  'ఝ': String.fromCharCode(0x71),
+  'ఞ': String.fromCharCode(0x71),
+  'ట': String.fromCharCode(0x73),
+  'ఠ': String.fromCharCode(0x78),
+  'డ': String.fromCharCode(0x7A),
+  'ఢ': String.fromCharCode(0x7C),
+  'ణ': String.fromCharCode(0x178),
+  'త': String.fromCharCode(0xAC),
+  'థ': String.fromCharCode(0xAE),
+  'ద': String.fromCharCode(0xAA),
+  'ధ': String.fromCharCode(0xC9),
+  'న': String.fromCharCode(0xB2),
+  'ప': String.fromCharCode(0xB5),
+  'ఫ': String.fromCharCode(0xB9),
+  'బ': String.fromCharCode(0xBE),
+  'భ': String.fromCharCode(0xC2),
+  'మ': String.fromCharCode(0x161),
+  'య': String.fromCharCode(0xC5),
+  'ర': String.fromCharCode(0x2013),
+  'ల': String.fromCharCode(0xCF),
+  'వ': String.fromCharCode(0xD3),
+  'శ': String.fromCharCode(0xD8),
+  'ష': String.fromCharCode(0xDA),
+  'స': String.fromCharCode(0xDE),
+  'హ': String.fromCharCode(0xE5),
+  'ళ': String.fromCharCode(0x201A),
+  'క్ష': String.fromCharCode(0x3C),
+  'ఱ': String.fromCharCode(0x201C),
 };
 
 const TALAKATTU = 'æ';                        // 0xE6 - combining talakattu (adv 40, draws left)
@@ -312,8 +299,8 @@ export function convertUnicodeToShreeLipiTelugu(input: string): string {
           result += VIRAMA;
         } else if (matraUni && MATRA_MAP[matraUni]) {
           result += MATRA_MAP[matraUni];
-        } else if (HAS_TALAKATTU[consonantUni]) {
-          result += TALAKATTU;
+        } else if (TALAKATTU_MAP[consonantUni]) {
+          result += TALAKATTU_MAP[consonantUni];
         }
       }
 
