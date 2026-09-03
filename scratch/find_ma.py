@@ -1,29 +1,31 @@
-from fontTools.ttLib import TTFont
-from fontTools.pens.recordingPen import RecordingPen
+import os
+from PIL import Image, ImageDraw, ImageFont
 
-# Dump ALL glyphs and their paths, looking for any 'म' variant
-font = TTFont("/home/samuelvictor/Downloads/Shreelipi_4642.TTF")
-glyph_set = font.getGlyphSet()
-cmap = font["cmap"].getBestCmap()
+SHREE_PATH = "public/SHREE-TEL.ttf"
+REF_PATH = "/usr/share/fonts/noto/NotoSansTelugu-Regular.ttf"
+shree_font = ImageFont.truetype(SHREE_PATH, 50)
+ref_font = ImageFont.truetype(REF_PATH, 50)
+lbl_font = ImageFont.load_default()
 
-# Iterate over all glyphs in cmap
-ma_variants = []
-for code, name in cmap.items():
-    g = glyph_set[name]
-    pen = RecordingPen()
-    g.draw(pen)
+candidates = [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x4D, 0x55, 0x83, 0x87, 0xCF, 0xC3]
 
-    # Check if width is approx 500-530 (standard ma width)
-    # Check if Y-bounds are near 420-500
-    ys = []
-    for op, points in pen.value:
-        for pt in points:
-            if len(pt) == 2:
-                ys.append(pt[1])
+img = Image.new("RGB", (900, len(candidates) * 55 + 50), (255, 255, 255))
+d = ImageDraw.Draw(img)
 
-    if g.width > 480 and g.width < 550 and any(y >= 490 for y in ys):
-        ma_variants.append((chr(code) if code < 256 else hex(code), name, g.width))
+for i, code in enumerate(candidates):
+    y = 20 + i * 55
+    d.text((20, y + 10), f"0x{code:02X}", font=lbl_font, fill=(0, 0, 0))
+    d.text((150, y), "మ", font=ref_font, fill=(0, 0, 200))
+    try:
+        # single
+        d.text((300, y), chr(code), font=shree_font, fill=(200, 0, 0))
+        # with talakattu E6
+        d.text((450, y), chr(code) + chr(0xE6), font=shree_font, fill=(200, 0, 0))
+        # with talakattu E7
+        d.text((600, y), chr(code) + chr(0xE7), font=shree_font, fill=(200, 0, 0))
+        # with talakattu E8
+        d.text((750, y), chr(code) + chr(0xE8), font=shree_font, fill=(200, 0, 0))
+    except:
+        pass
 
-print(f"Found {len(ma_variants)} 'ma'-like candidates:")
-for v in ma_variants:
-    print(v)
+img.save("scratch/telugu_out/find_ma.png")

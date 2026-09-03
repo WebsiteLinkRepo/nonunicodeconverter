@@ -1,48 +1,33 @@
+import os
 from PIL import Image, ImageDraw, ImageFont
 
-font_path = "public/SHREE-TEL.ttf"
-shree_font = ImageFont.truetype(font_path, 60)
+SHREE_PATH = "public/SHREE-TEL.ttf"
+REF_PATH = "/usr/share/fonts/noto/NotoSansTelugu-Regular.ttf"
+shree_font = ImageFont.truetype(SHREE_PATH, 40)
+ref_font = ImageFont.truetype(REF_PATH, 40)
+lbl_font = ImageFont.load_default()
 
-codes_to_test = [
-    ("Gha?", [0xb7, 0x51, 0x52, 0x53, 0x5b, 0x5c, 0x61]),
-    ("Nga ఙ", [0x50, 0x57, 0x58, 0x59, 0x5a, 0x5b, 0x5c, 0x66, 0x67]),
-    ("Ma మ", [0x46, 0x47, 0x48, 0xc4, 0xc5, 0xc6, 0x90, 0xa1]),
-    ("Ha హ", [0xe0, 0xe1, 0x2dc, 0x60, 0x70]),
-    ("Ana ణ", [0xd7, 0x7e, 0xd8]),
-    ("Dha ధ", [0xae, 0xaf, 0xbf, 0xc0]),
-    ("Pa ప", [0xd1, 0xb2, 0xb3]),
-    ("Ba బ", [0xbb, 0xbc, 0xba]),
-    ("Ya య", [0xc4, 0xc5, 0xcc, 0xcd]),
-    ("La ల", [0xcc, 0xcb, 0xcd, 0xce]),
-    ("Sha ష", [0x201e, 0xd9, 0xda, 0xdb]),
-    ("Sa స", [0xa8, 0xa9, 0xdc, 0xdd]),
+bases = [
+    ('క', 0x4D, 0xE6), ('ఖ', 0x51, 0), ('గ', 0x56, 0xE6), ('ఘ', 0x55, 0xE6), ('ఙ', 0x5D, 0),
+    ('చ', 0x5E, 0xE6), ('ఛ', 0x62, 0), ('జ', 0x67, 0), ('ఝ', 0x6D, 0), ('ఞ', 0x70, 0),
+    ('ట', 0x72, 0), ('ఠ', 0x75, 0xE6), ('డ', 0x79, 0xE6), ('ఢ', 0xC9, 0xE6), ('ణ', 0xD7, 0),
+    ('త', 0x2122, 0xE6), ('థ', 0xA3, 0xE6), ('ద', 0xA7, 0xE6), ('ధ', 0xA4, 0xE6), ('న', 0xAF, 0xE6),
+    ('ప', 0xB3, 0xE7), ('ఫ', 0xB8, 0xE7), ('బ', 0xBA, 0), ('భ', 0xBE, 0xE7), ('మ', 0xC3, 0xE6),
+    ('య', 0xC4, 0xE8), ('ర', 0xC6, 0xE6), ('ల', 0xCC, 0), ('ళ', 0xE2, 0xE6), ('వ', 0xD0, 0xE6),
+    ('శ', 0xD4, 0xE6), ('ష', 0xD9, 0xE7), ('స', 0xDC, 0xE7), ('హ', 0xDF, 0),
+    ('క్ష', 0x201E, 0), ('ఱ', 0x201A, 0)
 ]
 
-# collect all base codes that might need talakattu test
-bases = set()
-for _, c_list in codes_to_test:
-    bases.update(c_list)
+img = Image.new("RGB", (1000, len(bases) * 50 + 50), (255, 255, 255))
+d = ImageDraw.Draw(img)
 
-img = Image.new("RGB", (1200, len(codes_to_test) * 80), "white")
-draw = ImageDraw.Draw(img)
-label_font = ImageFont.load_default()
+for i, (char, base_code, tk_code) in enumerate(bases):
+    y = 20 + i * 50
+    d.text((20, y), char, font=ref_font, fill=(0, 0, 200))
 
-y = 10
-for name, c_list in codes_to_test:
-    draw.text((10, y + 20), name, fill="blue", font=label_font)
-    
-    x = 100
-    for code in c_list:
-        try:
-            # draw raw
-            draw.text((x, y + 10), chr(code), fill="black", font=shree_font)
-            # draw with talakattu
-            draw.text((x + 40, y + 10), chr(code) + chr(0xE6), fill="red", font=shree_font)
-            draw.text((x + 10, y - 5), f"{hex(code)}", fill="gray", font=label_font)
-        except:
-            pass
-        x += 100
-    y += 80
+    txt = chr(base_code) + (chr(tk_code) if tk_code else "")
+    d.text((200, y - 5), txt, font=shree_font, fill=(200, 0, 0))
+    d.text((400, y), f"Base: {base_code:#04x}, TK: {tk_code:#04x}", font=lbl_font, fill=(0, 0, 0))
 
-img.save("scratch/test_bases_out.png")
-print("Saved scratch/test_bases_out.png")
+img.save("scratch/telugu_out/base_check.png")
+print("Saved base_check.png")

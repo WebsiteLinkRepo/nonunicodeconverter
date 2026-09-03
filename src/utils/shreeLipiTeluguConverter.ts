@@ -64,32 +64,34 @@ const BASE_CONSONANTS: Record<string, string> = {
 };
 
 // Whether the base consonant needs combining talakattu, and which variant
+// Based on verified glyph chart - only consonants marked "raw 0x__ + 0xE6/0xE7/0xE8" need talakattu
 const TALAKATTU_MAP: Record<string, string> = {
-  'క': String.fromCharCode(0xE6),
-  'గ': String.fromCharCode(0xE6),
-  'ఘ': String.fromCharCode(0xE6),
-  'చ': String.fromCharCode(0xE6),
-  'ఠ': String.fromCharCode(0xE6),
-  'డ': String.fromCharCode(0xE6),
-  'ఢ': String.fromCharCode(0xE6),
-  'త': String.fromCharCode(0xE6),
-  'థ': String.fromCharCode(0xE6),
-  'ద': String.fromCharCode(0xE6),
-  'ధ': String.fromCharCode(0xE6),
-  'న': String.fromCharCode(0xE6),
-  'ప': String.fromCharCode(0xE7),   // Shifted talakattu
-  'ఫ': String.fromCharCode(0xE7),   // Shifted talakattu
-  'భ': String.fromCharCode(0xE7),   // Shifted talakattu
-  'మ': String.fromCharCode(0xE6),
-  'య': String.fromCharCode(0xE8),   // Right-offset talakattu
-  'ర': String.fromCharCode(0xE6),
-  'ళ': String.fromCharCode(0xE6),
-  'వ': String.fromCharCode(0xE6),
-  'శ': String.fromCharCode(0xE6),
-  'ష': String.fromCharCode(0xE7),   // Shifted talakattu
-  'స': String.fromCharCode(0xE7),   // Shifted talakattu
-  '„': String.fromCharCode(0xE6),   // For క్ష which gets replaced by 0x201E
-  // 'హ' has no talakattu - it's full glyph
+  'క': String.fromCharCode(0xE6),   // 0x4D + 0xE6
+  'గ': String.fromCharCode(0xE6),   // 0x56 + 0xE6
+  'ఘ': String.fromCharCode(0xE6),   // 0x5B + 0xE6
+  'చ': String.fromCharCode(0xE6),   // 0x5E + 0xE6
+  'ఠ': String.fromCharCode(0xE6),   // 0x75 + 0xE6
+  'డ': String.fromCharCode(0xE6),   // 0x79 + 0xE6
+  'ఢ': String.fromCharCode(0xE6),   // 0xC9 + 0xE6
+  'త': String.fromCharCode(0xE6),   // 0xA2 + 0xE6
+  'థ': String.fromCharCode(0xE6),   // 0xA3 + 0xE6
+  'ద': String.fromCharCode(0xE6),   // 0xA7 + 0xE6
+  'ధ': String.fromCharCode(0xE6),   // 0xA4 + 0xE6
+  'న': String.fromCharCode(0xE6),   // 0xAF + 0xE6
+  'ప': String.fromCharCode(0xE7),   // 0xB3 + 0xE7 (shifted)
+  'ఫ': String.fromCharCode(0xE7),   // 0xB8 + 0xE7 (shifted)
+  'భ': String.fromCharCode(0xE7),   // 0xBE + 0xE7 (shifted)
+  'మ': String.fromCharCode(0xE6),   // 0x192 + 0xE6
+  'య': String.fromCharCode(0xE8),   // 0xC4 + 0xE8 (right-offset)
+  'ర': String.fromCharCode(0xE6),   // 0xC6 + 0xE6
+  'ళ': String.fromCharCode(0xE6),   // 0xE2 + 0xE6
+  'వ': String.fromCharCode(0xE6),   // 0xD0 + 0xE6
+  'శ': String.fromCharCode(0xE6),   // 0xD4 + 0xE6
+  'ష': String.fromCharCode(0xE7),   // 0xD9 + 0xE7 (shifted)
+  'స': String.fromCharCode(0xE7),   // 0xDC + 0xE7 (shifted)
+  '„': String.fromCharCode(0xE6),   // For క్ష
+  // Explicitly NO talakattu for these pre-composed/complete glyphs:
+  // ఖ (0x51), ఛ (0x62), జ (0x67), ఝ (0x6D), ఞ (0x70), ట (0x72), ణ (0xD7), బ (0xBA), హ (0xDF)
 };
 
 // Pre-composed Consonant + Vowel combinations for irregulars
