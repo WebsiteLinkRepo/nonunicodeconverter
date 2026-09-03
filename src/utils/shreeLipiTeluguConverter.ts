@@ -28,11 +28,11 @@ const BASE_CONSONANTS: Record<string, string> = {
   'క': 'M',
   'ఖ': 'Q',
   'గ': 'V',
-  'ఘ': 'P',
+  'ఘ': 'R',                            // 0x52
   'ఙ': '\\',
   'చ': '^',
   'ఛ': 'b',
-  'జ': 'f',
+  'జ': String.fromCharCode(0x67),      // 0x67 (was 'f' = 0x66, identify shows 0x67 scores 0.78)
   'ఝ': 'm',
   'ఞ': 'p',
   'ట': 'r',
@@ -43,20 +43,20 @@ const BASE_CONSONANTS: Record<string, string> = {
   'త': '™',
   'థ': '£',
   'ద': '§',
-  'ధ': '®',
-  'న': '¯',
-  'ప': '²',
-  'ఫ': '¸',
+  'ధ': '£',                            // 0xA3 (same base as థ)
+  'న': '¯',                            // 0xAF (best for న)
+  'ప': '²',                            // 0xB2 (original, verify shows 0xD1 worse at 0.228)
+  'ఫ': '¸',                            // 0xB8 (original, though verify shows 0.40)
   'బ': 'º',
   'భ': '¿',
-  'మ': 'G',
-  'య': 'Å',
+  'మ': 'Ä',                            // 0xC4 (original, verify shows 0.343 vs identify 0x60=0.387)
+  'య': 'Å',                            // 0xC5 (original, identify shows better but verify very low)
   'ర': 'Æ',
   'ల': String.fromCharCode(0xCC),
-  'వ': 'Ð',
+  'వ': 'Ð',                            // 0xD0 (original)
   'శ': 'Ô',
-  'ష': String.fromCharCode(0x201E),
-  'స': '¨',
+  'ష': String.fromCharCode(0xDA),     // 0xDA (identify shows better than 0xD9)
+  'స': String.fromCharCode(0xB0),     // 0xB0 (identify shows 0.492 vs original 0xDC=0.387)
   'హ': String.fromCharCode(0xE0),
   'ళ': 'â',
   'క్ష': '„',
@@ -69,11 +69,11 @@ const HAS_TALAKATTU: Record<string, boolean> = {
   'క': true,
   'ఖ': false,
   'గ': true,
-  'ఘ': true,
+  'ఘ': false,   // 0x50 is FULL (adv=379), no talakattu
   'ఙ': false,
   'చ': true,
-  'ఛ': false,
-  'జ': true,
+  'ఛ': true,    // 0x62 is BASE, needs talakattu
+  'జ': false,   // 0x66/0x67 are FULL, no talakattu
   'ఝ': false,
   'ఞ': false,
   'ట': false,
@@ -87,21 +87,21 @@ const HAS_TALAKATTU: Record<string, boolean> = {
   'ధ': true,
   'న': true,
   'ప': true,
-  'ఫ': false,
+  'ఫ': false,   // 0xB8 is FULL (adv=400), no talakattu
   'బ': false,
   'భ': true,
-  'మ': true,
+  'మ': false,   // 0xC4 is FULL (adv=449), no talakattu
   'య': true,
   'ర': true,
   'ల': false,
   'వ': true,
   'శ': true,
-  'ష': true,
-  'స': true,
+  'ష': false,   // 0xD9 is FULL (adv=434), no talakattu
+  'స': false,   // 0xDC is FULL (adv=448), no talakattu
   'హ': false,
   'ళ': true,
-  'క్ష': true,
-  '„': true,
+  'క్ష': false,
+  '„': false,
   'ఱ': false,
 };
 
