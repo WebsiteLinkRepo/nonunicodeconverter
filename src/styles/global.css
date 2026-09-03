@@ -181,3 +181,11 @@ html, body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'SHREE-DEV-0708';
+  src: url('/SHREE-DEV-0708.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+

@@ -9,9 +9,9 @@ import { NUDI_KANNADA_UNICODE_TO_NONUNICODE } from './nudiKannada';
 import { SHREE_LIPI_MAPPINGS } from './shreeLipi';
 import { SHREELIPI_TAMIL_UNICODE_TO_NONUNICODE } from './shreeLipiTamil';
 
-export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam';
+export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam' | 'shreelipimar';
 
-export type ScriptLanguage = 'telugu' | 'hindi' | 'kannada' | 'tamil' | 'malayalam';
+export type ScriptLanguage = 'telugu' | 'hindi' | 'kannada' | 'tamil' | 'malayalam' | 'marathi';
 
 export interface FontOption {
   id: FontEncoding;
@@ -94,6 +94,14 @@ export const AVAILABLE_FONTS: FontOption[] = [
     script: 'tamil',
     description: 'Legacy font layout for Shree-Lipi Tamil',
     fallbackFontFamily: "'SHREE-TAM7-0803', sans-serif"
+  },
+  {
+    id: 'shreelipimar',
+    name: 'Shree-Lipi (Marathi)',
+    family: 'SHREE-DEV-0708',
+    script: 'marathi',
+    description: 'Legacy font layout for Shree-Lipi Marathi (Shree-Dev 0708)',
+    fallbackFontFamily: "'SHREE-DEV-0708', sans-serif"
   }
 ];
 
@@ -121,6 +129,9 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
   } else if (encoding === 'shreelipi') {
     mappingList = SHREE_LIPI_MAPPINGS;
     script = 'telugu';
+  } else if (encoding === 'shreelipimar') {
+    mappingList = SHREE_LIPI_MAPPINGS;
+    script = 'marathi';
   } else if (encoding === 'shreelipitam') {
     mappingList = SHREELIPI_TAMIL_UNICODE_TO_NONUNICODE;
     script = 'tamil';
@@ -128,6 +139,7 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
 
   const blockOffsets: Record<string, number> = {
     hindi: 0x0300,       // Devanagari (0x0900) -> Telugu (0x0C00)
+    marathi: 0x0300,     // Devanagari (0x0900) -> Telugu (0x0C00)
     tamil: 0x0080,       // Tamil (0x0B80) -> Telugu (0x0C00)
     kannada: -0x0080,    // Kannada (0x0C80) -> Telugu (0x0C00)
     malayalam: -0x0100   // Malayalam (0x0D00) -> Telugu (0x0C00)
@@ -142,7 +154,7 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
       let shiftedFrom = '';
       for (let i = 0; i < entry.from.length; i++) {
         const code = entry.from.charCodeAt(i);
-        if (script === 'hindi' && code >= 0x0900 && code <= 0x097F) shiftedFrom += String.fromCharCode(code + offset);
+        if ((script === 'hindi' || script === 'marathi') && code >= 0x0900 && code <= 0x097F) shiftedFrom += String.fromCharCode(code + offset);
         else if (script === 'tamil' && code >= 0x0B80 && code <= 0x0BFF) shiftedFrom += String.fromCharCode(code + offset);
         else if (script === 'kannada' && code >= 0x0C80 && code <= 0x0CFF) shiftedFrom += String.fromCharCode(code + offset);
         else if (script === 'malayalam' && code >= 0x0D00 && code <= 0x0D7F) shiftedFrom += String.fromCharCode(code + offset);

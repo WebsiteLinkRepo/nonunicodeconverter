@@ -34,6 +34,7 @@ const defaultFont = 'anu7';
           <option value="tamil">Tamil</option>
           <option value="kannada">Kannada</option>
           <option value="malayalam">Malayalam</option>
+          <option value="marathi">Marathi</option>
         </select>
       </div>
 
@@ -151,12 +152,19 @@ const defaultFont = 'anu7';
       >
         Kannada Unicode
       </button>
-      <button 
-        id="sample-malayalam-btn" 
-        type="button" 
+      <button
+        id="sample-malayalam-btn"
+        type="button"
         class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Malayalam Unicode
+      </button>
+      <button
+        id="sample-marathi-btn"
+        type="button"
+        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+      >
+        Marathi Unicode
       </button>
     </div>
   </div>
@@ -382,6 +390,7 @@ const defaultFont = 'anu7';
   const sampleTamilBtn = document.getElementById('sample-tamil-btn') as HTMLButtonElement;
   const sampleKannadaBtn = document.getElementById('sample-kannada-btn') as HTMLButtonElement;
   const sampleMalayalamBtn = document.getElementById('sample-malayalam-btn') as HTMLButtonElement;
+  const sampleMarathiBtn = document.getElementById('sample-marathi-btn') as HTMLButtonElement;
 
 
   const linesStat = document.getElementById('lines-stat') as HTMLElement;
@@ -466,6 +475,8 @@ const defaultFont = 'anu7';
       fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
     } else if (currentScript === 'malayalam') {
       fontName = 'ML-TTKarthika';
+    } else if (currentScript === 'marathi') {
+      fontName = 'SHREE-DEV-0708';
     }
 
         const plainText = isOutputUnicode ? text : pagemakerDownconvert(text);
@@ -510,19 +521,43 @@ const defaultFont = 'anu7';
     
     if (val && autoDetectScript) {
       const hasTelugu = /[\u0C00-\u0C7F]/.test(val);
-      const hasHindi = /[\u0900-\u097F]/.test(val);
+      const hasDevanagari = /[\u0900-\u097F]/.test(val);
       const hasTamil = /[\u0B80-\u0BFF]/.test(val);
       const hasKannada = /[\u0C80-\u0CFF]/.test(val);
       const hasMalayalam = /[\u0D00-\u0D7F]/.test(val);
-      
+
+      function detectDevanagariLanguage(text: string) {
+        if (/[ळऱऴ]|र्‍|र‍्/.test(text)) return "marathi";
+        const marathiWordSet = new Set(["आहे", "आहेत", "आहोत", "आहात", "नाही", "नाहीत", "होता", "होती", "होते", "होत्या", "असेल", "असेलच", "असून", "झाला", "झाली", "झाले", "झाल्या", "झालेलं", "माझा", "माझी", "माझे", "तुझा", "तुझी", "तुझे", "आमचा", "आमची", "आमचे", "तुमचा", "तुमची", "तुमचे", "त्याचा", "त्याची", "त्याचे", "त्यांचा", "त्यांची", "त्यांचे", "त्यांना", "त्यांच्या", "याच्या", "याची", "याचे", "यांचा", "यांची", "यांचे", "आपण", "स्वतः", "कसा", "कशी", "कसे", "कधी", "कुठे", "कशाला", "किती", "काय", "म्हणून", "म्हणाले", "म्हणाली", "म्हणाला", "म्हणतात", "आणि", "किंवा", "तसेच", "सुद्धा", "देखील", "केले", "केली", "केला", "केलेलं", "करून", "होऊन", "गेला", "गेली", "गेले", "पाहिजे", "करायचा", "करायची", "करायचे", "सांगितले", "सांगितला", "सांगितली"]);
+        const hindiWordSet = new Set(["है", "हैं", "था", "थी", "थे", "हूँ", "हो", "नहीं", "होगा", "होगी", "होंगे", "होना", "होने", "हुआ", "हुई", "हुए", "मेरा", "मेरी", "मेरे", "तेरा", "तेरी", "तेरे", "हमारा", "हमारी", "हमारे", "आपका", "आपकी", "आपके", "उसका", "उसकी", "उसके", "उनका", "उनकी", "उनके", "उन्हें", "उन्हों", "उसने", "इन्होंने", "किसने", "किसका", "कैसा", "कैसी", "कैसे", "कब", "कहाँ", "क्यों", "कितना", "कितने", "कितनी", "क्या", "और", "या", "लेकिन", "परंतु", "भी", "किया", "किये", "किए", "करेगा", "करेगी", "करेंगे", "गया", "गई", "गए", "जाना", "आना", "सकता", "सकती", "सकते", "चाहिए", "बहुत", "अच्छा"]);
+        let mScore = 0, hScore = 0;
+        const words = text.split(/[\s,।!?.\(\)\[\]{}"\x27:;\\/+=_-]+/);
+        for (const w of words) {
+          if (marathiWordSet.has(w)) mScore += 3;
+          if (hindiWordSet.has(w)) hScore += 3;
+        }
+        if (mScore > hScore && mScore > 0) return "marathi";
+        if (hScore > mScore && hScore > 0) return "hindi";
+        return null;
+      }
+
       if (scriptSelect) {
         const oldScript = scriptSelect.value;
-        if (hasHindi && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'hindi';
-        else if (hasTelugu && !hasHindi && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'telugu';
-        else if (hasTamil && !hasHindi && !hasTelugu && !hasKannada && !hasMalayalam) scriptSelect.value = 'tamil';
-        else if (hasKannada && !hasHindi && !hasTelugu && !hasTamil && !hasMalayalam) scriptSelect.value = 'kannada';
-        else if (hasMalayalam && !hasHindi && !hasTelugu && !hasTamil && !hasKannada) scriptSelect.value = 'malayalam';
-        
+        if (hasDevanagari && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam) {
+          const detected = detectDevanagariLanguage(val);
+          if (detected === 'marathi') {
+            scriptSelect.value = 'marathi';
+          } else if (detected === 'hindi') {
+            scriptSelect.value = 'hindi';
+          } else if (oldScript !== 'hindi' && oldScript !== 'marathi') {
+            scriptSelect.value = 'hindi';
+          }
+        }
+        else if (hasTelugu && !hasDevanagari && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'telugu';
+        else if (hasTamil && !hasDevanagari && !hasTelugu && !hasKannada && !hasMalayalam) scriptSelect.value = 'tamil';
+        else if (hasKannada && !hasDevanagari && !hasTelugu && !hasTamil && !hasMalayalam) scriptSelect.value = 'kannada';
+        else if (hasMalayalam && !hasDevanagari && !hasTelugu && !hasTamil && !hasKannada) scriptSelect.value = 'malayalam';
+
         // Ensure dropdown is updated only after actual programmatic change
         if (oldScript !== scriptSelect.value) {
           updateFontDropdown();
@@ -538,14 +573,15 @@ const defaultFont = 'anu7';
       hindi: "Paste Hindi Unicode text here... (e.g. हिंदी भारत की राजभाषा है)",
       tamil: "Paste Tamil Unicode text here... (e.g. அனைவருக்கும் வணக்கம்)",
       kannada: "Paste Kannada Unicode text here... (e.g. ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ)",
-      malayalam: "Paste Malayalam Unicode text here... (e.g. എല്ലാവർക്കും നമസ്കാരം)"
+      malayalam: "Paste Malayalam Unicode text here... (e.g. എല്ലാവർക്കും നമസ്കാരം)",
+      marathi: "Paste Marathi Unicode text here... (e.g. नमस्कार! मराठी भाषा अत्यंत समृद्ध आणि सुंदर आहे.)"
     };
-    
-    const scriptNames: Record<string, string> = { 
-      hindi: 'Hindi', tamil: 'Tamil', kannada: 'Kannada', malayalam: 'Malayalam', telugu: 'Telugu' 
+
+    const scriptNames: Record<string, string> = {
+      hindi: 'Hindi', tamil: 'Tamil', kannada: 'Kannada', malayalam: 'Malayalam', telugu: 'Telugu', marathi: 'Marathi'
     };
-    
-    const allSampleBtns = [sampleTeluguBtn, sampleHindiBtn, sampleTamilBtn, sampleKannadaBtn, sampleMalayalamBtn];
+
+    const allSampleBtns = [sampleTeluguBtn, sampleHindiBtn, sampleTamilBtn, sampleKannadaBtn, sampleMalayalamBtn, sampleMarathiBtn];
     allSampleBtns.forEach(btn => btn?.classList.add('hidden'));
 
     if (script === 'telugu') {
@@ -562,6 +598,9 @@ const defaultFont = 'anu7';
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else if (script === 'malayalam') {
       sampleMalayalamBtn?.classList.remove('hidden');
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
+    } else if (script === 'marathi') {
+      sampleMarathiBtn?.classList.remove('hidden');
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else {
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
@@ -592,11 +631,11 @@ const defaultFont = 'anu7';
 
 
     const hasTeluguChar = /[\u0C00-\u0C7F]/.test(val);
-    const hasHindiChar = /[\u0900-\u097F]/.test(val);
+    const hasDevanagariChar = /[\u0900-\u097F]/.test(val);
     const hasTamilChar = /[\u0B80-\u0BFF]/.test(val);
     const hasKannadaChar = /[\u0C80-\u0CFF]/.test(val);
     const hasMalayalamChar = /[\u0D00-\u0D7F]/.test(val);
-    const isUnicodeInput = hasTeluguChar || hasHindiChar || hasTamilChar || hasKannadaChar || hasMalayalamChar;
+    const isUnicodeInput = hasTeluguChar || hasDevanagariChar || hasTamilChar || hasKannadaChar || hasMalayalamChar;
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
     
     const isTelugu = script === 'telugu';
@@ -651,6 +690,7 @@ const defaultFont = 'anu7';
       else if (encoding === 'ism') legacyFontToApply = "'ML-TTKarthika', sans-serif";
       else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
       else if (encoding === 'shreelipitam') legacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
+      else if (encoding === 'shreelipimar') legacyFontToApply = "'SHREE-DEV-0708', sans-serif";
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
 
       if (reverse) {
@@ -695,6 +735,8 @@ const defaultFont = 'anu7';
             fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
           } else if (currentScript === 'malayalam') {
             fontName = 'ML-TTKarthika';
+          } else if (currentScript === 'marathi') {
+            fontName = 'SHREE-DEV-0708';
           }
           const success = writeToClipboard(finalOutput, fontName, isOutputUnicode);
           if (success && copyBtnText) {
@@ -833,6 +875,9 @@ const defaultFont = 'anu7';
     malayalam: [
       { value: 'ism', label: 'ISM / ML-TTKarthika' },
       { value: 'anu7', label: 'Anu Script Manager (Malayalam)' }
+    ],
+    marathi: [
+      { value: 'shreelipimar', label: 'Shree-Lipi (Shree-Dev 0708)' }
     ]
   };
 
@@ -905,7 +950,14 @@ const defaultFont = 'anu7';
     processConversion();
   });
 
-  swapBtn?.addEventListener('click', () => {
+  sampleMarathiBtn?.addEventListener('click', () => {
+	    selectedFontStyle = 'priyanka';
+	    isManualReverse = false;
+	    inputText.value = "नमस्कार! मराठी भाषा अत्यंत समृद्ध आणि सुंदर आहे.";
+	    processConversion();
+	  });
+
+	  swapBtn?.addEventListener('click', () => {
     const currentInput = inputText.value;
     const currentOutput = outputText.value;
 
@@ -952,6 +1004,7 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'ism') initLegacyFontToApply = "'ML-TTKarthika', sans-serif";
   else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
   else if (initEncoding === 'shreelipitam') initLegacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
+  else if (initEncoding === 'shreelipimar') initLegacyFontToApply = "'SHREE-DEV-0708', sans-serif";
   else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
 
   inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
@@ -1118,6 +1171,8 @@ const defaultFont = 'anu7';
       fontName = currentFormat === 'nudi' ? 'Nudi 01 e' : 'Din';
     } else if (currentScript === 'malayalam') {
       fontName = 'ML-TTKarthika';
+    } else if (currentScript === 'marathi') {
+      fontName = 'SHREE-DEV-0708';
     }
     const success = writeToClipboard(val, fontName, isOutputUnicode);
 

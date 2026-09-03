@@ -176,8 +176,8 @@ export function convertText(
       };
     }
 
-    if (encoding === 'shreelipi' && script === 'hindi') {
-      const convertedText = unicodeToShreeLipi(processedInput);
+    if ((encoding === 'shreelipi' || encoding === 'shreelipimar') && (script === 'hindi' || script === 'marathi')) {
+      const convertedText = unicodeToShreeLipi(processedInput, script === "marathi" || encoding === "shreelipimar" ? "marathi" : "hindi");
       const endTime = performance.now();
       return {
         convertedText,
@@ -291,12 +291,13 @@ export function convertText(
   if (!reverse) {
     const blockOffsets: Record<string, number> = {
       hindi: 0x0300,       // Devanagari (0x0900) -> Telugu (0x0C00)
+      marathi: 0x0300,     // Devanagari (0x0900) -> Telugu (0x0C00)
       tamil: 0x0080,       // Tamil (0x0B80) -> Telugu (0x0C00)
       kannada: -0x0080,    // Kannada (0x0C80) -> Telugu (0x0C00)
       malayalam: -0x0100   // Malayalam (0x0D00) -> Telugu (0x0C00)
     };
 
-    if (script === 'hindi') {
+    if (script === 'hindi' || script === 'marathi') {
       resultText = resultText.replace(/\u0964/g, '.');
       resultText = resultText.replace(/\u0965/g, '..'); // Double Danda
     }
@@ -306,7 +307,7 @@ export function convertText(
       resultText = resultText.replace(/[\u0900-\u0D7F]/g, (char) => {
         // Only shift if it is within the expected block of the given script
         const code = char.charCodeAt(0);
-        if (script === 'hindi' && code >= 0x0900 && code <= 0x097F) return String.fromCharCode(code + offset);
+        if ((script === 'hindi' || script === 'marathi') && code >= 0x0900 && code <= 0x097F) return String.fromCharCode(code + offset);
         if (script === 'tamil' && code >= 0x0B80 && code <= 0x0BFF) return String.fromCharCode(code + offset);
         if (script === 'kannada' && code >= 0x0C80 && code <= 0x0CFF) return String.fromCharCode(code + offset);
         if (script === 'malayalam' && code >= 0x0D00 && code <= 0x0D7F) return String.fromCharCode(code + offset);
@@ -449,6 +450,7 @@ export function convertText(
     // Post-processing: Map back to original script if shifted to Telugu block
     const reverseOffsets: Record<string, number> = {
       hindi: -0x0300,       // Telugu (0x0C00) -> Devanagari (0x0900)
+      marathi: -0x0300,     // Telugu (0x0C00) -> Devanagari (0x0900)
       tamil: -0x0080,       // Telugu (0x0C00) -> Tamil (0x0B80)
       kannada: 0x0080,      // Telugu (0x0C00) -> Kannada (0x0C80)
       malayalam: 0x0100     // Telugu (0x0C00) -> Malayalam (0x0D00)

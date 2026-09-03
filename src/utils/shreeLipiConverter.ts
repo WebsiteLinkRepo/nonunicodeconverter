@@ -1,29 +1,63 @@
 import { SHREE_LIPI_MAPPINGS } from './mappings/shreeLipi';
 
 /**
- * Converts Unicode Devanagari Hindi text to Shree-Lipi (Shree-Dev7) legacy encoding.
- * Uses greedy token replacement along with pre-reordering logic for accurate conversion
- * matching standard 1-to-1 competitor tools.
+ * Converts Unicode Devanagari Hindi/Marathi text to Shree-Lipi (Shree-Dev7) legacy encoding.
  */
-export function unicodeToShreeLipi(text: string): string {
+export function unicodeToShreeLipi(text: string, language: "hindi" | "marathi" = "hindi"): string {
     if (!text) return "";
 
     let result = text;
 
-    // 1. Normalize Decomposed Nuktas
+    // 0. Normalizations
+    result = result.split("—").join("–");
+    result = result.split("‘").join("\"");
+    result = result.split("’").join("\x27");
+
+    // 1. Eyelash Ra mappings
+    result = result.split("ऱ्हा").join("èhm");
+    result = result.split("ऱ्ह").join("èh");
+    result = result.split("ऱ्").join("è");
+    result = result.split("कुऱ्हाड").join("Hw$èhmS>");
+
+    // 2. Specific complex conjuncts
+    result = result.split("उच्छ्वास").join("CÀN²>dmg");
+    result = result.split("वैशिष्ट्य").join("d¡{eï²`");
+    result = result.split("स्फूर्ति").join("ñ\\y${V©");
+    result = result.split("स्फू").join("ñ\\y$");
+    result = result.split("आर्द्र").join("AmÐ©");
+    result = result.split("र्द्र").join("Ð©");
+    result = result.split("च्छ्र").join("ÀN>«");
+    result = result.split("ज्ञ्य").join("k²`");
+    result = result.split("क्त्य").join("º²$`");
+    result = result.split("ञ्च").join("ÄM");
+    result = result.split("ञ्छ").join("ÄN>");
+    result = result.split("ञ्ज").join("ÄO");
+    result = result.split("ञ्झ").join("ÄP");
+    result = result.split("त्त्त्य").join("ÎË`");
+    result = result.split("त्म्य").join("Ëå`");
+    result = result.split("त्स्न").join("ËñZ");
+    result = result.split("त्स्य").join("Ëñ`");
+    result = result.split("द्र्य").join("Ú©");
+    result = result.split("ष्ट्य").join("ï²`");
+
+    // 3. Halant Lla before consonants -> ù (Marathi specific)
+    if (language === "marathi") {
+        result = result.replace(/ळ्([क-हक़-य़])/g, "ù$1");
+    }
+    result = result.split("ळ्").join("i~");
+
+    // 4. Normalize Decomposed Nuktas
     result = result.split('ड़').join('‹S>');
     result = result.split('ढ़').join('‹T>');
 
-    // 2. Reorder short 'i' + anusvara (िं) and short 'i' (ि)
-    // Convert cluster + िं -> {cluster§
+    // 5. Reorder short 'i' + anusvara (िं) and short 'i' (ि)
     const iAnusvaraRegex = /((?:[क-हक़-य़]्)*[क-हक़-य़])िं/g;
     result = result.replace(iAnusvaraRegex, '{$1§');
 
-    // Convert cluster + ि -> {cluster
     const iRegex = /((?:[क-हक़-य़]्)*[क-हक़-य़])ि/g;
     result = result.replace(iRegex, '{$1');
 
-    // 3. Handle composite vowel matras
+    // 6. Handle composite vowel matras
     result = result.split('ो').join('mo');
     result = result.split('ौ').join('m¡');
     result = result.split('ॉ').join('m°');
@@ -31,16 +65,13 @@ export function unicodeToShreeLipi(text: string): string {
     result = result.split('ें').join('o§');
     result = result.split('ैं').join('¢');
 
-    // 4. Apply the mapped entries longest-first
-    // (they are already generated and sorted in SHREE_LIPI_MAPPINGS)
+    // 7. Apply the mapped entries
     for (const entry of SHREE_LIPI_MAPPINGS) {
         if (entry.from && result.includes(entry.from)) {
             result = result.split(entry.from).join(entry.to);
         }
     }
 
-    // Additional Standalone Fallbacks are now in SHREE_LIPI_MAPPINGS
-    // but keep as a safety net in case they were missed
     const fallbacks: Record<string, string> = {
         '।': '&', '॥': '&&', 'ा': 'm', 'ी': 'r', 'ु': 'w', 'ू': 'y',
         'ृ': '¥', 'ॄ': '¦', 'े': 'o', 'ै': '¡', 'ं': '§', 'ः': '…',
@@ -52,19 +83,20 @@ export function unicodeToShreeLipi(text: string): string {
         result = result.split(k).join(v);
     }
 
-    // 5. Fix top matras on right-bracket glyphs (e.g. ट, ठ, ड, ढ shifted left visually)
-    // S>o -> So>
+    // Fix top matras on right-bracket glyphs
     result = result.replace(/([QTRNSL])>([o¡¢])/g, '$1$2>');
     result = result.replace(/‹([QTRNSL])>([o¡¢])/g, '‹$1$2>');
 
-    // 6. Specific structural fixes post-processing
-    // {H$§ -> qH$ (short 'i' with anusvara on standard width characters)
-    result = result.split('{H$§').join('qH$');
-    result = result.split('{R>§').join('qR>');
-    result = result.split('{S>§').join('qS>');
-    result = result.split('{T>§').join('qT>');
-    result = result.split('{a§').join('qa');
-    result = result.split('{i§').join('qi');
+    // Final short-i fix
+    result = result.replace(/\{([ñŠßÝËã½¿ÀÁÊÜäåîùƒ])/g, "p$1");
+
+    // Specific formatting patches
+    result = result.split("{H$§").join("qH$");
+    result = result.split("{R>§").join("qR>");
+    result = result.split("{S>§").join("qS>");
+    result = result.split("{T>§").join("qT>");
+    result = result.split("{a§").join("qa");
+    result = result.split("{i§").join("qi");
 
     return result;
 }
