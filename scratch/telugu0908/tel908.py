@@ -16,7 +16,7 @@ Run with /usr/bin/python3 (has fontTools + Pillow). The repo venv has no Pillow.
 """
 import json
 from fontTools.ttLib import TTFont
-from fontTools.pens.recordingPen import RecordingPen
+from fontTools.pens.recordingPen import DecomposingRecordingPen
 
 LEGACY = 'public/SHREE-TEL.ttf'
 NOTO_SANS = '/usr/share/fonts/noto/NotoSansTelugu-Regular.ttf'
@@ -119,8 +119,13 @@ class Face:
                 'byte': self.byte_of.get(cp)}
 
     def contours(self, cp):
+        # DecomposingRecordingPen, not RecordingPen: a plain RecordingPen records a glyf
+        # COMPONENT as an addComponent call, which _flatten drops, so a composite glyph
+        # came back with no outline at all. 18 of Noto Telugu's 35 consonants are drawn as
+        # letter body + talakattu component, so every reference built here was blank -
+        # including all of the letters the head search was trying to settle.
         if cp not in self._cache:
-            pen = RecordingPen()
+            pen = DecomposingRecordingPen(self.gs)
             self.gs[self.plat3[cp]].draw(pen)
             self._cache[cp] = _flatten(pen.value)
         return self._cache[cp]
