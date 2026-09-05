@@ -467,7 +467,9 @@ const defaultFont = 'anu7';
     const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
-    if (currentScript === 'hindi') {
+    if (currentScript === 'telugu' && currentFormat === 'shreelipi') {
+      fontName = 'Shree-Tel-0908';
+    } else if (currentScript === 'hindi') {
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
@@ -688,7 +690,7 @@ const defaultFont = 'anu7';
       else if (encoding === 'bamini') legacyFontToApply = "'Bamini', sans-serif";
       else if (encoding === 'nudi') legacyFontToApply = "'Nudi 01 e', 'Nudi 01 k', 'Nudi', sans-serif";
       else if (encoding === 'ism') legacyFontToApply = "'ML-TTKarthika', sans-serif";
-      else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
+      else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
       else if (encoding === 'shreelipitam') legacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
       else if (encoding === 'shreelipimar') legacyFontToApply = "'SHREE-DEV-0708', sans-serif";
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
@@ -727,7 +729,9 @@ const defaultFont = 'anu7';
           const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
           const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
 
-          if (currentScript === 'hindi') {
+          if (currentScript === 'telugu' && currentFormat === 'shreelipi') {
+            fontName = 'Shree-Tel-0908';
+          } else if (currentScript === 'hindi') {
             fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
           } else if (currentScript === 'tamil') {
             fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
@@ -1002,7 +1006,7 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'bamini') initLegacyFontToApply = "'Bamini', sans-serif";
   else if (initEncoding === 'nudi') initLegacyFontToApply = "'Nudi', sans-serif";
   else if (initEncoding === 'ism') initLegacyFontToApply = "'ML-TTKarthika', sans-serif";
-  else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'SHREE-TEL', sans-serif";
+  else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
   else if (initEncoding === 'shreelipitam') initLegacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
   else if (initEncoding === 'shreelipimar') initLegacyFontToApply = "'SHREE-DEV-0708', sans-serif";
   else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
@@ -1163,7 +1167,9 @@ const defaultFont = 'anu7';
     const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
-    if (currentScript === 'hindi') {
+    if (currentScript === 'telugu' && currentFormat === 'shreelipi') {
+      fontName = 'Shree-Tel-0908';
+    } else if (currentScript === 'hindi') {
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');

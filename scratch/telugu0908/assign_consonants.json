@@ -1,0 +1,212 @@
+{
+ "క": {
+  "recipe": "0x4d+0xe6",
+  "score": 0.723,
+  "runnerUp": "0x75+0xe6",
+  "runnerScore": 0.527
+ },
+ "ఖ": {
+  "recipe": "0x52",
+  "score": 0.612,
+  "runnerUp": "0x51",
+  "runnerScore": 0.589
+ },
+ "గ": {
+  "recipe": "0x56+0xe6",
+  "score": 0.564,
+  "runnerUp": "0xc6+0xe6",
+  "runnerScore": 0.596
+ },
+ "ఘ": {
+  "recipe": "0x3d",
+  "score": 0.381,
+  "runnerUp": "0xc4",
+  "runnerScore": 0.358
+ },
+ "ఙ": {
+  "recipe": "0x4a",
+  "score": 0.577,
+  "runnerUp": "0xbb",
+  "runnerScore": 0.589
+ },
+ "చ": {
+  "recipe": "0x5e+0xe6",
+  "score": 0.552,
+  "runnerUp": "0xa7+0xe6",
+  "runnerScore": 0.633
+ },
+ "ఛ": {
+  "recipe": "0xbf+0xe8",
+  "score": 0.483,
+  "runnerUp": "0xa3+0xe6",
+  "runnerScore": 0.594
+ },
+ "జ": {
+  "recipe": "0x67",
+  "score": 0.67,
+  "runnerUp": "0x66",
+  "runnerScore": 0.648
+ },
+ "ఝ": {
+  "recipe": "0x6d",
+  "score": 0.612,
+  "runnerUp": "0xc4+0xe7",
+  "runnerScore": 0.359
+ },
+ "ఞ": {
+  "recipe": "0x70",
+  "score": 0.531,
+  "runnerUp": "0x70+0xe8",
+  "runnerScore": 0.403
+ },
+ "ట": {
+  "recipe": "0xa7",
+  "score": 0.542,
+  "runnerUp": "0x73+0xe8",
+  "runnerScore": 0.53
+ },
+ "ఠ": {
+  "recipe": "0x75+0xe6",
+  "score": 0.728,
+  "runnerUp": "0xc6+0xe6",
+  "runnerScore": 0.686
+ },
+ "డ": {
+  "recipe": "0x79+0xe6",
+  "score": 0.643,
+  "runnerUp": "0xa7+0xe6",
+  "runnerScore": 0.632
+ },
+ "ఢ": {
+  "recipe": "0xc9+0xe6",
+  "score": 0.679,
+  "runnerUp": "0xa3+0xe6",
+  "runnerScore": 0.559
+ },
+ "ణ": {
+  "recipe": "0xd7",
+  "score": 0.675,
+  "runnerUp": "0xbb",
+  "runnerScore": 0.466
+ },
+ "త": {
+  "recipe": "0x2122+0xe6",
+  "score": 0.653,
+  "runnerUp": "0x2122+0xe8",
+  "runnerScore": 0.504
+ },
+ "థ": {
+  "recipe": "0xa4",
+  "score": 0.557,
+  "runnerUp": "0xa3+0xe6",
+  "runnerScore": 0.735
+ },
+ "ద": {
+  "recipe": "0xa7+0xe6",
+  "score": 0.721,
+  "runnerUp": "0x5e+0xe6",
+  "runnerScore": 0.578
+ },
+ "ధ": {
+  "recipe": "0xa3+0xe6",
+  "score": 0.734,
+  "runnerUp": "0xc9+0xe6",
+  "runnerScore": 0.619
+ },
+ "న": {
+  "recipe": "0xaf+0xe6",
+  "score": 0.551,
+  "runnerUp": "0xaf+0xe8",
+  "runnerScore": 0.6
+ },
+ "ప": {
+  "recipe": "0xa7+0xe8",
+  "score": 0.599,
+  "runnerUp": "0xaf+0xe8",
+  "runnerScore": 0.611
+ },
+ "ఫ": {
+  "recipe": "0xc9+0xe8",
+  "score": 0.503,
+  "runnerUp": "0xa3+0xe8",
+  "runnerScore": 0.528
+ },
+ "బ": {
+  "recipe": "0xbb",
+  "score": 0.727,
+  "runnerUp": "0xba",
+  "runnerScore": 0.689
+ },
+ "భ": {
+  "recipe": "0xbf+0xe6",
+  "score": 0.631,
+  "runnerUp": "0x52+0xe6",
+  "runnerScore": 0.511
+ },
+ "మ": {
+  "recipe": "0xc4+0xe8",
+  "score": 0.34,
+  "runnerUp": "0x3d",
+  "runnerScore": 0.336
+ },
+ "య": {
+  "recipe": "0xc4+0xe7",
+  "score": 0.39,
+  "runnerUp": "0x6d",
+  "runnerScore": 0.486
+ },
+ "ర": {
+  "recipe": "0xc6+0xe6",
+  "score": 0.733,
+  "runnerUp": "0x75+0xe6",
+  "runnerScore": 0.696
+ },
+ "ల": {
+  "recipe": "0xcb",
+  "score": 0.639,
+  "runnerUp": "0xcc",
+  "runnerScore": 0.634
+ },
+ "ళ": {
+  "recipe": "0xe2+0xe6",
+  "score": 0.533,
+  "runnerUp": "0xbf+0xe6",
+  "runnerScore": 0.44
+ },
+ "వ": {
+  "recipe": "0xbb+0xe8",
+  "score": 0.54,
+  "runnerUp": "0xa7+0xe8",
+  "runnerScore": 0.558
+ },
+ "శ": {
+  "recipe": "0xd4+0xe6",
+  "score": 0.594,
+  "runnerUp": "0xd5",
+  "runnerScore": 0.454
+ },
+ "ష": {
+  "recipe": "0xa3+0xe8",
+  "score": 0.472,
+  "runnerUp": "0xc9+0xe8",
+  "runnerScore": 0.421
+ },
+ "స": {
+  "recipe": "0xaf+0xe8",
+  "score": 0.678,
+  "runnerUp": "0xa7+0xe8",
+  "runnerScore": 0.538
+ },
+ "హ": {
+  "recipe": "0xe0",
+  "score": 0.537,
+  "runnerUp": "0xdf+0xe8",
+  "runnerScore": 0.434
+ },
+ "ఱ": {
+  "recipe": "0x201a",
+  "score": 0.653,
+  "runnerUp": "0x41",
+  "runnerScore": 0.595
+ }
+}

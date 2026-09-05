@@ -8,7 +8,10 @@ import { unicodeToAnuTamil, anuTamilToUnicode } from './anuTamilConverter';
 import { unicodeToShreeLipiTamil, shreeLipiTamilToUnicode } from './shreeLipiTamilConverter';
 import { unicodeToNudi } from './nudiConverter';
 import { unicodeToIsmMalayalam } from './ismMalayalamConverter';
-import { convertUnicodeToShreeLipiTelugu } from './shreeLipiTeluguConverter';
+import {
+  convertShreeLipiTelugu0908ToUnicode,
+  convertUnicodeToShreeLipiTelugu0908,
+} from './shreeLipiTelugu0908Converter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
@@ -37,6 +40,37 @@ export interface ConversionOptions {
   encoding?: FontEncoding;
   reverse?: boolean;
   useAltRaaVatthu?: boolean;
+}
+
+/**
+ * Shapes a Shree-Tel-0908 conversion into the common result type. The engine returns the
+ * characters it could not represent rather than an index list, so each one is reported once
+ * against its first occurrence.
+ */
+function telugu0908Result(
+  inputText: string,
+  startTime: number,
+  res: { text: string; unmapped: string[] }
+): ConversionResult {
+  const errors: UnmappedError[] = res.unmapped.map((char) => ({
+    index: inputText.indexOf(char),
+    char,
+    codePoint: `U+${char.codePointAt(0)!.toString(16).toUpperCase().padStart(4, '0')}`,
+    reason: 'No glyph for this character in Shree-Tel-0908'
+  }));
+  const endTime = performance.now();
+  return {
+    convertedText: res.text,
+    errors,
+    stats: {
+      inputCharCount: inputText.length,
+      outputCharCount: res.text.length,
+      wordCount: inputText.trim() ? inputText.trim().split(/\s+/).length : 0,
+      lineCount: inputText.split('\n').length,
+      unmappedCount: errors.length,
+      processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+    }
+  };
 }
 
 const ANU7_VATTUS: Record<string, string> = {
@@ -160,20 +194,8 @@ export function convertText(
     }
 
     if (encoding === 'shreelipi' && script === 'telugu') {
-      const convertedText = convertUnicodeToShreeLipiTelugu(processedInput);
-      const endTime = performance.now();
-      return {
-        convertedText,
-        errors: [],
-        stats: {
-          inputCharCount: inputText.length,
-          outputCharCount: convertedText.length,
-          wordCount: inputText.trim().split(/\s+/).length,
-          lineCount: inputText.split('\n').length,
-          unmappedCount: 0,
-          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
-        }
-      };
+      return telugu0908Result(inputText, startTime,
+        convertUnicodeToShreeLipiTelugu0908(processedInput));
     }
 
     if ((encoding === 'shreelipi' || encoding === 'shreelipimar') && (script === 'hindi' || script === 'marathi')) {
@@ -401,6 +423,12 @@ export function convertText(
       return res;
     });
   } else {
+    if (encoding === 'shreelipi' && script === 'telugu') {
+      // Without this the Telugu Shree-Lipi reverse direction falls through to
+      // getMapping('shreelipi'), which is the Devanagari Shree-Dev table.
+      return telugu0908Result(inputText, startTime,
+        convertShreeLipiTelugu0908ToUnicode(processedInput));
+    }
     if (encoding === 'anutamil' && script === 'tamil') {
       const convertedText = anuTamilToUnicode(processedInput);
       const endTime = performance.now();

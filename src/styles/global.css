@@ -182,6 +182,17 @@ html, body {
 }
 
 @font-face {
+  font-family: 'Shree-Tel-0908';
+  /* Sanitised copy: Chromium's OpenType Sanitiser rejects the original SHREE-TEL.ttf
+     ("post: Bad string index 5") and silently falls back to a Latin face, which makes the
+     preview look like gibberish Latin letters. See scratch/telugu0908/fixfont.py. */
+  src: url('/SHREE-TEL-web.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'SHREE-DEV-0708';
   src: url('/SHREE-DEV-0708.ttf') format('truetype');
   font-weight: normal;

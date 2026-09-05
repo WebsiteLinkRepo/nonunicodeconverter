@@ -82,10 +82,10 @@ export const AVAILABLE_FONTS: FontOption[] = [
   {
     id: 'shreelipi',
     name: 'Shree-Lipi (Telugu)',
-    family: 'SHREE-TEL',
+    family: 'Shree-Tel-0908',
     script: 'telugu',
-    description: 'Legacy font layout for Shree-Lipi Telugu',
-    fallbackFontFamily: "'SHREE-TEL', sans-serif"
+    description: 'Legacy font layout for Shree-Lipi Telugu (Shree-Tel-0908)',
+    fallbackFontFamily: "'Shree-Tel-0908', 'SHREE-TEL', sans-serif"
   },
   {
     id: 'shreelipitam',
