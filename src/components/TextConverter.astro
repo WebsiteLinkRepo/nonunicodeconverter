@@ -488,6 +488,8 @@ const defaultFont = 'anu7';
       fontName = 'ML-TTKarthika';
     } else if (currentScript === 'marathi') {
       fontName = 'SHREE-DEV-0708';
+    } else if (currentScript === 'gujarati') {
+      fontName = 'Hari';
     }
 
         const plainText = isOutputUnicode ? text : pagemakerDownconvert(text);
@@ -757,6 +759,8 @@ const defaultFont = 'anu7';
             fontName = 'ML-TTKarthika';
           } else if (currentScript === 'marathi') {
             fontName = 'SHREE-DEV-0708';
+          } else if (currentScript === 'gujarati') {
+            fontName = 'Hari';
           }
           const success = writeToClipboard(finalOutput, fontName, isOutputUnicode);
           if (success && copyBtnText) {
@@ -1201,6 +1205,8 @@ const defaultFont = 'anu7';
       fontName = 'ML-TTKarthika';
     } else if (currentScript === 'marathi') {
       fontName = 'SHREE-DEV-0708';
+    } else if (currentScript === 'gujarati') {
+      fontName = 'Hari';
     }
     const success = writeToClipboard(val, fontName, isOutputUnicode);
 
