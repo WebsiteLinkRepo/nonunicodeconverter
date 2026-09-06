@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @font-face {
+            font-family: 'Shree-Tel';
+            src: url('../public/SHREE-TEL-web.ttf');
+        }
+        body { font-family: sans-serif; font-size: 14px; padding: 20px;}
+        .container { display: flex; flex-wrap: wrap; }
+        .item { width: 90px; margin: 5px; border: 1px solid #ccc; text-align: center; }
+        .shree { font-family: 'Shree-Tel'; font-size: 48px; background: #eee; min-height: 60px; line-height: 60px; }
+    </style>
+</head>
+<body>
+    <div class="container" id="grid"></div>
+    <script>
+        const grid = document.getElementById('grid');
+        const codes = [
+            0x152, 0x153, 0x178, 0x192, 0x2C6, 0x2DC, 0x2013, 0x2014, 0x2018, 0x2019, 0x201A, 0x201C, 0x201D, 0x201E, 0x2020, 0x2021, 0x2022, 0x2026, 0x2030, 0x2039, 0x203A, 0x20AC
+        ];
+        // add all from 0x0100 to 0x02FF loosely
+        for (const code of codes) {
+            const div = document.createElement('div');
+            div.className = 'item';
+            
+            const charDiv = document.createElement('div');
+            charDiv.className = 'shree';
+            charDiv.innerHTML = '&#' + code + ';';
+            
+            const labelDiv = document.createElement('div');
+            labelDiv.innerText = '0x' + code.toString(16).toUpperCase().padStart(4, '0');
+            
+            div.appendChild(charDiv);
+            div.appendChild(labelDiv);
+            grid.appendChild(div);
+        }
+    </script>
+</body>
+</html>

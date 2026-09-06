@@ -2,14 +2,13 @@ import { ANU7_UNICODE_TO_NONUNICODE } from './anu7';
 import { ANU6_UNICODE_TO_NONUNICODE } from './anu6';
 import { KRUTI_DEV_UNICODE_TO_NONUNICODE } from './krutiDev';
 import { BAMINI_TAMIL_UNICODE_TO_NONUNICODE } from './baminiTamil';
-import { ANU_TAMIL_UNICODE_TO_NONUNICODE } from './anuTamil';
 import { ISM_MALAYALAM_UNICODE_TO_NONUNICODE } from './ismMalayalam';
 import { NUDI_KANNADA_UNICODE_TO_NONUNICODE } from './nudiKannada';
 
 import { SHREE_LIPI_MAPPINGS } from './shreeLipi';
 import { SHREELIPI_TAMIL_UNICODE_TO_NONUNICODE } from './shreeLipiTamil';
 
-export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'anutamil' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam' | 'shreelipimar';
+export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam' | 'shreelipimar';
 
 export type ScriptLanguage = 'telugu' | 'hindi' | 'kannada' | 'tamil' | 'malayalam' | 'marathi';
 
@@ -56,14 +55,6 @@ export const AVAILABLE_FONTS: FontOption[] = [
     fallbackFontFamily: "'Bamini', sans-serif"
   },
   {
-    id: 'anutamil',
-    name: 'Anu Script (Tamil)',
-    family: 'AnuScript7',
-    script: 'tamil',
-    description: 'Anu Script font layout for Tamil',
-    fallbackFontFamily: "'AnuScript7', sans-serif"
-  },
-  {
     id: 'ism',
     name: 'Anu 7.0 / ISM (Malayalam)',
     family: 'ML-TTKarthika',
@@ -78,14 +69,6 @@ export const AVAILABLE_FONTS: FontOption[] = [
     script: 'kannada',
     description: 'Legacy font layout for Kannada',
     fallbackFontFamily: "'Hemavathi', sans-serif"
-  },
-  {
-    id: 'shreelipi',
-    name: 'Shree-Lipi (Telugu)',
-    family: 'Shree-Tel-0908',
-    script: 'telugu',
-    description: 'Legacy font layout for Shree-Lipi Telugu (Shree-Tel-0908)',
-    fallbackFontFamily: "'Shree-Tel-0908', 'SHREE-TEL', sans-serif"
   },
   {
     id: 'shreelipitam',
@@ -116,9 +99,6 @@ export function getMapping(encoding: FontEncoding, reverse: boolean = false) {
     script = 'hindi';
   } else if (encoding === 'bamini') {
     mappingList = BAMINI_TAMIL_UNICODE_TO_NONUNICODE;
-    script = 'tamil';
-  } else if (encoding === 'anutamil') {
-    mappingList = ANU_TAMIL_UNICODE_TO_NONUNICODE;
     script = 'tamil';
   } else if (encoding === 'ism') {
     mappingList = ISM_MALAYALAM_UNICODE_TO_NONUNICODE;

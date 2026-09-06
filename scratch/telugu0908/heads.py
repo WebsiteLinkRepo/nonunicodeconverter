@@ -42,7 +42,7 @@ HEAD = {
     'ఫ':   (0x00B8, None,   None,   0.37),
     'బ':   (0x00BA, None,   0x00BB, 0.73),
     'భ':   (0x00BF, 0x00E6, None,   0.63),
-    'మ':   (0x02DC, None,   None,   0.18),
+    'మ':   (0x00AC, 0x00E6, None,   1.00),   # owner-confirmed
     'య':   (0x00C4, 0x00E7, None,   0.39),
     'ర':   (0x00C6, 0x00E6, None,   0.73),
     'ఱ':   (0x201A, None,   None,   0.65),

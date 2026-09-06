@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @font-face {
+            font-family: 'Shree-Tel';
+            src: url('../public/SHREE-TEL-web.ttf');
+        }
+        body { font-family: sans-serif; font-size: 16px; padding: 20px;}
+        .row { display: flex; align-items: center; margin-bottom: 5px; border-bottom: 1px solid #eee; }
+        .target { width: 150px; font-size: 32px; color: blue; }
+        .char { font-family: 'Shree-Tel'; font-size: 48px; background: #eee; width: 60px; text-align: center; margin-right: 10px; }
+        .label { width: 100px; font-family: monospace; }
+        .group { margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <h3>Gha (ఘ) and Vattu (్ఘ)</h3>
+    <div class="row"><div class="target">ఘ (full)</div>
+        <div class="char">&#x0153;&#x00E8;</div><div class="label">0153 00E8</div>
+        <div class="char">&#x005A;&#x00E8;</div><div class="label">005A 00E8</div>
+        <div class="char">&#x005B;&#x00E8;</div><div class="label">005B 00E8</div>
+    </div>
+    <div class="row"><div class="target">ఘ వత్తు (్ఘ)</div>
+        <div class="char">&#x0192;</div><div class="label">0192</div>
+        <div class="char">&#x005E;</div><div class="label">005E</div>
+        <div class="char">&#x009F;</div><div class="label">009F</div>
+        <div class="char">&#x00A0;</div><div class="label">00A0</div>
+    </div>
+
+    <h3>Nga (ఙ) and Vattu (్ఙ)</h3>
+    <div class="row"><div class="target">ఙ (full)</div>
+        <div class="char">&#x005C;</div><div class="label">005C</div>
+    </div>
+    <div class="row"><div class="target">ఙ వత్తు (్ఙ)</div>
+        <div class="char">&#x005D;</div><div class="label">005D</div>
+    </div>
+
+    <h3>Ma (మ) and Vattu (్మ)</h3>
+    <div class="row"><div class="target">మ (full)</div>
+        <div class="char">&#x02DC;</div><div class="label">02DC</div>
+        <div class="char">&#x00AC;</div><div class="label">00AC</div>
+        <div class="char">&#x00AD;</div><div class="label">00AD</div>
+        <div class="char">&#x00AE;</div><div class="label">00AE</div>
+        <div class="char">&#x00AF;</div><div class="label">00AF</div>
+    </div>
+    <div class="row"><div class="target">మ వత్తు (్మ)</div>
+        <div class="char">&#x00C3;</div><div class="label">00C3</div>
+        <div class="char">&#x00C2;</div><div class="label">00C2</div>
+    </div>
+
+    <h3>Ha (హ) and Vattu (్హ)</h3>
+    <div class="row"><div class="target">హ (full)</div>
+        <div class="char">&#x00E0;</div><div class="label">00E0</div>
+        <div class="char">&#x00DF;</div><div class="label">00DF</div>
+        <div class="char">&#x00DE;</div><div class="label">00DE</div>
+    </div>
+    <div class="row"><div class="target">హ వత్తు (్హ)</div>
+        <div class="char">&#x00E1;</div><div class="label">00E1</div>
+    </div>
+    
+    <h3>Missing Vattulu</h3>
+    Let's find the missing vattulu.
+    <div id="vattus"></div>
+    <script>
+        const v = document.getElementById('vattus');
+        // Likely vattu ranges: 0x5D, 0x5E, 0x90-0x9F, 0xA0-0xAF, 0xB0-0xBF, 0xC0-0xCF, 0xD0-0xDF, 0xE0-0xE5
+        const vattuCodes = [
+            0x55, 0x56, 0x5D, 0x5E, 0x5F,
+            0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9F,
+            0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF,
+            0xB0, 0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6, 0xB7, 0xB8, 0xB9, 0xBA, 0xBB, 0xBC, 0xBD, 0xBE, 0xBF,
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF,
+            0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5, 0xD6, 0xD7, 0xD8, 0xD9, 0xDA, 0xDB, 0xDC, 0xDD, 0xDE, 0xDF,
+            0xE0, 0xE1, 0xE2, 0xE3, 0xE4, 0xE5, 0x192
+        ];
+        
+        let html = '<div class="row">';
+        for (let i=0; i<vattuCodes.length; i++) {
+            if (i>0 && i%10 === 0) html += '</div><div class="row">';
+            const hex = vattuCodes[i].toString(16).toUpperCase().padStart(2, '0');
+            html += `<div class="char">&#x${hex};</div><div class="label" style="width:50px">${hex}</div>`;
+        }
+        html += '</div>';
+        v.innerHTML = html;
+    </script>
+</body>
+</html>

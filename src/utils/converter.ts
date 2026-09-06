@@ -4,14 +4,9 @@ import { unicodeToShreeLipi } from './shreeLipiConverter';
 
 import { unicodeToKrutidev } from './krutiDevConverter';
 import { unicodeToBamini } from './baminiConverter';
-import { unicodeToAnuTamil, anuTamilToUnicode } from './anuTamilConverter';
 import { unicodeToShreeLipiTamil, shreeLipiTamilToUnicode } from './shreeLipiTamilConverter';
 import { unicodeToNudi } from './nudiConverter';
 import { unicodeToIsmMalayalam } from './ismMalayalamConverter';
-import {
-  convertShreeLipiTelugu0908ToUnicode,
-  convertUnicodeToShreeLipiTelugu0908,
-} from './shreeLipiTelugu0908Converter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
@@ -193,11 +188,6 @@ export function convertText(
       };
     }
 
-    if (encoding === 'shreelipi' && script === 'telugu') {
-      return telugu0908Result(inputText, startTime,
-        convertUnicodeToShreeLipiTelugu0908(processedInput));
-    }
-
     if ((encoding === 'shreelipi' || encoding === 'shreelipimar') && (script === 'hindi' || script === 'marathi')) {
       const convertedText = unicodeToShreeLipi(processedInput, script === "marathi" || encoding === "shreelipimar" ? "marathi" : "hindi");
       const endTime = performance.now();
@@ -215,22 +205,6 @@ export function convertText(
       };
     }
 
-    if (encoding === 'anutamil' && script === 'tamil') {
-      const convertedText = unicodeToAnuTamil(processedInput);
-      const endTime = performance.now();
-      return {
-        convertedText,
-        errors: [],
-        stats: {
-          inputCharCount: inputText.length,
-          outputCharCount: convertedText.length,
-          wordCount: inputText.trim().split(/\s+/).length,
-          lineCount: inputText.split('\n').length,
-          unmappedCount: 0,
-          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
-        }
-      };
-    }
     if (encoding === 'shreelipitam' && script === 'tamil') {
       const convertedText = unicodeToShreeLipiTamil(processedInput);
       const endTime = performance.now();
@@ -314,9 +288,7 @@ export function convertText(
     const blockOffsets: Record<string, number> = {
       hindi: 0x0300,       // Devanagari (0x0900) -> Telugu (0x0C00)
       marathi: 0x0300,     // Devanagari (0x0900) -> Telugu (0x0C00)
-      tamil: 0x0080,       // Tamil (0x0B80) -> Telugu (0x0C00)
-      kannada: -0x0080,    // Kannada (0x0C80) -> Telugu (0x0C00)
-      malayalam: -0x0100   // Malayalam (0x0D00) -> Telugu (0x0C00)
+      tamil: 0x0080        // Tamil (0x0B80) -> Telugu (0x0C00)
     };
 
     if (script === 'hindi' || script === 'marathi') {
@@ -331,8 +303,6 @@ export function convertText(
         const code = char.charCodeAt(0);
         if ((script === 'hindi' || script === 'marathi') && code >= 0x0900 && code <= 0x097F) return String.fromCharCode(code + offset);
         if (script === 'tamil' && code >= 0x0B80 && code <= 0x0BFF) return String.fromCharCode(code + offset);
-        if (script === 'kannada' && code >= 0x0C80 && code <= 0x0CFF) return String.fromCharCode(code + offset);
-        if (script === 'malayalam' && code >= 0x0D00 && code <= 0x0D7F) return String.fromCharCode(code + offset);
         return char;
       });
     }
@@ -423,28 +393,6 @@ export function convertText(
       return res;
     });
   } else {
-    if (encoding === 'shreelipi' && script === 'telugu') {
-      // Without this the Telugu Shree-Lipi reverse direction falls through to
-      // getMapping('shreelipi'), which is the Devanagari Shree-Dev table.
-      return telugu0908Result(inputText, startTime,
-        convertShreeLipiTelugu0908ToUnicode(processedInput));
-    }
-    if (encoding === 'anutamil' && script === 'tamil') {
-      const convertedText = anuTamilToUnicode(processedInput);
-      const endTime = performance.now();
-      return {
-        convertedText,
-        errors: [],
-        stats: {
-          inputCharCount: inputText.length,
-          outputCharCount: convertedText.length,
-          wordCount: inputText.trim().split(/\s+/).length,
-          lineCount: inputText.split('\n').length,
-          unmappedCount: 0,
-          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
-        }
-      };
-    }
     // -------------------------------------------------------------
     // REVERSE CONVERSION (Legacy Anu 7.0 -> Unicode)
     // -------------------------------------------------------------
@@ -479,9 +427,7 @@ export function convertText(
     const reverseOffsets: Record<string, number> = {
       hindi: -0x0300,       // Telugu (0x0C00) -> Devanagari (0x0900)
       marathi: -0x0300,     // Telugu (0x0C00) -> Devanagari (0x0900)
-      tamil: -0x0080,       // Telugu (0x0C00) -> Tamil (0x0B80)
-      kannada: 0x0080,      // Telugu (0x0C00) -> Kannada (0x0C80)
-      malayalam: 0x0100     // Telugu (0x0C00) -> Malayalam (0x0D00)
+      tamil: -0x0080        // Telugu (0x0C00) -> Tamil (0x0B80)
     };
 
     const reverseOffset = reverseOffsets[script];

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @font-face {
+            font-family: 'Shree-Tel';
+            src: url('../public/SHREE-TEL-web.ttf');
+        }
+        body { font-family: sans-serif; font-size: 16px; padding: 20px;}
+        .container { display: flex; flex-wrap: wrap; }
+        .item { width: 100px; margin: 10px; border: 1px solid #ccc; text-align: center; }
+        .shree { font-family: 'Shree-Tel'; font-size: 64px; background: #eee; min-height: 80px; }
+    </style>
+</head>
+<body>
+    <h3>Looking for: Gha (ఘ), Nga (ఙ), Ma (మ), Ha (హ) and their subscripts</h3>
+    <div class="container" id="grid"></div>
+    <script>
+        const grid = document.getElementById('grid');
+        // Let's specifically look at the suspected ranges
+        // INVENTORY.md says: 
+        // ఙ base: \ (which is 0x5C, usually ']')
+        // ఙ vattu: ] (which is 0x5D)
+        // మ base: ˜ (0x2DC or small tilde, rendering wrong). Let's test 0xAC
+        // ఘ base: U+0153 by elimination, U+005A / 005B as alternatives
+        // ఘ vattu: ƒ (0x192)
+        // హ base: U+00DF currently (0xDF is eszett)
+        
+        const testBase = [...Array(16)].map((_, i) => 0x50 + i); 
+        const testVattu = [...Array(16)].map((_, i) => 0x90 + i);
+        const testMa = [...Array(16)].map((_, i) => 0xA0 + i);
+        const testGha = [0x153, 0x5A, 0x5B];
+        const testHa = [...Array(16)].map((_, i) => 0xD0 + i);
+        const testExtra = [...Array(16)].map((_, i) => 0xE0 + i);
+        
+        const allTestCodes = [...new Set([...testBase, ...testVattu, ...testMa, ...testGha, ...testHa, ...testExtra])].sort((a,b)=>a-b);
+        
+        for (const code of allTestCodes) {
+            const div = document.createElement('div');
+            div.className = 'item';
+            
+            const charDiv = document.createElement('div');
+            charDiv.className = 'shree';
+            charDiv.innerHTML = '&#' + code + ';';
+            
+            const labelDiv = document.createElement('div');
+            labelDiv.innerText = '0x' + code.toString(16).toUpperCase();
+            
+            div.appendChild(charDiv);
+            div.appendChild(labelDiv);
+            grid.appendChild(div);
+        }
+    </script>
+</body>
+</html>
