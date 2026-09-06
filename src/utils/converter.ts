@@ -7,6 +7,7 @@ import { unicodeToBamini } from './baminiConverter';
 import { unicodeToShreeLipiTamil, shreeLipiTamilToUnicode } from './shreeLipiTamilConverter';
 import { unicodeToNudi } from './nudiConverter';
 import { unicodeToIsmMalayalam } from './ismMalayalamConverter';
+import { unicodeToHari } from './hariGujaratiConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
@@ -188,6 +189,24 @@ export function convertText(
       };
     }
 
+    
+    if (encoding === 'hari' && script === 'gujarati') {
+      const convertedText = unicodeToHari(processedInput);
+      const endTime = performance.now();
+      return {
+        convertedText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: convertedText.length,
+          wordCount: inputText.trim().split(/\s+/).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Math.max(0.1, Number((endTime - startTime).toFixed(2)))
+        }
+      };
+    }
+    
     if ((encoding === 'shreelipi' || encoding === 'shreelipimar') && (script === 'hindi' || script === 'marathi')) {
       const convertedText = unicodeToShreeLipi(processedInput, script === "marathi" || encoding === "shreelipimar" ? "marathi" : "hindi");
       const endTime = performance.now();

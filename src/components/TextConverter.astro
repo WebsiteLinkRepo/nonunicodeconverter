@@ -35,6 +35,7 @@ const defaultFont = 'anu7';
           <option value="kannada">Kannada</option>
           <option value="malayalam">Malayalam</option>
           <option value="marathi">Marathi</option>
+          <option value="gujarati">Gujarati</option>
         </select>
       </div>
 
@@ -165,6 +166,13 @@ const defaultFont = 'anu7';
         class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Marathi Unicode
+      </button>
+      <button
+        id="sample-gujarati-btn"
+        type="button"
+        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+      >
+        Gujarati Unicode
       </button>
     </div>
   </div>
@@ -391,6 +399,7 @@ const defaultFont = 'anu7';
   const sampleKannadaBtn = document.getElementById('sample-kannada-btn') as HTMLButtonElement;
   const sampleMalayalamBtn = document.getElementById('sample-malayalam-btn') as HTMLButtonElement;
   const sampleMarathiBtn = document.getElementById('sample-marathi-btn') as HTMLButtonElement;
+  const sampleGujaratiBtn = document.getElementById('sample-gujarati-btn') as HTMLButtonElement;
 
 
   const linesStat = document.getElementById('lines-stat') as HTMLElement;
@@ -527,6 +536,7 @@ const defaultFont = 'anu7';
       const hasTamil = /[\u0B80-\u0BFF]/.test(val);
       const hasKannada = /[\u0C80-\u0CFF]/.test(val);
       const hasMalayalam = /[\u0D00-\u0D7F]/.test(val);
+      const hasGujarati = /[\u0A80-\u0AFF]/.test(val);
 
       function detectDevanagariLanguage(text: string) {
         if (/[ळऱऴ]|र्‍|र‍्/.test(text)) return "marathi";
@@ -545,7 +555,7 @@ const defaultFont = 'anu7';
 
       if (scriptSelect) {
         const oldScript = scriptSelect.value;
-        if (hasDevanagari && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam) {
+        if (hasDevanagari && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam && !hasGujarati) {
           const detected = detectDevanagariLanguage(val);
           if (detected === 'marathi') {
             scriptSelect.value = 'marathi';
@@ -555,10 +565,11 @@ const defaultFont = 'anu7';
             scriptSelect.value = 'hindi';
           }
         }
-        else if (hasTelugu && !hasDevanagari && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'telugu';
-        else if (hasTamil && !hasDevanagari && !hasTelugu && !hasKannada && !hasMalayalam) scriptSelect.value = 'tamil';
-        else if (hasKannada && !hasDevanagari && !hasTelugu && !hasTamil && !hasMalayalam) scriptSelect.value = 'kannada';
-        else if (hasMalayalam && !hasDevanagari && !hasTelugu && !hasTamil && !hasKannada) scriptSelect.value = 'malayalam';
+        else if (hasTelugu && !hasDevanagari && !hasTamil && !hasKannada && !hasMalayalam && !hasGujarati) scriptSelect.value = 'telugu';
+        else if (hasTamil && !hasDevanagari && !hasTelugu && !hasKannada && !hasMalayalam && !hasGujarati) scriptSelect.value = 'tamil';
+        else if (hasKannada && !hasDevanagari && !hasTelugu && !hasTamil && !hasMalayalam && !hasGujarati) scriptSelect.value = 'kannada';
+        else if (hasMalayalam && !hasDevanagari && !hasTelugu && !hasTamil && !hasKannada && !hasGujarati) scriptSelect.value = 'malayalam';
+        else if (hasGujarati && !hasDevanagari && !hasTelugu && !hasTamil && !hasKannada && !hasMalayalam) scriptSelect.value = 'gujarati';
 
         // Ensure dropdown is updated only after actual programmatic change
         if (oldScript !== scriptSelect.value) {
@@ -576,14 +587,15 @@ const defaultFont = 'anu7';
       tamil: "Paste Tamil Unicode text here... (e.g. அனைவருக்கும் வணக்கம்)",
       kannada: "Paste Kannada Unicode text here... (e.g. ಎಲ್ಲರಿಗೂ ನಮಸ್ಕಾರ)",
       malayalam: "Paste Malayalam Unicode text here... (e.g. എല്ലാവർക്കും നമസ്കാരം)",
-      marathi: "Paste Marathi Unicode text here... (e.g. नमस्कार! मराठी भाषा अत्यंत समृद्ध आणि सुंदर आहे.)"
+      marathi: "Paste Marathi Unicode text here... (e.g. नमस्कार! मराठी भाषा अत्यंत समृद्ध आणि सुंदर आहे.)",
+      gujarati: "Paste Gujarati Unicode text here... (e.g. નમસ્કાર! ગુજરાતી ભાષા ખૂબ જ સુંદર છે.)"
     };
 
     const scriptNames: Record<string, string> = {
-      hindi: 'Hindi', tamil: 'Tamil', kannada: 'Kannada', malayalam: 'Malayalam', telugu: 'Telugu', marathi: 'Marathi'
+      hindi: 'Hindi', tamil: 'Tamil', kannada: 'Kannada', malayalam: 'Malayalam', telugu: 'Telugu', marathi: 'Marathi', gujarati: 'Gujarati'
     };
 
-    const allSampleBtns = [sampleTeluguBtn, sampleHindiBtn, sampleTamilBtn, sampleKannadaBtn, sampleMalayalamBtn, sampleMarathiBtn];
+    const allSampleBtns = [sampleTeluguBtn, sampleHindiBtn, sampleTamilBtn, sampleKannadaBtn, sampleMalayalamBtn, sampleMarathiBtn, sampleGujaratiBtn];
     allSampleBtns.forEach(btn => btn?.classList.add('hidden'));
 
     if (script === 'telugu') {
@@ -603,6 +615,9 @@ const defaultFont = 'anu7';
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else if (script === 'marathi') {
       sampleMarathiBtn?.classList.remove('hidden');
+      if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
+    } else if (script === 'gujarati') {
+      sampleGujaratiBtn?.classList.remove('hidden');
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     } else {
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
@@ -637,7 +652,8 @@ const defaultFont = 'anu7';
     const hasTamilChar = /[\u0B80-\u0BFF]/.test(val);
     const hasKannadaChar = /[\u0C80-\u0CFF]/.test(val);
     const hasMalayalamChar = /[\u0D00-\u0D7F]/.test(val);
-    const isUnicodeInput = hasTeluguChar || hasDevanagariChar || hasTamilChar || hasKannadaChar || hasMalayalamChar;
+    const hasGujaratiChar = /[\u0A80-\u0AFF]/.test(val);
+    const isUnicodeInput = hasTeluguChar || hasDevanagariChar || hasTamilChar || hasKannadaChar || hasMalayalamChar || hasGujaratiChar;
     const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
     
     const isTelugu = script === 'telugu';
@@ -864,7 +880,7 @@ const defaultFont = 'anu7';
     hindi: [
       { value: 'krutidev', label: 'Kruti Dev (Popular)' },
       { value: 'shreelipi', label: 'Shree-Lipi (Shree-Dev)' },
-      { value: 'anu7', label: 'Anu Script Manager (Hindi)' }
+      { value: 'anu7', label: 'Anu Script Manager Neo Fonts' }
     ],
     tamil: [
       { value: 'bamini', label: 'Bamini (Popular)' },
@@ -878,6 +894,9 @@ const defaultFont = 'anu7';
     ],
     marathi: [
       { value: 'shreelipimar', label: 'Shree-Lipi (Shree-Dev 0708)' }
+    ],
+    gujarati: [
+      { value: 'hari', label: 'Hari (Legacy Gujarati)' }
     ]
   };
 
@@ -954,6 +973,13 @@ const defaultFont = 'anu7';
 	    selectedFontStyle = 'priyanka';
 	    isManualReverse = false;
 	    inputText.value = "नमस्कार! मराठी भाषा अत्यंत समृद्ध आणि सुंदर आहे.";
+	    processConversion();
+	  });
+
+  sampleGujaratiBtn?.addEventListener('click', () => {
+	    selectedFontStyle = 'priyanka';
+	    isManualReverse = false;
+	    inputText.value = "નમસ્કાર! ગુજરાતી ભાષા ખૂબ જ સુંદર છે.";
 	    processConversion();
 	  });
 
