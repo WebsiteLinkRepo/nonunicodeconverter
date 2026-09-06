@@ -200,3 +200,11 @@ html, body {
   font-display: swap;
 }
 
+
+@font-face {
+  font-family: 'Hari';
+  src: url('/fonts/hari.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
