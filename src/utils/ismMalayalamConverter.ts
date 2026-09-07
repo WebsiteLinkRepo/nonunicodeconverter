@@ -223,15 +223,7 @@ export function ismMalayalamToUnicode(mlText: string): string {
 
     let t = mlText;
 
-    t = t.replace(/(s|t)(.*?)(m)/g, (match, left, core, right) => {
-        let vowel = (left === 's') ? 'ൊ' : 'ോ';
-        return core + vowel;
-    });
-
-    t = t.replace(/(ss|s|t)([A-Z\]\[\\^`_a-l¡-ã\\]+|\{[A-Z\]\[\\^`_a-l¡-ã\\]+)/g, (match, vComb, core) => {
-        let vowel = vComb === 'ss' ? 'ൈ' : vComb === 's' ? 'െ' : 'േ';
-        return core + vowel;
-    });
+    
 
     let result = '';
     let i = 0;
@@ -251,7 +243,17 @@ export function ismMalayalamToUnicode(mlText: string): string {
         }
     }
 
-    result = result.replace(/്ര(.)/g, '$1്ര');
+    // Post reordering for Malayalam
+    // 1. Ra-vatthu comes BEFORE consonant in non-unicode. Swap it back to AFTER consonant
+    result = result.replace(/്ര([ക-ഹളഴറ])/g, '$1്ര');
+    
+    // 2. Pre-base e-matras (െ, േ, ൈ) come before consonant in non-unicode. Swap to AFTER consonant block
+    result = result.replace(/([െേൈ])((?:[ക-ഹളഴറ]|ന്റ)(?:്(?:[ക-ഹളഴറ]|ന്റ))*)/g, '$2$1');
+    
+    // 3. െ + ാ = ൊ, േ + ാ = ോ, െ + ൗ = ൌ
+    result = result.replace(/ൊ/g, 'ൊ');
+    result = result.replace(/ോ/g, 'ോ');
+    result = result.replace(/ൌ/g, 'ൌ');
 
     return result;
 }

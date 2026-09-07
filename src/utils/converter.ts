@@ -151,6 +151,8 @@ export function convertText(
         resultText = krutidevToUnicode(processedInput);
         break;
       case 'shreelipi':
+      case 'shreelipitam':
+      case 'shreelipimar':
         if (script === 'tamil') {
           resultText = shreeLipiTamilToUnicode(processedInput);
         } else if (script === 'marathi') {
@@ -205,7 +207,7 @@ export function convertText(
 
   // Handle specific languages with dedicated engines (Forward Conversion)
   if (!reverse) {
-    if ((encoding === 'anu7' || encoding === 'anu6') && script === 'hindi') {
+    if ((encoding === 'anu7' || encoding === 'anu6' || encoding === 'anuneo') && script === 'hindi') {
       const convertedText = unicodeToAnuNeo(processedInput);
       const endTime = performance.now();
       return {

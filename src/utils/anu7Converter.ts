@@ -30,7 +30,6 @@ const ANU7_VATTUS: Record<string, string> = {
   "్ణ": "’", // ’
   "్త": "ï", // ï
   "్థ": "œ", // œ
-  "్द": "Ý", // Wait, mapping indicates this is da
   "్ద": "Ý", // Ý
   "్ధ": "Æ", // Æ
   "్న": "•", // •
@@ -84,22 +83,12 @@ export function anu7ToUnicode(text: string): string {
   // Post-reordering 0: Move Raa Vatthu (్ర) AFTER the consonant it precedes
   // (In forward conversion it is prepended. E.g. ç + T -> T + ç)
   result = result.replace(/(్ర)([క-హౘ-ౚ][ా-ౌ]*(?:్[క-హౘ-ౚ])*)/g, '$2$1');
-  
-  // Post-reordering 0.5: In Telugu phonetics, Ya Vatthu (్య) is always the final consonant in a cluster. 
-  // So if Raa Vatthu was moved after Ya Vatthu, swap them back
+
+  // Post-reordering 0.5: Ya Vatthu (్య) is always final in cluster
   result = result.replace(/(్య)(్ర)/g, '$2$1');
 
-  // Post-reordering 1: Reorder pre-base e-matras (ె, ే, ై, ొ, ో, ౌ) after the consonant
-  result = result.replace(
-    /([ెేైొోౌ])((?:[క-హౘ-ౚ](?:్[క-హౘ-ౚ])*))/g,
-    '$2$1'
-  );
-
-  // Post-reordering 2: Reorder vowel signs (ా, ి, ీ, ు, ూ, etc.) after the post-base vattus
-  result = result.replace(
-    /([క-హౘ-ౚ])([ా-ౌ])((?:్[క-హౘ-ౚ])+)/g,
-    '$1$3$2'
-  );
+  result = result.replace(/\+/g, 'ం');
+  result = result.replace(/'/g, 'ః');
 
   return result;
 }
