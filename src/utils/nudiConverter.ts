@@ -799,3 +799,78 @@ function processWord(word: string): string {
     
     return op;
 }
+
+const reverseMap: Record<string, string> = {};
+for (const [key, value] of Object.entries(mapping)) {
+    if (value && key && !reverseMap[value]) {
+        reverseMap[value] = key;
+    }
+}
+const reverseKeys = Object.keys(reverseMap).sort((a,b)=>b.length-a.length);
+
+const reverseVatthu: Record<string, string> = {};
+for (const [key, value] of Object.entries(vattaksharagalu)) {
+    if (value && key) reverseVatthu[value] = key;
+}
+
+export function nudiToUnicode(knAscii: string): string {
+    if (!knAscii) return "";
+
+    let words = knAscii.split(" ");
+    let outWords = [];
+
+    for (const word of words) {
+        let currentWord = word;
+
+        let res = "";
+        let i = 0;
+        let unicodeTokens = [];
+        while (i < currentWord.length) {
+            let matched = false;
+            for (const key of reverseKeys) {
+                if (currentWord.startsWith(key, i)) {
+                    unicodeTokens.push({ type: 'normal', val: reverseMap[key] });
+                    i += key.length;
+                    matched = true;
+                    break;
+                }
+            }
+            if(!matched){
+               const char = currentWord[i];
+               if(reverseVatthu[char]) {
+                   unicodeTokens.push({ type: 'vatthu', val: reverseVatthu[char] });
+               } else {
+                   unicodeTokens.push({ type: 'normal', val: char });
+               }
+               i++;
+            }
+        }
+        
+        let chars = [];
+        for(let token of unicodeTokens) {
+            if (token.type === 'vatthu') {
+                chars.push('್');
+                chars.push(token.val);
+                chars.push('_VATTU_MARKER_'); 
+            } else {
+                chars.push(...Array.from(token.val));
+            }
+        }
+
+        for (let zz = 0; zz < chars.length; zz++) {
+           if (chars[zz] === '_VATTU_MARKER_') {
+               if (zz >= 3 && chars[zz-2] === '್') {
+                  const dv = chars[zz-3];
+                  if (dependentVowels.has(dv)) {
+                      chars[zz-3] = chars[zz-2];
+                      chars[zz-2] = chars[zz-1];
+                      chars[zz-1] = dv;
+                  }
+               }
+           }
+        }
+        
+        outWords.push(chars.filter(c => c !== '_VATTU_MARKER_').join(""));
+    }
+    return outWords.join(" ");
+}

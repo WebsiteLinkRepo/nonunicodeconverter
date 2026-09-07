@@ -14,6 +14,16 @@ ANU6_UNICODE_TO_NONUNICODE.push({ from: ";", to: "\u00A0" }); // strictly match 
 // Sort descending by length
 const sortedMap = [...ANU6_UNICODE_TO_NONUNICODE].sort((a, b) => b.from.length - a.from.length);
 
+const reverseMap: Record<string, string> = {};
+for (const entry of sortedMap) {
+  if (entry.to && entry.from && !/[ఴ఩]/.test(entry.from)) {
+    if (!reverseMap[entry.to]) {
+       reverseMap[entry.to] = entry.from;
+    }
+  }
+}
+const reverseAnu6Keys = Object.keys(reverseMap).sort((a, b) => b.length - a.length);
+
 export function unicodeToAnu6(text: string): string {
   let result = text;
 
@@ -25,6 +35,34 @@ export function unicodeToAnu6(text: string): string {
       if (result.includes(entry.from)) {
           result = result.split(entry.from).join(entry.to);
       }
+  }
+
+  return result;
+}
+
+export function anu6ToUnicode(text: string): string {
+  if (!text) return "";
+
+  // Reverse specific character quirks added during forward conversion map modifications
+  let processText = text.replace(/Ñ/g, "'");
+
+  let result = '';
+  // Apply longest-match reverse mapping
+  let i = 0;
+  while (i < processText.length) {
+    let matched = false;
+    for (const key of reverseAnu6Keys) {
+      if (processText.startsWith(key, i)) {
+        result += reverseMap[key];
+        i += key.length;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      result += processText[i];
+      i++;
+    }
   }
 
   return result;

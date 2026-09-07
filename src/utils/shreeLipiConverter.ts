@@ -100,3 +100,5 @@ export function unicodeToShreeLipi(text: string, language: "hindi" | "marathi" =
 
     return result;
 }
+
+export { shreeLipiToUnicode } from './shreeLipiReverseConverter';

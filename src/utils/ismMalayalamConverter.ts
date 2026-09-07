@@ -208,3 +208,50 @@ export function unicodeToIsmMalayalam(mlUnicode: string): string {
     
     return t;
 }
+
+const ismReverseMap: Record<string, string> = {};
+for (const [key, value] of Object.entries(mapping)) {
+    if (value && key && !ismReverseMap[value]) {
+        ismReverseMap[value] = key;
+    }
+}
+ismReverseMap['v'] = '്'; // override ‌ addition
+const ismReverseKeys = Object.keys(ismReverseMap).sort((a, b) => b.length - a.length);
+
+export function ismMalayalamToUnicode(mlText: string): string {
+    if (!mlText) return "";
+
+    let t = mlText;
+
+    t = t.replace(/(s|t)(.*?)(m)/g, (match, left, core, right) => {
+        let vowel = (left === 's') ? 'ൊ' : 'ോ';
+        return core + vowel;
+    });
+
+    t = t.replace(/(ss|s|t)([A-Z\]\[\\^`_a-l¡-ã\\]+|\{[A-Z\]\[\\^`_a-l¡-ã\\]+)/g, (match, vComb, core) => {
+        let vowel = vComb === 'ss' ? 'ൈ' : vComb === 's' ? 'െ' : 'േ';
+        return core + vowel;
+    });
+
+    let result = '';
+    let i = 0;
+    while(i < t.length) {
+        let matched = false;
+        for (const key of ismReverseKeys) {
+            if (t.startsWith(key, i)) {
+                result += ismReverseMap[key];
+                i += key.length;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            result += t[i];
+            i++;
+        }
+    }
+
+    result = result.replace(/്ര(.)/g, '$1്ര');
+
+    return result;
+}

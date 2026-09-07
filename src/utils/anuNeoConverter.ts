@@ -5,81 +5,84 @@ export function unicodeToAnuNeo(text: string): string {
 
     let processedText = text;
 
-    // In Devanagari, short 'i' matra (ि) comes after the consonant in Unicode,
-    // but in legacy Anu Neo, it must be printed BEFORE the consonant cluster.
-    // Example Unicode: क + ि -> Anu: u + N
-    // Example Unicode: क + ् + क + ि -> Anu: u + M + N
-
-    // So we first swap the Unicode 'ि' to the left of the preceding consonant cluster!
-    // A consonant cluster can be one or more consonants joined by virama.
-    // Unicode range for Devanagari consonants: क-ह, क़-य़
-    // Virama: ्
-    // Regex matches a sequence of (Consonant + Virama)* + Consonant, followed by ि
     const clusterRegex = /((?:[क-हक़-य़]्)*[क-हक़-य़])ि/g;
     processedText = processedText.replace(clusterRegex, 'ि$1');
 
-    // े (e matra) and ै (ai matra) stay AFTER the consonant in Anu Neo glyph order.
-    // No reordering needed for these — they map to top matras that sit on the consonant.
-
-    // Decompose composite vowel signs into components:
-    // ो (o) = ा (aa) + े (e)
-    // ौ (au) = ा (aa) + ै (ai)
-    // ॉ (candra o) = ा (aa) + ॅ (candra e)
     processedText = processedText.replace(/ो/g, 'ाे');
     processedText = processedText.replace(/ौ/g, 'ाै');
     processedText = processedText.replace(/ॉ/g, 'ाॅ');
 
-    // Handle short i with bindi (िं)
-    // In Anu Neo fonts,  () is the dedicated glyph for short-i with top bindi.
     processedText = processedText.replace(/ि((?:[क-हक़-य़]्)*[क-हक़-य़])[ँं]/g, '$1');
 
-    // Handle bottom inverted-V Rakar (्र) for consonants without a vertical stem (ट, ठ, ड, ढ, छ):
-    // In Unicode, this is consonant + ् + र (e.g. ट + ् + र = ट्र, ष्ट्र).
-    // In Anu Neo fonts, the standard slant rakar  () is used for consonants with vertical stems (प्र, क्र, भ्र, स्र).
-    // But for round-bottom consonants (ट, ठ, ड, ढ, छ), the font has an inverted-V rakar glyph at  ().
     processedText = processedText.replace(/([टठडढछ])्[रऱ]/g, '$1');
     processedText = processedText.replace(/([टठडढछ])्र/g, '$1');
 
-    // Handle Reph (र्) र्
-    // In Unicode, 'र्' + Consonant means the Reph flies on top of the Consonant.
-    // In Anu Neo, the Reph glyph (byte 124 = ) must be placed AFTER the
-    // consonant cluster and its matras. We swap it and directly insert the Reph glyph.
     const rephRegex = /र्([क-हक़-य़][ा-ौॎ-ॏ]*)/g;
     processedText = processedText.replace(rephRegex, '$1');
 
-    // Now map all substrings to Anu Neo ASCII characters
     const mapKeys = Object.keys(neoMap).sort((a, b) => b.length - a.length);
 
     for (const key of mapKeys) {
         processedText = processedText.split(key).join(neoMap[key]);
     }
 
-    // Ka () and Pha () need a bridge () to complete their width.
-    // In Anu Neo fonts, top/bottom matras AND nasal dots MUST come BEFORE the right vertical stem (bridge).
-    // The nasal dots (ं, ँ) are zero-width or negative-offset mapped so that when placed on the half-consonant,
-    // they hover exactly where the bridge will be drawn next.
-    // Therefore, the bridge must always be inserted AFTER them to render correctly in PageMaker and Word.
-    // Items to include before bridge:
-    //   े (), ै (), ु (), ू (), ृ (),
-    //   ं (), ँ (), ॅ (), nukta (),
-    //   ें (), ैं ()
-    //
-    // Example: कं =  +  +  (Næþ)
-    //
-    // Right-side structural matras (ा , ी ) and visarga (ः ) extend rightward visually, so bridge comes BEFORE them.
-    // Example: का =  +  +  (Nþ + aa), कः =  +  +  (Nþ:)
-    //
-    // Do NOT add bridge if followed by halant () or existing bridge ().
     const topBottomMatras = '';
     const bridgeRegex = new RegExp(`([][${topBottomMatras}]*)(?![])`, 'g');
     processedText = processedText.replace(bridgeRegex, '$1');
 
-    // Reph (U+F07C) must sit BEFORE the bridge (U+F0FE) so it flies over the consonant,
-    // not over empty space to the right of the bridge. Also BEFORE structural right-matras like A-matra ().
-    // Actually, if we look at test results, Reph must be after the A-matra but before the bridge? No,
-    // reph usually goes over the rightmost vertical line.
-    // In our manual test: `chr(0xf06f) + chr(0xf04e) + chr(0xf07c) + chr(0xf0fe)` (Reph BEFORE bridge) worked perfectly.
     processedText = processedText.replace(//g, '');
 
     return processedText;
+}
+
+const reverseNeoMap: Record<string, string> = {};
+reverseNeoMap[''] = '्र';
+reverseNeoMap[''] = 'ि_BINDI_'; 
+reverseNeoMap[''] = 'र्';
+
+for (const [key, value] of Object.entries(neoMap)) {
+    if (value && key && !reverseNeoMap[value]) {
+        reverseNeoMap[value] = key;
+    }
+}
+const reverseNeoKeys = Object.keys(reverseNeoMap).sort((a, b) => b.length - a.length);
+
+export function anuNeoToUnicode(text: string): string {
+    if (!text) return "";
+
+    let processedText = text;
+
+    processedText = processedText.replace(//g, '');
+    processedText = processedText.replace(//g, '');
+
+    let result = '';
+    let i = 0;
+    while(i < processedText.length) {
+        let matched = false;
+        for (const key of reverseNeoKeys) {
+            if (processedText.startsWith(key, i)) {
+                result += reverseNeoMap[key];
+                i += key.length;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            result += processedText[i];
+            i++;
+        }
+    }
+
+    result = result.replace(/([क-हक़-य़][ा-ौॎ-ॏ]*)र्/g, 'र्$1');
+
+    result = result.replace(/ि_BINDI_((?:[क-हक़-य़]्)*[क-हक़-य़])/g, '$1िं');
+    result = result.replace(/ि_BINDI_/g, 'िं');
+
+    result = result.replace(/ि((?:[क-हक़-य़]्)*[क-हक़-य़])/g, '$1ि');
+
+    result = result.replace(/ाे/g, 'ो');
+    result = result.replace(/ाै/g, 'ौ');
+    result = result.replace(/ाॅ/g, 'ॉ');
+
+    return result;
 }
