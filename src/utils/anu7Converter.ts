@@ -61,9 +61,13 @@ const reverseAnu7Keys = Object.keys(reverseMap).sort((a, b) => b.length - a.leng
 export function anu7ToUnicode(text: string): string {
   if (!text) return "";
 
+  // Support alternate Raa Vatthu by moving post-base  (\uF0E7) to pre-base before reverse conversion
+  let processText = text.replace(/([\uF000-\uF0FF]+)(\uF0E7)/g, '$2$1');
+
   let result = '';
   // Apply longest-match reverse mapping
   let i = 0;
+  text = processText;
   while (i < text.length) {
     let matched = false;
     for (const key of reverseAnu7Keys) {

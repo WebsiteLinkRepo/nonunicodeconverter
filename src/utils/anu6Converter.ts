@@ -24,7 +24,7 @@ for (const entry of sortedMap) {
 }
 const reverseAnu6Keys = Object.keys(reverseMap).sort((a, b) => b.length - a.length);
 
-export function unicodeToAnu6(text: string): string {
+export function unicodeToAnu6(text: string, useAltRaaVatthu: boolean = false): string {
   let result = text;
 
   // Handle straight single quotes (open vs closed)
@@ -33,7 +33,11 @@ export function unicodeToAnu6(text: string): string {
   // Iterate the 15,000 mappings
   for (const entry of sortedMap) {
       if (result.includes(entry.from)) {
-          result = result.split(entry.from).join(entry.to);
+          let target = entry.to;
+          if (useAltRaaVatthu && entry.from.includes("్ర") && target.startsWith("")) {
+              target = target.substring(1) + "";
+          }
+          result = result.split(entry.from).join(target);
       }
   }
 
@@ -43,8 +47,11 @@ export function unicodeToAnu6(text: string): string {
 export function anu6ToUnicode(text: string): string {
   if (!text) return "";
 
+  // Support alternate Raa Vatthu by moving post-base  (\uF0E3) to pre-base before reverse conversion
+  let processText = text.replace(/([\uF000-\uF0FF]+)(\uF0E3)/g, '$2$1');
+
   // Reverse specific character quirks added during forward conversion map modifications
-  let processText = text.replace(/Ñ/g, "'");
+  processText = processText.replace(/Ñ/g, "'");
 
   let result = '';
   // Apply longest-match reverse mapping

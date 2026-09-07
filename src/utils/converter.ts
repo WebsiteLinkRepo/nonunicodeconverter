@@ -224,7 +224,7 @@ export function convertText(
       };
     }
     if (encoding === 'anu6' && script === 'telugu') {
-      const convertedText = unicodeToAnu6(processedInput);
+      const convertedText = unicodeToAnu6(processedInput, useAltRaaVatthu);
       const endTime = performance.now();
       return {
         convertedText,
@@ -422,7 +422,11 @@ export function convertText(
     resultText = resultText.replace(syllableRegex, (syllable) => {
       // 1. Direct match in lookup table
       if (lookupMap[syllable] !== undefined) {
-        return lookupMap[syllable];
+        let mapped = lookupMap[syllable];
+        if (useAltRaaVatthu && mapped.startsWith('')) {
+            mapped = mapped.substring(1) + '';
+        }
+        return mapped;
       }
 
       // 2. Complex Syllable Decomposer & Layout Compiler (Fallback)
@@ -466,13 +470,20 @@ export function convertText(
 
       let res = baseConv;
       if (hasRaVattu && !useAltRaaVatthu) {
-        res = "\u00E7" + res; // Prepend pre-base ra-vattu
+        res = "\uF0E7" + res; // Prepend pre-base ra-vattu (PUA)
       }
-      for (const vc of vattuConvs) {
-        res = res + vc; // Append other post-base vattus
+      for (let vc of vattuConvs) {
+        // Shift ASCII vattus to PUA to match the mapping array correctly
+        let shifted = "";
+        for (let i = 0; i < vc.length; i++) {
+           const cc = vc.charCodeAt(i);
+           if (cc < 0x0100) shifted += String.fromCharCode(cc + 0xF000);
+           else shifted += vc[i];
+        }
+        res = res + shifted;
       }
       if (hasRaVattu && useAltRaaVatthu) {
-        res = res + "\u00E7"; // Append post-base ra-vattu
+        res = res + "\uF0E7"; // Append post-base ra-vattu (PUA)
       }
       res = res + modifier; // Append modifier at the very end
 
