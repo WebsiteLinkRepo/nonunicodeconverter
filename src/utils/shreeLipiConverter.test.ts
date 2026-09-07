@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { unicodeToShreeLipi } from './src/utils/shreeLipiConverter';
+import { unicodeToShreeLipi } from './shreeLipiConverter';
 
 describe('Shree-Lipi Converter Devanagari Tests', () => {
     it('should correctly convert words containing ma without rendering gaps', () => {

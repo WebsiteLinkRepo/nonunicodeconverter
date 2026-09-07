@@ -9,7 +9,7 @@ import { SHREE_LIPI_MAPPINGS } from './shreeLipi';
 import { SHREELIPI_TAMIL_UNICODE_TO_NONUNICODE } from './shreeLipiTamil';
 import { HARI_GUJARATI_MAPPINGS } from './hariGujarati';
 
-export type FontEncoding = 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam' | 'shreelipimar' | 'hari';
+export type FontEncoding = 'anuneo' | 'anu7' | 'anu6' | 'krutidev' | 'bamini' | 'ism' | 'nudi' | 'shreelipi' | 'shreelipitam' | 'shreelipimar' | 'hari';
 
 export type ScriptLanguage = 'telugu' | 'hindi' | 'kannada' | 'tamil' | 'malayalam' | 'marathi' | 'gujarati';
 

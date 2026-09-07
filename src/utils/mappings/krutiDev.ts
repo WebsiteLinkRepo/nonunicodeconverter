@@ -1,5 +1,5 @@
 // Mapping rules for Kruti Dev 010 / Devlys 010 (Hindi Legacy Font Encoding)
-import type { MappingEntry } from './anu6';
+import type { MappingEntry } from './shreeLipi';
 
 export const KRUTI_DEV_UNICODE_TO_NONUNICODE: MappingEntry[] = [
   // Special Conjuncts & Matras

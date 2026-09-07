@@ -860,7 +860,7 @@ export function nudiToUnicode(knAscii: string): string {
         for (let zz = 0; zz < chars.length; zz++) {
            if (chars[zz] === '_VATTU_MARKER_') {
                if (zz >= 3 && chars[zz-2] === '್') {
-                  const dv = chars[zz-3];
+                  const dv: string = chars[zz-3];
                   if (dependentVowels.has(dv)) {
                       chars[zz-3] = chars[zz-2];
                       chars[zz-2] = chars[zz-1];

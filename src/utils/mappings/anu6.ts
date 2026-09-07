@@ -1,4 +1,4 @@
-import type { MappingEntry } from './anu6';
+import type { MappingEntry } from './shreeLipi';
 
 export const ANU6_UNICODE_TO_NONUNICODE: MappingEntry[] = [
   { from: "క్కా", to: "\uF048\uF0EA\uF0F8" },

@@ -1,4 +1,4 @@
-import type { MappingEntry } from './anu6';
+import type { MappingEntry } from './shreeLipi';
 
 export const NUDI_KANNADA_UNICODE_TO_NONUNICODE: MappingEntry[] = [
   { from: "ಅ", to: "C" },

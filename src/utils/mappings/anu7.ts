@@ -1,4 +1,4 @@
-import type { MappingEntry } from './anu6';
+import type { MappingEntry } from './shreeLipi';
 
 export const ANU7_UNICODE_TO_NONUNICODE: MappingEntry[] = [
 

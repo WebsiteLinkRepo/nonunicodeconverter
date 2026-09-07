@@ -1,13 +1,14 @@
 import { unicodeToAnu6, anu6ToUnicode } from './anu6Converter';
 import { unicodeToAnuNeo, anuNeoToUnicode } from './anuNeoConverter';
 import { unicodeToShreeLipi, shreeLipiToUnicode } from './shreeLipiConverter';
+import { anu7ToUnicode } from "./anu7Converter";
 
-import { unicodeToKrutidev } from './krutiDevConverter';
+import { unicodeToKrutidev, krutidevToUnicode } from './krutiDevConverter';
 import { unicodeToBamini, baminiToUnicode } from './baminiConverter';
 import { unicodeToShreeLipiTamil, shreeLipiTamilToUnicode } from './shreeLipiTamilConverter';
 import { unicodeToNudi, nudiToUnicode } from './nudiConverter';
 import { unicodeToIsmMalayalam, ismMalayalamToUnicode } from './ismMalayalamConverter';
-import { unicodeToHari } from './hariGujaratiConverter';
+import { unicodeToHari, hariToUnicode } from './hariGujaratiConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 
 export interface UnmappedError {
@@ -110,75 +111,22 @@ const ANU7_VATTUS: Record<string, string> = {
 /**
  * Synchronously converts input text based on target encoding and direction.
  */
-export function convertText({
-  text,
-  format,
-  language,
-  fontFamily,
-  reverse = false,
-}: ConvertOptions): string {
-  if (!text) return text;
+export function convertText(
+  inputText: string,
+  encoding: FontEncoding = 'anu7',
+  reverse: boolean = false,
+  useAltRaaVatthu: boolean = false,
+  script: ScriptLanguage = 'telugu'
+): ConversionResult {
+  const startTime = performance.now();
 
-  try {
-    if (reverse) {
-      switch (format) {
-        case "krutidev":
-          return krutidevToUnicode(text);
-        case "shreelipi":
-          if (language === 'tamil') {
-            return shreeLipiTamilToUnicode(text);
-          } else if (language === 'marathi') {
-            return shreeLipiToUnicode(text, 'marathi');
-          }
-          return shreeLipiToUnicode(text, 'hindi');
-        case 'anu6':
-          return anu6ToUnicode(text);
-        case 'anu7':
-          return anu7ToUnicode(text);
-        case 'anuneo':
-          return anuNeoToUnicode(text);
-        case 'bamini':
-          return baminiToUnicode(text);
-        case 'ism':
-          return ismMalayalamToUnicode(text);
-        case 'nudi':
-          return nudiToUnicode(text);
-        case 'hari':
-          return hariGujaratiToUnicode(text);
-        default:
-          return text;
-      }
-    }
-
-    switch (format) {
-      case "shreelipi":
-        return language === 'tamil' 
-          ? unicodeToShreeLipiTamil(text)
-          : unicodeToShreeLipi(text, language as "hindi" | "marathi");
-      case "krutidev":
-        return unicodeToKrutidev(text);
-      case "bamini":
-        return unicodeToBamini(text);
-      case "anu7":
-        return unicodeToAnu7(text);
-      case "anu6":
-        return unicodeToAnu6(text);
-      case "anuneo":
-        return unicodeToAnuNeo(text);
-      case "nudi":
-        return unicodeToNudi(text);
-      case "ism":
-        return unicodeToIsmMalayalam(text);
-      case "hari":
-        return unicodeToHariGujarati(text);
-      default:
-        return text;
-    }
-  } catch (error) {
-    console.error(`Error converting ${reverse ? 'from' : 'to'} ${format}:`, error);
-    return text;
+  if (!inputText || inputText.trim() === '') {
+    return {
+      convertedText: '',
+      errors: [],
+      stats: { inputCharCount: 0, outputCharCount: 0, wordCount: 0, lineCount: 0, unmappedCount: 0, processingTimeMs: 0 }
+    };
   }
-}
 
   // Convert regional numbers to 0-9 to prevent them from being stripped
   // We skip Hindi (\u0966-\u096F) because Kruti Dev natively maps them to special ASCII characters
@@ -191,6 +139,68 @@ export function convertText({
           .replace(/[\u0BE6-\u0BEF]/g, match => String(match.charCodeAt(0) - 0x0BE6)) // Tamil
           .replace(/[\u0CE6-\u0CEF]/g, match => String(match.charCodeAt(0) - 0x0CE6)) // Kannada
           .replace(/[\u0D66-\u0D6F]/g, match => String(match.charCodeAt(0) - 0x0D66)); // Malayalam
+  }
+
+  // Handle specific languages with dedicated engines (Reverse Conversion)
+  if (reverse) {
+    let resultText = processedInput;
+    let fallback = false;
+    
+    switch (encoding) {
+      case 'krutidev':
+        resultText = krutidevToUnicode(processedInput);
+        break;
+      case 'shreelipi':
+        if (script === 'tamil') {
+          resultText = shreeLipiTamilToUnicode(processedInput);
+        } else if (script === 'marathi') {
+          resultText = shreeLipiToUnicode(processedInput, 'marathi');
+        } else {
+          resultText = shreeLipiToUnicode(processedInput, 'hindi');
+        }
+        break;
+      case 'anu6':
+        resultText = anu6ToUnicode(processedInput);
+        break;
+      case 'anu7':
+        resultText = anu7ToUnicode(processedInput);
+        break;
+      case 'anuneo':
+        resultText = anuNeoToUnicode(processedInput);
+        break;
+      case 'bamini':
+        resultText = baminiToUnicode(processedInput);
+        break;
+      case 'ism':
+        resultText = ismMalayalamToUnicode(processedInput);
+        break;
+      case 'nudi':
+        resultText = nudiToUnicode(processedInput);
+        break;
+      case 'hari':
+        resultText = hariToUnicode(processedInput);
+        break;
+      default:
+        // No dedicated engine yet, fallback
+        fallback = true;
+        break;
+    }
+    
+    if (!fallback) {
+      const endTime = performance.now();
+      return {
+        convertedText: resultText,
+        errors: [],
+        stats: {
+          inputCharCount: inputText.length,
+          outputCharCount: resultText.length,
+          wordCount: inputText.split(/\s+/).filter(w => w.length > 0).length,
+          lineCount: inputText.split('\n').length,
+          unmappedCount: 0,
+          processingTimeMs: Number((endTime - startTime).toFixed(2))
+        }
+      };
+    }
   }
 
   // Handle specific languages with dedicated engines (Forward Conversion)
