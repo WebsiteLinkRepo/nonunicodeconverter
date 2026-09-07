@@ -92,6 +92,14 @@ html, body {
    Anu Script 7.0 Font Families
    ------------------------------------------------------------- */
 @font-face {
+  font-family: 'Priyaanka';
+  src: url('/AnuSM/ttf/PRIYAANK.TTF?v=2') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'AnuPriyanka';
   src: url('/AnuSM/ttf/PRIYAANK.TTF?v=2') format('truetype');
   font-weight: normal;

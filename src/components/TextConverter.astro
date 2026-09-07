@@ -349,7 +349,7 @@ const defaultFont = 'anu7';
   let isManualReverse: boolean | null = null;
 
   const fontStyles: Record<string, string> = {
-    priyanka: 'Priyaanka',
+    priyanka: 'AnuPriyanka, Priyaanka',
     anupama: 'Anupama',
     subhalekha: 'Subhalekha',
     bapu: 'Bapu',
@@ -472,7 +472,7 @@ const defaultFont = 'anu7';
       let text = window.getSelection()?.toString() || outputText.value;
       if (text) {
         const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(text);
-        let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
+        let fontName = 'Priyaanka'; // Ensure Word sees the original font name
     const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
@@ -576,6 +576,15 @@ const defaultFont = 'anu7';
         // Ensure dropdown is updated only after actual programmatic change
         if (oldScript !== scriptSelect.value) {
           updateFontDropdown();
+          
+          // Switch to default anu7 format and priyanka style automatically for telugu
+          if (scriptSelect.value === 'telugu') {
+             const fontVersionSelect = document.getElementById('font-version-select');
+             if (fontVersionSelect) fontVersionSelect.value = 'anu7';
+             selectedFontStyle = 'priyanka';
+          }
+          
+          if (activeFontLabel) activeFontLabel.textContent = activeFontNameLabel();
         }
       }
     }
@@ -711,7 +720,7 @@ const defaultFont = 'anu7';
       else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
       else if (encoding === 'shreelipitam') legacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
       else if (encoding === 'shreelipimar') legacyFontToApply = "'SHREE-DEV-0708', sans-serif";
-      else legacyFontToApply = fontStyles[effectiveFontStyle] || 'Priyaanka';
+      else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
 
       if (reverse) {
         inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
@@ -743,7 +752,7 @@ const defaultFont = 'anu7';
       if (autoCopyChk && autoCopyChk.checked && finalOutput) {
         try {
           const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(finalOutput);
-          let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
+          let fontName = 'Priyaanka'; // Ensure Word sees the original font name
           const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
           const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
 
@@ -1035,7 +1044,7 @@ const defaultFont = 'anu7';
   else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
   else if (initEncoding === 'shreelipitam') initLegacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
   else if (initEncoding === 'shreelipimar') initLegacyFontToApply = "'SHREE-DEV-0708', sans-serif";
-  else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'Priyaanka';
+  else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'AnuPriyanka, Priyaanka';
 
   inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
   outputText.style.fontFamily = (outputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
@@ -1189,7 +1198,7 @@ const defaultFont = 'anu7';
     }
 
     const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(val);
-    let fontName = fontStyles[selectedFontStyle] || 'Priyaanka';
+    let fontName = 'Priyaanka'; // Ensure Word sees the original font name
     const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
