@@ -43,7 +43,6 @@ export const HARI_GUJARATI_MAPPINGS = [
   { from: 'થ્', to: '¸' },
   { from: 'ચ્', to: '´' },
   { from: 'બ્', to: 'º' },
-  { from: 'ન્', to: 'º' }, 
   { from: 'મ્', to: 'µ' },
   { from: 'લ્', to: '½' },
   { from: 'ધ્', to: '¼' },

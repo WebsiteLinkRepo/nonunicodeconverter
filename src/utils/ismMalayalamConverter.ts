@@ -211,8 +211,17 @@ export function unicodeToIsmMalayalam(mlUnicode: string): string {
 
 const ismReverseMap: Record<string, string> = {};
 for (const [key, value] of Object.entries(mapping)) {
-    if (value && key && !ismReverseMap[value]) {
+    if (!value || !key) continue;
+    
+    // If multiple keys map to the same value (like atomic chillu vs ZWJ chillu),
+    // we want the atomic chillu to win.
+    if (!ismReverseMap[value]) {
         ismReverseMap[value] = key;
+    } else {
+        // Atomic chillus are single characters (length 1), ZWJ chillus are length 3
+        if (key.length === 1 && ismReverseMap[value].length > 1) {
+            ismReverseMap[value] = key;
+        }
     }
 }
 ismReverseMap['v'] = '്'; // override ‌ addition
