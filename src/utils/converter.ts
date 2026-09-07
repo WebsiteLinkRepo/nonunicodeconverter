@@ -132,6 +132,8 @@ export function convertText(
   let processedInput = inputText;
   if (!reverse) {
       processedInput = processedInput
+          .replace(/\u0C0B[\u0C3E\u0C42]/g, "ౠ") // Normalize \u0C0B\u0C3E and \u0C0B\u0C42 to ౠ
+          .replace(/\u0C0C[\u0C3E\u0C42]/g, "ౡ") // Normalize \u0C0C\u0C3E and \u0C0C\u0C42 to ౡ
           .replace(/[\u0C66-\u0C6F]/g, match => String(match.charCodeAt(0) - 0x0C66)) // Telugu
           .replace(/[\u0BE6-\u0BEF]/g, match => String(match.charCodeAt(0) - 0x0BE6)) // Tamil
           .replace(/[\u0CE6-\u0CEF]/g, match => String(match.charCodeAt(0) - 0x0CE6)) // Kannada
@@ -350,7 +352,7 @@ export function convertText(
     }
 
     // Split text into Telugu syllables and non-Telugu characters
-    const syllableRegex = /(?:(?:[\u0C05-\u0C14]|(?:[\u0C15-\u0C39\u0C58-\u0C5A](?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])*[\u0C3E-\u0C4C\u0C4D]?))[\u0C02\u0C03]?)/g;
+    const syllableRegex = /(?:(?:[\u0C05-\u0C14\u0C60\u0C61]|(?:[\u0C15-\u0C39\u0C58-\u0C5A](?:\u0C4D[\u0C15-\u0C39\u0C58-\u0C5A])*[\u0C3E-\u0C4C\u0C4D]?))[\u0C02\u0C03]?)/g;
 
     resultText = resultText.replace(syllableRegex, (syllable) => {
       // 1. Direct match in lookup table

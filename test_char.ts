@@ -1,3 +1,4 @@
-import { BAMINI_TAMIL_UNICODE_TO_NONUNICODE } from './src/utils/mappings/baminiTamil';
-console.log(BAMINI_TAMIL_UNICODE_TO_NONUNICODE.find(x => x.from === 'ந'));
-console.log(BAMINI_TAMIL_UNICODE_TO_NONUNICODE.find(x => x.from === 'ெ'));
+import { teluguToAnu70 } from './src/utils/anuNeoConverter.js';
+console.log(teluguToAnu70("మ"));
+console.log(teluguToAnu70("భ"));
+console.log(teluguToAnu70("ు"));

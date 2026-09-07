@@ -1,3 +1,5 @@
-import { convertText } from './src/utils/converter';
-const res = convertText("அனைவருக்கும்", "bamini", true, false, "tamil");
-console.log("Reverse of Tamil Unicode text:", res);
+import { getMapping } from './src/utils/mappings/index';
+
+const reverseAnu7 = getMapping("anu7", true);
+const matches = reverseAnu7.filter(e => e.from === '' || e.from.includes('') || e.to === 'బు' || e.to === 'ఋ');
+console.log(matches);

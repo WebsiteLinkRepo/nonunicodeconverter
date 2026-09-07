@@ -1,3 +1,3 @@
-import { unicodeToKrutidev } from '../src/utils/krutiDevConverter.ts';
-console.log(unicodeToKrutidev("क्ष त्र ज्ञ श्र").split("").map(c => c.charCodeAt(0)));
-console.log(unicodeToKrutidev("क्ख च्छ त्त द्ध द्य द्व").split("").map(c => c.charCodeAt(0)));
+import { convertText } from '../src/utils/converter.js';
+
+console.log("convertText ఋ:", convertText("ఋ", 'anu7', false, false, "telugu").convertedText.split('').map(c => c.charCodeAt(0).toString(16)).join(' '));
