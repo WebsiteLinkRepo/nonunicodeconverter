@@ -426,7 +426,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 
 				// Broad Volumetric Soft Beams
 				const broadRays = [];
-				const numBroad = 12;
+				const numBroad = 16;
 				for(let i=0; i<=numBroad; i++) {
 					broadRays.push({ i: i, q: (i / numBroad) - 0.5 });
 				}
@@ -438,7 +438,8 @@ const ogLocale = localeMap[lang] || 'en_US';
 					const direction = q < 0 ? -1 : 1;
 					const staticSway = forceSway !== undefined ? forceSway : Math.sin(i * 2.3) * W * 0.035 * direction;
 
-					const bottomX = cx + (q * W * 1.5) + staticSway;
+					// Widened from 1.5 to 2.4
+					const bottomX = cx + (q * W * 2.4) + staticSway;
 					const topW = W * 0.025;
 					const botW = W * (0.04 + dist * 0.02);
 
@@ -464,7 +465,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 				ctx.save();
 				ctx.globalCompositeOperation = isLightMode ? "multiply" : "screen";
 				const thinRays = [];
-				const numThin = 20;
+				const numThin = 26;
 				for(let i=0; i<=numThin; i++) {
 					thinRays.push({ i: i, q: (i / numThin) - 0.5 });
 				}
@@ -476,7 +477,8 @@ const ogLocale = localeMap[lang] || 'en_US';
 					const direction = q < 0 ? -1 : 1;
 					const staticSway = forceSway !== undefined ? forceSway : Math.cos(i * 3.7) * W * 0.045 * direction;
 
-					const bottomX = cx + (q * W * 1.25) + staticSway;
+					// Widened from 1.25 to 2.0
+					const bottomX = cx + (q * W * 2.0) + staticSway;
 					const topW = W * 0.008;
 					const botW = W * (0.006 + (i%3===0 ? 0.008 : 0));
 
