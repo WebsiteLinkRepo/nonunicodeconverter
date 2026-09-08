@@ -56,26 +56,46 @@ function isCurrentlyPoisoned(): boolean {
  * @returns true if it looks extremely unnatural (dictionary combination attack)
  */
 export function detectScrapingDictionary(text: string): boolean {
-    if (!text || text.length < 50) return false;
+    if (!text || text.length < 30) return false;
 
     // Check 1: Impossible Honey-Tokens (Too many consecutive halants / vattus)
     // Real Telugu/Hindi never uses 4+ nested combinations
-    const impossibleVattuMatches = text.match(/(్[క-హౘ-ౚ]){4,}/g);
-    if (impossibleVattuMatches && impossibleVattuMatches.length > 3) {
+    const impossibleVattuMatches = text.match(/(?:[్्][క-హౘ-ౚक-ह]){4,}/g);
+    if (impossibleVattuMatches && impossibleVattuMatches.length > 2) {
         return true;
     }
 
-    // Check 2: Sequential alphabet dumping (alphabetical mapping extraction)
-    const sequentialTeluguAlphabets = /(?:[అ-ఔ][\s,.\n-]*){8,}/; // All major base vowels in sequence
-    const sequentialHindiAlphabets = /(?:[अ-औ][\s,.\n-]*){8,}/;
+    // Check 2: High Density of Isolated Syllables
+    // Dictionary scrapers paste isolated characters separated by spaces (e.g. క కా కి కీ కు కూ)
+    // Regular sentences rarely have more than 1 or 2 isolated 1-letter words (like ఆ, ఈ)
+    const isolatedSyllableRegex = /(?:^|[\s,.\n-])[క-హఅ-ఔౠౡक-हअ-औॠॡ][ా-ౌఁ-ఃౢౣा-ौँ-ःॢॣ]?(?=[\s,.\n-]|$)/g;
+    const isolatedMatches = text.match(isolatedSyllableRegex);
 
-    if (sequentialTeluguAlphabets.test(text) || sequentialHindiAlphabets.test(text)) {
-        return true;
+    if (isolatedMatches) {
+        const wordCount = text.trim().split(/\s+/).length || 1;
+        const isolatedCount = isolatedMatches.length;
+        const density = isolatedCount / wordCount;
+
+        // If there are more than 10 isolated characters and they make up >40% of the text,
+        // it's a guaranteed dictionary dump, not a natural language sentence.
+        if (isolatedCount > 10 && density > 0.4) {
+            return true;
+        }
     }
 
-    // Check 3: Ka Kha Ga Gha sequence extraction
-    const sequentialKaVarga = /క[\s,.\n-]*ఖ[\s,.\n-]*గ[\s,.\n-]*ఘ/; // Ka Kha Ga Gha
-    if (sequentialKaVarga.test(text)) {
+    // Check 3: Sequential alphabet dumping (Continuous blocks without spaces)
+    // Some scrapers might not use spaces: అఆఇఈఉఊఋౠఎఏఐఒఓఔ
+    const sequentialTeluguAlphabets = /[అ-ఔౠౡ]{8,}/;
+    const sequentialHindiAlphabets = /[अ-औॠॡ]{8,}/;
+    const sequentialTeluguConsonants = /[క-హ]{10,}/;
+    const sequentialHindiConsonants = /[क-ह]{10,}/;
+
+    if (
+        sequentialTeluguAlphabets.test(text) ||
+        sequentialHindiAlphabets.test(text) ||
+        sequentialTeluguConsonants.test(text) ||
+        sequentialHindiConsonants.test(text)
+    ) {
         return true;
     }
 
