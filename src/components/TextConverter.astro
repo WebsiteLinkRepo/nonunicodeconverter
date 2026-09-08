@@ -56,7 +56,7 @@ const defaultFont = 'anu7';
         <!-- Hover Explanation for Font Dropdown -->
         <div id="disabled-font-tooltip" class="absolute top-full left-0 mt-2 w-56 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 p-2 opacity-0 invisible transition-opacity z-50 text-left pointer-events-none group-hover/fontdrop:opacity-100 group-hover/fontdrop:visible hidden">
           <div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>
-          Select exact font to paste formatted text directly into Word/Photoshop with this font. Toggle <strong class="text-white relative z-10">Alt Raa</strong> to swap disabled fonts!
+          Select exact font to paste formatted text directly into Word/Photoshop with this font.
         </div>
       </div>
 
@@ -969,18 +969,18 @@ const defaultFont = 'anu7';
       });
       
       // Disabled (greyed-out) mapped to a disabled option state
-      html += `<optgroup label="Toggle Raa Vatthu to employ:" class="text-[var(--ink-tertiary)] italic">`;
+      let disabledReason = isAltRaa 
+        ? "Turn OFF 'Alternative Raa Vatthu' to use these fonts." 
+        : "Turn ON 'Alternative Raa Vatthu' to use these fonts.";
+      
+      html += `<optgroup label="Disabled Fonts:" class="text-[var(--ink-tertiary)] italic">`;
       disabledFonts.forEach(opt => {
-        html += `<option value="${opt.value}" disabled class="text-[var(--ink-tertiary)] hover:bg-transparent">${opt.label} (disabled)</option>`;
+        html += `<option value="${opt.value}" disabled title="${disabledReason}" class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} (disabled)</option>`;
       });
       html += `</optgroup>`;
       
-      // Make sure the tooltip advises correctly
-      if (isAltRaa) {
-        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>Select font to paste directly into Word/Photoshop. To use grayed-out fonts, <strong>turn OFF</strong> Alt Raa Vatthu!`;
-      } else {
-        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>Select font to paste directly into Word/Photoshop. To use grayed-out fonts, <strong>turn ON</strong> Alt Raa Vatthu!`;
-      }
+      // Just the clean primary tooltip text here
+      disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>Select exact font to paste formatted text directly into Word/Photoshop with this font.`;
       
       // Attempt to preserve selection if it still is valid
       const prevVal = exactFontSelectEl.value;
