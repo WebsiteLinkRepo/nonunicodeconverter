@@ -970,8 +970,8 @@ const defaultFont = 'anu7';
       
       // Disabled (greyed-out) mapped to a disabled option state
       let disabledReason = isAltRaa 
-        ? "Turn OFF 'Alternative Raa Vatthu' to use these fonts." 
-        : "Turn ON 'Alternative Raa Vatthu' to use these fonts.";
+        ? "Turn OFF 'Alternative Raa Vatthu' to use these fonts (they use the standard Raa Vatthu mapping)." 
+        : "Turn ON 'Alternative Raa Vatthu' to use these fonts (they require a different character mapping for Raa Vatthu).";
       
       html += `<optgroup label="Disabled Fonts:" class="text-[var(--ink-tertiary)] italic">`;
       disabledFonts.forEach(opt => {
