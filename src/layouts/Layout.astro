@@ -219,26 +219,6 @@ const ogLocale = localeMap[lang] || 'en_US';
 				document.documentElement.classList.remove('dark');
 			}
 		</script>
-		<script>
-			// Anti-DevTools Tarpit Module (Production Security)
-			if (typeof document !== 'undefined') {
-				document.addEventListener('contextmenu', e => e.preventDefault());
-				document.addEventListener('keydown', e => {
-					if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))) {
-						e.preventDefault();
-					}
-				});
-				setInterval(() => {
-					const before = new Date().getTime();
-					debugger;
-					const after = new Date().getTime();
-					if (after - before > 100) {
-						// DevTools is open and pausing execution. Lock them.
-						document.body.innerHTML = 'Security violation detected.';
-					}
-				}, 1500);
-			}
-		</script>
 	</head>
 	<body class="min-h-screen bg-[var(--canvas)] text-[var(--ink)] font-sans antialiased flex flex-col selection:bg-[var(--ink)] selection:text-[var(--canvas)] relative">
 		

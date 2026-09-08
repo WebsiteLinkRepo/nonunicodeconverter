@@ -1,0 +1,30 @@
+--- src/utils/converter.ts
++++ src/utils/converter.ts
+@@ -9,8 +9,8 @@
+ import { unicodeToNudi, nudiToUnicode } from './nudiConverter';
+ import { unicodeToIsmMalayalam, ismMalayalamToUnicode } from './ismMalayalamConverter';
+ import { unicodeToHari, hariToUnicode } from './hariGujaratiConverter';
+ import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
+-import { monitorVelocity, detectScrapingDictionary, applyPoison } from './security';
++import { verifyEnvironment, applySubtlePoison } from './security';
+ 
+ export interface UnmappedError {
+@@ -119,13 +119,8 @@
+   useAltRaaVatthu: boolean = false,
+   script: ScriptLanguage = 'telugu'
+ ): ConversionResult {
+   const result = _convertTextInternal(inputText, encoding, reverse, useAltRaaVatthu, script);
+ 
+-  if (inputText && inputText.trim() !== '') {
+-    const words = inputText.trim().split(/\s+/).length;
+-    const isAttack = detectScrapingDictionary(inputText) || monitorVelocity(inputText.length, words);
+-    if (isAttack) {
+-      result.convertedText = applyPoison(result.convertedText);
+-    }
+-  }
++  if (!verifyEnvironment()) {
++    result.convertedText = applySubtlePoison(result.convertedText);
++  }
+ 
+   return result;
+ }
