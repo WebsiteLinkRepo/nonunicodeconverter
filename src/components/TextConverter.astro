@@ -287,27 +287,6 @@ const defaultFont = 'anu7';
     </div>
   </div>
 
-  <!-- Unmapped Characters Warning Bar -->
-  <div id="unmapped-warning-bar" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs text-amber-600 dark:text-amber-400 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-      <span id="warning-msg">Notice: Unmapped Unicode characters detected.</span>
-    </div>
-    <span class="font-mono text-[11px] text-amber-700 dark:text-amber-300" id="warning-chars-list"></span>
-  </div>
-
-  <!-- PageMaker Warning Bar -->
-  <div class="bg-[var(--brand-blue)]/10 border border-[var(--brand-blue)]/30 rounded-lg p-3 text-xs text-[var(--ink-secondary)] flex items-start gap-2">
-    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-[var(--brand-blue)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-    <div>
-      <span class="font-semibold text-[var(--ink)]">Using PageMaker?</span> If your pasted text looks distorted (like ε or छछ), go to <strong>File &gt; Preferences &gt; General</strong>, click <strong>More...</strong>, and uncheck <strong>"Use typographer's quotes"</strong>.
-    </div>
-  </div>
-
   <!-- Recents / History Drawer -->
   <div id="history-container" class="hidden bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-3 shadow-2xs space-y-2">
     <div class="flex items-center justify-between">
@@ -405,9 +384,6 @@ const defaultFont = 'anu7';
   const linesStat = document.getElementById('lines-stat') as HTMLElement;
   const wordsStat = document.getElementById('words-stat') as HTMLElement;
   
-  const warningBar = document.getElementById('unmapped-warning-bar') as HTMLDivElement;
-  const warningMsg = document.getElementById('warning-msg') as HTMLSpanElement;
-  const warningCharsList = document.getElementById('warning-chars-list') as HTMLSpanElement;
   const footerText = document.getElementById('footer-text') as HTMLSpanElement;
 
   const historyContainer = document.getElementById('history-container') as HTMLDivElement;
@@ -645,7 +621,6 @@ const defaultFont = 'anu7';
       if (linesStat) linesStat.textContent = '0';
       if (wordsStat) wordsStat.textContent = '0';
       autoStatus.textContent = t.autoDetectNotice;
-      warningBar.classList.add('hidden');
       return;
     }
 
@@ -735,15 +710,6 @@ const defaultFont = 'anu7';
 
       if (linesStat) linesStat.textContent = res.stats.lineCount.toLocaleString();
       if (wordsStat) wordsStat.textContent = res.stats.wordCount.toLocaleString();
-
-      if (res.stats.unmappedCount > 0) {
-        warningBar.classList.remove('hidden');
-        warningMsg.textContent = t.unmappedNotice;
-        const uniqueUnmapped = Array.from(new Set(res.errors.map(e => e.char))).slice(0, 8).join(', ');
-        warningCharsList.textContent = `Chars: ${uniqueUnmapped}`;
-      } else {
-        warningBar.classList.add('hidden');
-      }
 
       saveToHistoryDebounced(val, finalOutput, selectedFontStyle);
 
