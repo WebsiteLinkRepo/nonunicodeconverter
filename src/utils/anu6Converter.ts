@@ -1,4 +1,5 @@
 import { ANU6_UNICODE_TO_NONUNICODE } from './mappings/anu6';
+import { upconvertFromANSI } from './pua';
 
 // Add specific overrides for Anu 6 that are missing from the 15k list
 ANU6_UNICODE_TO_NONUNICODE.push({ from: "ష్ట్ర", to: "R" });
@@ -46,6 +47,8 @@ export function unicodeToAnu6(text: string, useAltRaaVatthu: boolean = false): s
 
 export function anu6ToUnicode(text: string): string {
   if (!text) return "";
+
+  text = upconvertFromANSI(text);
 
   // Support alternate Raa Vatthu by moving post-base  (\uF0E3) to pre-base before reverse conversion
   let processText = text.replace(/([\uF000-\uF0FF]+)(\uF0E3)/g, '$2$1');

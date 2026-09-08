@@ -1,4 +1,5 @@
 import { ANU7_UNICODE_TO_NONUNICODE } from './mappings/anu7';
+import { upconvertFromANSI } from './pua';
 
 const reverseMap: Record<string, string> = {};
 const sortedMap = [...ANU7_UNICODE_TO_NONUNICODE].sort((a, b) => b.from.length - a.from.length);
@@ -60,6 +61,8 @@ const reverseAnu7Keys = Object.keys(reverseMap).sort((a, b) => b.length - a.leng
 
 export function anu7ToUnicode(text: string): string {
   if (!text) return "";
+
+  text = upconvertFromANSI(text);
 
   // Support alternate Raa Vatthu by moving post-base  (\uF0E7) to pre-base before reverse conversion
   let processText = text.replace(/([\uF000-\uF0FF]+)(\uF0E7)/g, '$2$1');

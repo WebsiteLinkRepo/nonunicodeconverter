@@ -26,33 +26,48 @@ const defaultFont = 'anu7';
       
       
       <!-- Script Selector -->
-      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
-        <label for="script-select">Language:</label>
-        <select id="script-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
-          <option value="telugu">Telugu</option>
-          <option value="hindi">Hindi</option>
-          <option value="tamil">Tamil</option>
-          <option value="kannada">Kannada</option>
-          <option value="malayalam">Malayalam</option>
-          <option value="marathi">Marathi</option>
-          <option value="gujarati">Gujarati</option>
-        </select>
+      <div class="flex items-center gap-2 font-medium text-[var(--ink-secondary)]">
+        <label for="script-select" class="text-xs">Language:</label>
+        <div class="relative">
+          <select id="script-select" class="appearance-none bg-[var(--canvas)] border border-[var(--hairline)] rounded-md pl-2.5 pr-8 py-1.5 text-xs font-semibold text-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent cursor-pointer shadow-2xs hover:border-[var(--ink-secondary)] transition-colors min-w-[90px]">
+            <option value="telugu">Telugu</option>
+            <option value="hindi">Hindi</option>
+            <option value="tamil">Tamil</option>
+            <option value="kannada">Kannada</option>
+            <option value="malayalam">Malayalam</option>
+            <option value="marathi">Marathi</option>
+            <option value="gujarati">Gujarati</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--ink-tertiary)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
       </div>
 
       <!-- Font Version Selector -->
-      <div class="flex items-center gap-1.5 font-medium text-[var(--ink-secondary)]">
-        <label for="font-version-select">Format:</label>
-        <select id="font-version-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer">
-          <!-- Populated dynamically via JS -->
-        </select>
+      <div class="flex items-center gap-2 font-medium text-[var(--ink-secondary)]">
+        <label for="font-version-select" class="text-xs">Format:</label>
+        <div class="relative">
+          <select id="font-version-select" class="appearance-none bg-[var(--canvas)] border border-[var(--hairline)] rounded-md pl-2.5 pr-8 py-1.5 text-xs font-semibold text-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent cursor-pointer shadow-2xs hover:border-[var(--ink-secondary)] transition-colors min-w-[90px]">
+            <!-- Populated dynamically via JS -->
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--ink-tertiary)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
       </div>
 
       <!-- Specific Font Selector (Driven by Format/Script) -->
-      <div id="exact-font-select-wrapper" class="hidden items-center gap-1.5 font-medium text-[var(--ink-secondary)] ml-0 sm:ml-2 relative group/fontdrop">
-        <label for="exact-font-select">Font:</label>
-        <select id="exact-font-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer max-w-[200px] truncate">
-          <!-- Populated dynamically via JS -->
-        </select>
+      <div id="exact-font-select-wrapper" class="hidden items-center gap-2 font-medium text-[var(--ink-secondary)] ml-0 sm:ml-2 relative group/fontdrop">
+        <label for="exact-font-select" class="text-xs">Font:</label>
+        <div class="relative">
+          <select id="exact-font-select" class="appearance-none bg-[var(--canvas)] border border-[var(--hairline)] rounded-md pl-2.5 pr-8 py-1.5 text-xs font-semibold text-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent cursor-pointer max-w-[200px] truncate shadow-2xs hover:border-[var(--ink-secondary)] transition-colors">
+            <!-- Populated dynamically via JS -->
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--ink-tertiary)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
         <!-- Hover Explanation for Font Dropdown -->
         <div id="disabled-font-tooltip" class="absolute top-full left-0 mt-2 w-56 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 p-2 opacity-0 invisible transition-opacity z-50 text-left pointer-events-none group-hover/fontdrop:opacity-100 group-hover/fontdrop:visible hidden">
           <div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>
@@ -322,6 +337,7 @@ const defaultFont = 'anu7';
 <!-- Client Logic & i18n Controller -->
 <script>
   import { convertText } from '../utils/converter';
+  import { upconvertFromANSI } from '../utils/pua';
   import type { FontEncoding } from '../utils/mappings';
   import { TRANSLATIONS, type Language } from '../utils/i18n';
 
@@ -420,9 +436,8 @@ const defaultFont = 'anu7';
 
   function applyFontSize(size: number) {
     currentFontSize = Math.min(28, Math.max(12, size));
-    if (inputText) inputText.style.fontSize = `${currentFontSize}px`;
-    if (outputText) outputText.style.fontSize = `${currentFontSize}px`;
     localStorage.setItem('fontSize', currentFontSize.toString());
+    processConversion(true);
   }
 
   zoomInBtn?.addEventListener('click', () => applyFontSize(currentFontSize + 2));
@@ -699,6 +714,14 @@ const defaultFont = 'anu7';
     const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
     const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
 
+    if (reverse && (encoding === 'anu7' || encoding === 'anu6' || encoding === 'anuneo')) {
+      const puaVal = upconvertFromANSI(val);
+      if (puaVal !== val) {
+        val = puaVal;
+        inputText.value = val;
+      }
+    }
+
     try {
       const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
       const useAltRaaVatthu = (altRaaVatthuChk && !isHindi) ? altRaaVatthuChk.checked : false;
@@ -731,12 +754,23 @@ const defaultFont = 'anu7';
       else if (encoding === 'shreelipimar') legacyFontToApply = "'SHREE-DEV-0708', sans-serif";
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
 
+      const unicodeSize = currentFontSize;
+      const legacySize = Math.round(currentFontSize * 1.35);
+
       if (reverse) {
         inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
+        inputText.style.fontSize = `${legacySize}px`;
+        inputText.style.fontWeight = '600';
         outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
+        outputText.style.fontSize = `${unicodeSize}px`;
+        outputText.style.fontWeight = '400';
       } else {
         inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
+        inputText.style.fontSize = `${unicodeSize}px`;
+        inputText.style.fontWeight = '400';
         outputText.style.fontFamily = (outputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
+        outputText.style.fontSize = `${legacySize}px`;
+        outputText.style.fontWeight = '600';
       }
 
 
@@ -881,6 +915,10 @@ const defaultFont = 'anu7';
   }
 
   inputText.addEventListener('input', processConversion);
+  inputText.addEventListener('paste', () => {
+    isManualReverse = null;
+    setTimeout(() => processConversion(true), 0);
+  });
   cleanSpacesChk?.addEventListener('change', processConversion);
 
   
@@ -1396,6 +1434,7 @@ const defaultFont = 'anu7';
         inputText.value = inputText.value.substring(0, start) + text + inputText.value.substring(end);
         inputText.selectionStart = inputText.selectionEnd = start + text.length;
         inputText.focus();
+        isManualReverse = null;
         processConversion();
       }
     } catch {

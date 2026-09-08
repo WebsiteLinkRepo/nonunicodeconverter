@@ -1,4 +1,5 @@
 import { neoMap } from './mappings/neo';
+import { upconvertFromANSI } from './pua';
 
 export function unicodeToAnuNeo(text: string): string {
     if (!text) return "";
@@ -49,6 +50,8 @@ const reverseNeoKeys = Object.keys(reverseNeoMap).sort((a, b) => b.length - a.le
 
 export function anuNeoToUnicode(text: string): string {
     if (!text) return "";
+
+    text = upconvertFromANSI(text);
 
     let processedText = text;
 

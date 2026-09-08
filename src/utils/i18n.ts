@@ -41,10 +41,10 @@ export interface Translations {
 
 export const TRANSLATIONS: Record<Language, Translations> = {
   en: {
-    siteTitle: "Unicode to Non-Unicode",
+    siteTitle: "NonUnicodeConverter.com",
     title: "Unicode to Non-Unicode Converter",
     subtitle: "Convert Indian languages Unicode text to legacy font formats instantly.",
-    metaTitle: "Unicode to Non-Unicode Converter Online | Indian Legacy Fonts",
+    metaTitle: "NonUnicodeConverter.com | Indian Legacy Fonts",
     metaDescription: "Convert Unicode to legacy font layouts like Anu Script, Kruti Dev, Bamini, and Shree-Lipi. Free online converter for Photoshop, PageMaker, and InDesign.",
     h1: "Unicode to Non-Unicode Converter",
     keywords: "unicode to non unicode, kruti dev converter, anu script converter, bamini converter, hindi unicode to non unicode, telugu unicode to anu, tamil unicode to bamini, shree lipi converter, indesign font converter, photoshop font converter",
@@ -65,7 +65,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     copiedBtn: "✓ COPIED!",
     charsLabel: "chars",
     unmappedNotice: "Notice: Unmapped characters detected.",
-    footerText: "NonUnicodeConverter • Instant & 100% Private (Runs locally in your browser)",
+    footerText: "NonUnicodeConverter.com • Instant & 100% Private (Runs locally in your browser)",
     installAppBtn: "Install Desktop App",
     historyTitle: "Recent Conversions",
     clearHistoryBtn: "Clear History",
@@ -79,10 +79,10 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     }
   },
   te: {
-    siteTitle: "యూనికోడ్ టు నాన్-యూనికోడ్ కన్వర్టర్",
+    siteTitle: "NonUnicodeConverter.com",
     title: "యూనికోడ్ నుండి నాన్-యూనికోడ్ ఫాంట్ కన్వర్టర్",
     subtitle: "భారతీయ భాషల యూనికోడ్ టెక్స్ట్‌ను లెగసీ ఫాంట్‌లలోకి 1 క్లిక్‌తో మార్చండి.",
-    metaTitle: "యూనికోడ్ నుండి నాన్-యూనికోడ్ కన్వర్టర్ ఆన్‌లైన్ | లెగసీ ఫాంట్స్",
+    metaTitle: "NonUnicodeConverter.com ఆన్‌లైన్ | లెగసీ ఫాంట్స్",
     metaDescription: "యూనికోడ్ నుండి అను స్క్రిప్ట్, కృతి దేవ్, బామిని వంటి ఫాంట్ లేఅవుట్ కన్వర్టర్. ఫోటోషాప్, పేజ్‌మేకర్ మరియు ఇన్‌డిజైన్ కోసం ఉచిత సాధనం.",
     h1: "యూనికోడ్ టు నాన్-యూనికోడ్ కన్వర్టర్",
     keywords: "యూనికోడ్ టు నాన్-యూనికోడ్, తెలుగు యూనికోడ్ కన్వర్టర్, అను 7.0 కన్వర్టర్, కృతి దేవ్ కన్వర్టర్, బామిని కన్వర్టర్, హిందీ నాన్ యూనికోడ్, అను యూనికోడ్",
@@ -103,7 +103,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     copiedBtn: "✓ కాపీ అయింది!",
     charsLabel: "అక్షరాలు",
     unmappedNotice: "గమనిక: కొన్ని అక్షరాలు మార్చడం సాధ్యపడలేదు.",
-    footerText: "NonUnicodeConverter • 100% వేగవంతమైనది మరియు ప్రైవేట్ (మీ బ్రౌజర్‌లోనే పనిచేస్తుంది)",
+    footerText: "NonUnicodeConverter.com • 100% వేగవంతమైనది మరియు ప్రైవేట్ (మీ బ్రౌజర్‌లోనే పనిచేస్తుంది)",
     installAppBtn: "యాప్ ఇన్‌స్టాల్ చేయండి",
     historyTitle: "ఇటీవలి కన్వర్షన్లు",
     clearHistoryBtn: "చరిత్ర తొలగించు",
