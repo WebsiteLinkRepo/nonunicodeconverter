@@ -972,10 +972,14 @@ const defaultFont = 'anu7';
       let optgroupLabel = isAltRaa 
         ? "➜ Turn OFF 'Alt Raa Vatthu' to unlock these fonts:" 
         : "➜ Turn ON 'Alt Raa Vatthu' to unlock these fonts:";
+        
+      let hoverReason = isAltRaa
+        ? "Turn OFF 'Alternative Raa Vatthu' to use these fonts (we use the standard procedure to paste in these fonts)."
+        : "Turn ON 'Alternative Raa Vatthu' to use these fonts (we use a different procedure to paste in these fonts).";
       
       html += `<optgroup label="${optgroupLabel}" class="text-[var(--ink-tertiary)] italic">`;
       disabledFonts.forEach(opt => {
-        html += `<option value="${opt.value}" disabled class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} (disabled)</option>`;
+        html += `<option value="${opt.value}" disabled title="${hoverReason}" class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} (disabled)</option>`;
       });
       html += `</optgroup>`;
       
