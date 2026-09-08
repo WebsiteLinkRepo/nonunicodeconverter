@@ -247,7 +247,7 @@ const defaultFont = 'anu7';
     <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden transition-colors">
       <div class="flex items-center justify-between px-3.5 py-2.5 bg-[var(--canvas-soft)] border-b border-[var(--hairline)]">
         <span class="font-semibold text-xs uppercase tracking-wider text-[var(--ink)] truncate max-w-[180px] sm:max-w-none">
-          <span id="output-box-title">NON-UNICODE OUTPUT</span> (<span id="active-font-label">Anu 6</span>)
+          <span id="output-box-title">NON-UNICODE OUTPUT</span>
         </span>
         
         <div class="flex items-center gap-2 flex-shrink-0">
@@ -637,15 +637,41 @@ const defaultFont = 'anu7';
     
     if (inputText) inputText.placeholder = PLACEHOLDERS[script] || PLACEHOLDERS['telugu'];
 
-    if (!val) {
 
+    const scriptNameUpper = scriptNames[script].toUpperCase();
+    const fontLabelUpper = activeFontNameLabel().toUpperCase();
+
+    // Determine direction early for UI labels
+    let reverse = false;
+    if (val) {
+      const hasTeluguChar = /[\u0C00-\u0C7F]/.test(val);
+      const hasDevanagariChar = /[\u0900-\u097F]/.test(val);
+      const hasTamilChar = /[\u0B80-\u0BFF]/.test(val);
+      const hasKannadaChar = /[\u0C80-\u0CFF]/.test(val);
+      const hasMalayalamChar = /[\u0D00-\u0D7F]/.test(val);
+      const hasGujaratiChar = /[\u0A80-\u0AFF]/.test(val);
+      const isUnicodeInput = hasTeluguChar || hasDevanagariChar || hasTamilChar || hasKannadaChar || hasMalayalamChar || hasGujaratiChar;
+      reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
+    } else {
+      reverse = isManualReverse === true;
+    }
+
+    if (reverse) {
+      if (inputBoxTitle) inputBoxTitle.textContent = `${fontLabelUpper} INPUT`;
+      if (outputBoxTitle) outputBoxTitle.textContent = `${scriptNameUpper} UNICODE OUTPUT`;
+    } else {
+      if (inputBoxTitle) inputBoxTitle.textContent = `${scriptNameUpper} UNICODE INPUT`;
+      if (outputBoxTitle) outputBoxTitle.textContent = `${fontLabelUpper} OUTPUT`;
+    }
+
+    if (!val) {
       outputText.value = '';
       inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
       outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
       charCount.textContent = `0 ${t.charsLabel}`;
       if (linesStat) linesStat.textContent = '0';
       if (wordsStat) wordsStat.textContent = '0';
-      autoStatus.textContent = t.autoDetectNotice;
+      autoStatus.textContent = reverse ? `Non-Unicode ➔ ${scriptNames[script]} Unicode` : `${scriptNames[script]} Unicode ➔ ${activeFontNameLabel()}`;
       return;
     }
 
@@ -656,17 +682,6 @@ const defaultFont = 'anu7';
       val = val.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
     }
 
-
-
-    const hasTeluguChar = /[\u0C00-\u0C7F]/.test(val);
-    const hasDevanagariChar = /[\u0900-\u097F]/.test(val);
-    const hasTamilChar = /[\u0B80-\u0BFF]/.test(val);
-    const hasKannadaChar = /[\u0C80-\u0CFF]/.test(val);
-    const hasMalayalamChar = /[\u0D00-\u0D7F]/.test(val);
-    const hasGujaratiChar = /[\u0A80-\u0AFF]/.test(val);
-    const isUnicodeInput = hasTeluguChar || hasDevanagariChar || hasTamilChar || hasKannadaChar || hasMalayalamChar || hasGujaratiChar;
-    const reverse = isManualReverse !== null ? isManualReverse : !isUnicodeInput;
-    
     const isTelugu = script === 'telugu';
     const isHindi = script === 'hindi';
 
@@ -674,16 +689,10 @@ const defaultFont = 'anu7';
     const useAltRaaVatthu = (altRaaVatthuChk && isTelugu) ? altRaaVatthuChk.checked : false;
     const effectiveFontStyle = useAltRaaVatthu ? 'bapu' : selectedFontStyle;
 
-    const scriptNameUpper = scriptNames[script].toUpperCase();
-
     if (reverse) {
       autoStatus.textContent = `Non-Unicode ➔ ${scriptNames[script]} Unicode`;
-      if (inputBoxTitle) inputBoxTitle.textContent = 'NON-UNICODE TEXT INPUT';
-      if (outputBoxTitle) outputBoxTitle.textContent = `${scriptNameUpper} UNICODE OUTPUT`;
     } else {
       autoStatus.textContent = `${scriptNames[script]} Unicode ➔ ${activeFontNameLabel()}`;
-      if (inputBoxTitle) inputBoxTitle.textContent = `${scriptNameUpper} UNICODE INPUT`;
-      if (outputBoxTitle) outputBoxTitle.textContent = 'NON-UNICODE OUTPUT';
     }
 
 
@@ -736,7 +745,7 @@ const defaultFont = 'anu7';
       if (linesStat) linesStat.textContent = res.stats.lineCount.toLocaleString();
       if (wordsStat) wordsStat.textContent = res.stats.wordCount.toLocaleString();
 
-      saveToHistoryDebounced(val, finalOutput, selectedFontStyle);
+      saveToHistoryDebounced(val, finalOutput, activeFontNameLabel());
 
       // Auto-copy functionality
       const autoCopyChk = document.getElementById('auto-copy-chk') as HTMLInputElement;
@@ -897,29 +906,29 @@ const defaultFont = 'anu7';
 
   const FONT_OPTIONS: Record<string, {value: string, label: string}[]> = {
     telugu: [
-      { value: 'anu7', label: 'Anu Script Manager 7.0' },
-      { value: 'anu6', label: 'Anu Script Manager 6.0' }
+      { value: 'anu7', label: 'Anu 7.0' },
+      { value: 'anu6', label: 'Anu 6.0' }
     ],
     hindi: [
-      { value: 'krutidev', label: 'Kruti Dev (Popular)' },
-      { value: 'shreelipi', label: 'Shree-Lipi (Shree-Dev)' },
-      { value: 'anu7', label: 'Anu Script Manager Neo Fonts' }
+      { value: 'krutidev', label: 'Kruti Dev' },
+      { value: 'shreelipi', label: 'Shree-Lipi' },
+      { value: 'anu7', label: 'Anu Neo' }
     ],
     tamil: [
-      { value: 'bamini', label: 'Bamini (Popular)' },
-      { value: 'shreelipitam', label: 'Shree-Lipi (Shree-Tam)' }
+      { value: 'bamini', label: 'Bamini' },
+      { value: 'shreelipitam', label: 'Shree-Lipi' }
     ],
     kannada: [
       { value: 'nudi', label: 'Nudi' }
     ],
     malayalam: [
-      { value: 'ism', label: 'ISM / ML-TTKarthika' }
+      { value: 'ism', label: 'ISM' }
     ],
     marathi: [
-      { value: 'shreelipimar', label: 'Shree-Lipi (Shree-Dev 0708)' }
+      { value: 'shreelipimar', label: 'Shree-Lipi' }
     ],
     gujarati: [
-      { value: 'hari', label: 'Hari (Legacy Gujarati)' }
+      { value: 'hari', label: 'Hari' }
     ]
   };
 
@@ -1032,14 +1041,13 @@ const defaultFont = 'anu7';
     scriptSelectEl.addEventListener('change', () => {
       updateFontDropdown();
       updateExactFontDropdown();
-      const anuFontSelectEl = document.getElementById('anu-font-select') as HTMLSelectElement;
-      if (anuFontSelectEl) {
-        if (scriptSelectEl.value === 'hindi') anuFontSelectEl.value = 'AnuNEOGANBO';
-        else if (scriptSelectEl.value === 'telugu') anuFontSelectEl.value = 'AnuANUPB';
-        else if (scriptSelectEl.value === 'kannada') anuFontSelectEl.value = 'AnuDINEIGHT';
-        else if (scriptSelectEl.value === 'tamil') anuFontSelectEl.value = 'AnuPADMINI_';
+      if (exactFontSelectEl && !exactFontSelectWrapper.classList.contains('hidden')) {
+        if (scriptSelectEl.value === 'hindi') exactFontSelectEl.value = 'AnuNEOGANBO';
+        else if (scriptSelectEl.value === 'telugu') exactFontSelectEl.value = 'Priyaanka';
       }
       processConversion(false);
+      const activeFontLabel = document.getElementById('active-font-label');
+      if (activeFontLabel) activeFontLabel.textContent = activeFontNameLabel();
     });
   }
   
