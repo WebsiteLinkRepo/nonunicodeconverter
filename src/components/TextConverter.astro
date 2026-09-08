@@ -969,13 +969,13 @@ const defaultFont = 'anu7';
       });
       
       // Disabled (greyed-out) mapped to a disabled option state
-      let disabledReason = isAltRaa 
-        ? "Turn OFF 'Alternative Raa Vatthu' to use these fonts (we use the standard procedure to paste in these fonts)." 
-        : "Turn ON 'Alternative Raa Vatthu' to use these fonts (we use a different procedure to paste in these fonts).";
+      let optgroupLabel = isAltRaa 
+        ? "⚠️ MUST Turn OFF 'Alternative Raa Vatthu' to use these:" 
+        : "⚠️ MUST Turn ON 'Alternative Raa Vatthu' to use these:";
       
-      html += `<optgroup label="Disabled Fonts:" class="text-[var(--ink-tertiary)] italic">`;
+      html += `<optgroup label="${optgroupLabel}" class="text-[var(--ink-tertiary)] italic">`;
       disabledFonts.forEach(opt => {
-        html += `<option value="${opt.value}" disabled title="${disabledReason}" class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} (disabled)</option>`;
+        html += `<option value="${opt.value}" disabled class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} (disabled)</option>`;
       });
       html += `</optgroup>`;
       
