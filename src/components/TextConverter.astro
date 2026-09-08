@@ -47,6 +47,19 @@ const defaultFont = 'anu7';
         </select>
       </div>
 
+      <!-- Specific Font Selector (Driven by Format/Script) -->
+      <div id="exact-font-select-wrapper" class="hidden items-center gap-1.5 font-medium text-[var(--ink-secondary)] ml-0 sm:ml-2 relative group/fontdrop">
+        <label for="exact-font-select">Font:</label>
+        <select id="exact-font-select" class="bg-[var(--canvas)] border border-[var(--hairline)] rounded px-2 py-0.5 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--ink)] cursor-pointer max-w-[200px] truncate">
+          <!-- Populated dynamically via JS -->
+        </select>
+        <!-- Hover Explanation for Font Dropdown -->
+        <div id="disabled-font-tooltip" class="absolute top-full left-0 mt-2 w-56 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 p-2 opacity-0 invisible transition-opacity z-50 text-left pointer-events-none group-hover/fontdrop:opacity-100 group-hover/fontdrop:visible hidden">
+          <div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>
+          To use grayed-out fonts, toggle the <strong class="text-white relative z-10">Alternative Raa Vatthu</strong> checkbox!
+        </div>
+      </div>
+
 
       <!-- Clean Extra Lines Checkbox -->
       <label class="flex items-center gap-2 cursor-pointer font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] touch-target py-1">
@@ -448,14 +461,26 @@ const defaultFont = 'anu7';
       let text = window.getSelection()?.toString() || outputText.value;
       if (text) {
         const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(text);
-        let fontName = 'Priyaanka'; // Ensure Word sees the original font name
+        
+    let exactFontTel = '';
+    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+        exactFontTel = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
+    }
+    let fontName = exactFontTel || 'Priyaanka'; // Ensure Word sees the original font name, default Priyaanka if exact unset
+
     const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'telugu' && currentFormat === 'shreelipi') {
       fontName = 'Shree-Tel-0908';
     } else if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
+      
+      let exactFont = '';
+      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+          exactFont = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
+      }
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : (exactFont || 'AnuNEOGANBO'));
+
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
     } else if (currentScript === 'kannada') {
@@ -718,14 +743,26 @@ const defaultFont = 'anu7';
       if (autoCopyChk && autoCopyChk.checked && finalOutput) {
         try {
           const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(finalOutput);
-          let fontName = 'Priyaanka'; // Ensure Word sees the original font name
+          
+    let exactFontTel = '';
+    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+        exactFontTel = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
+    }
+    let fontName = exactFontTel || 'Priyaanka'; // Ensure Word sees the original font name, default Priyaanka if exact unset
+
           const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
           const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
 
           if (currentScript === 'telugu' && currentFormat === 'shreelipi') {
             fontName = 'Shree-Tel-0908';
           } else if (currentScript === 'hindi') {
-            fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
+            
+      let exactFont = '';
+      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+          exactFont = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
+      }
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : (exactFont || 'AnuNEOGANBO'));
+
           } else if (currentScript === 'tamil') {
             fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
           } else if (currentScript === 'kannada') {
@@ -844,6 +881,7 @@ const defaultFont = 'anu7';
       if (activeFontLabel) {
         activeFontLabel.textContent = activeFontNameLabel();
       }
+      updateExactFontDropdown();
       processConversion();
     });
   }
@@ -851,6 +889,12 @@ const defaultFont = 'anu7';
   
   const scriptSelectEl = document.getElementById('script-select') as HTMLSelectElement;
   
+
+  // Exact Font Lists
+  const HINDI_NEO_FONTS = [{"value":"NeoChandanBold","file":"NEOCHABO.TTF","label":"NeoChandanBold"},{"value":"NeoChandanLight","file":"NEOCHALI.TTF","label":"NeoChandanLight"},{"value":"NeoElephantaBold","file":"NEOELEBO.TTF","label":"NeoElephantaBold"},{"value":"NeoElephantaLight","file":"NEOELELI.TTF","label":"NeoElephantaLight"},{"value":"NeoEurostyleBold","file":"NEOEURBO.TTF","label":"NeoEurostyleBold"},{"value":"NeoEurostyleLight","file":"NEOEURLI.TTF","label":"NeoEurostyleLight"},{"value":"NeoEurostyleMedium","file":"NEOEURME.TTF","label":"NeoEurostyleMedium"},{"value":"NeoGaneshBold","file":"NEOGANBO.TTF","label":"NeoGaneshBold"},{"value":"NeoGaneshLight","file":"NEOGANLI.TTF","label":"NeoGaneshLight"},{"value":"NeoHansaBold","file":"NEOHANBO.TTF","label":"NeoHansaBold"},{"value":"NeoHansaLight","file":"NEOHANLI.TTF","label":"NeoHansaLight"},{"value":"NeoJavaharBold","file":"NEOJAVBO.TTF","label":"NeoJavaharBold"},{"value":"NeoJavaharLight","file":"NEOJAVLI.TTF","label":"NeoJavaharLight"},{"value":"NeoJyothiBold","file":"NEOJYOBO.TTF","label":"NeoJyothiBold"},{"value":"NeoJyothiLight","file":"NEOJYOLI.TTF","label":"NeoJyothiLight"},{"value":"NeoKailashBold","file":"NEOKAIBO.TTF","label":"NeoKailashBold"},{"value":"NeoKailashLight","file":"NEOKAILI.TTF","label":"NeoKailashLight"},{"value":"NeoKailashMedium","file":"NEOKAIME.TTF","label":"NeoKailashMedium"},{"value":"NeoMahanBold","file":"NEOMAHBO.TTF","label":"NeoMahanBold"},{"value":"NeoMahanLight","file":"NEOMAHLI.TTF","label":"NeoMahanLight"},{"value":"NeoMahanMedium","file":"NEOMAHME.TTF","label":"NeoMahanMedium"},{"value":"NeoMangalBold","file":"NEOMANBO.TTF","label":"NeoMangalBold"},{"value":"NeoMangalLight","file":"NEOMANLI.TTF","label":"NeoMangalLight"},{"value":"NeoMangalMedium","file":"NEOMANME.TTF","label":"NeoMangalMedium"},{"value":"NeoMitraBold","file":"NEOMITBO.TTF","label":"NeoMitraBold"},{"value":"NeoMitraLight","file":"NEOMITLI.TTF","label":"NeoMitraLight"},{"value":"NeoMitraMedium","file":"NEOMITME.TTF","label":"NeoMitraMedium"},{"value":"NeoMonoharBold","file":"NEOMONBO.TTF","label":"NeoMonoharBold"},{"value":"NeoMonoharLight","file":"NEOMONLI.TTF","label":"NeoMonoharLight"},{"value":"NeoMonoharMedium","file":"NEOMONME.TTF","label":"NeoMonoharMedium"},{"value":"NeoNatrajBold","file":"NEONATBO.TTF","label":"NeoNatrajBold"},{"value":"NeoNatrajLight","file":"NEONATLI.TTF","label":"NeoNatrajLight"},{"value":"NeoNatrajMedium","file":"NEONATME.TTF","label":"NeoNatrajMedium"},{"value":"NeoNileshBold","file":"NEONILBO.TTF","label":"NeoNileshBold"},{"value":"NeoNileshLight","file":"NEONILLI.TTF","label":"NeoNileshLight"},{"value":"NeoNileshMedium","file":"NEONILME.TTF","label":"NeoNileshMedium"},{"value":"NeoOmkarBold","file":"NEOOMKBO.TTF","label":"NeoOmkarBold"},{"value":"NeoOmkarLight","file":"NEOOMKLI.TTF","label":"NeoOmkarLight"},{"value":"NeoOmkarMedium","file":"NEOOMKME.TTF","label":"NeoOmkarMedium"},{"value":"NeoPradnyaBold","file":"NEOPRABO.TTF","label":"NeoPradnyaBold"},{"value":"NeoPradnyaLight","file":"NEOPRALI.TTF","label":"NeoPradnyaLight"},{"value":"NeoRadhikaBold","file":"NEORADBO.TTF","label":"NeoRadhikaBold"},{"value":"NeoRadhikaLight","file":"NEORADLI.TTF","label":"NeoRadhikaLight"},{"value":"NeoRadhikaMedium","file":"NEORADME.TTF","label":"NeoRadhikaMedium"},{"value":"NeoShridharBold","file":"NEOSHRBO.TTF","label":"NeoShridharBold"},{"value":"NeoShridharLight","file":"NEOSHRLI.TTF","label":"NeoShridharLight"},{"value":"NeoShridharMedium","file":"NEOSHRME.TTF","label":"NeoShridharMedium"},{"value":"NeoShwetaBold","file":"NEOSHWBO.TTF","label":"NeoShwetaBold"},{"value":"NeoShwetaLight","file":"NEOSHWLI.TTF","label":"NeoShwetaLight"},{"value":"NeoShwetaMedium","file":"NEOSHWME.TTF","label":"NeoShwetaMedium"},{"value":"NeoYogeshBold","file":"NEOYOGBO.TTF","label":"NeoYogeshBold"},{"value":"NeoYogeshLight","file":"NEOYOGLI.TTF","label":"NeoYogeshLight"},{"value":"NeoYogeshMedium","file":"NEOYOGME.TTF","label":"NeoYogeshMedium"}];
+  const TELUGU_RAA_FONTS = [{"value":"Aaradhana","file":"AARADHAN.TTF","label":"Aaradhana"},{"value":"Amrutha","file":"AMRUTHA_.TTF","label":"Amrutha"},{"value":"BapuBold","file":"BAPUBOLD.TTF","label":"BapuBold"},{"value":"BapuBrush","file":"BAPUB___.TTF","label":"BapuBrush"},{"value":"BapuScript","file":"BAPUS___.TTF","label":"BapuScript"},{"value":"BrahmaScript","file":"BRAHS___.TTF","label":"BrahmaScript"},{"value":"ChandraScript","file":"CHANS___.TTF","label":"ChandraScript"},{"value":"Kusuma","file":"KUSUMA__.TTF","label":"Kusuma"},{"value":"Maanasa","file":"MAANASA_.TTF","label":"Maanasa"},{"value":"Madhubala","file":"MADHUBAL.TTF","label":"Madhubala"},{"value":"RamanaBrush","file":"RAMAB___.TTF","label":"RamanaBrush"},{"value":"RamanaScriptMedium","file":"RAMASM__.TTF","label":"RamanaScriptMedium"},{"value":"RamanaScript","file":"RAMAS___.TTF","label":"RamanaScript"},{"value":"Subhadra","file":"SUBHADRA.TTF","label":"Subhadra"}];
+  const TELUGU_NORMAL_FONTS = [{"value":"Abhilasha","file":"ABHILASH.TTF","label":"Abhilasha"},{"value":"Ajantha","file":"AJANTHA_.TTF","label":"Ajantha"},{"value":"Akshara","file":"AKSHARA_.TTF","label":"Akshara"},{"value":"Anjali","file":"ANJALI__.TTF","label":"Anjali"},{"value":"AnupamaBold","file":"ANUPB___.TTF","label":"AnupamaBold"},{"value":"AnupamaExtraBold","file":"ANUPEB__.TTF","label":"AnupamaExtraBold"},{"value":"AnupamaMedium","file":"ANUPM___.TTF","label":"AnupamaMedium"},{"value":"AnupamaThin","file":"ANUPT___.TTF","label":"AnupamaThin"},{"value":"Anusha","file":"ANUSHA__.TTF","label":"Anusha"},{"value":"AnuSubhalekhaOne","file":"ANUSO___.TTF","label":"AnuSubhalekhaOne"},{"value":"AnuSubhalekhaTwo","file":"ANUST___.TTF","label":"AnuSubhalekhaTwo"},{"value":"Apoorva","file":"APOORVA_.TTF","label":"Apoorva"},{"value":"Ashwini","file":"ASHWINI_.TTF","label":"Ashwini"},{"value":"Avanthi","file":"AVANTHI_.TTF","label":"Avanthi"},{"value":"Bharghava","file":"BHARGHAV.TTF","label":"Bharghava"},{"value":"Bhavya","file":"BHAVYA__.TTF","label":"Bhavya"},{"value":"Brahma","file":"BRAHMA__.TTF","label":"Brahma"},{"value":"Charitha","file":"CHARITHA.TTF","label":"Charitha"},{"value":"Deepika","file":"DEEPIKA_.TTF","label":"Deepika"},{"value":"Dharani","file":"DHARANI_.TTF","label":"Dharani"},{"value":"DingbitsEight","file":"DINEIGHT.TTF","label":"DingbitsEight"},{"value":"DingbitsEleven","file":"DINELEVE.TTF","label":"DingbitsEleven"},{"value":"DingbitsFive","file":"DINFIVE_.TTF","label":"DingbitsFive"},{"value":"DingbitsFour","file":"DINFOUR_.TTF","label":"DingbitsFour"},{"value":"DingbitsNine","file":"DINNINE_.TTF","label":"DingbitsNine"},{"value":"DingbitsOne","file":"DINONE__.TTF","label":"DingbitsOne"},{"value":"DingbitsSeven","file":"DINSEVEN.TTF","label":"DingbitsSeven"},{"value":"DingbitsSix","file":"DINSIX__.TTF","label":"DingbitsSix"},{"value":"DingbitsTen","file":"DINTEN__.TTF","label":"DingbitsTen"},{"value":"DingbitsThirteen","file":"DINTHIRT.TTF","label":"DingbitsThirteen"},{"value":"DingbitsThree","file":"DINTHREE.TTF","label":"DingbitsThree"},{"value":"DingbitsTwelve","file":"DINTWELV.TTF","label":"DingbitsTwelve"},{"value":"DingbitsTwo","file":"DINTWO__.TTF","label":"DingbitsTwo"},{"value":"Geetha","file":"GEETHA__.TTF","label":"Geetha"},{"value":"GowthamiBlack","file":"GOWTBL__.TTF","label":"GowthamiBlack"},{"value":"GowthamiBold","file":"GOWTB___.TTF","label":"GowthamiBold"},{"value":"GowthamiExtraBold","file":"GOWTEB__.TTF","label":"GowthamiExtraBold"},{"value":"GowthamiMedium","file":"GOWTM___.TTF","label":"GowthamiMedium"},{"value":"GowthamiNarrow","file":"GOWTN___.TTF","label":"GowthamiNarrow"},{"value":"GowthamiThin","file":"GOWTT___.TTF","label":"GowthamiThin"},{"value":"Harsha","file":"HARSHA__.TTF","label":"Harsha"},{"value":"Hiranya","file":"HIRANYA_.TTF","label":"Hiranya"},{"value":"Jyothi","file":"JYOTHI__.TTF","label":"Jyothi"},{"value":"Kalaanjali","file":"KALAANJA.TTF","label":"Kalaanjali"},{"value":"KeerthiFont","file":"KEERF___.TTF","label":"KeerthiFont"},{"value":"Kranthi","file":"KRANTHI_.TTF","label":"Kranthi"},{"value":"MeenaScript","file":"MEENS___.TTF","label":"MeenaScript"},{"value":"Mohini","file":"MOHINI__.TTF","label":"Mohini"},{"value":"Natyamayuri","file":"NATYAMAY.TTF","label":"Natyamayuri"},{"value":"Neelima","file":"NEELIMA_.TTF","label":"Neelima"},{"value":"Padmini","file":"PADMINI_.TTF","label":"Padmini"},{"value":"PallaviBold","file":"PALLB___.TTF","label":"PallaviBold"},{"value":"PallaviMedium","file":"PALLM___.TTF","label":"PallaviMedium"},{"value":"PallaviThin","file":"PALLT___.TTF","label":"PallaviThin"},{"value":"Prabhava","file":"PRABHAVA.TTF","label":"Prabhava"},{"value":"Pragathi","file":"PRAGATHI.TTF","label":"Pragathi"},{"value":"PragathiItalic","file":"PRAGI___.TTF","label":"PragathiItalic"},{"value":"PragathiNarrow","file":"PRAGN___.TTF","label":"PragathiNarrow"},{"value":"PragathiSpecial","file":"PRAGS___.TTF","label":"PragathiSpecial"},{"value":"Praveena","file":"PRAVEENA.TTF","label":"Praveena"},{"value":"Preethi","file":"PREETHI_.TTF","label":"Preethi"},{"value":"Pridhvi","file":"PRIDHVI_.TTF","label":"Pridhvi"},{"value":"Priyaanka","file":"PRIYAANK.TTF","label":"Priyaanka"},{"value":"PriyaankaBold","file":"PRIYB___.TTF","label":"PriyaankaBold"},{"value":"Rachana","file":"RACHANA_.TTF","label":"Rachana"},{"value":"RachanaBold","file":"RACHB___.TTF","label":"RachanaBold"},{"value":"Ravali","file":"RAVALI__.TTF","label":"Ravali"},{"value":"Reshma","file":"RESHMA__.TTF","label":"Reshma"},{"value":"Rohini","file":"ROHINI__.TTF","label":"Rohini"},{"value":"Saagari","file":"SAAGARI_.TTF","label":"Saagari"},{"value":"Sanghavi","file":"SANGHAVI.TTF","label":"Sanghavi"},{"value":"Sowmya","file":"SOWMYA__.TTF","label":"Sowmya"},{"value":"Sravya","file":"SRAVYA__.TTF","label":"Sravya"},{"value":"Srujana","file":"SRUJANA_.TTF","label":"Srujana"},{"value":"Suchithra","file":"SUCHITHR.TTF","label":"Suchithra"},{"value":"Sujatha","file":"SUJATHA_.TTF","label":"Sujatha"},{"value":"Suneetha","file":"SUNEETHA.TTF","label":"Suneetha"},{"value":"Supriya","file":"SUPRIYA_.TTF","label":"Supriya"},{"value":"Tejafont","file":"TEJAFONT.TTF","label":"Tejafont"},{"value":"TeluguNumbersBold","file":"TELUNB__.TTF","label":"TeluguNumbersBold"},{"value":"TeluguNumbersThin","file":"TELUNT__.TTF","label":"TeluguNumbersThin"},{"value":"Thripura","file":"THRIPURA.TTF","label":"Thripura"},{"value":"Udayam","file":"UDAYAM__.TTF","label":"Udayam"},{"value":"Vaibhav","file":"VAIBHAV_.TTF","label":"Vaibhav"},{"value":"Vasantha","file":"VASANTHA.TTF","label":"Vasantha"},{"value":"Vasundhara","file":"VASUNDHA.TTF","label":"Vasundhara"},{"value":"Veenaa","file":"VEENAA__.TTF","label":"Veenaa"},{"value":"Vikaas","file":"VIKAAS__.TTF","label":"Vikaas"}];
+
   const FONT_OPTIONS: Record<string, {value: string, label: string}[]> = {
     telugu: [
       { value: 'anu7', label: 'Anu Script Manager 7.0' },
@@ -879,6 +923,82 @@ const defaultFont = 'anu7';
     ]
   };
 
+  
+  const exactFontSelectWrapper = document.getElementById('exact-font-select-wrapper') as HTMLDivElement;
+  const exactFontSelectEl = document.getElementById('exact-font-select') as HTMLSelectElement;
+  const disabledFontTooltip = document.getElementById('disabled-font-tooltip') as HTMLDivElement;
+
+  function updateExactFontDropdown() {
+    if (!exactFontSelectWrapper || !exactFontSelectEl || !scriptSelectEl || !fontVersionSelectEl) return;
+    
+    const currentScript = scriptSelectEl.value;
+    const currentFormat = fontVersionSelectEl.value;
+    const isAltRaa = (document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement)?.checked || false;
+
+    exactFontSelectEl.innerHTML = '';
+    
+    // Check if we should show the exact font selector
+    const shouldShow = (currentScript === 'hindi' && currentFormat === 'anu7') || 
+                       (currentScript === 'telugu' && currentFormat === 'anu7');
+    
+    if (shouldShow) {
+      exactFontSelectWrapper.classList.remove('hidden');
+      exactFontSelectWrapper.classList.add('flex');
+    } else {
+      exactFontSelectWrapper.classList.add('hidden');
+      exactFontSelectWrapper.classList.remove('flex');
+      return;
+    }
+
+    if (currentScript === 'hindi' && currentFormat === 'anu7') {
+      disabledFontTooltip.classList.add('hidden');
+      exactFontSelectEl.innerHTML = HINDI_NEO_FONTS.map(opt => 
+        `<option value="${opt.value}">${opt.label}</option>`
+      ).join('');
+    } else if (currentScript === 'telugu' && currentFormat === 'anu7') {
+      disabledFontTooltip.classList.remove('hidden');
+      
+      const enabledFonts = isAltRaa ? TELUGU_RAA_FONTS : TELUGU_NORMAL_FONTS;
+      const disabledFonts = isAltRaa ? TELUGU_NORMAL_FONTS : TELUGU_RAA_FONTS;
+      
+      let html = '';
+      
+      // Enabled fonts first
+      enabledFonts.forEach(opt => {
+        html += `<option value="${opt.value}" class="text-[var(--ink)]">${opt.label}</option>`;
+      });
+      
+      // Disabled (greyed-out) mapped to a disabled option state
+      html += `<optgroup label="Toggle Raa Vatthu to employ:" class="text-[var(--ink-tertiary)] italic">`;
+      disabledFonts.forEach(opt => {
+        html += `<option value="${opt.value}" disabled class="text-[var(--ink-tertiary)] hover:bg-transparent">${opt.label} (disabled)</option>`;
+      });
+      html += `</optgroup>`;
+      
+      // Make sure the tooltip advises correctly
+      if (isAltRaa) {
+        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>To use grayed-out fonts, <strong>turn off</strong> the Alternative Raa Vatthu checkbox!`;
+      } else {
+        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>To use grayed-out fonts, <strong>turn on</strong> the Alternative Raa Vatthu checkbox!`;
+      }
+      
+      // Attempt to preserve selection if it still is valid
+      const prevVal = exactFontSelectEl.value;
+      exactFontSelectEl.innerHTML = html;
+      if (prevVal) {
+        const matchingOpt = Array.from(exactFontSelectEl.options).find(o => o.value === prevVal && !o.disabled);
+        if (matchingOpt) {
+          exactFontSelectEl.value = prevVal;
+        }
+      }
+    }
+  }
+
+  exactFontSelectEl?.addEventListener('change', () => {
+    // When changing exact font, automatically trigger conversion / RTF rebuild
+    processConversion(false);
+  });
+
   function updateFontDropdown() {
     if (!fontVersionSelectEl || !scriptSelectEl) return;
     const currentScript = scriptSelectEl.value;
@@ -892,6 +1012,7 @@ const defaultFont = 'anu7';
   if (scriptSelectEl) {
     scriptSelectEl.addEventListener('change', () => {
       updateFontDropdown();
+      updateExactFontDropdown();
       const anuFontSelectEl = document.getElementById('anu-font-select') as HTMLSelectElement;
       if (anuFontSelectEl) {
         if (scriptSelectEl.value === 'hindi') anuFontSelectEl.value = 'AnuNEOGANBO';
@@ -905,10 +1026,12 @@ const defaultFont = 'anu7';
   
   // Call once on init
   updateFontDropdown();
+  updateExactFontDropdown();
 
 
   altRaaVatthuChk?.addEventListener('change', () => {
     localStorage.setItem('altRaaVatthu', altRaaVatthuChk.checked.toString());
+    updateExactFontDropdown();
     processConversion();
   });
 
@@ -987,12 +1110,20 @@ const defaultFont = 'anu7';
   
   function activeFontNameLabel(): string {
     const fontVersionSelectEl = document.getElementById('font-version-select') as HTMLSelectElement;
-    if (fontVersionSelectEl) {
-      if (fontVersionSelectEl.options.length > 0 && fontVersionSelectEl.selectedIndex >= 0) {
-        return fontVersionSelectEl.options[fontVersionSelectEl.selectedIndex].text;
-      }
+    const exactFontSelectEl = document.getElementById('exact-font-select') as HTMLSelectElement;
+    const exactFontSelectWrapper = document.getElementById('exact-font-select-wrapper') as HTMLDivElement;
+    
+    let baseFormat = 'Target Font';
+    if (fontVersionSelectEl && fontVersionSelectEl.options.length > 0 && fontVersionSelectEl.selectedIndex >= 0) {
+      baseFormat = fontVersionSelectEl.options[fontVersionSelectEl.selectedIndex].text;
     }
-    return 'Target Font';
+    
+    if (exactFontSelectWrapper && !exactFontSelectWrapper.classList.contains('hidden') && exactFontSelectEl && exactFontSelectEl.options.length > 0 && exactFontSelectEl.selectedIndex >= 0) {
+      const exactFont = exactFontSelectEl.options[exactFontSelectEl.selectedIndex].text;
+      return `${baseFormat} (${exactFont})`;
+    }
+    
+    return baseFormat;
   }
 
 
@@ -1164,14 +1295,26 @@ const defaultFont = 'anu7';
     }
 
     const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(val);
-    let fontName = 'Priyaanka'; // Ensure Word sees the original font name
+    
+    let exactFontTel = '';
+    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+        exactFontTel = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
+    }
+    let fontName = exactFontTel || 'Priyaanka'; // Ensure Word sees the original font name, default Priyaanka if exact unset
+
     const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
     const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
     
     if (currentScript === 'telugu' && currentFormat === 'shreelipi') {
       fontName = 'Shree-Tel-0908';
     } else if (currentScript === 'hindi') {
-      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : 'AnuNEOGANBO');
+      
+      let exactFont = '';
+      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+          exactFont = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
+      }
+      fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : (exactFont || 'AnuNEOGANBO'));
+
     } else if (currentScript === 'tamil') {
       fontName = currentFormat === 'bamini' ? 'Bamini' : (currentFormat === 'shreelipitam' ? 'SHREE-TAM7-0803' : 'Padmini');
     } else if (currentScript === 'kannada') {
