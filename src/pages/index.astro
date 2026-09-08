@@ -15,11 +15,14 @@ const t = TRANSLATIONS.en;
 >
 	<div class="space-y-8 sm:space-y-12">
 		<!-- Hero Section -->
-		<div class="text-center py-2 sm:py-4 space-y-2">
-			<h1 id="page-title" class="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--ink)]">
+		<div class="text-center py-8 sm:py-16 space-y-4 flex flex-col items-center justify-center">
+			<!-- Title -->
+			<h1 id="page-title" class="text-4xl sm:text-6xl font-bold tracking-tighter text-transparent bg-clip-text bg-[image:var(--hero-gradient)] leading-[1.1] max-w-4xl mx-auto">
 				{t.h1}
 			</h1>
-			<p id="page-subtitle" class="text-xs sm:text-base text-[var(--ink-secondary)] max-w-2xl mx-auto leading-relaxed">
+
+			<!-- Subtitle -->
+			<p id="page-subtitle" class="text-sm sm:text-lg text-[var(--ink-secondary)] max-w-2xl mx-auto leading-relaxed font-medium">
 				{t.subtitle}
 			</p>
 		</div>

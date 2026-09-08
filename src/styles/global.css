@@ -7,32 +7,44 @@
 
 /* Ultra-Minimalist Design System (Vercel/Linear inspired) */
 :root {
-  --canvas: #ffffff;
-  --canvas-soft: #fafafa;
-  --canvas-soft-2: #f4f4f5;
-  --ink: #000000;
-  --ink-secondary: #666666;
-  --ink-tertiary: #999999;
-  --hairline: #eaeaea;
-  --hairline-strong: #888888;
+  --canvas: #f8fafc;
+  --canvas-soft: #f1f5f9;
+  --canvas-soft-2: #e2e8f0;
+  --ink: #0f172a;
+  --ink-secondary: #64748b;
+  --ink-tertiary: #94a3b8;
+  --hairline: #e2e8f0;
+  --hairline-strong: #cbd5e1;
   --card-bg: #ffffff;
-  --card-border: #eaeaea;
-  --brand-blue: #000000;
-  --brand-emerald: #000000;
+  --card-border: #e2e8f0;
+  --brand-blue: #0f172a;
+  --brand-emerald: #0f172a;
+  
+  /* New Tokens */
+  --hero-gradient: linear-gradient(180deg, #0f172a 0%, #64748b 100%);
+  --ray-core: 15, 23, 42;
+  --light-core-origin: 255, 255, 255;
+  --vignette-edge: rgba(15, 23, 42, 0.12);
 }
 
 /* Deep High-Contrast Dark Theme */
 .dark {
-  --canvas: #000000;
-  --canvas-soft: #0a0a0a;
-  --canvas-soft-2: #111111;
-  --ink: #ffffff;
-  --ink-secondary: #888888;
-  --ink-tertiary: #666666;
+  --canvas: #08090b;
+  --canvas-soft: #121316;
+  --canvas-soft-2: #1c1d21;
+  --ink: #f5f5f5;
+  --ink-secondary: #aaaaaa;
+  --ink-tertiary: #777777;
   --hairline: #222222;
-  --hairline-strong: #444444;
-  --card-bg: #000000;
+  --hairline-strong: #333333;
+  --card-bg: #08090b;
   --card-border: #222222;
+
+  /* New Tokens */
+  --hero-gradient: linear-gradient(180deg, #ffffff 0%, #9ca3af 100%);
+  --ray-core: 255, 255, 255;
+  --light-core-origin: 255, 255, 255;
+  --vignette-edge: rgba(0,0,0,0.45);
 }
 
 /* Custom Scrollbar for Code/Text Areas */
