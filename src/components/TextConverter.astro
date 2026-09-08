@@ -56,7 +56,7 @@ const defaultFont = 'anu7';
         <!-- Hover Explanation for Font Dropdown -->
         <div id="disabled-font-tooltip" class="absolute top-full left-0 mt-2 w-56 bg-[#2D3039] border border-[#40434F] rounded shadow-lg text-[11.5px] text-gray-200 p-2 opacity-0 invisible transition-opacity z-50 text-left pointer-events-none group-hover/fontdrop:opacity-100 group-hover/fontdrop:visible hidden">
           <div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>
-          To use grayed-out fonts, toggle the <strong class="text-white relative z-10">Alternative Raa Vatthu</strong> checkbox!
+          Select exact font to paste formatted text directly into Word/Photoshop with this font. Toggle <strong class="text-white relative z-10">Alt Raa</strong> to swap disabled fonts!
         </div>
       </div>
 
@@ -977,18 +977,33 @@ const defaultFont = 'anu7';
       
       // Make sure the tooltip advises correctly
       if (isAltRaa) {
-        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>To use grayed-out fonts, <strong>turn off</strong> the Alternative Raa Vatthu checkbox!`;
+        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>Select font to paste directly into Word/Photoshop. To use grayed-out fonts, <strong>turn OFF</strong> Alt Raa Vatthu!`;
       } else {
-        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>To use grayed-out fonts, <strong>turn on</strong> the Alternative Raa Vatthu checkbox!`;
+        disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>Select font to paste directly into Word/Photoshop. To use grayed-out fonts, <strong>turn ON</strong> Alt Raa Vatthu!`;
       }
       
       // Attempt to preserve selection if it still is valid
       const prevVal = exactFontSelectEl.value;
       exactFontSelectEl.innerHTML = html;
+
+      let valueSet = false;
       if (prevVal) {
         const matchingOpt = Array.from(exactFontSelectEl.options).find(o => o.value === prevVal && !o.disabled);
         if (matchingOpt) {
           exactFontSelectEl.value = prevVal;
+          valueSet = true;
+        }
+      }
+      
+      // Default to Priyaanka (or first available) if no valid previous value
+      if (!valueSet) {
+        const priyaankaOpt = Array.from(exactFontSelectEl.options).find(o => o.value === 'Priyaanka');
+        if (priyaankaOpt && !priyaankaOpt.disabled) {
+           exactFontSelectEl.value = 'Priyaanka';
+        } else {
+           // fallback to first non-disabled
+           const firstEnabled = Array.from(exactFontSelectEl.options).find(o => !o.disabled);
+           if (firstEnabled) exactFontSelectEl.value = firstEnabled.value;
         }
       }
     }
