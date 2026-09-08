@@ -1,0 +1,84 @@
+--- src/components/TextConverter.astro
++++ src/components/TextConverter.astro
+@@ -350,11 +350,11 @@
+ 
+   const fontStyles: Record<string, string> = {
+     priyanka: 'AnuPriyanka, Priyaanka',
+-    anupama: 'Anupama',
+-    subhalekha: 'Subhalekha',
+-    bapu: 'Bapu',
+-    ramana: 'Ramana',
+-    gowthami: 'Gowthami'
++    anupama: 'AnuAnupama, Anupama',
++    subhalekha: 'AnuSubhalekha, Subhalekha',
++    bapu: 'AnuBapu, Bapu',
++    ramana: 'AnuRamana, Ramana',
++    gowthami: 'AnuGowthami, Gowthami'
+   };
+ 
+   const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
+@@ -639,8 +639,27 @@
+     if (!val) {
+ 
+       outputText.value = '';
+-      inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
+-      outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
++
++      const isTelugu = script === 'telugu';
++      const isHindi = script === 'hindi';
++      const altRaaVatthuChkLocal = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
++      const effectiveFontStyle = (altRaaVatthuChkLocal && altRaaVatthuChkLocal.checked) ? 'bapu' : selectedFontStyle;
++      const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
++      const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
++
++      let fallbackLegacyFont = 'sans-serif';
++      if (encoding === 'krutidev') fallbackLegacyFont = "'Kruti Dev 010', 'Kruti Dev', 'DevLys 010', sans-serif";
++      else if (encoding === 'bamini') fallbackLegacyFont = "'Bamini', sans-serif";
++      else if (encoding === 'nudi') fallbackLegacyFont = "'Nudi 01 e', 'Nudi 01 k', 'Nudi', sans-serif";
++      else if (encoding === 'ism') fallbackLegacyFont = "'ML-TTKarthika', sans-serif";
++      else if (encoding === 'shreelipi') fallbackLegacyFont = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
++      else if (encoding === 'shreelipitam') fallbackLegacyFont = "'SHREE-TAM7-0803', sans-serif";
++      else if (encoding === 'shreelipimar') fallbackLegacyFont = "'SHREE-DEV-0708', sans-serif";
++      else if (encoding === 'hari') fallbackLegacyFont = "'Hari', sans-serif";
++      else fallbackLegacyFont = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
++
++      inputText.style.fontFamily = fallbackLegacyFont;
++      outputText.style.fontFamily = fallbackLegacyFont;
++
+       charCount.textContent = `0 ${t.charsLabel}`;
+       if (linesStat) linesStat.textContent = '0';
+       if (wordsStat) wordsStat.textContent = '0';
+@@ -721,13 +740,14 @@
+       else if (encoding === 'shreelipi') legacyFontToApply = isHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
+       else if (encoding === 'shreelipitam') legacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
+       else if (encoding === 'shreelipimar') legacyFontToApply = "'SHREE-DEV-0708', sans-serif";
++      else if (encoding === 'hari') legacyFontToApply = "'Hari', sans-serif";
+       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
+ 
+       if (reverse) {
+-        inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
+-        outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
++        inputText.style.fontFamily = legacyFontToApply;
++        outputText.style.fontFamily = legacyFontToApply;
+       } else {
+-        inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
+-        outputText.style.fontFamily = (outputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
++        inputText.style.fontFamily = legacyFontToApply;
++        outputText.style.fontFamily = legacyFontToApply;
+       }
+ 
+ 
+@@ -1044,10 +1064,11 @@
+   else if (initEncoding === 'shreelipi') initLegacyFontToApply = initScriptIsHindi ? "'SHREE-DEV7-4642', 'SHREE-DEV', sans-serif" : "'Shree-Tel-0908', 'SHREE-TEL', sans-serif";
+   else if (initEncoding === 'shreelipitam') initLegacyFontToApply = "'SHREE-TAM7-0803', sans-serif";
+   else if (initEncoding === 'shreelipimar') initLegacyFontToApply = "'SHREE-DEV-0708', sans-serif";
++  else if (initEncoding === 'hari') initLegacyFontToApply = "'Hari', sans-serif";
+   else initLegacyFontToApply = fontStyles[effectiveFontStyleInit] || 'AnuPriyanka, Priyaanka';
+ 
+-  inputText.style.fontFamily = (inputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
+-  outputText.style.fontFamily = (outputText.value) ? initLegacyFontToApply : '"Mangal", system-ui, sans-serif';
++  inputText.style.fontFamily = initLegacyFontToApply;
++  outputText.style.fontFamily = initLegacyFontToApply;
+ 
+   if (activeFontLabel) {
+     activeFontLabel.textContent = activeFontNameLabel();

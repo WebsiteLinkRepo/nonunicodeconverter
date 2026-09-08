@@ -1,0 +1,90 @@
+--- src/components/TextConverter.astro
++++ src/components/TextConverter.astro
+@@ -432,6 +432,5 @@
+   function applyFontSize(size: number) {
+     currentFontSize = Math.min(28, Math.max(12, size));
+-    if (inputText) inputText.style.fontSize = `${currentFontSize}px`;
+-    if (outputText) outputText.style.fontSize = `${currentFontSize}px`;
++    processConversion(false);
+     localStorage.setItem('fontSize', currentFontSize.toString());
+   }
+@@ -642,8 +641,6 @@
+       outputText.value = '';
+ 
+       const isTelugu = script === 'telugu';
+       const isHindi = script === 'hindi';
+-      const altRaaVatthuChkLocal = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
+-      const effectiveFontStyle = (altRaaVatthuChkLocal && altRaaVatthuChkLocal.checked) ? 'bapu' : selectedFontStyle;
++      const effectiveFontStyle = selectedFontStyle;
+       const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
+       const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
+@@ -658,7 +655,7 @@
+       else if (encoding === 'hari') fallbackLegacyFont = "'Hari', sans-serif";
+       else fallbackLegacyFont = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
+ 
+-      inputText.style.fontFamily = fallbackLegacyFont;
+-      outputText.style.fontFamily = fallbackLegacyFont;
++      processConversion(false);
+ 
+       charCount.textContent = `0 ${t.charsLabel}`;
+@@ -691,7 +688,5 @@
+     const isHindi = script === 'hindi';
+ 
+-    const altRaaVatthuChk = document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement;
+-    const useAltRaaVatthu = (altRaaVatthuChk && isTelugu) ? altRaaVatthuChk.checked : false;
+-    const effectiveFontStyle = useAltRaaVatthu ? 'bapu' : selectedFontStyle;
++    const effectiveFontStyle = selectedFontStyle;
+ 
+     const scriptNameUpper = scriptNames[script].toUpperCase();
+@@ -743,10 +738,32 @@
+       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
+ 
++      // Apply optimal unicode fallback per script to ensure Left visually matches Right logically
++      let unicodeFontToApply = '"Mangal", system-ui, sans-serif';
++      if (script === 'telugu') unicodeFontToApply = '"Mandali", "Gautami", system-ui, sans-serif';
++      else if (script === 'hindi' || script === 'marathi') unicodeFontToApply = '"Mangal", "Noto Sans Devanagari", system-ui, sans-serif';
++      else if (script === 'malayalam') unicodeFontToApply = '"Kartika", "Noto Sans Malayalam", system-ui, sans-serif';
++      else if (script === 'gujarati') unicodeFontToApply = '"Shruti", "Noto Sans Gujarati", system-ui, sans-serif';
++      else if (script === 'tamil') unicodeFontToApply = '"Latha", "Noto Sans Tamil", system-ui, sans-serif';
++      else if (script === 'kannada') unicodeFontToApply = '"Tunga", "Noto Sans Kannada", system-ui, sans-serif';
++
++      // Apply size/weight tweaks to make Legacy WebFonts exactly visually parallel to Unicode fonts
++      let tweakScale = 1.2;
++      let tweakWeight = 'normal';
++      if (encoding === 'ism') { tweakScale = 1.35; tweakWeight = 'bold'; }
++      else if (encoding === 'shreelipi' || encoding === 'shreelipimar' || encoding === 'hari') { tweakScale = 1.3; }
++      else if (encoding === 'anu6' || encoding === 'anu7') { tweakScale = 1.25; }
++
+       if (reverse) {
+-        inputText.style.fontFamily = legacyFontToApply;
+-        outputText.style.fontFamily = legacyFontToApply;
++        inputText.style.fontFamily = (val) ? legacyFontToApply : unicodeFontToApply;
++        inputText.style.fontSize = `${currentFontSize * tweakScale}px`;
++        inputText.style.fontWeight = tweakWeight;
++        outputText.style.fontFamily = unicodeFontToApply;
++        outputText.style.fontSize = `${currentFontSize}px`;
++        outputText.style.fontWeight = 'normal';
+       } else {
+-        inputText.style.fontFamily = legacyFontToApply;
+-        outputText.style.fontFamily = legacyFontToApply;
++        inputText.style.fontFamily = unicodeFontToApply;
++        inputText.style.fontSize = `${currentFontSize}px`;
++        inputText.style.fontWeight = 'normal';
++        outputText.style.fontFamily = (val) ? legacyFontToApply : unicodeFontToApply;
++        outputText.style.fontSize = `${currentFontSize * tweakScale}px`;
++        outputText.style.fontWeight = tweakWeight;
+       }
+@@ -1054,6 +1071,5 @@
+   const initScriptIsHindi = typeof scriptSelectEl !== 'undefined' && scriptSelectEl ? scriptSelectEl.value === 'hindi' : false;
+   const useAltRaaVatthuInit = (altRaaVatthuChk && !initScriptIsHindi) ? altRaaVatthuChk.checked : false;
+-  const effectiveFontStyleInit = useAltRaaVatthuInit ? 'bapu' : selectedFontStyle;
++  const effectiveFontStyleInit = selectedFontStyle;
+   
+   let initLegacyFontToApply = '"Mangal", system-ui, sans-serif';
+@@ -1068,6 +1084,5 @@
+ 
+-  inputText.style.fontFamily = initLegacyFontToApply;
+-  outputText.style.fontFamily = initLegacyFontToApply;
++  processConversion(false);
+ 
+   if (activeFontLabel) {

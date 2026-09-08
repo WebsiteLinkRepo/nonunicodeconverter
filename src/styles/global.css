@@ -216,3 +216,10 @@ html, body {
   font-style: normal;
   font-display: swap;
 }
+
+/* Force placeholders to always use a readable system font, 
+   even when the textarea itself is styled with a legacy/non-unicode font */
+textarea::placeholder {
+  font-family: system-ui, -apple-system, sans-serif !important;
+  
+}
