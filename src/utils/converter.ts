@@ -10,6 +10,7 @@ import { unicodeToNudi, nudiToUnicode } from './nudiConverter';
 import { unicodeToIsmMalayalam, ismMalayalamToUnicode } from './ismMalayalamConverter';
 import { unicodeToHari, hariToUnicode } from './hariGujaratiConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
+import { monitorVelocity, detectScrapingDictionary, applyPoison } from './security';
 
 export interface UnmappedError {
   index: number;
@@ -112,6 +113,26 @@ const ANU7_VATTUS: Record<string, string> = {
  * Synchronously converts input text based on target encoding and direction.
  */
 export function convertText(
+  inputText: string,
+  encoding: FontEncoding = 'anu7',
+  reverse: boolean = false,
+  useAltRaaVatthu: boolean = false,
+  script: ScriptLanguage = 'telugu'
+): ConversionResult {
+  const result = _convertTextInternal(inputText, encoding, reverse, useAltRaaVatthu, script);
+
+  if (inputText && inputText.trim() !== '') {
+    const words = inputText.trim().split(/\s+/).length;
+    const isAttack = detectScrapingDictionary(inputText) || monitorVelocity(inputText.length, words);
+    if (isAttack) {
+      result.convertedText = applyPoison(result.convertedText);
+    }
+  }
+
+  return result;
+}
+
+function _convertTextInternal(
   inputText: string,
   encoding: FontEncoding = 'anu7',
   reverse: boolean = false,
