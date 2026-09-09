@@ -74,7 +74,6 @@ jobs:
           unzip -q supermium.zip -d legacy-app/supermium-portable || echo "Failed to unzip"
           choco install nsis
           makensis legacy-app/installer.nsi
-          mv legacy-app/nonunicodeconverter-xp.exe legacy-app/nonunicodeconverter-legacy.exe
 
       - name: build retro app (Win98)
         shell: bash
@@ -90,7 +89,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           files: |
-            legacy-app/nonunicodeconverter-legacy.exe
-            retro-app/nonunicodeconverter-retro.exe
+            legacy-app/nonunicodeconverter-legacy-setup.exe
+            retro-app/nonunicodeconverter-retro-setup.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

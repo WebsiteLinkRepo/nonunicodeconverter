@@ -4,64 +4,64 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Download nonunicodeconverter app">
   <main class="container mx-auto px-4 py-16 max-w-4xl min-h-screen">
-    <h1 class="text-4xl font-bold mb-4 text-[var(--ink)]">Download nonunicodeconverter app</h1>
+    <h1 class="text-4xl font-bold mb-4 text-[var(--ink)]">Download App</h1>
     <p class="text-lg text-[var(--ink-secondary)] mb-12">
       Get the official desktop application to convert text instantly without a browser.
     </p>
     
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-6">
       <!-- Modern Windows -->
-      <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-blue-500 transition-colors">
-        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-6">
-          <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
+        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[var(--ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
           </svg>
         </div>
-        <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Modern Windows</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 min-h-[48px]">
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">Modern Windows</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
           For Windows 10 and Windows 11. Extremely lightweight and fast native application.
         </p>
         <a 
-          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-modern.exe" 
-          class="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-modern-setup.exe" 
+          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
         >
           Download for Win 10/11
         </a>
       </div>
 
       <!-- Legacy Windows (XP/Vista/7) -->
-      <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-gray-500 transition-colors">
-        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mb-6">
-          <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
+        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[var(--ink-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
           </svg>
         </div>
-        <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Legacy Windows</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 min-h-[48px]">
-          For Windows XP, Vista, 7, and 8. Powered by the Supermium engine.
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">Legacy Windows</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
+          For Windows XP, Vista, 7, and 8. Lightweight backward compatible build.
         </p>
         <a 
-          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-legacy.exe" 
-          class="inline-flex items-center justify-center w-full px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-[var(--ink)] bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-legacy-setup.exe" 
+          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
         >
           Download for XP/Vista/7
         </a>
       </div>
 
       <!-- Retro Windows (98/2000) -->
-      <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-yellow-500 transition-colors opacity-90">
-        <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mb-6">
-          <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors opacity-90 flex flex-col">
+        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[var(--ink-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
           </svg>
         </div>
-        <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Retro Windows</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 text-sm min-h-[48px]">
-          For Windows 95, 98, and 2000. Powered by RetroZilla.<br/><strong class="text-yellow-600 dark:text-yellow-400">Warning:</strong> Modern converter features will not load on this engine.
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">Retro Windows</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-xs flex-grow leading-relaxed">
+          For Windows 95, 98, and 2000.<br/><br/><strong class="text-[var(--ink)]">Note:</strong> Modern converter features will not load on this legacy environment.
         </p>
         <a 
-          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-retro.exe" 
-          class="inline-flex items-center justify-center w-full px-6 py-3 border border-yellow-300 dark:border-yellow-600 text-base font-medium rounded-lg text-[var(--ink)] bg-yellow-50 dark:bg-yellow-900/10 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors"
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-retro-setup.exe" 
+          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
         >
           Download for Win 98/ME
         </a>
