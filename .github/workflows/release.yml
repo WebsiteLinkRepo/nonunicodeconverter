@@ -7,11 +7,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
-    runs-on: windows-latest
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest'
+            args: '--target aarch64-apple-darwin'
+          - platform: 'macos-13'
+            args: '--target x86_64-apple-darwin'
+          - platform: 'ubuntu-22.04'
+            args: ''
+          - platform: 'windows-latest'
+            args: '--target x86_64-pc-windows-msvc'
+
+    runs-on: ${{ matrix.platform }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: setup node
         uses: actions/setup-node@v4
@@ -20,35 +34,45 @@ jobs:
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin' || matrix.platform == 'macos-13' && 'x86_64-apple-darwin' || matrix.platform == 'windows-latest' && 'x86_64-pc-windows-msvc' || '' }}
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
       - name: install app dependencies
         run: npm install
 
-      - name: build tauri app (Modern)
+      - name: build tauri app
         uses: tauri-apps/tauri-action@v0
-        id: tauri
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: v__VERSION__
           releaseName: 'App v__VERSION__'
-          releaseBody: 'Download the modern app for Windows 10/11 or the legacy app for Windows XP/7/8.'
+          releaseBody: 'Download the modern app for macOS, Linux, and Windows 10/11, or the legacy apps for older Windows.'
           releaseDraft: false
           prerelease: false
-          args: --target x86_64-pc-windows-msvc
+          args: ${{ matrix.args }}
+
+  publish-legacy:
+    needs: publish-tauri
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: build legacy app (XP/Vista)
         shell: bash
         run: |
           mkdir -p legacy-app/supermium-portable
-          # Download a lightweight dummy file or actual supermium if available.
           curl -L -o supermium.zip "https://github.com/win32ss/supermium/releases/download/v122-hf/supermium_122_32_portable.zip" || echo "Failed"
           unzip -q supermium.zip -d legacy-app/supermium-portable || echo "Failed to unzip"
-          
-          # Install NSIS
           choco install nsis
-          
-          # Compile NSIS script and rename to legacy
           makensis legacy-app/installer.nsi
           mv legacy-app/nonunicodeconverter-xp.exe legacy-app/nonunicodeconverter-legacy.exe
 
@@ -56,15 +80,13 @@ jobs:
         shell: bash
         run: |
           mkdir -p retro-app/retrozilla-portable
-          # Dummy download for RetroZilla
           curl -L -o retrozilla.zip "https://github.com/rn10950/RetroZilla/releases/download/2.2/retrozilla-2.2.zip" || echo "Failed"
           unzip -q retrozilla.zip -d retro-app/retrozilla-portable || echo "Failed to unzip"
-          
-          # Compile NSIS script
           makensis retro-app/installer.nsi
 
       - name: Upload Legacy and Retro Apps to Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: ${{ github.ref_name }}
           files: |
