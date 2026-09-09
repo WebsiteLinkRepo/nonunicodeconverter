@@ -8,12 +8,7 @@ on:
 
 jobs:
   release:
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [windows-latest]
-
-    runs-on: ${{ matrix.platform }}
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,14 +24,39 @@ jobs:
       - name: install app dependencies
         run: npm install
 
-      - name: build tauri app
+      - name: build tauri app (Modern)
         uses: tauri-apps/tauri-action@v0
+        id: tauri
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__
+          tagName: v__VERSION__
           releaseName: 'App v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          releaseBody: 'Download the modern app for Windows 10/11 or the legacy app for Windows XP/7/8.'
+          releaseDraft: false
           prerelease: false
           args: --target x86_64-pc-windows-msvc
+
+      - name: build xp app (Legacy)
+        shell: bash
+        run: |
+          mkdir -p legacy-app/supermium-portable
+          # Download a lightweight dummy file or actual supermium if available.
+          # Due to size limits and availability, you might need to host the portable zip yourself.
+          # Here we download Supermium 122 portable as an example:
+          curl -L -o supermium.zip "https://github.com/win32ss/supermium/releases/download/v122-hf/supermium_122_32_portable.zip"
+          unzip -q supermium.zip -d legacy-app/supermium-portable || echo "Failed to unzip, might need manual zip placement"
+          
+          # Install NSIS
+          choco install nsis
+          
+          # Compile NSIS script
+          makensis legacy-app/installer.nsi
+
+      - name: Upload XP App to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: legacy-app/nonunicodeconverter-xp.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

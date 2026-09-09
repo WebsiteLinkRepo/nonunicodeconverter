@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Download nonunicodeconverter app">
+  <main class="container mx-auto px-4 py-16 max-w-4xl min-h-screen">
+    <h1 class="text-4xl font-bold mb-4 text-[var(--ink)]">Download nonunicodeconverter app</h1>
+    <p class="text-lg text-[var(--ink-secondary)] mb-12">
+      Get the official desktop application to convert text instantly without a browser.
+    </p>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Modern Windows -->
+      <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-blue-500 transition-colors">
+        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Modern Windows</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 min-h-[48px]">
+          For Windows 10 and Windows 11. Extremely lightweight and fast native application.
+        </p>
+        <a 
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-modern.exe" 
+          class="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+        >
+          Download for Win 10/11
+        </a>
+      </div>
+
+      <!-- Legacy Windows (XP/7) -->
+      <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-gray-500 transition-colors">
+        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Legacy Windows</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 min-h-[48px]">
+          For Windows XP, Windows 7, and Windows 8. Powered by the Supermium engine.
+        </p>
+        <a 
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-xp.exe" 
+          class="inline-flex items-center justify-center w-full px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-[var(--ink)] bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        >
+          Download for Win XP/7/8
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
