@@ -473,7 +473,21 @@ const defaultFont = 'anu7';
   if (outputText) {
     outputText.addEventListener('copy', (e) => {
       e.preventDefault();
-      let text = window.getSelection()?.toString() || outputText.value;
+      let text = window.getSelection()?.toString() || "";
+      const isMasked = outputText.dataset.realValue && outputText.dataset.realValue !== outputText.value;
+      
+      const currentScript = (document.getElementById('script-select') as HTMLSelectElement)?.value || 'telugu';
+      const currentFormat = (document.getElementById('font-version-select') as HTMLSelectElement)?.value || 'anu7';
+      const reverse = (document.getElementById('reverse-toggle') as HTMLInputElement)?.checked || false;
+      const useAltRaaVatthu = (document.getElementById('alt-raa-vatthu-chk') as HTMLInputElement)?.checked || false;
+
+      if (!text || text === outputText.value) {
+        text = outputText.dataset.realValue || outputText.value;
+      } else if (isMasked && !reverse) {
+        const res = convertText(text, currentFormat as any, reverse, useAltRaaVatthu, currentScript as any);
+        text = res.convertedText;
+      }
+      
       if (text) {
         const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(text);
         
@@ -592,11 +606,12 @@ const defaultFont = 'anu7';
         // Ensure dropdown is updated only after actual programmatic change
         if (oldScript !== scriptSelect.value) {
           updateFontDropdown();
+          updateExactFontDropdown();
           
           // Switch to default anu7 format and priyanka style automatically for telugu
           if (scriptSelect.value === 'telugu') {
              const fontVersionSelect = document.getElementById('font-version-select');
-             if (fontVersionSelect) fontVersionSelect.value = 'anu7';
+             if (fontVersionSelect) (fontVersionSelect as HTMLSelectElement).value = 'anu7';
              selectedFontStyle = 'priyanka';
           }
           
@@ -732,9 +747,6 @@ const defaultFont = 'anu7';
 
       // Do NOT sanitize output. Anu fonts intentionally use smart quotes (‘, “, etc.) for Telugu glyphs.
       // Replacing them with straight quotes breaks characters like 'దీర్ఘం', 'కు', 'క్కని' etc.
-      const finalOutput = res.convertedText;
-
-      outputText.value = finalOutput;
       
       // When Alt Raa Vatthu is checked, it moves the Raa Vatthu character to the end of the syllable.
       // Priyaanka draws this character as a left-wrapper, so it looks broken when placed at the end.
@@ -754,23 +766,34 @@ const defaultFont = 'anu7';
       else if (encoding === 'shreelipimar') legacyFontToApply = "'SHREE-DEV-0708', sans-serif";
       else legacyFontToApply = fontStyles[effectiveFontStyle] || 'AnuPriyanka, Priyaanka';
 
+      const finalOutput = res.convertedText;
+      
+      const shouldMask = !reverse && (encoding === 'hari' || encoding === 'anu6' || encoding === 'anuneo');
+      
+      if (shouldMask) {
+        outputText.value = inputText.value; // Mask visually with input
+        outputText.dataset.realValue = finalOutput; // Secretly store real legacy text
+      } else {
+        outputText.value = finalOutput;
+        outputText.dataset.realValue = finalOutput;
+      }
+
+      // Add visual parity for masked outputs
+      const effectiveFontForScreen = shouldMask ? '"Mangal", system-ui, sans-serif' : legacyFontToApply;
+
       const unicodeSize = currentFontSize;
-      const legacySize = Math.round(currentFontSize * 1.35);
+      const legacySize = currentFontSize;
 
       if (reverse) {
         inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
-        inputText.style.fontSize = `${legacySize}px`;
-        inputText.style.fontWeight = '600';
+        inputText.style.fontSize = (inputText.value) ? `${legacySize}px` : `${unicodeSize}px`;
         outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
         outputText.style.fontSize = `${unicodeSize}px`;
-        outputText.style.fontWeight = '400';
       } else {
         inputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
         inputText.style.fontSize = `${unicodeSize}px`;
-        inputText.style.fontWeight = '400';
-        outputText.style.fontFamily = (outputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
-        outputText.style.fontSize = `${legacySize}px`;
-        outputText.style.fontWeight = '600';
+        outputText.style.fontFamily = (outputText.value) ? effectiveFontForScreen : '"Mangal", system-ui, sans-serif';
+        outputText.style.fontSize = (outputText.value) ? `${legacySize}px` : `${unicodeSize}px`;
       }
 
 
@@ -1352,7 +1375,7 @@ const defaultFont = 'anu7';
 
   // Copy Output Handler
   copyBtn.addEventListener('click', async () => {
-    let val = outputText.value;
+    let val = outputText.dataset.realValue || outputText.value;
     const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
     if (!val) {
       inputText.focus();

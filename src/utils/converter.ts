@@ -388,7 +388,7 @@ function _convertTextInternal(
       // In reverse conversion, this block won't be hit unless we add post-processing later.
   }
   
-  if (!reverse) {
+  if (!reverse && encoding !== 'anuneo') {
     const blockOffsets: Record<string, number> = {
       hindi: 0x0300,       // Devanagari (0x0900) -> Telugu (0x0C00)
       marathi: 0x0300,     // Devanagari (0x0900) -> Telugu (0x0C00)
