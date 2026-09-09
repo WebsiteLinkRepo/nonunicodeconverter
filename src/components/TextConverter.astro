@@ -665,9 +665,6 @@ const defaultFont = 'anu7';
       if (altRaaVatthuWrapper) altRaaVatthuWrapper.style.display = 'none';
     }
     
-    if (inputText) inputText.placeholder = PLACEHOLDERS[script] || PLACEHOLDERS['telugu'];
-
-
     const scriptNameUpper = scriptNames[script].toUpperCase();
     const fontLabelUpper = activeFontNameLabel().toUpperCase();
 
@@ -689,9 +686,13 @@ const defaultFont = 'anu7';
     if (reverse) {
       if (inputBoxTitle) inputBoxTitle.textContent = `${fontLabelUpper} INPUT`;
       if (outputBoxTitle) outputBoxTitle.textContent = `${scriptNameUpper} UNICODE OUTPUT`;
+      if (inputText) inputText.placeholder = `Paste ${activeFontNameLabel()} text here...`;
+      if (outputText) outputText.placeholder = `Converted ${scriptNames[script]} Unicode text will appear here automatically...`;
     } else {
       if (inputBoxTitle) inputBoxTitle.textContent = `${scriptNameUpper} UNICODE INPUT`;
       if (outputBoxTitle) outputBoxTitle.textContent = `${fontLabelUpper} OUTPUT`;
+      if (inputText) inputText.placeholder = PLACEHOLDERS[script] || PLACEHOLDERS['telugu'];
+      if (outputText) outputText.placeholder = `Converted ${activeFontNameLabel()} text will appear here automatically...`;
     }
 
     if (!val) {
