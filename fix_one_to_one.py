@@ -27,7 +27,7 @@ new_header = """
 				<div class="w-6 h-6 rounded flex items-center justify-center bg-[var(--text-main)] text-[var(--bg-color)] font-bold text-sm">
 					↑
 				</div>
-				<span id="logo-title-text" class="font-bold text-sm tracking-tight text-[var(--text-main)]">Unicode2NonUnicode</span>
+				<span id="logo-title-text" class="font-bold text-sm tracking-tight text-[var(--text-main)]">NonUnicodeConverter</span>
 			</a>
 
 			<!-- Navigation & Tools -->

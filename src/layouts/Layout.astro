@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import type { Language } from '../utils/i18n';
+import { faqData } from '../data/faq';
 
 interface Props {
 	title?: string;
@@ -16,13 +17,58 @@ const {
 	lang = 'en'
 } = Astro.props;
 
-const canonicalUrl = lang === 'en' ? 'https://unicode2nonunicode.com/' : `https://unicode2nonunicode.com/${lang}`;
+const canonicalUrl = Astro.url.pathname === '/' ? 'https://nonunicodeconverter.com/' : `https://nonunicodeconverter.com/${lang}`;
 
 const localeMap: Record<Language, string> = {
 	en: 'en_US',
-	te: 'te_IN'
+	te: 'te_IN',
+	hi: 'hi_IN',
+	ta: 'ta_IN',
+	kn: 'kn_IN',
+	ml: 'ml_IN',
+	mr: 'mr_IN',
+	gu: 'gu_IN'
 };
 const ogLocale = localeMap[lang] || 'en_US';
+
+const faqSchema = {
+	"@type": "FAQPage",
+	"mainEntity": faqData.map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
+};
+
+const webAppSchema = {
+	"@type": "WebApplication",
+	"name": "Unicode to non Unicode converter",
+	"alternateName": [
+		"unicode to non unicode anu 7.0",
+		"telugu unicode to non unicode converter",
+		"Hindi Unicode to non Unicode converter",
+		"Unicode to non Unicode Converter Tamil"
+	],
+	"url": "https://nonunicodeconverter.com/",
+	"description": "Free online unicode to non unicode converter for converting modern text into legacy font formats across Indian regional languages.",
+	"applicationCategory": "UtilitiesApplication",
+	"operatingSystem": "All",
+	"offers": {
+		"@type": "Offer",
+		"price": "0",
+		"priceCurrency": "USD"
+	},
+	"browserRequirements": "Requires JavaScript",
+	"softwareVersion": "1.0.0"
+};
+
+const schemaGraph = JSON.stringify({
+	"@context": "https://schema.org",
+	"@graph": [webAppSchema, faqSchema]
+});
 ---
 
 <!DOCTYPE html>
@@ -43,11 +89,19 @@ const ogLocale = localeMap[lang] || 'en_US';
 		<meta name="keywords" content={keywords} />
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 		<link rel="canonical" href={canonicalUrl} />
+		
+		<!-- i18n alternate languages -->
+		<link rel="alternate" href="https://nonunicodeconverter.com/" hreflang="x-default" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/en" hreflang="en" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/te" hreflang="te" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/hi" hreflang="hi" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/ta" hreflang="ta" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/kn" hreflang="kn" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/ml" hreflang="ml" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/mr" hreflang="mr" />
+		<link rel="alternate" href="https://nonunicodeconverter.com/gu" hreflang="gu" />
 
-		<!-- International SEO Hreflang Tags -->
-		<link rel="alternate" hreflang="en" href="https://unicode2nonunicode.com/" />
-		<link rel="alternate" hreflang="te" href="https://unicode2nonunicode.com/te" />
-		<link rel="alternate" hreflang="x-default" href="https://unicode2nonunicode.com/" />
+
 
 		<link href="/generated_anusm_fonts.css" rel="stylesheet" />
 
@@ -57,8 +111,8 @@ const ogLocale = localeMap[lang] || 'en_US';
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:image" content="https://unicode2nonunicode.com/web-app-manifest-512x512.png" />
-		<meta property="og:image:secure_url" content="https://unicode2nonunicode.com/web-app-manifest-512x512.png" />
+		<meta property="og:image" content="https://nonunicodeconverter.com/web-app-manifest-512x512.png" />
+		<meta property="og:image:secure_url" content="https://nonunicodeconverter.com/web-app-manifest-512x512.png" />
 		<meta property="og:image:width" content="512" />
 		<meta property="og:image:height" content="512" />
 		<meta property="og:image:type" content="image/png" />
@@ -69,139 +123,11 @@ const ogLocale = localeMap[lang] || 'en_US';
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="https://unicode2nonunicode.com/web-app-manifest-512x512.png" />
+		<meta name="twitter:image" content="https://nonunicodeconverter.com/web-app-manifest-512x512.png" />
 		<meta name="twitter:image:alt" content="Unicode To Non Unicode Converter Tool" />
 
 		<!-- Schema.org JSON-LD Structured Data for WebApplication & FAQPage -->
-		<script type="application/ld+json" is:inline>
-			{
-				"@context": "https://schema.org",
-				"@graph": [
-					{
-						"@type": "WebApplication",
-						"name": "Unicode to Anu 7.0 Telugu Converter",
-						"alternateName": [
-							"Unicode To Non Unicode Converter Telugu",
-							"Unicode To Non Unicode Anu 7.0",
-							"Anu Unicode Converter",
-							"Unicode Converter Telugu"
-						],
-						"url": "https://unicode2nonunicode.com/",
-						"description": "Free online Unicode to Anu 7.0 Telugu converter for Adobe Photoshop, InDesign, PageMaker and MS Word.",
-						"applicationCategory": "UtilitiesApplication",
-						"operatingSystem": "All",
-						"offers": {
-							"@type": "Offer",
-							"price": "0",
-							"priceCurrency": "USD"
-						},
-						"browserRequirements": "Requires JavaScript",
-						"softwareVersion": "1.0.0"
-					},
-					{
-						"@type": "FAQPage",
-						"mainEntity": [
-							{
-								"@type": "Question",
-								"name": "How to convert non-Unicode Anu 7.0 to Unicode?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Paste your legacy non-Unicode Anu 7.0 text into our converter's input box. The tool automatically converts it into clean, standard web-ready Telugu Unicode instantly."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "How can I convert Unicode text to Anu fonts?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Select Anu 6 (Telugu) or Anu 7 (Telugu) from the font selector tabs. Paste your Telugu Unicode text into the input box. The converter instantly translates the Unicode code points into legacy Anu font ASCII keystrokes for Adobe Photoshop and InDesign."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Can you convert Unicode to text?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Yes! Unicode is standard digital text (UTF-8). Our tool allows you to convert standard Unicode text into legacy non-Unicode font encodings (such as Anu, Kruti Dev, Bamini, and Shree-Lipi) and vice versa for desktop publishing applications."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "What is Unicode used for?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Unicode is the universal international character encoding standard that enables computers, smartphones, web browsers, and operating systems to consistently represent, store, and exchange text in all world languages (including Telugu, Hindi, Tamil, and Malayalam)."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "How do I write Unicode?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "You can type Unicode text using standard system language keyboards (e.g., Windows Indic Input, Google Input Tools, Inscript, or iOS/Android language keypads), or simply copy Unicode text from any website or document into our online converter."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "What are the Unicode characters for Telugu?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Telugu Unicode is assigned the international code block range U+0C00 to U+0C7F in the Unicode standard. It covers all Telugu vowels (అ-అః), consonants (క-హ), vowel signs (మాత్రలు), conjunct markers (వత్తులు), numbers (౦-౯), and symbols."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Is it free and local?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Yes, 100%! Unicode2NonUnicode.com is completely free to use with zero registration or usage limits. All conversion processing runs 100% locally inside your web browser using client-side JavaScript, ensuring maximum privacy with zero server uploads."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Is it for all languages?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Our converter specializes in Indian regional languages (Indic scripts), supporting major font mappings for Telugu (Anu 6, Anu 7, Shree-Lipi, Apple Telugu), Hindi (Kruti Dev 010), Tamil (Bamini), and Malayalam (ISM Revathi). If you need support for any other custom font encoding or Indic language, please feel free to contact us!"
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "What is the best app to convert Unicode text to non-Unicode fonts?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Unicode2NonUnicode.com is the best online app for converting Unicode text to non-Unicode fonts. It requires no installation, features instant real-time conversion, handles automatic line-break and quote sanitization for Adobe InDesign & Photoshop, and processes all data privately in your browser."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "What is the difference between Anu Unicode and Anu 7.0 fonts?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Anu Unicode refers to standard Telugu text encoded under standard international Unicode (U+0C00–U+0C7F). Anu 7.0 is an 8-bit ASCII legacy font mapping created by Anu Graphic Systems for DTP software. Our Unicode To Non Unicode Anu 7.0 engine converts modern web text into legacy Anu 7.0 character codes."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Can I use this unicode converter telugu tool for Adobe InDesign & Photoshop?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Yes! Our unicode converter telugu tool is specifically optimized for Adobe InDesign and Photoshop. It includes built-in DTP toggles for alternative Raa Vatthu (ర వత్తు), zero-width character stripping, smart quote normalization, and line-break cleaning to prevent corrupted glyphs."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Does this unicode to non unicode converter work in reverse?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "Yes! The converter works seamlessly in both directions. You can convert modern Unicode text to legacy Non-Unicode fonts, or paste legacy Non-Unicode text into the input box to convert it back into clean, standard web-ready Unicode."
-								}
-							}
-						]
-					}
-				]
-			}
-		</script>
+		<script type="application/ld+json" set:html={schemaGraph} />
 		
 		<!-- Service Worker Registration -->
 		<script is:inline>
@@ -233,8 +159,9 @@ const ogLocale = localeMap[lang] || 'en_US';
 			<div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
 				<!-- Brand / Logo -->
 				<a href="/" class="flex items-center gap-3 group cursor-pointer flex-shrink-0">
-					<img src="/favicon.svg" alt="NonUnicodeConverter.com Logo" class="w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
-					<span id="logo-title-text" class="font-bold text-sm tracking-tight text-[var(--ink)] hidden sm:block">Unicode To Non-Unicode</span>
+					<img src="/logo-light.svg" alt="NonUnicodeConverter.com Logo" class="logo-light w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
+					<img src="/logo-dark.svg" alt="NonUnicodeConverter.com Logo" class="logo-dark w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
+					<span id="logo-title-text" class="font-bold text-sm tracking-tight text-[var(--ink)] hidden sm:block">NonUnicodeConverter</span>
 				</a>
 
 				<!-- Navigation & Tools -->
@@ -242,6 +169,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 					<!-- Nav Links -->
 					<nav class="hidden md:flex items-center gap-4 text-xs font-semibold text-[var(--ink-secondary)]">
 						<a href="/" class="hover:text-[var(--ink)] transition-colors">Converter</a>
+						<a href="/how-to-use" class="hover:text-[var(--ink)] transition-colors">How to Use</a>
 						<a href="/about" class="hover:text-[var(--ink)] transition-colors">About</a>
 						<a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact</a>
 						<a href="/download" class="bg-[var(--ink)] text-[var(--canvas)] px-3 py-1.5 rounded-md font-bold hover:opacity-80 transition-opacity flex items-center gap-1.5">
@@ -262,7 +190,13 @@ const ogLocale = localeMap[lang] || 'en_US';
 								aria-label="Select Language"
 							>
 								<option value="en" selected={lang === 'en'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">English</option>
+								<option value="hi" selected={lang === 'hi'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">हिंदी</option>
 								<option value="te" selected={lang === 'te'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">తెలుగు</option>
+								<option value="ta" selected={lang === 'ta'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">தமிழ்</option>
+								<option value="kn" selected={lang === 'kn'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">ಕನ್ನಡ</option>
+								<option value="ml" selected={lang === 'ml'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">മലയാളം</option>
+								<option value="mr" selected={lang === 'mr'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">मराठी</option>
+								<option value="gu" selected={lang === 'gu'} class="bg-[var(--card-bg)] text-[var(--ink)] py-1">ગુજરાતી</option>
 							</select>
 							<svg class="w-3 h-3 text-[var(--ink-tertiary)] group-hover:text-[var(--ink)] absolute right-2 pointer-events-none transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
@@ -289,7 +223,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 		</header>
 
 		<!-- Main Area -->
-		<main class="flex-grow max-w-6xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-8">
+		<main class="flex-grow max-w-6xl w-full mx-auto px-3 sm:px-6 py-2 sm:py-4">
 			<slot />
 		</main>
 
@@ -301,8 +235,9 @@ const ogLocale = localeMap[lang] || 'en_US';
 					<!-- Col 1: Brand Info -->
 					<div class="space-y-3">
 						<div class="flex items-center gap-2 font-semibold text-sm text-[var(--ink)]">
-							<img src="/favicon.svg" alt="Unicode To Non-Unicode Logo" class="w-5 h-5 rounded" />
-							<span>Unicode2NonUnicode</span>
+							<img src="/logo-light.svg" alt="NonUnicodeConverter Logo" class="logo-light w-5 h-5 rounded" />
+							<img src="/logo-dark.svg" alt="NonUnicodeConverter Logo" class="logo-dark w-5 h-5 rounded" />
+							<span>NonUnicodeConverter</span>
 						</div>
 						<p class="text-xs text-[var(--ink-secondary)] leading-relaxed">
 							Fast, free & 100% browser-local Indic Unicode to Non-Unicode font converter built for publishers, DTP typists, and graphic designers.
@@ -314,6 +249,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Pages</h4>
 						<ul class="space-y-1.5 text-xs">
 							<li><a href="/" class="hover:text-[var(--ink)] transition-colors">Home / Converter</a></li>
+							<li><a href="/how-to-use" class="hover:text-[var(--ink)] transition-colors">How to Use Guide</a></li>
 							<li><a href="/about" class="hover:text-[var(--ink)] transition-colors">About Us</a></li>
 							<li><a href="/download" class="hover:text-[var(--ink)] transition-colors text-[var(--ink)] font-medium">Download Desktop App</a></li>
 							<li><a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact Us & Font Request</a></li>
@@ -329,19 +265,23 @@ const ogLocale = localeMap[lang] || 'en_US';
 						</ul>
 					</div>
 
-					<!-- Col 4: Regional Language Paths -->
+					<!-- Col 4: Regional Language Paths & Specific Converters -->
 					<div class="space-y-2.5">
-						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Languages</h4>
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Converters</h4>
 						<ul class="space-y-1.5 text-xs">
-							<li><a href="/" class="hover:text-[var(--ink)] transition-colors">English</a></li>
-							<li><a href="/te" class="hover:text-[var(--ink)] transition-colors">తెలుగు (Telugu Anu 7.0)</a></li>
+							<li><a href="/te/unicode-to-anu-converter" class="hover:text-[var(--ink)] transition-colors">Anu 7.0 & 6.0 (Telugu)</a></li>
+							<li><a href="/hi/unicode-to-anu-neo-converter" class="hover:text-[var(--ink)] transition-colors">Anu Neo (Hindi)</a></li>
+							<li><a href="/hi/unicode-to-kruti-dev-converter" class="hover:text-[var(--ink)] transition-colors">Kruti Dev (Hindi)</a></li>
+							<li><a href="/ta/unicode-to-bamini-converter" class="hover:text-[var(--ink)] transition-colors">Bamini (Tamil)</a></li>
+							<li><a href="/kn/unicode-to-nudi-converter" class="hover:text-[var(--ink)] transition-colors">Nudi (Kannada)</a></li>
+							<li><a href="/ml/unicode-to-ism-ml-tt-converter" class="hover:text-[var(--ink)] transition-colors">ISM (Malayalam)</a></li>
 						</ul>
 					</div>
 				</div>
 
 				<!-- Footer Bottom Copyright Bar -->
 				<div class="pt-6 border-t border-[var(--hairline)] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs font-mono">
-					<span id="footer-text">© 2026 Unicode2NonUnicode.com • 100% Private (Runs locally in your browser)</span>
+					<span id="footer-text">© 2026 NonUnicodeConverter.com • 100% Private (Runs locally in your browser)</span>
 					<div class="flex items-center gap-4 text-[var(--ink-tertiary)]">
 						<a href="/privacy" class="hover:underline">Privacy</a>
 						<span>•</span>
@@ -363,7 +303,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 			const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
 			langSelect?.addEventListener('change', (e) => {
 				const selectedLang = (e.target as HTMLSelectElement).value;
-				const targetPath = selectedLang === 'en' ? '/' : `/${selectedLang}`;
+				const targetPath = `/${selectedLang}`;
 				window.location.href = targetPath;
 			});
 		</script>

@@ -1,0 +1,40 @@
+import json
+
+base = {
+    "siteTitle": "NonUnicodeConverter",
+    "title": "Unicode to Non-Unicode Converter",
+    "subtitle": "Convert Indian languages Unicode text to legacy font formats instantly.",
+    "metaTitle": "Unicode to Non Unicode Converter | Free Online Font Tool",
+    "metaDescription": "Free Unicode to non Unicode converter. Instantly convert Unicode to Anu 7.0, Krutidev, Bamini, Shree Lipi & other legacy fonts online for DTP & Photoshop.",
+    "h1": "Unicode to Non Unicode Converter",
+    "keywords": "unicode to non unicode converter, unicode to non unicode, legacy font converter",
+    "defaultFont": "anu7",
+    "selectFontLabel": "FONT STYLE:",
+    "autoDetectNotice": "Auto-detecting text format",
+    "cleanSpacesLabel": "Clean Linebreaks & Spaces",
+    "convertDigitsLabel": "Convert Digits (123 ↔ ౧౨౩)",
+    "altRaaVatthuLabel": "Alt Raa Vatthu",
+    "inputBoxHeader": "UNICODE INPUT",
+    "outputBoxHeader": "LEGACY OUTPUT",
+    "pasteBtn": "Paste Text",
+    "clearBtn": "Clear",
+    "downloadBtn": "Download .txt",
+    "inputPlaceholder": "Paste Unicode text here...",
+    "outputPlaceholder": "Converted legacy text will appear here automatically...",
+    "copyBtn": "COPY OUTPUT",
+    "copiedBtn": "✓ COPIED!",
+    "charsLabel": "chars",
+    "unmappedNotice": "Notice: Unmapped characters detected.",
+    "footerText": "NonUnicodeConverter • Instant & 100% Private",
+    "installAppBtn": "Install Desktop App",
+    "historyTitle": "Recent Conversions",
+    "clearHistoryBtn": "Clear History",
+    "fonts": {
+      "priyanka": "Priyanka",
+      "anupama": "Anupama",
+      "subhalekha": "Subhalekha",
+      "bapu": "Bapu Script",
+      "ramana": "Ramana Script",
+      "gowthami": "Gowthami"
+    }
+}

@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TextConverter from '../../components/TextConverter.astro';
+import SeoContent from '../../components/SeoContent.astro';
+
+export function getStaticPaths() {
+  const pages = [
+    // Telugu
+    {
+      params: { lang: 'te', converter: 'unicode-to-anu-converter' },
+      props: { script: 'telugu', format: 'anu7', title: 'యూనికోడ్ నుండి అను కన్వర్టర్ 7.0 & 6.0 | Unicode to anu 7 and 6 converter free online', h1: 'యూనికోడ్ నుండి అను కన్వర్టర్ 7.0 & 6.0', desc: 'యూనికోడ్ నుండి అను కన్వర్టర్. Convert Telugu Unicode text to Anu Script 7.0 and 6.0 font formats instantly for free.', keys: 'unicode to anu 7 and 6 converter free online, telugu unicode to anu converter, anu script converter' }
+    },
+    // Hindi
+    {
+      params: { lang: 'hi', converter: 'unicode-to-anu-neo-converter' },
+      props: { script: 'hindi', format: 'anuneo', title: 'यूनिकोड से अनु नियो कनवर्टर | Unicode to anu neo converter free online', h1: 'यूनिकोड से अनु नियो कनवर्टर', desc: 'यूनिकोड से अनु नियो कनवर्टर। Convert Hindi Unicode text to Anu Neo font formats instantly. The first and only Unicode to Anu Neo converter on the internet!', keys: 'unicode to anu neo converter free online, hindi unicode to anu neo converter, anu neo ganesh font converter', badge: 'First on the Internet! 🚀' }
+    },
+    {
+      params: { lang: 'hi', converter: 'unicode-to-kruti-dev-converter' },
+      props: { script: 'hindi', format: 'krutidev', title: 'यूनिकोड से कृति देव कनवर्टर | Unicode to kruti dev converter free online', h1: 'यूनिकोड से कृति देव कनवर्टर', desc: 'यूनिकोड से कृति देव कनवर्टर। Convert Hindi Unicode text to Kruti Dev font formats instantly for free.', keys: 'unicode to kruti dev converter free online, hindi kruti dev converter' }
+    },
+    {
+      params: { lang: 'hi', converter: 'unicode-to-shree-lipi-hindi-converter' },
+      props: { script: 'hindi', format: 'shreelipi', title: 'यूनिकोड से श्री लिपि कनवर्टर | Unicode to shree lipi hindi converter free online', h1: 'यूनिकोड से श्री लिपि कनवर्टर', desc: 'यूनिकोड से श्री लिपि कनवर्टर। Convert Hindi Unicode text to Shree Lipi font formats instantly for free.', keys: 'unicode to shree lipi hindi converter free online, hindi shree lipi converter' }
+    },
+    // Tamil
+    {
+      params: { lang: 'ta', converter: 'unicode-to-bamini-converter' },
+      props: { script: 'tamil', format: 'bamini', title: 'யூனிகோட் முதல் பாமினி மாற்றி | Unicode to bamini converter free online', h1: 'யூனிகோட் முதல் பாமினி மாற்றி', desc: 'யூனிகோட் முதல் பாமினி மாற்றி. Convert Tamil Unicode text to Bamini font format instantly for free.', keys: 'unicode to bamini converter free online, tamil font converter, bamini converter' }
+    },
+    {
+      params: { lang: 'ta', converter: 'unicode-to-shree-lipi-tamil-converter' },
+      props: { script: 'tamil', format: 'shreelipitam', title: 'யூனிகோட் முதல் சிறீலிபி மாற்றி | Unicode to shree lipi tamil converter free online', h1: 'யூனிகோட் முதல் சிறீலிபி மாற்றி', desc: 'யூனிகோட் முதல் சிறீலிபி மாற்றி. Convert Tamil Unicode text to Shree Lipi Tamil font format instantly for free.', keys: 'unicode to shree lipi tamil converter free online, tamil font converter, shree lipi tamil' }
+    },
+    // Kannada
+    {
+      params: { lang: 'kn', converter: 'unicode-to-nudi-converter' },
+      props: { script: 'kannada', format: 'nudi', title: 'ಯುನಿಕೋಡ್‌ನಿಂದ ನುಡಿ ಪರಿವರ್ತಕ | Unicode to nudi converter free online', h1: 'ಯುನಿಕೋಡ್‌ನಿಂದ ನುಡಿ ಪರಿವರ್ತಕ', desc: 'ಯುನಿಕೋಡ್‌ನಿಂದ ನುಡಿ ಪರಿವರ್ತಕ. Convert Kannada Unicode text to Nudi font format instantly for free.', keys: 'unicode to nudi converter free online, kannada nudi converter, nudi font converter' }
+    },
+    // Malayalam
+    {
+      params: { lang: 'ml', converter: 'unicode-to-ism-ml-tt-converter' },
+      props: { script: 'malayalam', format: 'ism', title: 'യൂണിക്കോഡ് ടു ഐ.എസ്.എം കൺവെർട്ടർ | Unicode to ism ml-tt converter free online', h1: 'യൂണിക്കോഡ് ടു ഐ.എസ്.എം / ML-TT കൺവെർട്ടർ', desc: 'യൂണിക്കോഡ് ടു ഐ.എസ്.എം കൺവെർട്ടർ. Convert Malayalam Unicode text to ISM / ML-TT font format instantly for free.', keys: 'unicode to ism converter free online, malayalam ism converter, ml tt font converter' }
+    },
+    // Marathi
+    {
+      params: { lang: 'mr', converter: 'unicode-to-shree-lipi-marathi-converter' },
+      props: { script: 'marathi', format: 'shreelipimar', title: 'युनिकोड ते श्री लिपी कन्व्हर्टर | Unicode to shree lipi marathi converter free online', h1: 'युनिकोड ते श्री लिपी कन्व्हर्टर', desc: 'युनिकोड ते श्री लिपी कन्व्हर्टर. Convert Marathi Unicode text to Shree Lipi font format instantly for free.', keys: 'unicode to shree lipi marathi converter free online, marathi font converter, shree lipi marathi' }
+    },
+    // Gujarati
+    {
+      params: { lang: 'gu', converter: 'unicode-to-hari-converter' },
+      props: { script: 'gujarati', format: 'hari', title: 'યુનિકોડ થી હરિ કન્વર્ટર | Unicode to hari converter free online', h1: 'યુનિકોડ થી હરિ કન્વર્ટર', desc: 'યુનિકોડ થી હરિ કન્વર્ટર. Convert Gujarati Unicode text to Hari font format instantly for free.', keys: 'unicode to hari converter free online, gujarati font converter, hari font converter' }
+    }
+  ];
+
+  return pages;
+}
+
+const { lang, converter } = Astro.params;
+const { script, format, title, h1, desc, keys, badge } = Astro.props;
+---
+
+<Layout 
+	title={title}
+	description={desc}
+	keywords={keys}
+	lang={lang as any}
+>
+	<div class="space-y-2 sm:space-y-4">
+		<!-- Hero Section -->
+		<div class="text-center pt-2 pb-1 sm:pt-4 sm:pb-2 space-y-3 flex flex-col items-center justify-center relative">
+			
+			{badge && (
+				<div class="absolute -top-4 sm:-top-6 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md animate-pulse">
+					{badge}
+				</div>
+			)}
+			
+			<!-- Title -->
+			<h1 id="page-title" class="text-2xl sm:text-4xl font-bold tracking-tighter text-transparent bg-clip-text bg-[image:var(--hero-gradient)] leading-tight max-w-4xl mx-auto mt-4">
+				{h1}
+			</h1>
+
+			<!-- Subtitle -->
+			<p id="page-subtitle" class="text-sm sm:text-lg text-[var(--ink-secondary)] max-w-2xl mx-auto leading-relaxed font-medium">
+				{desc}
+			</p>
+		</div>
+
+		<!-- Main Converter Tool -->
+		<TextConverter lang={lang as any} defaultScript={script} defaultFormat={format} />
+
+		<!-- SEO Guide & FAQ Section -->
+		<SeoContent />
+	</div>
+</Layout>

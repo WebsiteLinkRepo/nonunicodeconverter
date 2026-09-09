@@ -5,7 +5,7 @@ import obfuscator from 'vite-plugin-javascript-obfuscator';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://unicode2nonunicode.com',
+  site: 'https://nonunicodeconverter.com',
   integrations: [sitemap()],
   vite: {
     plugins: [
