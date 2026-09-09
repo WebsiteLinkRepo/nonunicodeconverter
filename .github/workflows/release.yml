@@ -37,26 +37,38 @@ jobs:
           prerelease: false
           args: --target x86_64-pc-windows-msvc
 
-      - name: build xp app (Legacy)
+      - name: build legacy app (XP/Vista)
         shell: bash
         run: |
           mkdir -p legacy-app/supermium-portable
           # Download a lightweight dummy file or actual supermium if available.
-          # Due to size limits and availability, you might need to host the portable zip yourself.
-          # Here we download Supermium 122 portable as an example:
-          curl -L -o supermium.zip "https://github.com/win32ss/supermium/releases/download/v122-hf/supermium_122_32_portable.zip"
-          unzip -q supermium.zip -d legacy-app/supermium-portable || echo "Failed to unzip, might need manual zip placement"
+          curl -L -o supermium.zip "https://github.com/win32ss/supermium/releases/download/v122-hf/supermium_122_32_portable.zip" || echo "Failed"
+          unzip -q supermium.zip -d legacy-app/supermium-portable || echo "Failed to unzip"
           
           # Install NSIS
           choco install nsis
           
-          # Compile NSIS script
+          # Compile NSIS script and rename to legacy
           makensis legacy-app/installer.nsi
+          mv legacy-app/nonunicodeconverter-xp.exe legacy-app/nonunicodeconverter-legacy.exe
 
-      - name: Upload XP App to Release
+      - name: build retro app (Win98)
+        shell: bash
+        run: |
+          mkdir -p retro-app/retrozilla-portable
+          # Dummy download for RetroZilla
+          curl -L -o retrozilla.zip "https://github.com/rn10950/RetroZilla/releases/download/2.2/retrozilla-2.2.zip" || echo "Failed"
+          unzip -q retrozilla.zip -d retro-app/retrozilla-portable || echo "Failed to unzip"
+          
+          # Compile NSIS script
+          makensis retro-app/installer.nsi
+
+      - name: Upload Legacy and Retro Apps to Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          files: legacy-app/nonunicodeconverter-xp.exe
+          files: |
+            legacy-app/nonunicodeconverter-legacy.exe
+            retro-app/nonunicodeconverter-retro.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
       Get the official desktop application to convert text instantly without a browser.
     </p>
     
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="grid md:grid-cols-3 gap-8">
       <!-- Modern Windows -->
       <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-blue-500 transition-colors">
         <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-6">
@@ -29,7 +29,7 @@ import Layout from '../layouts/Layout.astro';
         </a>
       </div>
 
-      <!-- Legacy Windows (XP/7) -->
+      <!-- Legacy Windows (XP/Vista/7) -->
       <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-gray-500 transition-colors">
         <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mb-6">
           <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,13 +38,32 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Legacy Windows</h2>
         <p class="text-[var(--ink-secondary)] mb-6 min-h-[48px]">
-          For Windows XP, Windows 7, and Windows 8. Powered by the Supermium engine.
+          For Windows XP, Vista, 7, and 8. Powered by the Supermium engine.
         </p>
         <a 
-          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-xp.exe" 
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-legacy.exe" 
           class="inline-flex items-center justify-center w-full px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-[var(--ink)] bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
-          Download for Win XP/7/8
+          Download for XP/Vista/7
+        </a>
+      </div>
+
+      <!-- Retro Windows (98/2000) -->
+      <div class="border border-[var(--hairline)] rounded-xl p-8 shadow-sm bg-[var(--surface)] hover:border-yellow-500 transition-colors opacity-90">
+        <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-semibold mb-2 text-[var(--ink)]">Retro Windows</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-sm min-h-[48px]">
+          For Windows 95, 98, and 2000. Powered by RetroZilla.<br/><strong class="text-yellow-600 dark:text-yellow-400">Warning:</strong> Modern converter features will not load on this engine.
+        </p>
+        <a 
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-retro.exe" 
+          class="inline-flex items-center justify-center w-full px-6 py-3 border border-yellow-300 dark:border-yellow-600 text-base font-medium rounded-lg text-[var(--ink)] bg-yellow-50 dark:bg-yellow-900/10 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors"
+        >
+          Download for Win 98/ME
         </a>
       </div>
     </div>
