@@ -729,11 +729,13 @@ const defaultFont = 'anu7';
     const fontVersionSelect = document.getElementById('font-version-select') as HTMLSelectElement;
     const encoding = fontVersionSelect ? (fontVersionSelect.value as any) : 'anu7';
 
+    const originalInputForHistory = val;
+    
     if (reverse && (encoding === 'anu7' || encoding === 'anu6' || encoding === 'anuneo')) {
       const puaVal = upconvertFromANSI(val);
       if (puaVal !== val) {
         val = puaVal;
-        inputText.value = val;
+        // Do NOT overwrite inputText.value here, otherwise the raw ASCII turns into PUA boxes visually!
       }
     }
 
@@ -768,7 +770,7 @@ const defaultFont = 'anu7';
 
       const finalOutput = res.convertedText;
       
-      const shouldMask = !reverse && (encoding === 'hari' || encoding === 'anu6' || encoding === 'anuneo');
+      const shouldMask = !reverse;
       
       if (shouldMask) {
         outputText.value = inputText.value; // Mask visually with input
@@ -785,7 +787,7 @@ const defaultFont = 'anu7';
       const legacySize = currentFontSize;
 
       if (reverse) {
-        inputText.style.fontFamily = (inputText.value) ? legacyFontToApply : '"Mangal", system-ui, sans-serif';
+        inputText.style.fontFamily = '"Mangal", system-ui, sans-serif'; // ALWAYS show raw "grumbly" ASCII text in LHS
         inputText.style.fontSize = (inputText.value) ? `${legacySize}px` : `${unicodeSize}px`;
         outputText.style.fontFamily = '"Mangal", system-ui, sans-serif';
         outputText.style.fontSize = `${unicodeSize}px`;
@@ -802,7 +804,7 @@ const defaultFont = 'anu7';
       if (linesStat) linesStat.textContent = res.stats.lineCount.toLocaleString();
       if (wordsStat) wordsStat.textContent = res.stats.wordCount.toLocaleString();
 
-      saveToHistoryDebounced(val, finalOutput, activeFontNameLabel());
+      saveToHistoryDebounced(originalInputForHistory, finalOutput, activeFontNameLabel());
 
       // Auto-copy functionality
       const autoCopyChk = document.getElementById('auto-copy-chk') as HTMLInputElement;
@@ -899,15 +901,18 @@ const defaultFont = 'anu7';
       return;
     }
     historyContainer.classList.remove('hidden');
-    historyList.innerHTML = historyItems.map(item => `
+    historyList.innerHTML = historyItems.map(item => {
+      const hasUnicode = /[\u0900-\u0D7F]/.test(item.input);
+      const previewText = hasUnicode ? item.input : item.output;
+      return `
       <div data-id="${item.id}" class="history-item flex items-center justify-between p-2 rounded-lg bg-[var(--canvas)] border border-[var(--hairline)] hover:border-[var(--hairline-strong)] transition-all cursor-pointer text-xs">
         <div class="truncate max-w-[80%] flex items-center gap-2">
           <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--canvas-soft-2)] text-[var(--ink-secondary)]">${item.font}</span>
-          <span class="truncate text-[var(--ink)] font-medium">${escapeHtml(item.input.substring(0, 50))}</span>
+          <span class="truncate text-[var(--ink)] font-medium">${escapeHtml(previewText.substring(0, 50))}</span>
         </div>
         <span class="text-[10px] font-mono text-[var(--ink-tertiary)]">${formatTime(item.timestamp)}</span>
       </div>
-    `).join('');
+    `}).join('');
 
     document.querySelectorAll('.history-item').forEach(el => {
       el.addEventListener('click', () => {
@@ -973,7 +978,7 @@ const defaultFont = 'anu7';
     hindi: [
       { value: 'krutidev', label: 'Kruti Dev' },
       { value: 'shreelipi', label: 'Shree-Lipi' },
-      { value: 'anu7', label: 'Anu Neo' }
+      { value: 'anuneo', label: 'Anu Neo' }
     ],
     tamil: [
       { value: 'bamini', label: 'Bamini' },
@@ -983,7 +988,7 @@ const defaultFont = 'anu7';
       { value: 'nudi', label: 'Nudi' }
     ],
     malayalam: [
-      { value: 'ism', label: 'ISM' }
+      { value: 'ism', label: 'ISM / ML-TT' }
     ],
     marathi: [
       { value: 'shreelipimar', label: 'Shree-Lipi' }
@@ -1008,7 +1013,7 @@ const defaultFont = 'anu7';
     exactFontSelectEl.innerHTML = '';
     
     // Check if we should show the exact font selector
-    const shouldShow = (currentScript === 'hindi' && currentFormat === 'anu7') || 
+    const shouldShow = (currentScript === 'hindi' && currentFormat === 'anuneo') || 
                        (currentScript === 'telugu' && currentFormat === 'anu7');
     
     if (shouldShow) {
@@ -1020,7 +1025,7 @@ const defaultFont = 'anu7';
       return;
     }
 
-    if (currentScript === 'hindi' && currentFormat === 'anu7') {
+    if (currentScript === 'hindi' && currentFormat === 'anuneo') {
       disabledFontTooltip.classList.add('hidden');
       exactFontSelectEl.innerHTML = HINDI_NEO_FONTS.map(opt => 
         `<option value="${opt.value}">${opt.label}</option>`

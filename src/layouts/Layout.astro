@@ -243,11 +243,11 @@ const ogLocale = localeMap[lang] || 'en_US';
 					<nav class="hidden md:flex items-center gap-4 text-xs font-semibold text-[var(--ink-secondary)]">
 						<a href="/" class="hover:text-[var(--ink)] transition-colors">Converter</a>
 						<a href="/about" class="hover:text-[var(--ink)] transition-colors">About</a>
-						<a href="/download" class="text-blue-600 dark:text-blue-400 font-medium hover:underline transition-colors flex items-center gap-1">
+						<a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact</a>
+						<a href="/download" class="bg-[var(--ink)] text-[var(--canvas)] px-3 py-1.5 rounded-md font-bold hover:opacity-80 transition-opacity flex items-center gap-1.5">
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
 							Download App
 						</a>
-						<a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact</a>
 					</nav>
 
 					<div class="flex items-center gap-3 border-l border-[var(--hairline)] pl-4 sm:pl-6 ml-2 sm:ml-0">
@@ -315,7 +315,7 @@ const ogLocale = localeMap[lang] || 'en_US';
 						<ul class="space-y-1.5 text-xs">
 							<li><a href="/" class="hover:text-[var(--ink)] transition-colors">Home / Converter</a></li>
 							<li><a href="/about" class="hover:text-[var(--ink)] transition-colors">About Us</a></li>
-							<li><a href="/download" class="hover:text-[var(--ink)] transition-colors text-blue-600 dark:text-blue-400 font-medium">Download Desktop App</a></li>
+							<li><a href="/download" class="hover:text-[var(--ink)] transition-colors text-[var(--ink)] font-medium">Download Desktop App</a></li>
 							<li><a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact Us & Font Request</a></li>
 						</ul>
 					</div>
@@ -397,15 +397,15 @@ const ogLocale = localeMap[lang] || 'en_US';
 				const cx = W * 0.5;
 				const cy = -H * 0.12;
 
-				const bgColor = isLightMode ? "#f8fafc" : "#08090b";
+				const bgColor = isLightMode ? "#e6f0fa" : "#08090b";
 				const cWhite = (alpha) => `rgba(255, 255, 255, ${alpha})`;
-				const rColor = isLightMode ? 15 : 255;
-				const gColor = isLightMode ? 23 : 255;
-				const bColor = isLightMode ? 42 : 255;
+				const rColor = isLightMode ? 45 : 255;
+				const gColor = isLightMode ? 85 : 255;
+				const bColor = isLightMode ? 150 : 255;
 				const cRay = (alpha) => `rgba(${rColor}, ${gColor}, ${bColor}, ${alpha})`;
 
-				const coreAlpha1 = isLightMode ? 0.35 : 0.12;
-				const coreAlpha2 = isLightMode ? 0.15 : 0.05;
+				const coreAlpha1 = isLightMode ? 0.4 : 0.12;
+				const coreAlpha2 = isLightMode ? 0.18 : 0.05;
 				const sourceAlpha = isLightMode ? 0.65 : 0.85;
 
 				const broadAlphaBase = isLightMode ? 0.035 : 0.09;
@@ -524,8 +524,8 @@ const ogLocale = localeMap[lang] || 'en_US';
 				let v = ctx.createRadialGradient(cx, H*0.4, W*0.1, cx, H*0.5, W*0.9);
 				v.addColorStop(0, "rgba(0,0,0,0)");
 				if (isLightMode) {
-					v.addColorStop(0.65, "rgba(15, 23, 42, 0.02)");
-					v.addColorStop(1, "rgba(15, 23, 42, 0.12)");
+					v.addColorStop(0.65, "rgba(45, 85, 150, 0.04)");
+					v.addColorStop(1, "rgba(45, 85, 150, 0.18)");
 				} else {
 					v.addColorStop(0.65, "rgba(0,0,0,0.06)");
 					v.addColorStop(1, "rgba(0,0,0,0.45)");

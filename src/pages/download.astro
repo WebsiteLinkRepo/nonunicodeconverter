@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
       Get the official desktop application to convert text instantly without a browser.
     </p>
     
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Modern Windows -->
       <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
         <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
@@ -29,6 +29,44 @@ import Layout from '../layouts/Layout.astro';
         </a>
       </div>
 
+      <!-- macOS -->
+      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
+        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[var(--ink)]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.04 2.26-.79 3.56-.75 1.54.12 2.66.75 3.32 1.83-2.91 1.62-2.32 5.58.55 6.74-.69 1.76-1.55 3.35-2.51 4.35zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">macOS</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
+          For macOS 10.15+ (Intel & Apple Silicon).
+        </p>
+        <a 
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-mac.dmg" 
+          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
+        >
+          Download for Mac
+        </a>
+      </div>
+
+      <!-- Linux -->
+      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
+        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[var(--ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">Linux</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
+          For Ubuntu, Debian, and other .deb distros.
+        </p>
+        <a 
+          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-linux.deb" 
+          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
+        >
+          Download for Linux
+        </a>
+      </div>
+
       <!-- Legacy Windows (XP/Vista/7) -->
       <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
         <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
@@ -45,25 +83,6 @@ import Layout from '../layouts/Layout.astro';
           class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
         >
           Download for XP/Vista/7
-        </a>
-      </div>
-
-      <!-- Retro Windows (98/2000) -->
-      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors opacity-90 flex flex-col">
-        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-[var(--ink-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-          </svg>
-        </div>
-        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">Retro Windows</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 text-xs flex-grow leading-relaxed">
-          For Windows 95, 98, and 2000.<br/><br/><strong class="text-[var(--ink)]">Note:</strong> Modern converter features will not load on this legacy environment.
-        </p>
-        <a 
-          href="https://github.com/YOUR_GITHUB/releases/latest/download/nonunicodeconverter-retro-setup.exe" 
-          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
-        >
-          Download for Win 98/ME
         </a>
       </div>
     </div>

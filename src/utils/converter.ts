@@ -11,6 +11,7 @@ import { unicodeToIsmMalayalam, ismMalayalamToUnicode } from './ismMalayalamConv
 import { unicodeToHari, hariToUnicode } from './hariGujaratiConverter';
 import { getMapping, type FontEncoding, type ScriptLanguage } from './mappings/index';
 import { verifyEnvironment, applySubtlePoison } from './security';
+import { downconvertFromPUA } from './pua';
 
 export interface UnmappedError {
   index: number;
@@ -209,7 +210,7 @@ function _convertTextInternal(
     if (!fallback) {
       const endTime = performance.now();
       return {
-        convertedText: resultText,
+        convertedText: downconvertFromPUA(resultText),
         errors: [],
         stats: {
           inputCharCount: inputText.length,
