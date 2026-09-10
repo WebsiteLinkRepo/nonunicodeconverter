@@ -321,34 +321,34 @@ const defaultFont = 'anu7';
         <button 
           id="pagemaker-btn" 
           type="button" 
-          class="w-full py-2.5 px-4 rounded-lg bg-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-indigo-700 active:scale-[0.99] transition-all cursor-pointer shadow-sm"
+          class="w-full py-2.5 px-4 rounded-lg bg-[var(--ink)] text-[var(--canvas)] font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer shadow-sm"
         >
           <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           {t.pagemakerBtnText}
         </button>
-        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block w-[90%] bg-gray-900 text-white text-[11px] p-2 rounded shadow-lg z-10 text-center pointer-events-none">
+        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block w-[90%] bg-[var(--ink)] text-[var(--canvas)] text-[11px] p-2 rounded shadow-lg z-10 text-center pointer-events-none">
           {t.pagemakerTooltip}
-          <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+          <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent" style="border-top-color: var(--ink);"></div>
         </div>
       </div>
 
       <!-- PageMaker Install Fallback (Hidden by default) -->
       <div id="pagemaker-install-prompt" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-        <div class="bg-white dark:bg-[var(--card-bg)] max-w-sm w-full rounded-2xl shadow-2xl p-6 border border-[var(--hairline)]">
-          <div class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="bg-[var(--card-bg)] max-w-sm w-full rounded-2xl shadow-2xl p-6 border border-[var(--hairline)]">
+          <div class="w-12 h-12 rounded-full bg-[var(--canvas-soft-2)] flex items-center justify-center mb-4 border border-[var(--hairline)]">
+            <svg class="w-6 h-6 text-[var(--ink)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
             </svg>
           </div>
           <h3 class="font-bold text-lg text-[var(--ink)] mb-2">{t.pagemakerPopupTitle}</h3>
           <p class="text-sm text-[var(--ink-secondary)] mb-6 leading-relaxed">{t.pagemakerPopupDesc}</p>
           <div class="flex flex-col gap-3">
-              <a href="https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/PageMakerAutoFontChangerSetup.exe" class="w-full text-center py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm">
+              <a href="https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/pgmkrautofontchanger.exe" class="w-full text-center py-2.5 bg-[var(--ink)] text-[var(--canvas)] text-sm font-bold rounded-xl hover:opacity-90 transition-colors shadow-sm">
                 {t.pagemakerInstallBtn}
               </a>
-              <button id="pagemaker-try-again-btn" type="button" class="w-full text-center py-2.5 bg-[var(--canvas-soft)] text-[var(--ink)] text-sm font-semibold rounded-xl hover:bg-[var(--canvas-soft-2)] transition-colors">
+              <button id="pagemaker-try-again-btn" type="button" class="w-full text-center py-2.5 bg-[var(--canvas-soft)] text-[var(--ink)] text-sm font-semibold rounded-xl hover:bg-[var(--canvas-soft-2)] transition-colors border border-[var(--hairline)]">
                 {t.pagemakerTryAgainBtn}
               </button>
           </div>
