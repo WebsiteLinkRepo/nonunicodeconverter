@@ -22,7 +22,7 @@ fn log_debug(message: &str) {
     })();
 }
 
-fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: String) -> Result<(), String> {
+fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_bytes: Vec<u8>) -> Result<(), String> {
     #[cfg(windows)]
     {
         use windows::core::s;
@@ -66,12 +66,10 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                 }
             }
 
-            // HTML
-            if !html_text.is_empty() {
+            // HTML (Write back the exact bytes we read)
+            if !html_bytes.is_empty() {
                 let format_html = RegisterClipboardFormatA(s!("HTML Format"));
                 if format_html > 0 {
-                    let mut html_bytes = html_text.into_bytes();
-                    html_bytes.push(0);
                     if let Ok(hglobal) = GlobalAlloc(GMEM_MOVEABLE, html_bytes.len()) {
                         let ptr = GlobalLock(hglobal);
                         if !ptr.is_null() {
@@ -95,10 +93,11 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
     }
 }
 
-fn read_clipboard_text() -> Result<String, String> {
+fn read_clipboard_data() -> Result<(String, Vec<u8>), String> {
     #[cfg(windows)]
     {
-        use windows::Win32::System::DataExchange::{OpenClipboard, CloseClipboard, GetClipboardData};
+        use windows::core::s;
+        use windows::Win32::System::DataExchange::{OpenClipboard, CloseClipboard, GetClipboardData, RegisterClipboardFormatA};
         use windows::Win32::System::Memory::{GlobalLock, GlobalUnlock};
         use std::ffi::OsString;
         use std::os::windows::ffi::OsStringExt;
@@ -108,33 +107,42 @@ fn read_clipboard_text() -> Result<String, String> {
                 return Err("Failed to open clipboard for reading".into());
             }
             
-            // CF_UNICODETEXT = 13
-            let handle_res = GetClipboardData(13);
-            if handle_res.is_err() {
-                let _ = CloseClipboard();
-                return Err("Failed to get clipboard data".into());
+            // Read Plain Text (CF_UNICODETEXT = 13)
+            let mut text = String::new();
+            if let Ok(handle) = GetClipboardData(13) {
+                let ptr = GlobalLock(handle.0 as _);
+                if !ptr.is_null() {
+                    let mut len = 0;
+                    let u16_ptr = ptr as *const u16;
+                    while *u16_ptr.add(len) != 0 {
+                        len += 1;
+                    }
+                    let slice = std::slice::from_raw_parts(u16_ptr, len);
+                    let os_string = OsString::from_wide(slice);
+                    text = os_string.into_string().unwrap_or_default();
+                    let _ = GlobalUnlock(handle.0 as _);
+                }
             }
-            let handle = handle_res.unwrap();
-            
-            let ptr = GlobalLock(handle.0 as _);
-            if ptr.is_null() {
-                let _ = CloseClipboard();
-                return Err("Failed to lock clipboard data".into());
+
+            // Read HTML Format
+            let mut html_bytes = Vec::new();
+            let format_html = RegisterClipboardFormatA(s!("HTML Format"));
+            if format_html > 0 {
+                if let Ok(handle) = GetClipboardData(format_html) {
+                    let ptr = GlobalLock(handle.0 as _);
+                    if !ptr.is_null() {
+                        use windows::Win32::System::Memory::GlobalSize;
+                        let size = GlobalSize(handle.0 as _);
+                        let slice = std::slice::from_raw_parts(ptr as *const u8, size);
+                        html_bytes.extend_from_slice(slice);
+                        let _ = GlobalUnlock(handle.0 as _);
+                    }
+                }
             }
-            
-            let mut len = 0;
-            let u16_ptr = ptr as *const u16;
-            while *u16_ptr.add(len) != 0 {
-                len += 1;
-            }
-            let slice = std::slice::from_raw_parts(u16_ptr, len);
-            let os_string = OsString::from_wide(slice);
-            let text = os_string.into_string().unwrap_or_default();
-            
-            let _ = GlobalUnlock(handle.0 as _);
+
             let _ = CloseClipboard();
             
-            Ok(text)
+            Ok((text, html_bytes))
         }
     }
     #[cfg(not(windows))]
@@ -188,7 +196,7 @@ fn main() {
 
     log_debug(&format!("Protocol detected. Font target: {}. Reading clipboard...", font_name));
 
-    let plain = match read_clipboard_text() {
+    let (plain, html_bytes) = match read_clipboard_data() {
         Ok(t) => t,
         Err(e) => {
             log_debug(&format!("Failed to read clipboard: {}", e));
@@ -228,9 +236,7 @@ fn main() {
     }
     rtf.push_str("\\par\n}\n");
 
-    let html = "".to_string();
-
-    match copy_to_native_clipboard(plain, rtf, html) {
+    match copy_to_native_clipboard(plain, rtf, html_bytes) {
         Ok(()) => {
             log_debug("Clipboard write succeeded.");
         }
