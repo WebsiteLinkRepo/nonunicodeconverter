@@ -6,6 +6,13 @@ import obfuscator from 'vite-plugin-javascript-obfuscator';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nonunicodeconverter.com',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'te', 'hi', 'ta', 'kn', 'ml', 'mr', 'gu'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   integrations: [sitemap()],
   vite: {
     plugins: [

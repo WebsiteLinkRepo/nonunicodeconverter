@@ -1,23 +1,24 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import TextConverter from '../../components/TextConverter.astro';
-import SeoContent from '../../components/SeoContent.astro';
+import Layout from '../layouts/Layout.astro';
+import TextConverter from '../components/TextConverter.astro';
+import SeoContent from '../components/SeoContent.astro';
 
-import { getLocalizedRoutes } from '../../utils/seoRoutes';
+import { getEnglishRoutes } from '../utils/seoRoutes';
 
 export function getStaticPaths() {
-  return getLocalizedRoutes();
+  return getEnglishRoutes();
 }
 
-const { lang, converter } = Astro.params;
+const { converter } = Astro.params;
 const { script, format, title, h1, desc, keys, badge, exactFont } = Astro.props;
+const lang = 'en';
 ---
 
 <Layout 
 	title={title}
 	description={desc}
 	keywords={keys}
-	lang={lang as any}
+	lang={lang}
 >
 	<div class="space-y-2 sm:space-y-4">
 		<!-- Hero Section -->
@@ -41,7 +42,7 @@ const { script, format, title, h1, desc, keys, badge, exactFont } = Astro.props;
 		</div>
 
 		<!-- Main Converter Tool -->
-		<TextConverter lang={lang as any} defaultScript={script} defaultFormat={format} defaultExactFont={exactFont} />
+		<TextConverter lang={lang} defaultScript={script} defaultFormat={format} defaultExactFont={exactFont} />
 
 		<!-- SEO Guide & FAQ Section -->
 		<SeoContent />

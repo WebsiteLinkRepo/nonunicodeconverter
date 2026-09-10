@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TRANSLATIONS, type Language } from '../../utils/i18n';
+
+interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = TRANSLATIONS[lang];
+---
+
+<Layout 
+	title={t.aboutTitle}
+	description={t.aboutDesc}
+	keywords={t.keywords}
+	lang={lang}
+>
+	<div class="max-w-4xl mx-auto space-y-8 py-4 sm:py-8">
+		<!-- Page Header -->
+		<div class="border-b-2 border-[var(--hairline)] pb-6 space-y-3">
+			<span class="px-2.5 py-1 rounded-full text-xs font-mono bg-[var(--canvas-soft-2)] border border-[var(--hairline)] text-[var(--ink-secondary)] font-semibold inline-block uppercase tracking-wider">
+				{t.aboutBadge}
+			</span>
+			<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--ink)]">
+				{t.aboutTitle}
+			</h1>
+			<p class="text-sm sm:text-base text-[var(--ink-secondary)] leading-relaxed">
+				{t.aboutDesc}
+			</p>
+		</div>
+
+		<!-- Main Content Grid -->
+		<div class="space-y-6 text-sm text-[var(--ink-secondary)] leading-relaxed">
+			<!-- Section 1: Our Mission -->
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.aboutMissionTitle}</h2>
+				<p>{t.aboutMission1}</p>
+				<p>{t.aboutMission2}</p>
+			</div>
+
+			<!-- Section 2: Supported Languages & Encodings -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-5 space-y-3">
+					<h3 class="text-base font-semibold text-[var(--ink)]">{t.aboutLangsTitle}</h3>
+					<ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm">
+						<li><strong>{t.aboutLangsTe.split(':')[0]}:</strong> {t.aboutLangsTe.split(':')[1]}</li>
+						<li><strong>{t.aboutLangsHi.split(':')[0]}:</strong> {t.aboutLangsHi.split(':')[1]}</li>
+						<li><strong>{t.aboutLangsTa.split(':')[0]}:</strong> {t.aboutLangsTa.split(':')[1]}</li>
+						<li><strong>{t.aboutLangsMl.split(':')[0]}:</strong> {t.aboutLangsMl.split(':')[1]}</li>
+					</ul>
+				</div>
+
+				<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-5 space-y-3">
+					<h3 class="text-base font-semibold text-[var(--ink)]">{t.aboutHighlightsTitle}</h3>
+					<ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm">
+						<li>{t.aboutHigh1}</li>
+						<li>{t.aboutHigh2}</li>
+						<li>{t.aboutHigh3}</li>
+						<li>{t.aboutHigh4}</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Section 3: Privacy & Security Commitment -->
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.aboutPrivacyTitle}</h2>
+				<p>{t.aboutPrivacyDesc}</p>
+			</div>
+		</div>
+	</div>
+</Layout>

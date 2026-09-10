@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TRANSLATIONS, type Language } from '../../utils/i18n';
+
+interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = TRANSLATIONS[lang];
+---
+
+<Layout 
+	title={t.howTitle}
+	description="Step-by-step guide on how to use UnicodeToNonUnicode.com to convert modern Unicode text into legacy font formats for Photoshop, InDesign, and Word."
+	keywords="how to use unicode converter, unicode to anu 7 tutorial, convert telugu fonts guide"
+	lang={lang}
+>
+	<div class="max-w-4xl mx-auto space-y-8 py-4 sm:py-8">
+		<!-- Page Header -->
+		<div class="border-b border-[var(--hairline)] pb-6 space-y-3">
+			<span class="px-2.5 py-1 rounded-full text-xs font-mono bg-[var(--canvas-soft-2)] border border-[var(--hairline)] text-[var(--ink-secondary)] font-semibold inline-block uppercase tracking-wider">
+				{t.howBadge}
+			</span>
+			<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--ink)] text-balance">
+				{t.howTitle}
+			</h1>
+			<p class="text-sm sm:text-base text-[var(--ink-secondary)] leading-relaxed max-w-2xl text-pretty">
+				{t.howDesc}
+			</p>
+		</div>
+
+		<!-- Main Content Grid -->
+		<div class="space-y-6 text-sm text-[var(--ink-secondary)] leading-relaxed text-pretty">
+			
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)] flex items-center gap-2 text-balance">
+					<span class="bg-[var(--ink)] text-[var(--canvas)] w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+					{t.howStep1Title}
+				</h2>
+				<p class="text-pretty">
+					{t.howStep1Desc}
+				</p>
+			</div>
+
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)] flex items-center gap-2 text-balance">
+					<span class="bg-[var(--ink)] text-[var(--canvas)] w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+					{t.howStep2Title}
+				</h2>
+				<p class="text-pretty">
+					{t.howStep2Desc}
+				</p>
+				<p class="text-xs italic text-pretty">
+					{t.howStep2Note}
+				</p>
+			</div>
+
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)] flex items-center gap-2 text-balance">
+					<span class="bg-[var(--ink)] text-[var(--canvas)] w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+					{t.howStep3Title}
+				</h2>
+				<p class="text-pretty">
+					{t.howStep3Desc1}
+				</p>
+				<p class="text-pretty">
+					{t.howStep3Desc2}
+				</p>
+			</div>
+
+				<div class="border border-[var(--hairline-strong)] bg-[var(--canvas-soft-2)] rounded-xl p-6 space-y-3 mt-4">
+					<h2 class="text-base font-bold text-[var(--ink)] text-balance">{t.howTroubleTitle}</h2>
+					<p class="text-xs sm:text-sm text-[var(--ink-secondary)] text-pretty">
+						{t.howTroubleDesc}
+					</p>
+				</div>
+
+		</div>
+	</div>
+</Layout>

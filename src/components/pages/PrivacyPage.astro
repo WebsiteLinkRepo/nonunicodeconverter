@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TRANSLATIONS, type Language } from '../../utils/i18n';
+
+interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = TRANSLATIONS[lang];
+---
+
+<Layout 
+	title={t.privacyTitle}
+	description="Read our Privacy Policy. UnicodeToNonUnicode.com processes 100% of text locally in your browser. We do not collect, store, or transmit your text data."
+	keywords="privacy policy unicode to non unicode, data privacy indic font converter, local browser text processing"
+	lang={lang}
+>
+	<div class="max-w-4xl mx-auto space-y-8 py-4 sm:py-8">
+		<!-- Page Header -->
+		<div class="border-b border-[var(--hairline)] pb-6 space-y-3">
+			<span class="px-2.5 py-1 rounded-full text-xs font-mono bg-[var(--canvas-soft-2)] border border-[var(--hairline)] text-[var(--ink-secondary)] font-semibold inline-block uppercase tracking-wider">
+				{t.privacyBadge}
+			</span>
+			<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--ink)]">
+				{t.privacyTitle}
+			</h1>
+			<p class="text-sm text-[var(--ink-secondary)]">
+				{t.privacyDate}
+			</p>
+		</div>
+
+		<!-- Main Policy Body -->
+		<div class="space-y-6 text-sm text-[var(--ink-secondary)] leading-relaxed">
+			<!-- Section 1 -->
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.privacySec1Title}</h2>
+				<p>{t.privacySec1Desc1}</p>
+				<p><strong>{t.privacySec1Desc2}</strong></p>
+			</div>
+
+			<!-- Section 2 -->
+			<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.privacySec2Title}</h2>
+				<ul class="list-disc list-inside space-y-2">
+					<li>{t.privacySec2Li1}</li>
+					<li>{t.privacySec2Li2}</li>
+					<li>{t.privacySec2Li3}</li>
+				</ul>
+			</div>
+
+			<!-- Section 3 -->
+			<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.privacySec3Title}</h2>
+				<p>{t.privacySec3Desc}</p>
+			</div>
+
+			<!-- Section 4 -->
+			<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.privacySec4Title}</h2>
+				<p>{t.privacySec4Desc}</p>
+			</div>
+
+			<!-- Section 5 -->
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.privacySec5Title}</h2>
+				<p>{t.privacySec5Desc}</p>
+			</div>
+		</div>
+	</div>
+</Layout>

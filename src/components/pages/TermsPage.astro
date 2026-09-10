@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TRANSLATIONS, type Language } from '../../utils/i18n';
+
+interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = TRANSLATIONS[lang];
+---
+
+<Layout 
+	title={t.termsTitle}
+	description="Terms of Service and Conditions of Use for UnicodeToNonUnicode.com. Free online tool for Indic text font conversion."
+	keywords="terms and conditions unicode to non unicode, terms of service indic font converter"
+	lang={lang}
+>
+	<div class="max-w-4xl mx-auto space-y-8 py-4 sm:py-8">
+		<!-- Page Header -->
+		<div class="border-b border-[var(--hairline)] pb-6 space-y-3">
+			<span class="px-2.5 py-1 rounded-full text-xs font-mono bg-[var(--canvas-soft-2)] border border-[var(--hairline)] text-[var(--ink-secondary)] font-semibold inline-block uppercase tracking-wider">
+				{t.privacyBadge}
+			</span>
+			<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--ink)]">
+				{t.termsTitle}
+			</h1>
+			<p class="text-sm text-[var(--ink-secondary)]">
+				{t.privacyDate}
+			</p>
+		</div>
+
+		<!-- Main Terms Body -->
+		<div class="space-y-6 text-sm text-[var(--ink-secondary)] leading-relaxed">
+			<!-- Section 1 -->
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.termsSec1Title}</h2>
+				<p>{t.termsSec1Desc}</p>
+			</div>
+
+			<!-- Section 2 -->
+			<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.termsSec2Title}</h2>
+				<p>{t.termsSec2Desc}</p>
+			</div>
+
+			<!-- Section 3 -->
+			<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.termsSec3Title}</h2>
+				<p>{t.termsSec3Desc1}</p>
+				<p>{t.termsSec3Desc2}</p>
+			</div>
+
+			<!-- Section 4 -->
+			<div class="bg-[var(--canvas)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.termsSec4Title}</h2>
+				<p>{t.termsSec4Desc}</p>
+			</div>
+
+			<!-- Section 5 -->
+			<div class="bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-xl p-6 space-y-3">
+				<h2 class="text-xl font-bold text-[var(--ink)]">{t.termsSec5Title}</h2>
+				<p>{t.termsSec5Desc}</p>
+			</div>
+		</div>
+	</div>
+</Layout>

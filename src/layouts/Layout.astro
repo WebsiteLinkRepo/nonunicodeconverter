@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import type { Language } from '../utils/i18n';
+import { TRANSLATIONS, type Language } from '../utils/i18n';
 import { faqData } from '../data/faq';
 
 interface Props {
@@ -16,6 +16,8 @@ const {
 	keywords = "unicode to non unicode, unicode to non unicode converter telugu, unicode to non unicode anu 7.0, anu unicode, unicode converter telugu, unicode to non unicode font, indesign telugu font converter, photoshop telugu font converter, anu script 7 telugu converter",
 	lang = 'en'
 } = Astro.props;
+
+const t = TRANSLATIONS[lang];
 
 const canonicalUrl = Astro.url.pathname === '/' ? 'https://nonunicodeconverter.com/' : `https://nonunicodeconverter.com/${lang}`;
 
@@ -91,15 +93,21 @@ const schemaGraph = JSON.stringify({
 		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- i18n alternate languages -->
+		{
+			['en', 'te', 'hi', 'ta', 'kn', 'ml', 'mr', 'gu'].map((l) => {
+				let p = Astro.url.pathname;
+				// Remove trailing slash
+				if (p.endsWith('/')) p = p.slice(0, -1);
+				// Remove current lang prefix if present
+				if (p === `/${lang}` || p.startsWith(`/${lang}/`)) {
+					p = p.substring(lang.length + 1);
+				}
+				const localeUrl = l === 'en' ? p || '/' : `/${l}${p}`;
+				const fullUrl = `https://nonunicodeconverter.com${localeUrl === '/' ? '/' : localeUrl}`;
+				return <link rel="alternate" href={fullUrl} hreflang={l} />
+			})
+		}
 		<link rel="alternate" href="https://nonunicodeconverter.com/" hreflang="x-default" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/en" hreflang="en" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/te" hreflang="te" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/hi" hreflang="hi" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/ta" hreflang="ta" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/kn" hreflang="kn" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/ml" hreflang="ml" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/mr" hreflang="mr" />
-		<link rel="alternate" href="https://nonunicodeconverter.com/gu" hreflang="gu" />
 
 
 
@@ -159,8 +167,8 @@ const schemaGraph = JSON.stringify({
 			<div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
 				<!-- Brand / Logo -->
 				<a href="/" class="flex items-center gap-3 group cursor-pointer flex-shrink-0">
-					<img src="/logo-light.svg" alt="NonUnicodeConverter.com Logo" class="logo-light w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
-					<img src="/logo-dark.svg" alt="NonUnicodeConverter.com Logo" class="logo-dark w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
+					<img src="/logo-light.svg" alt="NonUnicodeConverter Logo" class="logo-light w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
+					<img src="/logo-dark.svg" alt="NonUnicodeConverter Logo" class="logo-dark w-7 h-7 rounded-lg shadow-xs flex-shrink-0" />
 					<span id="logo-title-text" class="font-bold text-sm tracking-tight text-[var(--ink)] hidden sm:block">NonUnicodeConverter</span>
 				</a>
 
@@ -168,13 +176,13 @@ const schemaGraph = JSON.stringify({
 				<div class="flex items-center gap-4 sm:gap-6 flex-shrink-0">
 					<!-- Nav Links -->
 					<nav class="hidden md:flex items-center gap-4 text-xs font-semibold text-[var(--ink-secondary)]">
-						<a href="/" class="hover:text-[var(--ink)] transition-colors">Converter</a>
-						<a href="/how-to-use" class="hover:text-[var(--ink)] transition-colors">How to Use</a>
-						<a href="/about" class="hover:text-[var(--ink)] transition-colors">About</a>
-						<a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact</a>
-						<a href="/download" class="bg-[var(--ink)] text-[var(--canvas)] px-3 py-1.5 rounded-md font-bold hover:opacity-80 transition-opacity flex items-center gap-1.5">
+						<a href={lang === 'en' ? '/' : `/${lang}`} class="hover:text-[var(--ink)] transition-colors">{t.navConverter}</a>
+						<a href={lang === 'en' ? '/how-to-use' : `/${lang}/how-to-use`} class="hover:text-[var(--ink)] transition-colors">{t.navHowToUse}</a>
+						<a href={lang === 'en' ? '/about' : `/${lang}/about`} class="hover:text-[var(--ink)] transition-colors">{t.navAbout}</a>
+						<a href={lang === 'en' ? '/contact' : `/${lang}/contact`} class="hover:text-[var(--ink)] transition-colors">{t.navContact}</a>
+						<a href={lang === 'en' ? '/download' : `/${lang}/download`} class="bg-[var(--ink)] text-[var(--canvas)] px-3 py-1.5 rounded-md font-bold hover:opacity-80 transition-opacity flex items-center gap-1.5">
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-							Download App
+							{t.navDownloadApp}
 						</a>
 					</nav>
 
@@ -240,34 +248,34 @@ const schemaGraph = JSON.stringify({
 							<span>NonUnicodeConverter</span>
 						</div>
 						<p class="text-xs text-[var(--ink-secondary)] leading-relaxed">
-							Fast, free & 100% browser-local Indic Unicode to Non-Unicode font converter built for publishers, DTP typists, and graphic designers.
+							{t.footerDesc}
 						</p>
 					</div>
 
 					<!-- Col 2: Quick Links -->
 					<div class="space-y-2.5">
-						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Pages</h4>
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">{t.footerPages}</h4>
 						<ul class="space-y-1.5 text-xs">
-							<li><a href="/" class="hover:text-[var(--ink)] transition-colors">Home / Converter</a></li>
-							<li><a href="/how-to-use" class="hover:text-[var(--ink)] transition-colors">How to Use Guide</a></li>
-							<li><a href="/about" class="hover:text-[var(--ink)] transition-colors">About Us</a></li>
-							<li><a href="/download" class="hover:text-[var(--ink)] transition-colors text-[var(--ink)] font-medium">Download Desktop App</a></li>
-							<li><a href="/contact" class="hover:text-[var(--ink)] transition-colors">Contact Us & Font Request</a></li>
+							<li><a href={lang === 'en' ? '/' : `/${lang}`} class="hover:text-[var(--ink)] transition-colors">{t.navConverter}</a></li>
+							<li><a href={lang === 'en' ? '/how-to-use' : `/${lang}/how-to-use`} class="hover:text-[var(--ink)] transition-colors">{t.navHowToUse}</a></li>
+							<li><a href={lang === 'en' ? '/about' : `/${lang}/about`} class="hover:text-[var(--ink)] transition-colors">{t.navAbout}</a></li>
+							<li><a href={lang === 'en' ? '/download' : `/${lang}/download`} class="hover:text-[var(--ink)] transition-colors text-[var(--ink)] font-medium">{t.navDownloadApp}</a></li>
+							<li><a href={lang === 'en' ? '/contact' : `/${lang}/contact`} class="hover:text-[var(--ink)] transition-colors">{t.navContact}</a></li>
 						</ul>
 					</div>
 
 					<!-- Col 3: Legal & Trust -->
 					<div class="space-y-2.5">
-						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Legal & Privacy</h4>
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">{t.footerLegal}</h4>
 						<ul class="space-y-1.5 text-xs">
-							<li><a href="/privacy" class="hover:text-[var(--ink)] transition-colors">Privacy Policy</a></li>
-							<li><a href="/terms" class="hover:text-[var(--ink)] transition-colors">Terms & Conditions</a></li>
+							<li><a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`} class="hover:text-[var(--ink)] transition-colors">{t.privacyTitle}</a></li>
+							<li><a href={lang === 'en' ? '/terms' : `/${lang}/terms`} class="hover:text-[var(--ink)] transition-colors">{t.termsTitle}</a></li>
 						</ul>
 					</div>
 
 					<!-- Col 4: Regional Language Paths & Specific Converters -->
 					<div class="space-y-2.5">
-						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">Converters</h4>
+						<h4 class="font-semibold text-xs text-[var(--ink)] uppercase tracking-wider font-mono">{t.footerConverters}</h4>
 						<ul class="space-y-1.5 text-xs">
 							<li><a href="/te/unicode-to-anu-converter" class="hover:text-[var(--ink)] transition-colors">Anu 7.0 & 6.0 (Telugu)</a></li>
 							<li><a href="/hi/unicode-to-anu-neo-converter" class="hover:text-[var(--ink)] transition-colors">Anu Neo (Hindi)</a></li>
@@ -281,13 +289,13 @@ const schemaGraph = JSON.stringify({
 
 				<!-- Footer Bottom Copyright Bar -->
 				<div class="pt-6 border-t border-[var(--hairline)] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs font-mono">
-					<span id="footer-text">© 2026 NonUnicodeConverter.com • 100% Private (Runs locally in your browser)</span>
+					<span id="footer-text">{t.footerCopyright}</span>
 					<div class="flex items-center gap-4 text-[var(--ink-tertiary)]">
-						<a href="/privacy" class="hover:underline">Privacy</a>
+						<a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`} class="hover:underline">Privacy</a>
 						<span>•</span>
-						<a href="/terms" class="hover:underline">Terms</a>
+						<a href={lang === 'en' ? '/terms' : `/${lang}/terms`} class="hover:underline">Terms</a>
 						<span>•</span>
-						<a href="/contact" class="hover:underline">Contact</a>
+						<a href={lang === 'en' ? '/contact' : `/${lang}/contact`} class="hover:underline">Contact</a>
 					</div>
 				</div>
 			</div>

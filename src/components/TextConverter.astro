@@ -6,14 +6,15 @@ interface Props {
   lang?: Language;
   defaultScript?: string;
   defaultFormat?: string;
+  defaultExactFont?: string;
 }
 
-const { lang = 'en', defaultScript, defaultFormat } = Astro.props;
+const { lang = 'en', defaultScript, defaultFormat, defaultExactFont } = Astro.props;
 const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 const defaultFont = 'anu7';
 ---
 
-<div id="converter-root" class="w-full max-w-4xl mx-auto space-y-4" data-lang={lang} data-default-font={defaultFont} data-default-script={defaultScript || ''} data-default-format={defaultFormat || ''}>
+<div id="converter-root" class="w-full max-w-4xl mx-auto space-y-4" data-lang={lang} data-default-font={defaultFont} data-default-script={defaultScript || ''} data-default-format={defaultFormat || ''} data-default-exact-font={defaultExactFont || ''}>
   <!-- Header / Smart Auto Status Badge -->
   <div class="flex justify-end gap-3 rounded-xl">
     <div class="text-xs font-mono text-[var(--ink-secondary)] flex items-center justify-center sm:justify-start gap-1.5 bg-[var(--canvas)] border border-[var(--hairline)] px-3 py-2 rounded-full shadow-2xs">
@@ -154,53 +155,53 @@ const defaultFont = 'anu7';
 
     <!-- Preset Sample Buttons -->
     <div class="flex items-center gap-1.5 w-full sm:w-auto justify-end border-t sm:border-t-0 border-[var(--hairline)] pt-2 sm:pt-0">
-      <span class="text-[11px] font-mono text-[var(--ink-tertiary)] inline">Samples:</span>
+      <span class="text-sm font-mono text-[var(--ink-secondary)] inline">Samples:</span>
       <button 
         id="sample-telugu-btn" 
         type="button" 
-        class="px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Telugu Unicode
       </button>
       <button 
         id="sample-hindi-btn" 
         type="button" 
-        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Hindi Unicode
       </button>
       <button 
         id="sample-tamil-btn" 
         type="button" 
-        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Tamil Unicode
       </button>
       <button 
         id="sample-kannada-btn" 
         type="button" 
-        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Kannada Unicode
       </button>
       <button
         id="sample-malayalam-btn"
         type="button"
-        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Malayalam Unicode
       </button>
       <button
         id="sample-marathi-btn"
         type="button"
-        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Marathi Unicode
       </button>
       <button
         id="sample-gujarati-btn"
         type="button"
-        class="hidden px-2.5 py-1 text-[11px] font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
+        class="hidden px-2.5 py-1 text-sm font-medium rounded-md bg-[var(--canvas)] border border-[var(--hairline)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer touch-target shadow-2xs"
       >
         Gujarati Unicode
       </button>
@@ -210,7 +211,7 @@ const defaultFont = 'anu7';
   <!-- Dual Text Boxes -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Unicode / Text Input Box -->
-    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden focus-within:border-[var(--hairline-strong)] focus-within:ring-1 focus-within:ring-[var(--ink)] transition-colors">
+    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden focus-within:border-[var(--hairline-strong)] focus-within:ring-1 focus-within:ring-[var(--ink)] transition-colors resize-y">
       <div class="flex items-center justify-between px-3.5 py-2.5 bg-[var(--canvas-soft)] border-b border-[var(--hairline)]">
         <span id="input-box-title" class="font-semibold text-xs uppercase tracking-wider text-[var(--ink)] flex items-center gap-1.5">
           UNICODE TEXT INPUT
@@ -255,13 +256,13 @@ const defaultFont = 'anu7';
         id="input-text"
         spellcheck="false"
         placeholder="Paste Unicode text here... (e.g. తెలుగు / हिंदी నాన్-యూనికోడ్)"
-        class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+        class="w-full flex-1 min-h-[16rem] p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-none focus:outline-none focus:ring-0"
         
       ></textarea>
     </div>
 
     <!-- Output Box & Controls -->
-    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden transition-colors">
+    <div class="flex flex-col bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl overflow-hidden transition-colors resize-y">
       <div class="flex items-center justify-between px-3.5 py-2.5 bg-[var(--canvas-soft)] border-b border-[var(--hairline)]">
         <span class="font-semibold text-xs uppercase tracking-wider text-[var(--ink)] truncate max-w-[180px] sm:max-w-none">
           <span id="output-box-title">NON-UNICODE OUTPUT</span>
@@ -283,7 +284,7 @@ const defaultFont = 'anu7';
         readonly
         spellcheck="false"
         placeholder="Converted legacy font text will appear here automatically..."
-        class="w-full h-48 sm:h-64 md:h-72 p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-y focus:outline-none focus:ring-0"
+        class="w-full flex-1 min-h-[16rem] p-3.5 sm:p-4 bg-transparent text-[var(--ink)] text-sm sm:text-base leading-relaxed border-none resize-none focus:outline-none focus:ring-0"
         
       ></textarea>
 
@@ -314,6 +315,7 @@ const defaultFont = 'anu7';
           <span id="copy-btn-text">COPY OUTPUT</span>
         </button>
       </div>
+
     </div>
   </div>
 
@@ -327,11 +329,17 @@ const defaultFont = 'anu7';
   </div>
 
   <!-- Bottom Stats Bar -->
-  <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-2 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg text-[11px] font-mono text-[var(--ink-secondary)]">
-    <div class="flex items-center gap-3">
+  <div class="flex flex-wrap items-center justify-between gap-3 px-3 py-2 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg text-[11px] font-mono text-[var(--ink-secondary)]">
+    <div class="flex items-center gap-3 flex-shrink-0">
       <span>Lines: <strong id="lines-stat" class="text-[var(--ink)]">0</strong></span>
       <span>•</span>
       <span>Words: <strong id="words-stat" class="text-[var(--ink)]">0</strong></span>
+    </div>
+    <div class="flex items-center">
+      <a href="/contact" class="flex items-center gap-1.5 text-[11px] font-sans font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors bg-[var(--canvas)] hover:bg-[var(--canvas-soft-2)] border border-[var(--hairline)] px-2.5 py-1 rounded-md shadow-2xs">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Wrong output? Need a new font? Contact us
+      </a>
     </div>
   </div>
 </div>
@@ -503,7 +511,7 @@ const defaultFont = 'anu7';
         const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(text);
         
     let exactFontTel = '';
-    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper')?.classList.contains('hidden')) {
         exactFontTel = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
     }
     let fontName = exactFontTel || 'Priyaanka'; // Ensure Word sees the original font name, default Priyaanka if exact unset
@@ -516,7 +524,7 @@ const defaultFont = 'anu7';
     } else if (currentScript === 'hindi') {
       
       let exactFont = '';
-      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper')?.classList.contains('hidden')) {
           exactFont = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
       }
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : (exactFont || 'AnuNEOGANBO'));
@@ -825,7 +833,7 @@ const defaultFont = 'anu7';
           const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(finalOutput);
           
     let exactFontTel = '';
-    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper')?.classList.contains('hidden')) {
         exactFontTel = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
     }
     let fontName = exactFontTel || 'Priyaanka'; // Ensure Word sees the original font name, default Priyaanka if exact unset
@@ -838,7 +846,7 @@ const defaultFont = 'anu7';
           } else if (currentScript === 'hindi') {
             
       let exactFont = '';
-      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper')?.classList.contains('hidden')) {
           exactFont = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
       }
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : (exactFont || 'AnuNEOGANBO'));
@@ -961,6 +969,67 @@ const defaultFont = 'anu7';
   });
   cleanSpacesChk?.addEventListener('change', processConversion);
 
+  const ROUTE_MAP: Record<string, string> = {
+    'telugu_anu7': 'unicode-to-anu-converter',
+    'telugu_anu6': 'unicode-to-anu-converter',
+    'hindi_anuneo': 'unicode-to-anu-neo-converter',
+    'hindi_krutidev': 'unicode-to-kruti-dev-converter',
+    'hindi_shreelipi': 'unicode-to-shree-lipi-hindi-converter',
+    'tamil_bamini': 'unicode-to-bamini-converter',
+    'tamil_shreelipitam': 'unicode-to-shree-lipi-tamil-converter',
+    'kannada_nudi': 'unicode-to-nudi-converter',
+    'malayalam_ism': 'unicode-to-ism-ml-tt-converter',
+    'marathi_shreelipimar': 'unicode-to-shree-lipi-marathi-converter',
+    'gujarati_hari': 'unicode-to-hari-converter'
+  };
+
+  const LANG_MAP: Record<string, string> = {
+    'telugu': 'te', 'hindi': 'hi', 'tamil': 'ta', 'kannada': 'kn', 'malayalam': 'ml', 'marathi': 'mr', 'gujarati': 'gu'
+  };
+
+  function navigateToConverter(manualAction = false) {
+    if (!manualAction) return;
+    if (!scriptSelectEl || !fontVersionSelectEl) return;
+    
+    // Get current UI language from the root element
+    const currentUiLang = document.getElementById('converter-root')?.getAttribute('data-lang') || 'en';
+    
+    const script = scriptSelectEl.value;
+    const format = fontVersionSelectEl.value;
+    
+    // Determine the base slug (e.g. unicode-to-anu-converter)
+    let slug = ROUTE_MAP[`${script}_${format}`];
+    
+    const exactFontSelectWrapper = document.getElementById('exact-font-select-wrapper') as HTMLDivElement;
+    const exactFontSelectEl = document.getElementById('exact-font-select') as HTMLSelectElement;
+    
+    // Only use exactFont if the exact-font wrapper is visible
+    let exactFont = '';
+    if (exactFontSelectWrapper && !exactFontSelectWrapper.classList.contains('hidden') && exactFontSelectEl) {
+        exactFont = exactFontSelectEl.value;
+    }
+    
+    // If an exact font is selected, use its specific slug
+    if (exactFont && exactFont !== 'none') {
+        const fontNameForSlug = exactFont.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().replace(/\s+/g, '-');
+        slug = `unicode-to-${fontNameForSlug}-converter`;
+    }
+
+    if (slug) {
+        // If English, put at root, otherwise put under /lang/
+        const targetPath = currentUiLang === 'en' ? `/${slug}` : `/${currentUiLang}/${slug}`;
+        
+        let params = `?f=${format}`;
+        if (exactFont) params += `&font=${exactFont}`;
+        
+        if (window.location.pathname.replace(/\/$/, "") !== targetPath) {
+            window.location.href = `${targetPath}${params}`;
+        } else {
+            window.history.replaceState({}, '', `${targetPath}${params}`);
+        }
+    }
+  }
+
   
   const fontVersionSelectEl = document.getElementById('font-version-select') as HTMLSelectElement;
   if (fontVersionSelectEl) {
@@ -970,6 +1039,7 @@ const defaultFont = 'anu7';
       }
       updateExactFontDropdown();
       processConversion();
+      navigateToConverter(true);
     });
   }
 
@@ -1060,16 +1130,17 @@ const defaultFont = 'anu7';
         ? "➜ Turn OFF 'Alt Raa Vatthu' to unlock these fonts:" 
         : "➜ Turn ON 'Alt Raa Vatthu' to unlock these fonts:";
         
-      let hoverReason = isAltRaa ? i18nData.dataset.uncheck : i18nData.dataset.check;
+      const i18nData = document.getElementById('i18n-data');
+      let hoverReason = isAltRaa ? (i18nData?.dataset.uncheck || '') : (i18nData?.dataset.check || '');
       
       html += `<optgroup label="${optgroupLabel}" class="text-[var(--ink-tertiary)] italic">`;
       disabledFonts.forEach(opt => {
-        html += `<option value="${opt.value}" disabled title="${hoverReason}" class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} ${document.getElementById('i18n-data').dataset.disabled}</option>`;
+        html += `<option value="${opt.value}" disabled title="${hoverReason}" class="text-[var(--ink-tertiary)] hover:bg-transparent cursor-not-allowed">${opt.label} ${document.getElementById('i18n-data')?.dataset.disabled}</option>`;
       });
       html += `</optgroup>`;
       
       // Just the clean primary tooltip text here
-      disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>${document.getElementById("i18n-data").dataset.exact}`;
+      disabledFontTooltip.innerHTML = `<div class="absolute -top-1 left-4 w-2 h-2 bg-[#2D3039] border-t border-l border-[#40434F] rotate-45"></div>${document.getElementById("i18n-data")?.dataset.exact}`;
       
       // Attempt to preserve selection if it still is valid
       const prevVal = exactFontSelectEl.value;
@@ -1101,6 +1172,7 @@ const defaultFont = 'anu7';
   exactFontSelectEl?.addEventListener('change', () => {
     // When changing exact font, automatically trigger conversion / RTF rebuild
     processConversion(false);
+    navigateToConverter(true);
   });
 
   function updateFontDropdown() {
@@ -1124,11 +1196,13 @@ const defaultFont = 'anu7';
       processConversion(false);
       const activeFontLabel = document.getElementById('active-font-label');
       if (activeFontLabel) activeFontLabel.textContent = activeFontNameLabel();
+      navigateToConverter(true);
     });
   }
   // Set explicit default script and format if provided via props
   const defaultScript = rootEl?.dataset.defaultScript;
   const defaultFormat = rootEl?.dataset.defaultFormat;
+  const defaultExactFont = rootEl?.dataset.defaultExactFont;
   if (defaultScript && scriptSelectEl) {
     scriptSelectEl.value = defaultScript;
   }
@@ -1136,11 +1210,23 @@ const defaultFont = 'anu7';
   // Call once on init
   updateFontDropdown();
   
-  if (defaultFormat && fontVersionSelectEl) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const formatParam = urlParams.get('f');
+  const exactFontParam = urlParams.get('font');
+
+  if (formatParam && fontVersionSelectEl) {
+    fontVersionSelectEl.value = formatParam;
+  } else if (defaultFormat && fontVersionSelectEl) {
     fontVersionSelectEl.value = defaultFormat;
   }
   
   updateExactFontDropdown();
+  
+  if (exactFontParam && exactFontSelectEl) {
+      exactFontSelectEl.value = exactFontParam;
+  } else if (defaultExactFont && exactFontSelectEl) {
+      exactFontSelectEl.value = defaultExactFont;
+  }
 
   altRaaVatthuChk?.addEventListener('change', () => {
     localStorage.setItem('altRaaVatthu', altRaaVatthuChk.checked.toString());
@@ -1410,7 +1496,7 @@ const defaultFont = 'anu7';
     const isOutputUnicode = /[\u0A80-\u0AFF\u0C00-\u0C7F\u0900-\u097F]/.test(val);
     
     let exactFontTel = '';
-    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+    if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper')?.classList.contains('hidden')) {
         exactFontTel = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
     }
     let fontName = exactFontTel || 'Priyaanka'; // Ensure Word sees the original font name, default Priyaanka if exact unset
@@ -1423,7 +1509,7 @@ const defaultFont = 'anu7';
     } else if (currentScript === 'hindi') {
       
       let exactFont = '';
-      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper').classList.contains('hidden')) {
+      if (document.getElementById('exact-font-select-wrapper') && !document.getElementById('exact-font-select-wrapper')?.classList.contains('hidden')) {
           exactFont = (document.getElementById('exact-font-select') as HTMLSelectElement)?.value || '';
       }
       fontName = currentFormat === 'krutidev' ? 'Kruti Dev 010' : (currentFormat === 'shreelipi' ? 'SHREE-DEV7-4642' : (exactFont || 'AnuNEOGANBO'));
