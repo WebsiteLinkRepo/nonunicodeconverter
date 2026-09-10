@@ -14,3 +14,10 @@ features = [
     "Win32_System_Memory",
     "Win32_System_DataExchange",
 ]
+
+# Statically link the C runtime to avoid requiring VC++ Redistributable
+[target.i686-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
