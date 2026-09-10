@@ -31,19 +31,58 @@ Root: HKCU; Subkey: "Software\Classes\nonunicode\shell\open\command"; ValueType:
 Name: "{group}\Uninstall Auto Font Changer"; Filename: "{uninstallexe}"
 
 [Code]
-function InitializeSetup(): Boolean;
 var
+  MaintenancePage: TInputOptionWizardPage;
+  IsUpgrade: Boolean;
   UninstallPath: string;
+
+procedure InitializeWizard;
+begin
+  IsUpgrade := False;
+  
+  if RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting("AppId")}_is1', 'UninstallString', UninstallPath) then
+  begin
+    IsUpgrade := True;
+    
+    MaintenancePage := CreateInputOptionPage(wpWelcome,
+      'Maintenance Mode', 'Auto Font Changer is already installed on your system.',
+      'Please choose the maintenance operation you would like to perform:',
+      True, False);
+      
+    MaintenancePage.Add('Repair installation (Fix missing files, shortcuts, and registry keys)');
+    MaintenancePage.Add('Uninstall Auto Font Changer completely');
+    
+    MaintenancePage.Values[0] := True;
+  end;
+end;
+
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+  Result := False;
+  if IsUpgrade and (PageID = wpSelectDir) then
+    Result := True;
+end;
+
+function NextButtonClick(CurPageID: Integer): Boolean;
+var
   ResultCode: Integer;
 begin
   Result := True;
   
-  if RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting("AppId")}_is1', 'UninstallString', UninstallPath) then
+  if IsUpgrade and (CurPageID = MaintenancePage.ID) then
   begin
-    if MsgBox('Auto Font Changer is already installed on your system.' #13#13 'Would you like to completely remove the existing version before continuing the installation?', mbConfirmation, MB_YESNO) = idYes then
+    if MaintenancePage.Values[1] then
     begin
-      UninstallPath := RemoveQuotes(UninstallPath);
-      Exec(UninstallPath, '/SILENT', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
+      if MsgBox('Are you sure you want to completely remove Auto Font Changer from your system?', mbConfirmation, MB_YESNO) = idYes then
+      begin
+        UninstallPath := RemoveQuotes(UninstallPath);
+        Exec(UninstallPath, '/SILENT', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
+        Result := False;
+        WizardForm.Close;
+      end else
+      begin
+        Result := False;
+      end;
     end;
   end;
 end;
