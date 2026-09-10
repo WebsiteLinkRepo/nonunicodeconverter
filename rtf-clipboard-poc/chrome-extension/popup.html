@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>RTF Clipboard POC</title>
+  <style>
+    body {
+      width: 320px;
+      padding: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+    }
+    h1 {
+      font-size: 18px;
+      margin: 0 0 16px 0;
+      font-weight: 600;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      background: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    button:hover {
+      background: #357ae8;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    #status {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .success {
+      background: #e6f4ea;
+      color: #137333;
+      border: 1px solid #c4e7d4;
+    }
+    .error {
+      background: #fce8e6;
+      color: #c5221f;
+      border: 1px solid #f4c7c3;
+    }
+    .info {
+      background: #e8f0fe;
+      color: #1967d2;
+      border: 1px solid #d2e3fc;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      background: rgba(0,0,0,0.05);
+      padding: 2px 4px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>RTF Clipboard POC</h1>
+  <button id="testButton">Test Native RTF</button>
+  <div id="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
