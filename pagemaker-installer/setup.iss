@@ -12,6 +12,8 @@ SolidCompression=yes
 PrivilegesRequired=lowest
 OutputDir=Output
 SetupIconFile=setup.ico
+WizardImageFile=WizardImageFile.bmp
+WizardSmallImageFile=WizardSmallImageFile.bmp
 
 [Files]
 Source: "..\pagemaker-helper\target\i686-pc-windows-msvc\release\pgmkrautofontchanger.exe"; DestDir: "{app}"; DestName: "pgmkrautofontchanger.exe"; Flags: ignoreversion

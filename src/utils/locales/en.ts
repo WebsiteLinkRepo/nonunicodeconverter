@@ -177,16 +177,16 @@ export const en = {
   placeholderInputReverse: "Paste your {{font}} text here...",
   placeholderOutputReverse: "Converted {{script}} Unicode text will appear here automatically..."
 ,
-  pagemakerBtnText: "Open PageMaker Auto Font Changer",
-  pagemakerTooltip: "Use converted text directly with Adobe PageMaker 7.0 without manually changing fonts.",
-  pagemakerPopupTitle: "Adobe PageMaker 7.0",
-  pagemakerPopupDesc: "PageMaker Auto Font Changer is not installed or could not be opened. Install this software in your PC to make it work.",
-  pagemakerInstallBtn: "Install PageMaker Auto Font Changer",
+  pagemakerBtnText: "Open PageMaker & Photoshop 7.0 Auto Font Changer",
+  pagemakerTooltip: "Use converted text directly with Adobe PageMaker & Photoshop 7.0 without manually changing fonts.",
+  pagemakerPopupTitle: "Adobe PageMaker & Photoshop 7.0",
+  pagemakerPopupDesc: "PageMaker & Photoshop 7.0 Auto Font Changer is not installed or could not be opened. Install this software in your PC to make it work.",
+  pagemakerInstallBtn: "Install PageMaker & Photoshop 7.0 Auto Font Changer",
   pagemakerTryAgainBtn: "Try Again",
   pwaInstallTitle: "Install as App",
   pwaInstallDesc: "Install this website as an app on your device for quick access.",
   pwaInstallBtn: "Install Web App",
-  fontHelperTitle: "PageMaker Auto Font Changer",
-  fontHelperDesc: "A native Windows helper for Adobe PageMaker 7.0. It bridges the modern web clipboard with legacy Rich Text Format (RTF) requirements.",
-  fontHelperBtn: "Download Setup (.exe)"
+  fontHelperTitle: "PageMaker & Photoshop 7.0 Auto Font Changer",
+  fontHelperDesc: "A native Windows helper for Adobe PageMaker & Photoshop 7.0. It bridges the modern web clipboard with legacy Rich Text Format (RTF) requirements.",
+  fontHelperBtn: "Download Auto Font Changer "
 };

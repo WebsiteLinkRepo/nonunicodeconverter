@@ -179,16 +179,16 @@ export const hi: Translations = {
   placeholderInputReverse: "अपना {{font}} टेक्स्ट यहाँ पेस्ट करें...",
   placeholderOutputReverse: "परिवर्तित {{script}} यूनिकोड टेक्स्ट यहाँ अपने आप दिखाई देगा..."
 ,
-  pagemakerBtnText: "PageMaker ऑटो फ़ॉन्ट चेंजर खोलें",
-  pagemakerTooltip: "फ़ॉन्ट को मैन्युअल रूप से बदले बिना सीधे Adobe PageMaker 7.0 के साथ परिवर्तित टेक्स्ट का उपयोग करें।",
-  pagemakerPopupTitle: "Adobe PageMaker 7.0",
-  pagemakerPopupDesc: "PageMaker ऑटो फ़ॉन्ट चेंजर स्थापित नहीं है या खोला नहीं जा सका। इसे काम करने के लिए इस सॉफ़्टवेयर को अपने पीसी में स्थापित करें।",
-  pagemakerInstallBtn: "PageMaker ऑटो फ़ॉन्ट चेंजर स्थापित करें",
+  pagemakerBtnText: "PageMaker & Photoshop 7.0 ऑटो फ़ॉन्ट चेंजर खोलें",
+  pagemakerTooltip: "फ़ॉन्ट को मैन्युअल रूप से बदले बिना सीधे Adobe PageMaker & Photoshop 7.0 के साथ परिवर्तित टेक्स्ट का उपयोग करें।",
+  pagemakerPopupTitle: "Adobe PageMaker & Photoshop 7.0",
+  pagemakerPopupDesc: "PageMaker & Photoshop 7.0 ऑटो फ़ॉन्ट चेंजर स्थापित नहीं है या खोला नहीं जा सका। इसे काम करने के लिए इस सॉफ़्टवेयर को अपने पीसी में स्थापित करें।",
+  pagemakerInstallBtn: "PageMaker & Photoshop 7.0 ऑटो फ़ॉन्ट चेंजर स्थापित करें",
   pagemakerTryAgainBtn: "पुनः प्रयास करें",
   pwaInstallTitle: "ऐप के रूप में स्थापित करें",
   pwaInstallDesc: "त्वरित पहुँच के लिए इस वेबसाइट को अपने डिवाइस पर एक ऐप के रूप में स्थापित करें।",
   pwaInstallBtn: "वेब ऐप इंस्टॉल करें",
-  fontHelperTitle: "PageMaker ऑटो फ़ॉन्ट चेंजर",
-  fontHelperDesc: "Adobe PageMaker 7.0 के लिए एक देशी Windows सहायक। यह आधुनिक वेब क्लिपबोर्ड को विरासत रिच टेक्स्ट फॉर्मेट (RTF) आवश्यकताओं के साथ जोड़ता है।",
-  fontHelperBtn: "सेटअप डाउनलोड करें (.exe)"
+  fontHelperTitle: "PageMaker & Photoshop 7.0 ऑटो फ़ॉन्ट चेंजर",
+  fontHelperDesc: "Adobe PageMaker & Photoshop 7.0 के लिए एक देशी Windows सहायक। यह आधुनिक वेब क्लिपबोर्ड को विरासत रिच टेक्स्ट फॉर्मेट (RTF) आवश्यकताओं के साथ जोड़ता है।",
+  fontHelperBtn: "ऑटो फ़ॉन्ट चेंजर डाउनलोड करें "
 };

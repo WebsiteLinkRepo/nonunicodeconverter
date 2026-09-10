@@ -179,16 +179,16 @@ export const gu: Translations = {
   placeholderInputReverse: "તમારો {{font}} ટેક્સ્ટ અહી પેસ્ટ કરો...",
   placeholderOutputReverse: "રૂપાંતરિત {{script}} યુનિકોડ ટેક્સ્ટ અહી દેખાશે..."
 ,
-  pagemakerBtnText: "PageMaker ઓટો ફોન્ટ ચેન્જર ખોલો",
-  pagemakerTooltip: "ફોન્ટ્સને મેન્યુઅલી બદલ્યા વિના સીધા જ Adobe PageMaker 7.0 સાથે કન્વર્ટ કરેલ ટેક્સ્ટનો ઉપયોગ કરો.",
-  pagemakerPopupTitle: "Adobe PageMaker 7.0",
-  pagemakerPopupDesc: "PageMaker ઓટો ફોન્ટ ચેન્જર ઇન્સ્ટોલ કરેલ નથી અથવા ખોલી શકાયું નથી. તેને કામ કરવા માટે તમારા પીસી પર આ સોફ્ટવેર ઇન્સ્ટોલ કરો.",
-  pagemakerInstallBtn: "PageMaker ઓટો ફોન્ટ ચેન્જર ઇન્સ્ટોલ કરો",
+  pagemakerBtnText: "PageMaker & Photoshop 7.0 ઓટો ફોન્ટ ચેન્જર ખોલો",
+  pagemakerTooltip: "ફોન્ટ્સને મેન્યુઅલી બદલ્યા વિના સીધા જ Adobe PageMaker & Photoshop 7.0 સાથે કન્વર્ટ કરેલ ટેક્સ્ટનો ઉપયોગ કરો.",
+  pagemakerPopupTitle: "Adobe PageMaker & Photoshop 7.0",
+  pagemakerPopupDesc: "PageMaker & Photoshop 7.0 ઓટો ફોન્ટ ચેન્જર ઇન્સ્ટોલ કરેલ નથી અથવા ખોલી શકાયું નથી. તેને કામ કરવા માટે તમારા પીસી પર આ સોફ્ટવેર ઇન્સ્ટોલ કરો.",
+  pagemakerInstallBtn: "PageMaker & Photoshop 7.0 ઓટો ફોન્ટ ચેન્જર ઇન્સ્ટોલ કરો",
   pagemakerTryAgainBtn: "ફરી પ્રયાસ કરો",
   pwaInstallTitle: "એપ્લિકેશન તરીકે ઇન્સ્ટોલ કરો",
   pwaInstallDesc: "ઝડપી ઍક્સેસ માટે તમારા ઉપકરણ પર એપ્લિકેશન તરીકે આ વેબસાઇટને ઇન્સ્ટોલ કરો.",
   pwaInstallBtn: "વેબ એપ્લિકેશન ઇન્સ્ટોલ કરો",
-  fontHelperTitle: "PageMaker ઓટો ફોન્ટ ચેન્જર",
-  fontHelperDesc: "Adobe PageMaker 7.0 માટે મૂળ Windows સહાયક. તે આધુનિક વેબ ક્લિપબોર્ડને લેગસી રિચ ટેક્સ્ટ ફોર્મેટ (RTF) આવશ્યકતાઓ સાથે જોડે છે.",
-  fontHelperBtn: "સેટઅપ ડાઉનલોડ કરો (.exe)"
+  fontHelperTitle: "PageMaker & Photoshop 7.0 ઓટો ફોન્ટ ચેન્જર",
+  fontHelperDesc: "Adobe PageMaker & Photoshop 7.0 માટે મૂળ Windows સહાયક. તે આધુનિક વેબ ક્લિપબોર્ડને લેગસી રિચ ટેક્સ્ટ ફોર્મેટ (RTF) આવશ્યકતાઓ સાથે જોડે છે.",
+  fontHelperBtn: "ઓટો ફોન્ટ ચેન્જર ડાઉનલોડ કરો "
 };
