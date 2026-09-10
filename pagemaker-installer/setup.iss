@@ -1,7 +1,8 @@
 [Setup]
-AppName=NonUnicodeConverter PageMaker Auto Font Changer
+AppName=Auto Font Changer
 AppVersion=1.0.0
-AppPublisher=NonUnicodeConverter.com
+AppVerName=Auto Font Changer
+AppPublisher=NonUnicodeConverter
 AppPublisherURL=https://nonunicodeconverter.com
 DefaultDirName={localappdata}\NonUnicodeConverter\PageMakerAutoFontChanger
 DefaultGroupName=NonUnicodeConverter
@@ -26,4 +27,4 @@ Root: HKCU; Subkey: "Software\Classes\nonunicode\shell\open"; Flags: uninsdelete
 Root: HKCU; Subkey: "Software\Classes\nonunicode\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\pgmkrautofontchanger.exe"" ""%1"""; Flags: uninsdeletekey
 
 [Icons]
-Name: "{group}\Uninstall PageMaker Auto Font Changer"; Filename: "{uninstallexe}"
+Name: "{group}\Uninstall Auto Font Changer"; Filename: "{uninstallexe}"
