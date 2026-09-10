@@ -5,7 +5,7 @@
 #[cfg(windows)]
 use windows::core::s;
 #[cfg(windows)]
-use windows::Win32::Foundation::HANDLE;
+use windows::Win32::Foundation::{HANDLE, HGLOBAL};
 #[cfg(windows)]
 use windows::Win32::System::DataExchange::{
     CloseClipboard, CountClipboardFormats, EnumClipboardFormats, GetClipboardData,
@@ -100,9 +100,10 @@ fn inspect_clipboard() {
                 // Try to read RTF data
                 match GetClipboardData(rtf_format) {
                     Ok(handle) if !handle.is_invalid() => {
-                        let ptr = GlobalLock(handle);
+                        let hglobal = HGLOBAL(handle.0);
+                        let ptr = GlobalLock(hglobal);
                         if !ptr.is_null() {
-                            let size = GlobalSize(handle);
+                            let size = GlobalSize(hglobal);
                             println!("RTF data size: {} bytes", size);
 
                             // Read first 200 bytes as preview
@@ -116,7 +117,7 @@ fn inspect_clipboard() {
                                 println!("\nRTF data is binary or non-UTF8");
                             }
 
-                            let _ = GlobalUnlock(handle);
+                            let _ = GlobalUnlock(hglobal);
                         }
                     }
                     _ => {
@@ -132,7 +133,8 @@ fn inspect_clipboard() {
         // Check for plain text
         if let Ok(handle) = GetClipboardData(13) {
             if !handle.is_invalid() {
-                let ptr = GlobalLock(handle);
+                let hglobal = HGLOBAL(handle.0);
+                let ptr = GlobalLock(hglobal);
                 if !ptr.is_null() {
                     let text_ptr = ptr as *const u16;
                     let mut len = 0;
@@ -145,7 +147,7 @@ fn inspect_clipboard() {
                     println!("\n📋 Plain text content:");
                     println!("{}", text);
 
-                    let _ = GlobalUnlock(handle);
+                    let _ = GlobalUnlock(hglobal);
                 }
             }
         }
