@@ -73,7 +73,7 @@ fn copy_to_native_clipboard(app: tauri::AppHandle, plain_text: String, rtf_text:
         let clip = app.clipboard();
         let _ = clip.write_text(&plain_text);
         if !html_text.is_empty() {
-            let _ = clip.write_html(&html_text);
+            let _ = clip.write_html(&html_text, Some(&plain_text));
         }
         return Ok(true);
     }
