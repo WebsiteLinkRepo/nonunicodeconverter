@@ -5,6 +5,7 @@ AppVersion=1.0.0
 AppVerName=Auto Font Changer
 AppPublisher=NonUnicodeConverter
 AppPublisherURL=https://nonunicodeconverter.com
+AppCopyright=Copyright (C) 2026 NonUnicodeConverter.com. All rights reserved.
 DefaultDirName={localappdata}\NonUnicodeConverter\AutoFontChanger
 DefaultGroupName=NonUnicodeConverter
 DisableProgramGroupPage=yes
@@ -16,6 +17,10 @@ OutputDir=Output
 SetupIconFile=setup.ico
 WizardImageFile=WizardImageFile.bmp
 WizardSmallImageFile=WizardSmallImageFile.bmp
+VersionInfoCompany=NonUnicodeConverter
+VersionInfoCopyright=Copyright (C) 2026 NonUnicodeConverter.com
+VersionInfoProductName=Auto Font Changer
+VersionInfoProductVersion=1.0.0
 
 [Files]
 Source: "..\pagemaker-helper\target\i686-pc-windows-msvc\release\pgmkrautofontchanger.exe"; DestDir: "{app}"; DestName: "pgmkrautofontchanger.exe"; Flags: ignoreversion
