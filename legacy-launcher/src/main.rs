@@ -24,12 +24,12 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
     #[cfg(windows)]
     {
         use windows::core::s;
-        use windows::Win32::Foundation::{HANDLE, HGLOBAL};
+        use windows::Win32::Foundation::HANDLE;
         use windows::Win32::System::Memory::{GlobalAlloc, GlobalLock, GlobalUnlock, GMEM_MOVEABLE};
         use windows::Win32::System::DataExchange::{OpenClipboard, CloseClipboard, EmptyClipboard, SetClipboardData, RegisterClipboardFormatA};
-        
+
         unsafe {
-            if OpenClipboard(None).is_err() {
+            if !OpenClipboard(None).as_bool() {
                 return Err("Failed to open clipboard".into());
             }
             let _ = EmptyClipboard();
