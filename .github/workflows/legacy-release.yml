@@ -1,0 +1,69 @@
+name: Legacy Release (Supermium)
+
+on:
+  push:
+    tags:
+      - 'legacy-v*'
+  workflow_dispatch:
+
+jobs:
+  build-legacy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Frontend Dependencies
+        run: npm install
+
+      - name: Build Frontend (Astro)
+        run: npm run build
+
+      - name: Setup Rust (1.68 for XP compatibility)
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.68.2
+          targets: i686-pc-windows-msvc
+
+      - name: Build Legacy Launcher
+        working-directory: legacy-launcher
+        run: cargo build --target i686-pc-windows-msvc --release
+
+      - name: Download Supermium 122 (32-bit SSE2)
+        run: |
+          curl -L -o supermium_setup.exe https://github.com/win32ss/supermium/releases/download/v122-hf/supermium_122_32_setup.exe
+          $hash = (Get-FileHash supermium_setup.exe -Algorithm SHA256).Hash.ToLower()
+          if ($hash -ne '28f67289841f1ea2328c5071d6acf30b47fc108e2168cf9dbcb0effa670bed3b') {
+            Write-Error "Checksum mismatch! Expected 28f67289841f1ea2328c5071d6acf30b47fc108e2168cf9dbcb0effa670bed3b but got $hash"
+            exit 1
+          }
+
+      - name: Extract Supermium
+        run: |
+          mkdir supermium_extracted
+          7z x supermium_setup.exe -osupermium_extracted
+          cd supermium_extracted
+          7z x chrome.7z -osupermium_runtime
+          # The exact structure inside chrome.7z usually contains Chrome-bin\
+          # Let's move everything to a cleaner structure
+          mkdir ..\NonUnicodeConverterLegacy
+          mkdir ..\NonUnicodeConverterLegacy\supermium
+          Move-Item -Path "supermium_runtime\Chrome-bin\*" -Destination "..\NonUnicodeConverterLegacy\supermium" -Force
+          cd ..
+          
+      - name: Package Legacy Bundle
+        run: |
+          Copy-Item -Path "legacy-launcher\target\i686-pc-windows-msvc\release\nonunicodeconverter-legacy.exe" -Destination "NonUnicodeConverterLegacy\NonUnicodeConverter.exe"
+          Compress-Archive -Path NonUnicodeConverterLegacy -DestinationPath NonUnicodeConverter-Legacy-Windows-x86.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NonUnicodeConverter-Legacy-Windows-x86
+          path: NonUnicodeConverter-Legacy-Windows-x86.zip
+          if-no-files-found: error
