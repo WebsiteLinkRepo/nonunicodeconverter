@@ -11,12 +11,20 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
         use windows::Win32::System::DataExchange::{OpenClipboard, CloseClipboard, EmptyClipboard, SetClipboardData, RegisterClipboardFormatA};
 
         unsafe {
+            println!("DEBUG: Opening clipboard...");
             if !OpenClipboard(None).as_bool() {
                 return Err("Failed to open clipboard".into());
             }
-            let _ = EmptyClipboard();
+            println!("DEBUG: Clipboard opened successfully");
+
+            if EmptyClipboard().is_err() {
+                let _ = CloseClipboard();
+                return Err("Failed to empty clipboard".into());
+            }
+            println!("DEBUG: Clipboard emptied");
 
             // Plain text (CF_UNICODETEXT = 13)
+            println!("DEBUG: Writing plain text: {}", plain_text);
             let mut utf16: Vec<u16> = plain_text.encode_utf16().collect();
             utf16.push(0);
 
@@ -24,30 +32,63 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                 let ptr = GlobalLock(hglobal);
                 if !ptr.is_null() {
                     std::ptr::copy_nonoverlapping(utf16.as_ptr(), ptr as *mut u16, utf16.len());
-                    let _ = GlobalUnlock(hglobal);
-                    let _ = SetClipboardData(13, HANDLE(hglobal.0 as _));
+                    GlobalUnlock(hglobal);
+                    if SetClipboardData(13, HANDLE(hglobal.0 as _)).is_err() {
+                        let _ = CloseClipboard();
+                        return Err("Failed to set plain text clipboard data".into());
+                    }
+                    println!("DEBUG: Plain text written successfully");
                 }
             }
 
             // RTF - This is the CRITICAL part that PageMaker 7.0 reads
             if !rtf_text.is_empty() {
+                println!("DEBUG: Registering RTF format...");
                 let format_rtf = RegisterClipboardFormatA(s!("Rich Text Format"));
+                println!("DEBUG: RTF format ID: {}", format_rtf);
+
                 if format_rtf > 0 {
                     let mut rtf_bytes = rtf_text.into_bytes();
+                    println!("DEBUG: RTF bytes length (before null): {}", rtf_bytes.len());
+                    println!("DEBUG: RTF content: {:?}", String::from_utf8_lossy(&rtf_bytes));
                     rtf_bytes.push(0);
+
+                    println!("DEBUG: Allocating {} bytes for RTF", rtf_bytes.len());
                     if let Ok(hglobal) = GlobalAlloc(GMEM_MOVEABLE, rtf_bytes.len()) {
+                        println!("DEBUG: Memory allocated, HGLOBAL: {:?}", hglobal);
                         let ptr = GlobalLock(hglobal);
+                        println!("DEBUG: Memory locked, ptr: {:?}", ptr);
+
                         if !ptr.is_null() {
                             std::ptr::copy_nonoverlapping(rtf_bytes.as_ptr(), ptr as *mut u8, rtf_bytes.len());
-                            let _ = GlobalUnlock(hglobal);
-                            let _ = SetClipboardData(format_rtf, HANDLE(hglobal.0 as _));
+                            println!("DEBUG: RTF bytes copied to memory");
+
+                            GlobalUnlock(hglobal);
+                            println!("DEBUG: Memory unlocked");
+
+                            let result = SetClipboardData(format_rtf, HANDLE(hglobal.0 as _));
+                            if result.is_err() {
+                                let _ = CloseClipboard();
+                                return Err(format!("Failed to set RTF clipboard data, error: {:?}", result));
+                            }
+                            println!("DEBUG: ✅ RTF data set successfully! Format ID: {}", format_rtf);
+                        } else {
+                            let _ = CloseClipboard();
+                            return Err("Failed to lock RTF memory".into());
                         }
+                    } else {
+                        let _ = CloseClipboard();
+                        return Err("Failed to allocate RTF memory".into());
                     }
+                } else {
+                    let _ = CloseClipboard();
+                    return Err("Failed to register RTF format (returned 0)".into());
                 }
             }
 
             // HTML
             if !html_text.is_empty() {
+                println!("DEBUG: Writing HTML format...");
                 let format_html = RegisterClipboardFormatA(s!("HTML Format"));
                 if format_html > 0 {
                     let mut html_bytes = html_text.into_bytes();
@@ -56,14 +97,21 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                         let ptr = GlobalLock(hglobal);
                         if !ptr.is_null() {
                             std::ptr::copy_nonoverlapping(html_bytes.as_ptr(), ptr as *mut u8, html_bytes.len());
-                            let _ = GlobalUnlock(hglobal);
-                            let _ = SetClipboardData(format_html, HANDLE(hglobal.0 as _));
+                            GlobalUnlock(hglobal);
+                            if SetClipboardData(format_html, HANDLE(hglobal.0 as _)).is_err() {
+                                let _ = CloseClipboard();
+                                return Err("Failed to set HTML clipboard data".into());
+                            }
+                            println!("DEBUG: HTML written successfully");
                         }
                     }
                 }
             }
 
-            let _ = CloseClipboard();
+            if CloseClipboard().is_err() {
+                return Err("Failed to close clipboard".into());
+            }
+            println!("DEBUG: Clipboard closed successfully");
             Ok(())
         }
     }
