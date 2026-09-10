@@ -17,7 +17,7 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
             }
             println!("DEBUG: Clipboard opened successfully");
 
-            if EmptyClipboard().is_err() {
+            if !EmptyClipboard().as_bool() {
                 let _ = CloseClipboard();
                 return Err("Failed to empty clipboard".into());
             }
@@ -33,7 +33,8 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                 if !ptr.is_null() {
                     std::ptr::copy_nonoverlapping(utf16.as_ptr(), ptr as *mut u16, utf16.len());
                     GlobalUnlock(hglobal);
-                    if SetClipboardData(13, HANDLE(hglobal.0 as _)).is_err() {
+                    let result = SetClipboardData(13, HANDLE(hglobal.0 as _));
+                    if result.is_invalid() {
                         let _ = CloseClipboard();
                         return Err("Failed to set plain text clipboard data".into());
                     }
@@ -67,9 +68,9 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                             println!("DEBUG: Memory unlocked");
 
                             let result = SetClipboardData(format_rtf, HANDLE(hglobal.0 as _));
-                            if result.is_err() {
+                            if result.is_invalid() {
                                 let _ = CloseClipboard();
-                                return Err(format!("Failed to set RTF clipboard data, error: {:?}", result));
+                                return Err("Failed to set RTF clipboard data".into());
                             }
                             println!("DEBUG: ✅ RTF data set successfully! Format ID: {}", format_rtf);
                         } else {
@@ -98,7 +99,8 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                         if !ptr.is_null() {
                             std::ptr::copy_nonoverlapping(html_bytes.as_ptr(), ptr as *mut u8, html_bytes.len());
                             GlobalUnlock(hglobal);
-                            if SetClipboardData(format_html, HANDLE(hglobal.0 as _)).is_err() {
+                            let result = SetClipboardData(format_html, HANDLE(hglobal.0 as _));
+                            if result.is_invalid() {
                                 let _ = CloseClipboard();
                                 return Err("Failed to set HTML clipboard data".into());
                             }
@@ -108,7 +110,7 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
                 }
             }
 
-            if CloseClipboard().is_err() {
+            if !CloseClipboard().as_bool() {
                 return Err("Failed to close clipboard".into());
             }
             println!("DEBUG: Clipboard closed successfully");
