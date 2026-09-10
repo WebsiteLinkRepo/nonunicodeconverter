@@ -1,0 +1,1 @@
+/home/samuelvictor/nonunicodeconverter.com/pagemaker-helper/target/release/PageMakerAutoFontChanger: /home/samuelvictor/nonunicodeconverter.com/pagemaker-helper/build.rs /home/samuelvictor/nonunicodeconverter.com/pagemaker-helper/src/main.rs

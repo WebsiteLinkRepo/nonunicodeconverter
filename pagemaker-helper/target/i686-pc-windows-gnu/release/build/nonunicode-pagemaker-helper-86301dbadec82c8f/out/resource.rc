@@ -1,0 +1,26 @@
+#pragma code_page(65001)
+1 VERSIONINFO
+FILEFLAGS 0x0
+FILESUBTYPE 0x0
+FILETYPE 0x1
+FILEVERSION 1, 0, 0, 0
+FILEOS 0x40004
+PRODUCTVERSION 1, 0, 0, 0
+FILEFLAGSMASK 0x3f
+{
+BLOCK "StringFileInfo"
+{
+BLOCK "000004b0"
+{
+VALUE "LegalCopyright", "NonUnicodeConverter.com"
+VALUE "FileDescription", "Helper for Adobe PageMaker 7.0 Clipboard"
+VALUE "FileVersion", "1.0.0"
+VALUE "ProductName", "NonUnicodeConverter PageMaker Auto Font Changer"
+VALUE "ProductVersion", "1.0.0"
+}
+}
+BLOCK "VarFileInfo" {
+VALUE "Translation", 0x0, 0x04b0
+}
+}
+

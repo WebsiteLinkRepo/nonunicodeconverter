@@ -178,4 +178,17 @@ export const ta: Translations = {
   placeholderOutput: "மாற்றப்பட்ட {{font}} உரை இங்கே தோன்றும்...",
   placeholderInputReverse: "உங்கள் {{font}} உரையை இங்கே ஒட்டவும்...",
   placeholderOutputReverse: "மாற்றப்பட்ட {{script}} யூனிகோட் உரை இங்கே தோன்றும்..."
+,
+  pagemakerBtnText: "PageMaker ஆட்டோ எழுத்துரு மாற்றியைத் திற",
+  pagemakerTooltip: "எழுத்துருக்களை கைமுறையாக மாற்றாமல், மாற்றப்பட்ட உரையை நேரடியாக Adobe PageMaker 7.0 உடன் பயன்படுத்தவும்.",
+  pagemakerPopupTitle: "Adobe PageMaker 7.0",
+  pagemakerPopupDesc: "PageMaker ஆட்டோ எழுத்துரு மாற்றி நிறுவப்படவில்லை அல்லது திறக்க முடியவில்லை. இது வேலை செய்ய இந்த மென்பொருளை உங்கள் கணினியில் நிறுவவும்.",
+  pagemakerInstallBtn: "PageMaker ஆட்டோ எழுத்துரு மாற்றியை நிறுவு",
+  pagemakerTryAgainBtn: "மீண்டும் முயற்சிக்கவும்",
+  pwaInstallTitle: "பயன்பாடாக நிறுவு",
+  pwaInstallDesc: "விரைவான அணுகலுக்காக இந்த இணையதளத்தை உங்கள் சாதனத்தில் ஒரு பயன்பாடாக நிறுவவும்.",
+  pwaInstallBtn: "இணைய பயன்பாட்டை நிறுவு",
+  fontHelperTitle: "PageMaker ஆட்டோ எழுத்துரு மாற்றி",
+  fontHelperDesc: "Adobe PageMaker 7.0 க்கான சொந்த விண்டோஸ் உதவியாளர். இது நவீன இணைய கிளிப்போர்டை மரபு ரிச் டெக்ஸ்ட் ஃபார்மேட் (RTF) தேவைகளுடன் இணைக்கிறது.",
+  fontHelperBtn: "அமைப்பை பதிவிறக்கம் செய் (.exe)"
 };

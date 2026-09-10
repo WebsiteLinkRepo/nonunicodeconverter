@@ -178,4 +178,17 @@ export const ml: Translations = {
   placeholderOutput: "മാറ്റിയ {{font}} ടെക്സ്റ്റ് ഇവിടെ കാണും...",
   placeholderInputReverse: "നിങ്ങളുടെ {{font}} ടെക്സ്റ്റ് ഇവിടെ പേസ്റ്റ് ചെയ്യുക...",
   placeholderOutputReverse: "മാറ്റിയ {{script}} യൂണിക്കോഡ് ടെക്സ്റ്റ് ഇവിടെ കാണും..."
+,
+  pagemakerBtnText: "PageMaker ഓട്ടോ ഫോണ്ട് ചേഞ്ചർ തുറക്കുക",
+  pagemakerTooltip: "ഫോണ്ടുകൾ സ്വമേധയാ മാറ്റാതെ Adobe PageMaker 7.0 ഉപയോഗിച്ച് പരിവർത്തനം ചെയ്ത വാചകം നേരിട്ട് ഉപയോഗിക്കുക.",
+  pagemakerPopupTitle: "Adobe PageMaker 7.0",
+  pagemakerPopupDesc: "PageMaker ഓട്ടോ ഫോണ്ട് ചേഞ്ചർ ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല അല്ലെങ്കിൽ തുറക്കാൻ കഴിഞ്ഞില്ല. ഇത് പ്രവർത്തിക്കാൻ നിങ്ങളുടെ പിസിയിൽ ഈ സോഫ്റ്റ്വെയർ ഇൻസ്റ്റാൾ ചെയ്യുക.",
+  pagemakerInstallBtn: "PageMaker ഓട്ടോ ഫോണ്ട് ചേഞ്ചർ ഇൻസ്റ്റാൾ ചെയ്യുക",
+  pagemakerTryAgainBtn: "വീണ്ടും ശ്രമിക്കുക",
+  pwaInstallTitle: "ആപ്പായി ഇൻസ്റ്റാൾ ചെയ്യുക",
+  pwaInstallDesc: "വേഗത്തിലുള്ള ആക്സസിനായി നിങ്ങളുടെ ഉപകരണത്തിൽ ഈ വെബ്സൈറ്റ് ഒരു ആപ്പായി ഇൻസ്റ്റാൾ ചെയ്യുക.",
+  pwaInstallBtn: "വെബ് ആപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക",
+  fontHelperTitle: "PageMaker ഓട്ടോ ഫോണ്ട് ചേഞ്ചർ",
+  fontHelperDesc: "Adobe PageMaker 7.0-നുള്ള ഒരു നേറ്റീവ് Windows സഹായി. ഇത് ആധുനിക വെബ് ക്ലിപ്പ്ബോർഡിനെ ലെഗസി റിച്ച് ടെക്സ്റ്റ് ഫോർമാറ്റ് (RTF) ആവശ്യകതകളുമായി ബന്ധിപ്പിക്കുന്നു.",
+  fontHelperBtn: "സെറ്റപ്പ് ഡൗൺലോഡ് ചെയ്യുക (.exe)"
 };

@@ -178,4 +178,17 @@ export const kn: Translations = {
   placeholderOutput: "ಪರಿವರ್ತಿತ {{font}} ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ...",
   placeholderInputReverse: "ನಿಮ್ಮ {{font}} ಪಠ್ಯವನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ...",
   placeholderOutputReverse: "ಪರಿವರ್ತಿತ {{script}} ಯುನಿಕೋಡ್ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ..."
+,
+  pagemakerBtnText: "PageMaker ಆಟೋ ಫಾಂಟ್ ಚೇಂಜರ್ ತೆರೆಯಿರಿ",
+  pagemakerTooltip: "ಫಾಂಟ್‌ಗಳನ್ನು ಹಸ್ತಚಾಲಿತವಾಗಿ ಬದಲಾಯಿಸದೆ ಅಡೋಬ್ ಪೇಜ್ ಮೇಕರ್ 7.0 ನೊಂದಿಗೆ ಪರಿವರ್ತಿಸಲಾದ ಪಠ್ಯವನ್ನು ನೇರವಾಗಿ ಬಳಸಿ.",
+  pagemakerPopupTitle: "Adobe PageMaker 7.0",
+  pagemakerPopupDesc: "PageMaker ಆಟೋ ಫಾಂಟ್ ಚೇಂಜರ್ ಅನ್ನು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ ಅಥವಾ ತೆರೆಯಲಾಗಲಿಲ್ಲ. ಇದು ಕೆಲಸ ಮಾಡಲು ಈ ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ನಿಮ್ಮ PC ಯಲ್ಲಿ ಸ್ಥಾಪಿಸಿ.",
+  pagemakerInstallBtn: "PageMaker ಆಟೋ ಫಾಂಟ್ ಚೇಂಜರ್ ಸ್ಥಾಪಿಸಿ",
+  pagemakerTryAgainBtn: "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
+  pwaInstallTitle: "ಅಪ್ಲಿಕೇಶನ್ ಆಗಿ ಸ್ಥಾಪಿಸಿ",
+  pwaInstallDesc: "ತ್ವರಿತ ಪ್ರವೇಶಕ್ಕಾಗಿ ಈ ವೆಬ್‌ಸೈಟ್ ಅನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಆಗಿ ಸ್ಥಾಪಿಸಿ.",
+  pwaInstallBtn: "ವೆಬ್ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಿ",
+  fontHelperTitle: "PageMaker ಆಟೋ ಫಾಂಟ್ ಚೇಂಜರ್",
+  fontHelperDesc: "Adobe PageMaker 7.0 ಗಾಗಿ ಸ್ಥಳೀಯ ವಿಂಡೋಸ್ ಸಹಾಯಕ. ಇದು ಆಧುನಿಕ ವೆಬ್ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಅನ್ನು ಲೆಗಸಿ ರಿಚ್ ಟೆಕ್ಸ್ಟ್ ಫಾರ್ಮ್ಯಾಟ್ (RTF) ಅವಶ್ಯಕತೆಗಳೊಂದಿಗೆ ಸೇರಿಸುತ್ತದೆ.",
+  fontHelperBtn: "ಸೆಟಪ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ (.exe)"
 };

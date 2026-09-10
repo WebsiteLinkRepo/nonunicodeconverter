@@ -178,4 +178,17 @@ export const te: Translations = {
   placeholderOutput: "మార్చబడిన {{font}} టెక్స్ట్ ఇక్కడ ఆటోమేటిక్‌గా కనిపిస్తుంది...",
   placeholderInputReverse: "మీ {{font}} టెక్స్ట్‌ని ఇక్కడ పేస్ట్ చేయండి...",
   placeholderOutputReverse: "మార్చబడిన {{script}} యూనికోడ్ టెక్స్ట్ ఇక్కడ ఆటోమేటిక్‌గా కనిపిస్తుంది..."
+,
+  pagemakerBtnText: "PageMaker ఆటో ఫాంట్ ఛేంజర్ తెరవండి",
+  pagemakerTooltip: "ఫాంట్‌లను మాన్యువల్‌గా మార్చకుండా నేరుగా Adobe PageMaker 7.0తో మార్చబడిన వచనాన్ని ఉపయోగించండి.",
+  pagemakerPopupTitle: "Adobe PageMaker 7.0",
+  pagemakerPopupDesc: "PageMaker ఆటో ఫాంట్ ఛేంజర్ ఇన్‌స్టాల్ చేయబడలేదు లేదా తెరవబడలేదు. ఇది పని చేయడానికి మీ PCలో ఈ సాఫ్ట్‌వేర్‌ను ఇన్‌స్టాల్ చేయండి.",
+  pagemakerInstallBtn: "PageMaker ఆటో ఫాంట్ ఛేంజర్‌ని ఇన్‌స్టాల్ చేయండి",
+  pagemakerTryAgainBtn: "మళ్లీ ప్రయత్నించండి",
+  pwaInstallTitle: "యాప్‌గా ఇన్‌స్టాల్ చేయండి",
+  pwaInstallDesc: "త్వరిత యాక్సెస్ కోసం మీ పరికరంలో ఈ వెబ్‌సైట్‌ను యాప్‌గా ఇన్‌స్టాల్ చేయండి.",
+  pwaInstallBtn: "వెబ్ యాప్‌ను ఇన్‌స్టాల్ చేయండి",
+  fontHelperTitle: "PageMaker ఆటో ఫాంట్ ఛేంజర్",
+  fontHelperDesc: "Adobe PageMaker 7.0 కోసం స్థానిక Windows సహాయకుడు. ఇది ఆధునిక వెబ్ క్లిప్‌బోర్డ్‌ను పాత రిచ్ టెక్స్ట్ ఫార్మాట్ (RTF) అవసరాలతో కలుపుతుంది.",
+  fontHelperBtn: "సెటప్‌ను డౌన్‌లోడ్ చేయండి (.exe)"
 };

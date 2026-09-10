@@ -8,8 +8,10 @@ name = "rtf_native_host"
 path = "src/main.rs"
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+# Exact pins for Rust 1.77.2 compatibility (Windows 7)
+# Using = to force exact versions and avoid memchr 2.8+ (requires Rust 1.78+)
+serde = { version = "=1.0.196", features = ["derive"] }
+serde_json = "=1.0.113"
 
 [target.'cfg(windows)'.dependencies.windows]
 version = "0.48"

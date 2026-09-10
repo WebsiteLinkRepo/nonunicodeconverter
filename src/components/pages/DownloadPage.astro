@@ -18,81 +18,73 @@ const t = TRANSLATIONS[lang];
     </p>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Modern Windows -->
+      <!-- PWA Install -->
+      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
+        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
+          <svg class="w-5 h-5 text-[var(--ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">{t.pwaInstallTitle}</h2>
+        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
+          {t.pwaInstallDesc}
+        </p>
+        <button 
+          id="pwa-install-btn"
+          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
+        >
+          {t.pwaInstallBtn}
+        </button>
+      </div>
+
+      <!-- PageMaker Auto Font Changer -->
       <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
         <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
           <svg class="w-5 h-5 text-[var(--ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
           </svg>
         </div>
-        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">{t.downloadWinTitle}</h2>
+        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">{t.fontHelperTitle}</h2>
         <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
-          {t.downloadWinDesc}
+          {t.fontHelperDesc}
         </p>
         <a 
-          href="https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/nonunicodeconverter-modern-setup.exe" 
+          href="https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/PageMakerAutoFontChangerSetup.exe" 
           class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
         >
-          {t.downloadWinBtn}
-        </a>
-      </div>
-
-      <!-- macOS -->
-      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
-        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-[var(--ink)]" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.04 2.26-.79 3.56-.75 1.54.12 2.66.75 3.32 1.83-2.91 1.62-2.32 5.58.55 6.74-.69 1.76-1.55 3.35-2.51 4.35zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-          </svg>
-        </div>
-        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">{t.downloadMacTitle}</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
-          {t.downloadMacDesc}
-        </p>
-        <a 
-          href="https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/nonunicodeconverter-mac.dmg" 
-          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
-        >
-          {t.downloadMacBtn}
-        </a>
-      </div>
-
-      <!-- Linux -->
-      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
-        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-[var(--ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
-        </div>
-        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">{t.downloadLinTitle}</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
-          {t.downloadLinDesc}
-        </p>
-        <a 
-          href="https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/nonunicodeconverter-linux.deb" 
-          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink)] hover:opacity-80 transition-opacity mt-auto"
-        >
-          {t.downloadLinBtn}
-        </a>
-      </div>
-
-      <!-- Legacy Windows (XP/Vista/7) -->
-      <div class="border border-[var(--hairline)] rounded-xl p-6 shadow-sm bg-[var(--card-bg)] hover:border-[var(--hairline-strong)] transition-colors flex flex-col">
-        <div class="w-10 h-10 bg-[var(--canvas-soft)] border border-[var(--hairline)] rounded-lg flex items-center justify-center mb-5">
-          <svg class="w-5 h-5 text-[var(--ink-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-          </svg>
-        </div>
-        <h2 class="text-lg font-bold mb-2 text-[var(--ink)] tracking-tight">{t.downloadLegTitle}</h2>
-        <p class="text-[var(--ink-secondary)] mb-6 text-sm flex-grow">
-          {t.downloadLegDesc} <br/><br/> Note: Modern desktop apps no longer support XP/7. Please use the Web version.
-        </p>
-        <a 
-          href="/" 
-          class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent text-sm font-bold rounded-md text-[var(--canvas)] bg-[var(--ink-secondary)] hover:opacity-80 transition-opacity mt-auto"
-        >
-          Use Web Version
+          {t.fontHelperBtn}
         </a>
       </div>
     </div>
   </main>
+
+  <script>
+    let deferredPrompt: any;
+    const pwaBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      if (pwaBtn) {
+        pwaBtn.style.display = 'inline-flex';
+      }
+    });
+
+    if (pwaBtn) {
+      pwaBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          }
+          deferredPrompt = null;
+        } else {
+          alert('PWA installation is not supported or already installed on this browser.');
+        }
+      });
+    }
+  </script>
 </Layout>

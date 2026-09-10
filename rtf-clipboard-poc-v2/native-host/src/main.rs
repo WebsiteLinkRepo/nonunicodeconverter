@@ -5,6 +5,8 @@
 
 use serde::{Deserialize, Serialize};
 use std::io::{self, Read, Write};
+use std::fs::OpenOptions;
+use std::io::Write as IoWrite;
 
 #[derive(Deserialize)]
 struct NativeMessage {
@@ -18,6 +20,24 @@ struct NativeMessage {
 struct NativeResponse {
     success: bool,
     error: Option<String>,
+}
+
+// Debug logging function - writes to C:\rtf_native_debug.log
+// Errors are silently ignored so logging never breaks the main operation
+fn log_debug(message: &str) {
+    let log_path = r"C:\rtf_native_debug.log";
+    let _ = (|| -> std::io::Result<()> {
+        let timestamp = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_err(|_| std::io::Error::new(std::io::ErrorKind::Other, "time error"))?
+            .as_secs();
+        let mut file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(log_path)?;
+        writeln!(file, "[{}] {}", timestamp, message)?;
+        Ok(())
+    })();
 }
 
 // Chrome Native Messaging: Read 4-byte length + JSON message from stdin
@@ -127,27 +147,59 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
 // ============================================================================
 
 fn main() {
-    // Native Messaging: read one message, process, respond, exit
-    let response = match read_native_message() {
-        Ok(msg) if msg.action == "set_clipboard" => {
-            let plain = msg.plain_text.unwrap_or_default();
-            let rtf = msg.rtf_text.unwrap_or_default();
-            let html = msg.html_text.unwrap_or_default();
+    log_debug("=== Native host started ===");
 
-            match copy_to_native_clipboard(plain, rtf, html) {
-                Ok(()) => NativeResponse { success: true, error: None },
-                Err(e) => NativeResponse { success: false, error: Some(e) },
+    // Native Messaging: read one message, process, respond, exit
+    log_debug("Reading message from stdin...");
+    let response = match read_native_message() {
+        Ok(msg) => {
+            log_debug(&format!("Parsed action: {}", msg.action));
+
+            match msg.action.as_str() {
+                "ping" => {
+                    log_debug("Handling ping - returning success");
+                    NativeResponse {
+                        success: true,
+                        error: None
+                    }
+                }
+                "set_clipboard" => {
+                    log_debug("Handling set_clipboard");
+                    let plain = msg.plain_text.unwrap_or_default();
+                    let rtf = msg.rtf_text.unwrap_or_default();
+                    let html = msg.html_text.unwrap_or_default();
+
+                    log_debug("Calling clipboard writer...");
+                    match copy_to_native_clipboard(plain, rtf, html) {
+                        Ok(()) => {
+                            log_debug("Clipboard write succeeded");
+                            NativeResponse { success: true, error: None }
+                        }
+                        Err(e) => {
+                            log_debug(&format!("Clipboard write failed: {}", e));
+                            NativeResponse { success: false, error: Some(e) }
+                        }
+                    }
+                }
+                _ => {
+                    log_debug(&format!("Unknown action: {}", msg.action));
+                    NativeResponse {
+                        success: false,
+                        error: Some(format!("Unknown action: {}", msg.action)),
+                    }
+                }
             }
         }
-        Ok(msg) => NativeResponse {
-            success: false,
-            error: Some(format!("Unknown action: {}", msg.action)),
-        },
-        Err(e) => NativeResponse {
-            success: false,
-            error: Some(format!("Failed to read message: {}", e)),
-        },
+        Err(e) => {
+            log_debug(&format!("Failed to read message: {}", e));
+            NativeResponse {
+                success: false,
+                error: Some(format!("Failed to read message: {}", e)),
+            }
+        }
     };
 
+    log_debug(&format!("Writing response: success={}", response.success));
     let _ = write_native_response(&response);
+    log_debug("Response written, exiting");
 }

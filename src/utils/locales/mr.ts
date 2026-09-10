@@ -178,4 +178,17 @@ export const mr: Translations = {
   placeholderOutput: "रूपांतरित {{font}} मजकूर येथे दिसेल...",
   placeholderInputReverse: "तुमचा {{font}} मजकूर येथे पेस्ट करा...",
   placeholderOutputReverse: "रूपांतरित {{script}} युनिकोड मजकूर येथे दिसेल..."
+,
+  pagemakerBtnText: "PageMaker ऑटो फॉन्ट चेंजर उघडा",
+  pagemakerTooltip: "फॉन्ट स्वहस्ते न बदलता Adobe PageMaker 7.0 सह रूपांतरित मजकूर थेट वापरा.",
+  pagemakerPopupTitle: "Adobe PageMaker 7.0",
+  pagemakerPopupDesc: "PageMaker ऑटो फॉन्ट चेंजर स्थापित केलेले नाही किंवा उघडता आले नाही. हे काम करण्यासाठी हे सॉफ्टवेअर आपल्या पीसीवर स्थापित करा.",
+  pagemakerInstallBtn: "PageMaker ऑटो फॉन्ट चेंजर स्थापित करा",
+  pagemakerTryAgainBtn: "पुन्हा प्रयत्न करा",
+  pwaInstallTitle: "अॅप म्हणून स्थापित करा",
+  pwaInstallDesc: "द्रुत प्रवेशासाठी ही वेबसाइट आपल्या डिव्हाइसवर अॅप म्हणून स्थापित करा.",
+  pwaInstallBtn: "वेब अॅप स्थापित करा",
+  fontHelperTitle: "PageMaker ऑटो फॉन्ट चेंजर",
+  fontHelperDesc: "Adobe PageMaker 7.0 साठी एक मूळ Windows सहाय्यक. हे आधुनिक वेब क्लिपबोर्डला जुन्या रिच टेक्स्ट फॉरमॅट (RTF) आवश्यकतांसह जोडते.",
+  fontHelperBtn: "सेटअप डाउनलोड करा (.exe)"
 };
