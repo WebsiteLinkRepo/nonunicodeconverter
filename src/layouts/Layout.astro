@@ -147,10 +147,42 @@ const schemaGraph = JSON.stringify({
 
 			// Theme Initializer
 			const savedTheme = localStorage.getItem('theme');
-			if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			const isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+			if (isDark) {
 				document.documentElement.classList.add('dark');
 			} else {
 				document.documentElement.classList.remove('dark');
+			}
+			
+			// Dynamic favicon logic
+			window.updateFavicon = function(dark) {
+				const iconLink = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+				if (iconLink) {
+					// LIGHT UI -> DARK FAVICON, DARK UI -> LIGHT FAVICON
+					iconLink.href = dark ? '/logo-light.svg' : '/logo-dark.svg';
+				}
+			};
+			window.updateFavicon(isDark);
+		</script>
+		<script type="module">
+			// Auto Updater Logic (Tauri only)
+			if (window.__TAURI_INTERNALS__) {
+				try {
+					const { check } = await import('@tauri-apps/plugin-updater');
+					const { relaunch } = await import('@tauri-apps/plugin-process');
+					
+					const update = await check();
+					if (update?.available) {
+						console.log(`Update available: ${update.version}`);
+						const confirmUpdate = window.confirm(`A new version (${update.version}) is available. Would you like to download and install it now?`);
+						if (confirmUpdate) {
+							await update.downloadAndInstall();
+							await relaunch();
+						}
+					}
+				} catch (e) {
+					console.error("Failed to check for updates:", e);
+				}
 			}
 		</script>
 	</head>
@@ -306,6 +338,9 @@ const schemaGraph = JSON.stringify({
 			themeToggleBtn?.addEventListener('click', () => {
 				const isDark = document.documentElement.classList.toggle('dark');
 				localStorage.setItem('theme', isDark ? 'dark' : 'light');
+				if (typeof window.updateFavicon === 'function') {
+					window.updateFavicon(isDark);
+				}
 			});
 
 			const langSelect = document.getElementById('lang-select') as HTMLSelectElement;

@@ -1,5 +1,4 @@
-name: "Release App"
-
+name: Release
 on:
   push:
     tags:
@@ -7,89 +6,44 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish-tauri:
-    permissions:
-      contents: write
+  release:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
-          - platform: 'macos-13'
-            args: '--target x86_64-apple-darwin'
-          - platform: 'ubuntu-22.04'
-            args: ''
-          - platform: 'windows-latest'
-            args: '--target x86_64-pc-windows-msvc'
-
+        platform: [macos-latest, ubuntu-22.04, windows-latest]
     runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: setup node
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - name: install Rust stable
+      - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin' || matrix.platform == 'macos-13' && 'x86_64-apple-darwin' || matrix.platform == 'windows-latest' && 'x86_64-pc-windows-msvc' || '' }}
 
-      - name: install dependencies (ubuntu only)
+      - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
-      - name: install app dependencies
-        run: npm install
+      - name: Install frontend dependencies
+        run: npm ci
 
-      - name: build tauri app
+      - name: Build Astro
+        run: npm run build
+
+      - name: Build Tauri
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__
-          releaseName: 'App v__VERSION__'
-          releaseBody: 'Download the modern app for macOS, Linux, and Windows 10/11, or the legacy apps for older Windows.'
-          releaseDraft: false
+          tagName: ${{ github.ref_name }}
+          releaseName: "NonUnicodeConverter ${{ github.ref_name }}"
+          releaseBody: "See the assets to download this version and install."
+          releaseDraft: true
           prerelease: false
-          args: ${{ matrix.args }}
-
-  publish-legacy:
-    needs: publish-tauri
-    permissions:
-      contents: write
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: build legacy app (XP/Vista)
-        shell: bash
-        run: |
-          mkdir -p legacy-app/supermium-portable
-          curl -L -o supermium.zip "https://github.com/win32ss/supermium/releases/download/v122-hf/supermium_122_32_portable.zip" || echo "Failed"
-          unzip -q supermium.zip -d legacy-app/supermium-portable || echo "Failed to unzip"
-          choco install nsis
-          makensis legacy-app/installer.nsi
-
-      - name: build retro app (Win98)
-        shell: bash
-        run: |
-          mkdir -p retro-app/retrozilla-portable
-          curl -L -o retrozilla.zip "https://github.com/rn10950/RetroZilla/releases/download/2.2/retrozilla-2.2.zip" || echo "Failed"
-          unzip -q retrozilla.zip -d retro-app/retrozilla-portable || echo "Failed to unzip"
-          makensis retro-app/installer.nsi
-
-      - name: Upload Legacy and Retro Apps to Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          tag_name: ${{ github.ref_name }}
-          files: |
-            legacy-app/nonunicodeconverter-legacy-setup.exe
-            retro-app/nonunicodeconverter-retro-setup.exe
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,23 +4,31 @@
   "version": "0.1.0",
   "identifier": "com.unicode2nonunicode.app",
   "build": {
-    "frontendDist": "https://unicode2nonunicode.com",
-    "devUrl": "https://unicode2nonunicode.com",
-    "beforeDevCommand": "",
-    "beforeBuildCommand": ""
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:4321",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
   },
   "app": {
     "windows": [
       {
-        "title": "nonunicodeconverter",
-        "width": 800,
-        "height": 600,
+        "title": "NonUnicodeConverter",
+        "width": 1024,
+        "height": 768,
         "resizable": true,
         "fullscreen": false
       }
     ],
     "security": {
       "csp": null
+    }
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/samuelvictor/nonunicodeconverter/releases/latest/download/updater.json"
+      ],
+      "pubkey": ""
     }
   },
   "bundle": {

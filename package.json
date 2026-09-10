@@ -10,11 +10,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler pages deploy dist --project-name unicode2nonunicode --branch master",
-    "astro": "astro"
+    "astro": "astro",
+    "tauri": "tauri",
+    "tauri:build": "tauri build",
+    "tauri:dev": "tauri dev"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.3.3",
+    "@tauri-apps/plugin-clipboard-manager": "^2.3.3",
+    "@tauri-apps/plugin-process": "^2.3.1",
+    "@tauri-apps/plugin-updater": "^2.11.0",
     "astro": "^7.2.0",
     "opentype.js": "^2.0.0",
     "puppeteer": "^25.9.0",

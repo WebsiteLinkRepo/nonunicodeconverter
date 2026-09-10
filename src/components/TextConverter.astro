@@ -571,7 +571,7 @@ const defaultFont = 'anu7';
     return sanitized;
   }
 
-  function processConversion(autoDetectScript: boolean | Event = true) {
+  async function processConversion(autoDetectScript: boolean | Event = true) {
     if (autoDetectScript instanceof Event) {
       autoDetectScript = true;
     }
@@ -862,7 +862,7 @@ const defaultFont = 'anu7';
           } else if (currentScript === 'gujarati') {
             fontName = 'Hari';
           }
-          const success = writeToClipboard(finalOutput, fontName, isOutputUnicode);
+          const success = await writeToClipboard(finalOutput, fontName, isOutputUnicode);
           if (success && copyBtnText) {
             const oldText = copyBtnText.textContent;
             copyBtnText.textContent = "COPIED AUTO!";
@@ -1418,7 +1418,7 @@ const defaultFont = 'anu7';
     return rtf;
   }
 
-  function writeToClipboard(val: string, fontName: string, isOutputUnicode: boolean): boolean {
+  async function writeToClipboard(val: string, fontName: string, isOutputUnicode: boolean): Promise<boolean> {
     let success = false;
     
     // Core payload:
@@ -1450,7 +1450,24 @@ const defaultFont = 'anu7';
       }
     };
 
-    // 1. Try synchronous execCommand first (crucial for injecting text/rtf on modern browsers)
+    // 1. Try Tauri native clipboard if available
+    // @ts-ignore
+    if (window.__TAURI_INTERNALS__) {
+      try {
+        // We dynamically import to avoid breaking standard web builds
+        const { invoke } = await import('@tauri-apps/api/core');
+        await invoke('copy_to_native_clipboard', {
+          plainText: plainText,
+          rtfText: isOutputUnicode ? "" : rtfText,
+          htmlText: isOutputUnicode ? "" : htmlText
+        });
+        return true;
+      } catch (e) {
+        console.error("Tauri clipboard failed:", e);
+      }
+    }
+
+    // 2. Try synchronous execCommand first (crucial for injecting text/rtf on modern browsers)
     document.addEventListener('copy', listener);
     try {
       success = document.execCommand('copy');
@@ -1459,7 +1476,7 @@ const defaultFont = 'anu7';
     }
     document.removeEventListener('copy', listener);
 
-    // 2. Fallback to async ClipboardItem API (for browsers blocking execCommand)
+    // 3. Fallback to async ClipboardItem API (for browsers blocking execCommand)
     if (!success && typeof ClipboardItem !== 'undefined' && navigator.clipboard && navigator.clipboard.write) {
       try {
         const items: Record<string, Blob> = {
@@ -1468,15 +1485,15 @@ const defaultFont = 'anu7';
         if (!isOutputUnicode) {
           items['text/html'] = new Blob([htmlText], { type: 'text/html' });
         }
-        navigator.clipboard.write([new ClipboardItem(items)]);
+        await navigator.clipboard.write([new ClipboardItem(items)]);
         success = true;
       } catch (e) {}
     }
 
-    // 3. Ultimate fallback
+    // 4. Ultimate fallback
     if (!success && navigator.clipboard && navigator.clipboard.writeText) {
       try {
-        navigator.clipboard.writeText(plainText);
+        await navigator.clipboard.writeText(plainText);
         success = true;
       } catch (err) {}
     }
