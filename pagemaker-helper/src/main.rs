@@ -99,6 +99,7 @@ fn read_clipboard_data() -> Result<(String, Vec<u8>), String> {
         use windows::core::s;
         use windows::Win32::System::DataExchange::{OpenClipboard, CloseClipboard, GetClipboardData, RegisterClipboardFormatA};
         use windows::Win32::System::Memory::{GlobalLock, GlobalUnlock};
+        use windows::Win32::Foundation::HGLOBAL;
         use std::ffi::OsString;
         use std::os::windows::ffi::OsStringExt;
 
@@ -110,7 +111,8 @@ fn read_clipboard_data() -> Result<(String, Vec<u8>), String> {
             // Read Plain Text (CF_UNICODETEXT = 13)
             let mut text = String::new();
             if let Ok(handle) = GetClipboardData(13) {
-                let ptr = GlobalLock(handle.0 as _);
+                let hglobal = HGLOBAL(handle.0 as _);
+                let ptr = GlobalLock(hglobal);
                 if !ptr.is_null() {
                     let mut len = 0;
                     let u16_ptr = ptr as *const u16;
@@ -120,7 +122,7 @@ fn read_clipboard_data() -> Result<(String, Vec<u8>), String> {
                     let slice = std::slice::from_raw_parts(u16_ptr, len);
                     let os_string = OsString::from_wide(slice);
                     text = os_string.into_string().unwrap_or_default();
-                    let _ = GlobalUnlock(handle.0 as _);
+                    let _ = GlobalUnlock(hglobal);
                 }
             }
 
@@ -129,13 +131,14 @@ fn read_clipboard_data() -> Result<(String, Vec<u8>), String> {
             let format_html = RegisterClipboardFormatA(s!("HTML Format"));
             if format_html > 0 {
                 if let Ok(handle) = GetClipboardData(format_html) {
-                    let ptr = GlobalLock(handle.0 as _);
+                    let hglobal = HGLOBAL(handle.0 as _);
+                    let ptr = GlobalLock(hglobal);
                     if !ptr.is_null() {
                         use windows::Win32::System::Memory::GlobalSize;
-                        let size = GlobalSize(handle.0 as _);
+                        let size = GlobalSize(hglobal);
                         let slice = std::slice::from_raw_parts(ptr as *const u8, size);
                         html_bytes.extend_from_slice(slice);
-                        let _ = GlobalUnlock(handle.0 as _);
+                        let _ = GlobalUnlock(hglobal);
                     }
                 }
             }

@@ -1,0 +1,37 @@
+name: Build RTF Native Host (Windows 7 Compatible)
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'rtf-clipboard-poc-v2/native-host/**'
+      - '.github/workflows/build-rtf-native-host.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'rtf-clipboard-poc-v2/native-host/**'
+  workflow_dispatch:
+
+jobs:
+  build-native-host:
+    name: Build Native Host (Rust 1.77.2 - i686-pc-windows-msvc)
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust 1.77.2
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: 1.77.2
+        targets: i686-pc-windows-msvc
+
+    - name: Build Native Host (32-bit for Windows 7)
+      working-directory: rtf-clipboard-poc-v2/native-host
+      run: cargo +1.77.2 build --target i686-pc-windows-msvc --release
+
+    - name: Upload Native Host Executable
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_native_host-i686-win7
+        path: rtf-clipboard-poc-v2/native-host/target/i686-pc-windows-msvc/release/rtf_native_host.exe
