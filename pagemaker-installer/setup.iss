@@ -14,7 +14,7 @@ OutputDir=Output
 SetupIconFile=setup.ico
 
 [Files]
-Source: "..\pagemaker-helper\target\release\pgmkrautofontchanger.exe"; DestDir: "{app}"; DestName: "pgmkrautofontchanger.exe"; Flags: ignoreversion
+Source: "..\pagemaker-helper\target\i686-pc-windows-msvc\release\pgmkrautofontchanger.exe"; DestDir: "{app}"; DestName: "pgmkrautofontchanger.exe"; Flags: ignoreversion
 
 [Registry]
 Root: HKCU; Subkey: "Software\Classes\nonunicode"; ValueType: string; ValueName: ""; ValueData: "URL:NonUnicode Custom Protocol"; Flags: uninsdeletekey
