@@ -1,9 +1,13 @@
 use rust_embed::RustEmbed;
-use std::process::{Command, Stdio};
+use std::process::Command;
 use tiny_http::{Server, Response, Header, Method, StatusCode};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::io::Read;
-use std::thread;
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::Arc;
+use std::time::Duration;
+use std::env;
+use std::path::PathBuf;
 
 #[derive(RustEmbed)]
 #[folder = "../dist"]
@@ -84,110 +88,152 @@ fn copy_to_native_clipboard(plain_text: String, rtf_text: String, html_text: Str
     
     #[cfg(not(windows))]
     {
+        let _ = plain_text;
+        let _ = rtf_text;
+        let _ = html_text;
         return Err("Not implemented for non-windows".into());
     }
 }
 
+// Generate a random 32 character token
+fn generate_token() -> String {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos();
+    let rand = std::process::id();
+    format!("{:x}{:x}", now, rand)
+}
+
 fn main() {
-    let port = 14231;
-    let server = Server::http(format!("127.0.0.1:{}", port)).unwrap();
-    println!("Server running on http://127.0.0.1:{}", port);
+    // Bind to dynamically assigned loopback port
+    let server = Server::http("127.0.0.1:0").unwrap();
+    let port = server.server_addr().to_ip().unwrap().port();
     
-    // Launch browser
-    let url = format!("http://127.0.0.1:{}", port);
+    let token = generate_token();
+    let url = format!("http://127.0.0.1:{}/?token={}", port, token);
+    println!("LAUNCH_URL={}", url);
     
-    // Try to find a browser. For prototype, try Supermium, Chrome, Edge
-    let browser_paths = vec![
-        "chrome",
-        "supermium",
-        r#"C:\Program Files\Supermium\chrome.exe"#,
-        r#"C:\Program Files (x86)\Supermium\chrome.exe"#,
-        r#"C:\Program Files\Google\Chrome\Application\chrome.exe"#,
-        r#"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"#,
-        r#"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"#,
-    ];
+    // Find bundled Supermium
+    let mut exe_dir = env::current_exe().unwrap_or_else(|_| PathBuf::from("."));
+    exe_dir.pop();
+    let supermium_path = exe_dir.join("supermium").join("chrome.exe");
     
     let mut child_proc = None;
-    for path in browser_paths {
-        if let Ok(child) = Command::new(path)
+    
+    // Only launch if it actually exists, otherwise fallback to system default (for testing on Linux/dev)
+    if supermium_path.exists() {
+        if let Ok(child) = Command::new(&supermium_path)
             .arg(format!("--app={}", url))
             .arg("--no-first-run")
             .arg("--no-default-browser-check")
+            .arg("--disable-sync")
+            .arg("--disable-extensions")
             .spawn() 
         {
-            println!("Launched browser: {}", path);
             child_proc = Some(child);
-            break;
+        }
+    } else {
+        // Fallback for dev environments where Supermium isn't bundled yet
+        #[cfg(target_os = "linux")]
+        {
+            if let Ok(child) = Command::new("google-chrome").arg(format!("--app={}", url)).spawn() {
+                child_proc = Some(child);
+            }
         }
     }
 
-    if child_proc.is_none() {
-        println!("Could not find a suitable browser. Please open {} manually.", url);
-    }
+    let running = Arc::new(AtomicBool::new(true));
+    let r = running.clone();
     
-    // Accept connections
-    for mut request in server.incoming_requests() {
-        if request.method() == &Method::Post && request.url() == "/api/clipboard" {
-            let mut content = String::new();
-            request.as_reader().read_to_string(&mut content).unwrap();
-            
-            // Set CORS headers so fetch() from JS doesn't fail
-            let cors_header = Header::from_bytes(&b"Access-Control-Allow-Origin"[..], &b"*"[..]).unwrap();
-            
-            if let Ok(payload) = serde_json::from_str::<ClipboardPayload>(&content) {
-                match copy_to_native_clipboard(payload.plain_text, payload.rtf_text, payload.html_text) {
-                    Ok(_) => {
-                        let response = Response::from_string("{\"success\":true}").with_status_code(StatusCode(200));
-                        let _ = request.respond(response.with_header(cors_header));
-                    }
-                    Err(e) => {
-                        let response = Response::from_string(format!("{{\"error\":\"{}\"}}", e)).with_status_code(StatusCode(500));
-                        let _ = request.respond(response.with_header(cors_header));
+    // Process monitor thread
+    if let Some(mut child) = child_proc {
+        std::thread::spawn(move || {
+            let _ = child.wait();
+            r.store(false, Ordering::SeqCst);
+        });
+    }
+
+    // Accept connections with a timeout to allow checking if the process died
+    while running.load(Ordering::SeqCst) {
+        if let Ok(Some(mut request)) = server.recv_timeout(Duration::from_millis(500)) {
+            // Handle OPTIONS request for CORS
+            if request.method() == &Method::Options && request.url().starts_with("/api/clipboard") {
+                let allow_origin = Header::from_bytes(&b"Access-Control-Allow-Origin"[..], &b"*"[..]).unwrap();
+                let allow_methods = Header::from_bytes(&b"Access-Control-Allow-Methods"[..], &b"POST, OPTIONS"[..]).unwrap();
+                let allow_headers = Header::from_bytes(&b"Access-Control-Allow-Headers"[..], &b"Content-Type, Authorization"[..]).unwrap();
+                
+                let response = Response::empty(StatusCode(204))
+                    .with_header(allow_origin)
+                    .with_header(allow_methods)
+                    .with_header(allow_headers);
+                let _ = request.respond(response);
+                continue;
+            }
+
+            if request.method() == &Method::Post && request.url().starts_with("/api/clipboard") {
+                let cors_header = Header::from_bytes(&b"Access-Control-Allow-Origin"[..], &b"*"[..]).unwrap();
+                
+                // Authenticate
+                let mut authenticated = false;
+                for header in request.headers() {
+                    if header.field.equiv("Authorization") {
+                        let val = header.value.as_str();
+                        if val == format!("Bearer {}", token) {
+                            authenticated = true;
+                            break;
+                        }
                     }
                 }
-            } else {
-                let response = Response::from_string("{\"error\":\"invalid payload\"}").with_status_code(StatusCode(400));
-                let _ = request.respond(response.with_header(cors_header));
-            }
-            continue;
-        }
 
-        // Handle OPTIONS request for CORS
-        if request.method() == &Method::Options && request.url() == "/api/clipboard" {
-            let allow_origin = Header::from_bytes(&b"Access-Control-Allow-Origin"[..], &b"*"[..]).unwrap();
-            let allow_methods = Header::from_bytes(&b"Access-Control-Allow-Methods"[..], &b"POST, OPTIONS"[..]).unwrap();
-            let allow_headers = Header::from_bytes(&b"Access-Control-Allow-Headers"[..], &b"Content-Type"[..]).unwrap();
+                if !authenticated {
+                    let response = Response::from_string("{\"error\":\"unauthorized\"}").with_status_code(StatusCode(401));
+                    let _ = request.respond(response.with_header(cors_header));
+                    continue;
+                }
+
+                let mut content = String::new();
+                request.as_reader().read_to_string(&mut content).unwrap();
+                
+                if let Ok(payload) = serde_json::from_str::<ClipboardPayload>(&content) {
+                    match copy_to_native_clipboard(payload.plain_text, payload.rtf_text, payload.html_text) {
+                        Ok(_) => {
+                            let response = Response::from_string("{\"success\":true}").with_status_code(StatusCode(200));
+                            let _ = request.respond(response.with_header(cors_header));
+                        }
+                        Err(e) => {
+                            let response = Response::from_string(format!("{{\"error\":\"{}\"}}", e)).with_status_code(StatusCode(500));
+                            let _ = request.respond(response.with_header(cors_header));
+                        }
+                    }
+                } else {
+                    let response = Response::from_string("{\"error\":\"invalid payload\"}").with_status_code(StatusCode(400));
+                    let _ = request.respond(response.with_header(cors_header));
+                }
+                continue;
+            }
             
-            let response = Response::empty(StatusCode(204))
-                .with_header(allow_origin)
-                .with_header(allow_methods)
-                .with_header(allow_headers);
-            let _ = request.respond(response);
-            continue;
-        }
-        
-        let path = if request.url() == "/" {
-            "index.html"
-        } else {
-            &request.url()[1..] // strip leading slash
-        };
-        
-        // Split query params if any
-        let path = path.split('?').next().unwrap_or(path);
-        
-        if let Some(content) = Asset::get(path) {
-            let mime = mime_guess::from_path(path).first_or_octet_stream();
-            let header = Header::from_bytes(&b"Content-Type"[..], mime.as_ref().as_bytes()).unwrap();
-            let response = Response::from_data(content.data.into_owned()).with_header(header);
-            let _ = request.respond(response);
-        } else {
-            // fallback to index.html for SPA routing (if any) or 404
-            if let Some(content) = Asset::get("index.html") {
-                let header = Header::from_bytes(&b"Content-Type"[..], &b"text/html"[..]).unwrap();
+            let path = if request.url() == "/" || request.url().starts_with("/?") {
+                "index.html"
+            } else {
+                &request.url()[1..] // strip leading slash
+            };
+            
+            // Split query params if any
+            let path = path.split('?').next().unwrap_or(path);
+            
+            if let Some(content) = Asset::get(path) {
+                let mime = mime_guess::from_path(path).first_or_octet_stream();
+                let header = Header::from_bytes(&b"Content-Type"[..], mime.as_ref().as_bytes()).unwrap();
                 let response = Response::from_data(content.data.into_owned()).with_header(header);
                 let _ = request.respond(response);
             } else {
-                let _ = request.respond(Response::from_string("Not Found").with_status_code(StatusCode(404)));
+                // fallback to index.html for SPA routing (if any) or 404
+                if let Some(content) = Asset::get("index.html") {
+                    let header = Header::from_bytes(&b"Content-Type"[..], &b"text/html"[..]).unwrap();
+                    let response = Response::from_data(content.data.into_owned()).with_header(header);
+                    let _ = request.respond(response);
+                } else {
+                    let _ = request.respond(Response::from_string("Not Found").with_status_code(StatusCode(404)));
+                }
             }
         }
     }
