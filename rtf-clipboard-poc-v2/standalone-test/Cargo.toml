@@ -1,0 +1,29 @@
+[package]
+name = "rtf-clipboard-test"
+version = "1.0.0"
+edition = "2021"
+
+[[bin]]
+name = "rtf_clipboard_test"
+path = "src/main.rs"
+
+[target.'cfg(windows)'.dependencies.windows]
+version = "0.48"
+features = [
+    "Win32_Foundation",
+    "Win32_System_Memory",
+    "Win32_System_DataExchange",
+]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+
+# Statically link the C runtime to avoid requiring VC++ Redistributable
+[target.i686-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

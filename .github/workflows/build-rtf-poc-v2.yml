@@ -79,10 +79,43 @@ jobs:
         name: clipboard_inspector-x86-win7
         path: rtf-clipboard-poc-v2/verification/target/i686-pc-windows-msvc/release/clipboard_inspector.exe
 
+  build-standalone-test:
+    name: Build Standalone Clipboard Test (Win7 Compatible - Rust 1.77)
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust 1.77 (Last version supporting Windows 7)
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: 1.77.2
+        targets: i686-pc-windows-msvc,x86_64-pc-windows-msvc
+
+    - name: Build Standalone Test (32-bit for Win7 - Rust 1.77 MSVC static CRT)
+      working-directory: rtf-clipboard-poc-v2/standalone-test
+      run: cargo +1.77.2 build --release --target i686-pc-windows-msvc
+
+    - name: Build Standalone Test (64-bit - Rust 1.77 MSVC static CRT)
+      working-directory: rtf-clipboard-poc-v2/standalone-test
+      run: cargo +1.77.2 build --release --target x86_64-pc-windows-msvc
+
+    - name: Upload 32-bit Standalone Test (Win7)
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_clipboard_test-x86-win7
+        path: rtf-clipboard-poc-v2/standalone-test/target/i686-pc-windows-msvc/release/rtf_clipboard_test.exe
+
+    - name: Upload 64-bit Standalone Test
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_clipboard_test-x64
+        path: rtf-clipboard-poc-v2/standalone-test/target/x86_64-pc-windows-msvc/release/rtf_clipboard_test.exe
+
   package-release:
     name: Package Complete POC v2
     runs-on: ubuntu-latest
-    needs: [build-native-host, build-verification-tool]
+    needs: [build-native-host, build-verification-tool, build-standalone-test]
 
     steps:
     - uses: actions/checkout@v4
@@ -111,6 +144,18 @@ jobs:
         name: clipboard_inspector-x64
         path: release/x64/
 
+    - name: Download 32-bit Standalone Test
+      uses: actions/download-artifact@v4
+      with:
+        name: rtf_clipboard_test-x86-win7
+        path: release/x86/
+
+    - name: Download 64-bit Standalone Test
+      uses: actions/download-artifact@v4
+      with:
+        name: rtf_clipboard_test-x64
+        path: release/x64/
+
     - name: Copy Extension and Installer
       run: |
         cp -r rtf-clipboard-poc-v2/chrome-extension release/
@@ -128,6 +173,25 @@ jobs:
         This POC uses the PROVEN RTF clipboard code from src-tauri/legacy-launcher
         that already works with Adobe PageMaker 7.0.
 
+        STEP 1: Test the clipboard code directly (REQUIRED FIRST)
+        =========================================================
+
+        For Windows 7/8/8.1 (32-bit):
+        1. Run: x86\rtf_clipboard_test.exe
+        2. Run: x86\clipboard_inspector.exe
+        3. Verify it reports: "Rich Text Format: FOUND"
+
+        For Windows 10/11 (64-bit):
+        1. Run: x64\rtf_clipboard_test.exe
+        2. Run: x64\clipboard_inspector.exe
+        3. Verify it reports: "Rich Text Format: FOUND"
+
+        ❌ If NOT FOUND: There's a Windows 7 compatibility issue
+        ✅ If FOUND: The clipboard code works! Proceed to Step 2
+
+        STEP 2: Full Native Messaging integration (Chrome Extension)
+        =============================================================
+
         For Windows 7/8/8.1 (32-bit):
         1. Use files from the x86/ folder
         2. Copy rtf_native_host.exe somewhere permanent
@@ -135,23 +199,22 @@ jobs:
         4. Load chrome-extension/ in your browser
         5. Update manifest with your extension ID
         6. Restart browser
+        7. Click extension "Test Native RTF" button
+        8. Run clipboard_inspector.exe to verify
 
         For Windows 10/11 (64-bit):
         1. Use files from the x64/ folder
         2. Follow same steps as above
 
-        Testing:
-        1. Click extension "Test Native RTF" button
-        2. Run clipboard_inspector.exe to verify
-        3. Paste in Adobe PageMaker 7.0 to confirm Arial font
-
-        If PageMaker applies Arial formatting, the Native Messaging bridge works!
+        Final verification:
+        - Paste in Adobe PageMaker 7.0 to confirm Arial font applies
 
         Files:
-        - rtf_native_host.exe = Native messaging host (uses proven clipboard code)
+        - rtf_clipboard_test.exe = Standalone clipboard test (Step 1)
+        - rtf_native_host.exe = Native messaging host (Step 2)
         - clipboard_inspector.exe = Verification tool
-        - chrome-extension/ = Browser extension
-        - installer/ = PowerShell installer script
+        - chrome-extension/ = Browser extension (Step 2)
+        - installer/ = PowerShell installer script (Step 2)
 
         Technical Note:
         - Built with Rust 1.77.2 MSVC toolchain + static CRT linking
