@@ -3,7 +3,7 @@ name: Build PageMaker Helper
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'pagemaker-helper/**'
       - 'pagemaker-installer/**'
