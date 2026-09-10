@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Legacy Launcher
         working-directory: legacy-launcher
-        run: rm Cargo.lock && cargo build --target i686-pc-windows-msvc --release
+        run: cargo build --target i686-pc-windows-msvc --release
 
       - name: Download Supermium 122 (32-bit SSE2)
         run: |
