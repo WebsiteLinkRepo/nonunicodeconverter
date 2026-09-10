@@ -27,7 +27,7 @@ jobs:
 
       - name: Compile Inno Setup Installer
         run: |
-          "C:\Program Files (x86)\Inno Setup 6\iscc.exe" setup.iss
+          & "C:\Program Files (x86)\Inno Setup 6\iscc.exe" setup.iss
         working-directory: pagemaker-installer
 
       - name: Upload Artifact
