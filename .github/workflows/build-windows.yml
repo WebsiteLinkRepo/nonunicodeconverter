@@ -1,0 +1,55 @@
+name: Build Windows Native Host
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'rtf-clipboard-poc/native-host/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'rtf-clipboard-poc/native-host/**'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: rtf-clipboard-poc/native-host
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: x86_64-pc-windows-msvc
+        override: true
+
+    - name: Build 64-bit Release
+      run: cargo build --release --target x86_64-pc-windows-msvc
+
+    - name: Setup Rust 32-bit
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: i686-pc-windows-msvc
+        override: true
+
+    - name: Build 32-bit Release
+      run: cargo build --release --target i686-pc-windows-msvc
+
+    - name: Upload 64-bit Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_clipboard_host-x64
+        path: rtf-clipboard-poc/native-host/target/x86_64-pc-windows-msvc/release/rtf_clipboard_host.exe
+
+    - name: Upload 32-bit Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_clipboard_host-x86
+        path: rtf-clipboard-poc/native-host/target/i686-pc-windows-msvc/release/rtf_clipboard_host.exe
