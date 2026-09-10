@@ -24,27 +24,27 @@ jobs:
       uses: dtolnay/rust-toolchain@master
       with:
         toolchain: 1.77.2
-        targets: i686-pc-windows-msvc,x86_64-pc-windows-msvc
+        targets: i686-pc-windows-gnu,x86_64-pc-windows-gnu
 
-    - name: Build Native Host (32-bit for Win7 - Rust 1.77)
+    - name: Build Native Host (32-bit for Win7 - Rust 1.77 GNU)
       working-directory: rtf-clipboard-poc-v2/native-host
-      run: cargo +1.77.2 build --release --target i686-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target i686-pc-windows-gnu
 
-    - name: Build Native Host (64-bit - Rust 1.77)
+    - name: Build Native Host (64-bit - Rust 1.77 GNU)
       working-directory: rtf-clipboard-poc-v2/native-host
-      run: cargo +1.77.2 build --release --target x86_64-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target x86_64-pc-windows-gnu
 
     - name: Upload 64-bit Native Host
       uses: actions/upload-artifact@v4
       with:
         name: rtf_native_host-x64
-        path: rtf-clipboard-poc-v2/native-host/target/x86_64-pc-windows-msvc/release/rtf_native_host.exe
+        path: rtf-clipboard-poc-v2/native-host/target/x86_64-pc-windows-gnu/release/rtf_native_host.exe
 
     - name: Upload 32-bit Native Host (Win7)
       uses: actions/upload-artifact@v4
       with:
         name: rtf_native_host-x86-win7
-        path: rtf-clipboard-poc-v2/native-host/target/i686-pc-windows-msvc/release/rtf_native_host.exe
+        path: rtf-clipboard-poc-v2/native-host/target/i686-pc-windows-gnu/release/rtf_native_host.exe
 
   build-verification-tool:
     name: Build Clipboard Inspector (Win7 Compatible - Rust 1.77)
@@ -57,27 +57,27 @@ jobs:
       uses: dtolnay/rust-toolchain@master
       with:
         toolchain: 1.77.2
-        targets: i686-pc-windows-msvc,x86_64-pc-windows-msvc
+        targets: i686-pc-windows-gnu,x86_64-pc-windows-gnu
 
-    - name: Build Verification Tool (64-bit - Rust 1.77)
+    - name: Build Verification Tool (64-bit - Rust 1.77 GNU)
       working-directory: rtf-clipboard-poc-v2/verification
-      run: cargo +1.77.2 build --release --target x86_64-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target x86_64-pc-windows-gnu
 
-    - name: Build Verification Tool (32-bit for Win7 - Rust 1.77)
+    - name: Build Verification Tool (32-bit for Win7 - Rust 1.77 GNU)
       working-directory: rtf-clipboard-poc-v2/verification
-      run: cargo +1.77.2 build --release --target i686-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target i686-pc-windows-gnu
 
     - name: Upload 64-bit Verification Tool
       uses: actions/upload-artifact@v4
       with:
         name: clipboard_inspector-x64
-        path: rtf-clipboard-poc-v2/verification/target/x86_64-pc-windows-msvc/release/clipboard_inspector.exe
+        path: rtf-clipboard-poc-v2/verification/target/x86_64-pc-windows-gnu/release/clipboard_inspector.exe
 
     - name: Upload 32-bit Verification Tool (Win7)
       uses: actions/upload-artifact@v4
       with:
         name: clipboard_inspector-x86-win7
-        path: rtf-clipboard-poc-v2/verification/target/i686-pc-windows-msvc/release/clipboard_inspector.exe
+        path: rtf-clipboard-poc-v2/verification/target/i686-pc-windows-gnu/release/clipboard_inspector.exe
 
   package-release:
     name: Package Complete POC v2
@@ -154,9 +154,11 @@ jobs:
         - installer/ = PowerShell installer script
 
         Technical Note:
-        - Built with Rust 1.77.2 (last Windows 7-compatible Rust version)
+        - Built with Rust 1.77.2 GNU toolchain (i686-pc-windows-gnu)
+        - Statically linked - NO Visual C++ Runtime required
         - Does NOT require api-ms-win-core-synch-l1-2-0.dll (Windows 8+ API)
         - Uses only Windows 7-compatible Win32 APIs
+        - Zero external dependencies - runs on bare Windows 7
         EOF
 
     - name: Upload Complete Package
