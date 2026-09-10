@@ -2,9 +2,6 @@
 // Compile: rustc clipboard_inspector.rs
 // Run: ./clipboard_inspector.exe
 
-use std::ffi::CStr;
-use std::ptr;
-
 #[cfg(windows)]
 use windows::core::s;
 #[cfg(windows)]
@@ -101,27 +98,29 @@ fn inspect_clipboard() {
                 println!("✅ FOUND: Native 'Rich Text Format' is present!\n");
 
                 // Try to read RTF data
-                let handle = GetClipboardData(rtf_format);
-                if handle.is_invalid() {
-                    println!("⚠️  Could not retrieve RTF data");
-                } else {
-                    let ptr = GlobalLock(HANDLE(handle.0 as _));
-                    if !ptr.is_null() {
-                        let size = GlobalSize(HANDLE(handle.0 as _));
-                        println!("RTF data size: {} bytes", size);
+                match GetClipboardData(rtf_format) {
+                    Ok(handle) if !handle.is_invalid() => {
+                        let ptr = GlobalLock(handle);
+                        if !ptr.is_null() {
+                            let size = GlobalSize(handle);
+                            println!("RTF data size: {} bytes", size);
 
-                        // Read first 200 bytes as preview
-                        let slice = std::slice::from_raw_parts(ptr as *const u8, size.min(200));
-                        if let Ok(preview) = std::str::from_utf8(slice) {
-                            println!("\nRTF Preview (first 200 bytes):");
-                            println!("---");
-                            println!("{}", preview);
-                            println!("---");
-                        } else {
-                            println!("\nRTF data is binary or non-UTF8");
+                            // Read first 200 bytes as preview
+                            let slice = std::slice::from_raw_parts(ptr as *const u8, size.min(200));
+                            if let Ok(preview) = std::str::from_utf8(slice) {
+                                println!("\nRTF Preview (first 200 bytes):");
+                                println!("---");
+                                println!("{}", preview);
+                                println!("---");
+                            } else {
+                                println!("\nRTF data is binary or non-UTF8");
+                            }
+
+                            let _ = GlobalUnlock(handle);
                         }
-
-                        GlobalUnlock(HANDLE(handle.0 as _));
+                    }
+                    _ => {
+                        println!("⚠️  Could not retrieve RTF data");
                     }
                 }
             } else {
@@ -131,22 +130,23 @@ fn inspect_clipboard() {
         }
 
         // Check for plain text
-        let handle = GetClipboardData(13); // CF_UNICODETEXT
-        if !handle.is_invalid() {
-            let ptr = GlobalLock(HANDLE(handle.0 as _));
-            if !ptr.is_null() {
-                let text_ptr = ptr as *const u16;
-                let mut len = 0;
-                while *text_ptr.add(len) != 0 {
-                    len += 1;
+        if let Ok(handle) = GetClipboardData(13) {
+            if !handle.is_invalid() {
+                let ptr = GlobalLock(handle);
+                if !ptr.is_null() {
+                    let text_ptr = ptr as *const u16;
+                    let mut len = 0;
+                    while *text_ptr.add(len) != 0 {
+                        len += 1;
+                    }
+                    let text_slice = std::slice::from_raw_parts(text_ptr, len);
+                    let text = String::from_utf16_lossy(text_slice);
+
+                    println!("\n📋 Plain text content:");
+                    println!("{}", text);
+
+                    let _ = GlobalUnlock(handle);
                 }
-                let text_slice = std::slice::from_raw_parts(text_ptr, len);
-                let text = String::from_utf16_lossy(text_slice);
-
-                println!("\n📋 Plain text content:");
-                println!("{}", text);
-
-                GlobalUnlock(HANDLE(handle.0 as _));
             }
         }
 
