@@ -1,0 +1,169 @@
+name: Build RTF Clipboard POC v2 (Windows)
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'rtf-clipboard-poc-v2/**'
+      - '.github/workflows/build-rtf-poc-v2.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'rtf-clipboard-poc-v2/**'
+  workflow_dispatch:
+
+jobs:
+  build-native-host:
+    name: Build Native Host (32-bit & 64-bit)
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust (64-bit)
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-pc-windows-msvc
+
+    - name: Setup Rust (32-bit)
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: i686-pc-windows-msvc
+
+    - name: Build Native Host (64-bit)
+      working-directory: rtf-clipboard-poc-v2/native-host
+      run: cargo build --release --target x86_64-pc-windows-msvc
+
+    - name: Build Native Host (32-bit for Win7)
+      working-directory: rtf-clipboard-poc-v2/native-host
+      run: cargo build --release --target i686-pc-windows-msvc
+
+    - name: Upload 64-bit Native Host
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_native_host-x64
+        path: rtf-clipboard-poc-v2/native-host/target/x86_64-pc-windows-msvc/release/rtf_native_host.exe
+
+    - name: Upload 32-bit Native Host (Win7)
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf_native_host-x86-win7
+        path: rtf-clipboard-poc-v2/native-host/target/i686-pc-windows-msvc/release/rtf_native_host.exe
+
+  build-verification-tool:
+    name: Build Clipboard Inspector (32-bit & 64-bit)
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Rust (64-bit)
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-pc-windows-msvc
+
+    - name: Setup Rust (32-bit)
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: i686-pc-windows-msvc
+
+    - name: Build Verification Tool (64-bit)
+      working-directory: rtf-clipboard-poc-v2/verification
+      run: cargo build --release --target x86_64-pc-windows-msvc
+
+    - name: Build Verification Tool (32-bit for Win7)
+      working-directory: rtf-clipboard-poc-v2/verification
+      run: cargo build --release --target i686-pc-windows-msvc
+
+    - name: Upload 64-bit Verification Tool
+      uses: actions/upload-artifact@v4
+      with:
+        name: clipboard_inspector-x64
+        path: rtf-clipboard-poc-v2/verification/target/x86_64-pc-windows-msvc/release/clipboard_inspector.exe
+
+    - name: Upload 32-bit Verification Tool (Win7)
+      uses: actions/upload-artifact@v4
+      with:
+        name: clipboard_inspector-x86-win7
+        path: rtf-clipboard-poc-v2/verification/target/i686-pc-windows-msvc/release/clipboard_inspector.exe
+
+  package-release:
+    name: Package Complete POC v2
+    runs-on: ubuntu-latest
+    needs: [build-native-host, build-verification-tool]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download 32-bit Native Host
+      uses: actions/download-artifact@v4
+      with:
+        name: rtf_native_host-x86-win7
+        path: release/x86/
+
+    - name: Download 32-bit Verification Tool
+      uses: actions/download-artifact@v4
+      with:
+        name: clipboard_inspector-x86-win7
+        path: release/x86/
+
+    - name: Download 64-bit Native Host
+      uses: actions/download-artifact@v4
+      with:
+        name: rtf_native_host-x64
+        path: release/x64/
+
+    - name: Download 64-bit Verification Tool
+      uses: actions/download-artifact@v4
+      with:
+        name: clipboard_inspector-x64
+        path: release/x64/
+
+    - name: Copy Extension and Installer
+      run: |
+        cp -r rtf-clipboard-poc-v2/chrome-extension release/
+        cp -r rtf-clipboard-poc-v2/installer release/
+        cp rtf-clipboard-poc-v2/README.md release/
+
+    - name: Create Installation Instructions
+      run: |
+        cat > release/INSTALL.txt << 'EOF'
+        RTF Clipboard POC v2 - Installation Instructions
+        =================================================
+
+        This POC uses the PROVEN RTF clipboard code from src-tauri/legacy-launcher
+        that already works with Adobe PageMaker 7.0.
+
+        The only new code is the Native Messaging bridge (~40 lines).
+
+        For Windows 7/8/8.1 (32-bit):
+        1. Use files from the x86/ folder
+        2. Copy rtf_native_host.exe somewhere permanent
+        3. Run: powershell -ExecutionPolicy Bypass -File installer\install.ps1
+        4. Load chrome-extension/ in your browser
+        5. Update manifest with your extension ID
+        6. Restart browser
+
+        For Windows 10/11 (64-bit):
+        1. Use files from the x64/ folder
+        2. Follow same steps as above
+
+        Testing:
+        1. Click extension "Test Native RTF" button
+        2. Run clipboard_inspector.exe to verify
+        3. Paste in Adobe PageMaker 7.0 to confirm Arial font
+
+        If PageMaker applies Arial formatting, the Native Messaging bridge works!
+
+        Files:
+        - rtf_native_host.exe = Native messaging host (uses proven clipboard code)
+        - clipboard_inspector.exe = Verification tool
+        - chrome-extension/ = Browser extension
+        - installer/ = PowerShell installer script
+        EOF
+
+    - name: Upload Complete Package
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtf-clipboard-poc-v2-complete
+        path: release/

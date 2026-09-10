@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "RTF Clipboard POC",
+  "version": "1.0.0",
+  "description": "Proof-of-concept for native Windows RTF clipboard support via Chrome Native Messaging",
+  "permissions": [
+    "nativeMessaging"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Test Native RTF"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
