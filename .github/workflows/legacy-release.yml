@@ -45,16 +45,48 @@ jobs:
 
       - name: Extract Supermium
         run: |
-          mkdir supermium_extracted
+          # Extract the installer
           7z x supermium_setup.exe -osupermium_extracted
-          cd supermium_extracted
-          7z x chrome.7z -osupermium_runtime
-          # The exact structure inside chrome.7z usually contains Chrome-bin\
-          # Let's move everything to a cleaner structure
-          mkdir ..\NonUnicodeConverterLegacy
-          mkdir ..\NonUnicodeConverterLegacy\supermium
-          Move-Item -Path "supermium_runtime\Chrome-bin\*" -Destination "..\NonUnicodeConverterLegacy\supermium" -Force
-          cd ..
+
+          # List what we got to understand the structure
+          Write-Host "=== Contents of supermium_extracted ==="
+          Get-ChildItem supermium_extracted -Recurse | Select-Object FullName
+
+          # Find any .7z archive inside
+          $chromeArchive = Get-ChildItem supermium_extracted -Filter "*.7z" -Recurse | Select-Object -First 1
+
+          if ($chromeArchive) {
+            Write-Host "=== Found archive: $($chromeArchive.FullName) ==="
+            # Extract it
+            7z x $chromeArchive.FullName -osupermium_extracted\supermium_runtime
+
+            # Find Chrome-bin or equivalent
+            $chromeBin = Get-ChildItem supermium_extracted\supermium_runtime -Directory -Recurse -Filter "*Chrome*" | Select-Object -First 1
+
+            if ($chromeBin) {
+              Write-Host "=== Found Chrome directory: $($chromeBin.FullName) ==="
+              # Move contents to final location
+              New-Item -ItemType Directory -Force -Path NonUnicodeConverterLegacy\supermium
+              Move-Item -Path "$($chromeBin.FullName)\*" -Destination "NonUnicodeConverterLegacy\supermium" -Force
+            } else {
+              Write-Host "=== No Chrome-bin found, using runtime root ==="
+              New-Item -ItemType Directory -Force -Path NonUnicodeConverterLegacy\supermium
+              Move-Item -Path "supermium_extracted\supermium_runtime\*" -Destination "NonUnicodeConverterLegacy\supermium" -Force
+            }
+          } else {
+            Write-Host "=== No .7z archive found, using direct extraction ==="
+            # Maybe it extracted directly - look for Chrome executables
+            $chromeExe = Get-ChildItem supermium_extracted -Filter "chrome.exe" -Recurse | Select-Object -First 1
+            if ($chromeExe) {
+              $chromeDir = $chromeExe.Directory
+              Write-Host "=== Found chrome.exe at: $($chromeDir.FullName) ==="
+              New-Item -ItemType Directory -Force -Path NonUnicodeConverterLegacy\supermium
+              Move-Item -Path "$($chromeDir.FullName)\*" -Destination "NonUnicodeConverterLegacy\supermium" -Force
+            } else {
+              Write-Error "Could not find Supermium runtime in extraction"
+              exit 1
+            }
+          }
           
       - name: Package Legacy Bundle
         run: |
