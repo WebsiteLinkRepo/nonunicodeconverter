@@ -33,5 +33,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AutoFontChanger_Setup
-          path: pagemaker-installer/Output/AutoFontChanger_Setup.exe
+          name: AutoFontChangerSetup
+          path: pagemaker-installer/Output/AutoFontChangerSetup.exe
