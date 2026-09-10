@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Rust build artifacts
+legacy-launcher/target/
+
+# Test/comparison output files
+checking*
+competitor_*.txt
