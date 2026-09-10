@@ -1,4 +1,4 @@
-name: Build RTF Clipboard POC v2 (Windows)
+name: Build RTF Clipboard POC v2 (Windows 7 Compatible)
 
 on:
   push:
@@ -14,29 +14,25 @@ on:
 
 jobs:
   build-native-host:
-    name: Build Native Host (32-bit & 64-bit)
+    name: Build Native Host (Win7 Compatible - Rust 1.77)
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup Rust (64-bit)
-      uses: dtolnay/rust-toolchain@stable
+    - name: Setup Rust 1.77 (Last version supporting Windows 7)
+      uses: dtolnay/rust-toolchain@master
       with:
-        targets: x86_64-pc-windows-msvc
+        toolchain: 1.77.2
+        targets: i686-pc-windows-msvc,x86_64-pc-windows-msvc
 
-    - name: Setup Rust (32-bit)
-      uses: dtolnay/rust-toolchain@stable
-      with:
-        targets: i686-pc-windows-msvc
-
-    - name: Build Native Host (64-bit)
+    - name: Build Native Host (32-bit for Win7 - Rust 1.77)
       working-directory: rtf-clipboard-poc-v2/native-host
-      run: cargo build --release --target x86_64-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target i686-pc-windows-msvc
 
-    - name: Build Native Host (32-bit for Win7)
+    - name: Build Native Host (64-bit - Rust 1.77)
       working-directory: rtf-clipboard-poc-v2/native-host
-      run: cargo build --release --target i686-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target x86_64-pc-windows-msvc
 
     - name: Upload 64-bit Native Host
       uses: actions/upload-artifact@v4
@@ -51,29 +47,25 @@ jobs:
         path: rtf-clipboard-poc-v2/native-host/target/i686-pc-windows-msvc/release/rtf_native_host.exe
 
   build-verification-tool:
-    name: Build Clipboard Inspector (32-bit & 64-bit)
+    name: Build Clipboard Inspector (Win7 Compatible - Rust 1.77)
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup Rust (64-bit)
-      uses: dtolnay/rust-toolchain@stable
+    - name: Setup Rust 1.77 (Last version supporting Windows 7)
+      uses: dtolnay/rust-toolchain@master
       with:
-        targets: x86_64-pc-windows-msvc
+        toolchain: 1.77.2
+        targets: i686-pc-windows-msvc,x86_64-pc-windows-msvc
 
-    - name: Setup Rust (32-bit)
-      uses: dtolnay/rust-toolchain@stable
-      with:
-        targets: i686-pc-windows-msvc
-
-    - name: Build Verification Tool (64-bit)
+    - name: Build Verification Tool (64-bit - Rust 1.77)
       working-directory: rtf-clipboard-poc-v2/verification
-      run: cargo build --release --target x86_64-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target x86_64-pc-windows-msvc
 
-    - name: Build Verification Tool (32-bit for Win7)
+    - name: Build Verification Tool (32-bit for Win7 - Rust 1.77)
       working-directory: rtf-clipboard-poc-v2/verification
-      run: cargo build --release --target i686-pc-windows-msvc
+      run: cargo +1.77.2 build --release --target i686-pc-windows-msvc
 
     - name: Upload 64-bit Verification Tool
       uses: actions/upload-artifact@v4
@@ -128,13 +120,13 @@ jobs:
     - name: Create Installation Instructions
       run: |
         cat > release/INSTALL.txt << 'EOF'
-        RTF Clipboard POC v2 - Installation Instructions
-        =================================================
+        RTF Clipboard POC v2 - Windows 7 Compatible Build
+        ==================================================
+
+        Built with Rust 1.77.2 - the last version supporting Windows 7.
 
         This POC uses the PROVEN RTF clipboard code from src-tauri/legacy-launcher
         that already works with Adobe PageMaker 7.0.
-
-        The only new code is the Native Messaging bridge (~40 lines).
 
         For Windows 7/8/8.1 (32-bit):
         1. Use files from the x86/ folder
@@ -160,10 +152,15 @@ jobs:
         - clipboard_inspector.exe = Verification tool
         - chrome-extension/ = Browser extension
         - installer/ = PowerShell installer script
+
+        Technical Note:
+        - Built with Rust 1.77.2 (last Windows 7-compatible Rust version)
+        - Does NOT require api-ms-win-core-synch-l1-2-0.dll (Windows 8+ API)
+        - Uses only Windows 7-compatible Win32 APIs
         EOF
 
     - name: Upload Complete Package
       uses: actions/upload-artifact@v4
       with:
-        name: rtf-clipboard-poc-v2-complete
+        name: rtf-clipboard-poc-v2-complete-win7
         path: release/
