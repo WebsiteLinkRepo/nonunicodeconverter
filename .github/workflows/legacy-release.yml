@@ -24,10 +24,10 @@ jobs:
       - name: Build Frontend (Astro)
         run: npm run build
 
-      - name: Setup Rust (1.68 for XP compatibility)
+      - name: Setup Rust (1.77 for Win7/8/8.1 compatibility)
         uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: 1.68.2
+          toolchain: 1.77
           targets: i686-pc-windows-msvc
 
       - name: Build Legacy Launcher
